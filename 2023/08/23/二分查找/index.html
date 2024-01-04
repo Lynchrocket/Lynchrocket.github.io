@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
     <title>
       
-        配置中心 | C'est la vie
+        二分查找 | C'est la vie
       
     </title>
     <meta name="description" content=""/>
@@ -91,19 +91,19 @@
   <article class="post-content">
     <div class="post-inner--toc">
       <div class="post-content__head">
-        <div class="post-title">配置中心</div>
+        <div class="post-title">二分查找</div>
         <div class="post-info">
           
-  <a href="/tags/%E9%85%8D%E7%BD%AE/" class="post-tag">#配置</a>
+  <a href="/tags/%E7%AE%97%E6%B3%95/" class="post-tag">#算法</a>
 
 
-          <span class="post-date">2023-06-26</span>
+          <span class="post-date">2023-08-23</span>
         </div>
       </div>
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%97%AE%E9%A2%98"><span class="post-toc-text">问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9B%AE%E6%A0%87"><span class="post-toc-text">目标</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="post-toc-text">解决办法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-text">参考资料</span></a></li></ol>
+          
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -113,42 +113,20 @@
             
           </div>
         
-        <h2 id="问题">问题</h2>
+        <p>前提：有序数组</p>
+<p>边界条件：根据寻找区间的定义有所不同</p>
 <ol type="1">
-<li>静态化配置</li>
-</ol>
-<p>大多数在项目配置写在例如 <strong>application.yml</strong>，然后将各类参数配置、应用配置、环境配置、安全配置、业务配置都写到这个文件里。当项目代码逻辑中需要使用配置的时候，就从这个配置文件中读取。这种做法虽然简单，但如果参数需要修改，<strong>就需要重启运行中的项目才能生效</strong>。</p>
-<ol start="2" type="1">
-<li>配置文件无法区分环境。</li>
-</ol>
-<p>由于配置文件是放在项目中的，但是我们项目可能会有多个环境，例如：测试环境、预发布环境、生产环境。每一个环境所使用的配置参数理论上都是不同的，所以我们在配置文件中根据<strong>不同环境配置不同的参数，这些都是手动维护</strong>，在项目发布的时候，极其容易因开发人员的失误导致出错。</p>
-<ol start="3" type="1">
-<li>配置文件过于分散</li>
-</ol>
-<p>如果一个项目中存在多个逻辑模块独立部署，每个模块所使用的配置内容又不相同，传统的做法是会在每一个模块中都放一个配置文件，甚至不同模块的配置文件格式还不一样。那么长期的结果就是<strong>配置文件过于分散混乱，难以管理</strong>。</p>
-<ol start="4" type="1">
-<li>配置修改无法追溯</li>
-</ol>
-<p>因为采用的静态配置文件方式，所以当配置进行修改之后，<strong>不容易形成记录</strong>，更无法追溯是谁修改的、修改时间是什么、修改前是什么内容。既然无法追溯，那么当配置出错时，更没办法回滚配置了。</p>
-<h2 id="目标">目标</h2>
-<p>是否有一种方法能在不重启项目也能动态修改配置呢？</p>
-<h2 id="解决办法">解决办法</h2>
-<p>nacos 的配置中心提供了这个功能。</p>
-<p>我们可以在配置管理 -&gt; 配置列表中创建我们的配置，每次修改这个配置时服务会热更新而不用重启。</p>
-<figure>
-<img src="/2023/06/26/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/nacos.png" alt="nacos"><figcaption aria-hidden="true">nacos</figcaption>
-</figure>
-<p>同时，我们在项目的每个服务的配置文件 application.yml 中修改如下：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-string">xxx</span> <span class="hljs-comment"># 端口当然要不一样</span><br><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">@artifactId@</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">server-addr:</span> <span class="hljs-string">$&#123;NACOS_HOST:localhost&#125;:$&#123;NACOS_PORT:8848&#125;</span><br>        <span class="hljs-attr">namespace:</span> <span class="hljs-string">@nacos.namespace@</span><br>      <span class="hljs-attr">config:</span><br>        <span class="hljs-attr">server-addr:</span> <span class="hljs-string">$&#123;spring.cloud.nacos.discovery.server-addr&#125;</span><br>        <span class="hljs-attr">namespace:</span> <span class="hljs-string">@nacos.namespace@</span><br>  <span class="hljs-attr">config:</span><br>    <span class="hljs-attr">import:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:application-@profiles.active@.@file.extension@</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:$&#123;spring.application.name&#125;-@profiles.active@.@file.extension@</span><br></code></pre></td></tr></table></figure>
-<p>其中，<span class="citation" data-cites="artifactId">@artifactId</span>@ 在当前服务的 pom.xml 中配置，也即当前服务的 artifactId</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>the_artifactId_to_change<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<p>其他@<span class="citation" data-cites="的内容在最外层的">@的内容在最外层的</span> pom.xml 中配置，主要是用于区分开发（dev）、测试（test）、上线（prod）配置。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- using in application.yml, surrounded with @ --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">profiles</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">profile</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>dev<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">profiles.active</span>&gt;</span>dev<span class="hljs-tag">&lt;/<span class="hljs-name">profiles.active</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">nacos.namespace</span>&gt;</span>the_namspace_to_change<span class="hljs-tag">&lt;/<span class="hljs-name">nacos.namespace</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">file.extension</span>&gt;</span>yml<span class="hljs-tag">&lt;/<span class="hljs-name">file.extension</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">activation</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- if default environment --&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">activeByDefault</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">activeByDefault</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">activation</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">profile</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">profiles</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<h2 id="参考资料">参考资料</h2>
+<li>寻找区间为 [left, right]
 <ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/66097586">微服务架构之「 配置中心 」</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/58113078">为什么需要分布式配置中心？</a></li>
-</ul>
+<li>循环用 while(left ≤ right)，因为当 left == right 时， [left, right] 有意义；</li>
+<li>更新用 right = mid - 1 和 left = mid + 1。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">BinarySearch</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target)</span> &#123;<br>  <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>  <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, right = n - <span class="hljs-number">1</span>;<br>  <span class="hljs-keyword">while</span> (left &lt;= right) &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> left + (right - left) / <span class="hljs-number">2</span>;<br>    <span class="hljs-keyword">if</span> (nums[mid] &gt; target) &#123;<br>      right = mid - <span class="hljs-number">1</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[mid] &lt; target) &#123;<br>      left = mid + <span class="hljs-number">1</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-keyword">return</span> mid;<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul></li>
+<li>寻找区间为 [left, right)
+<ul>
+<li>循环用 while(left &lt; right)，因为当 left == right 时， [left, right) 无意义；</li>
+<li>更新用 right = mid 和 left = mid + 1。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">BinarySearch</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target)</span> &#123;<br>  <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>  <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, right = n;<br>  <span class="hljs-keyword">while</span> (left &lt; right) &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> left + (right - left) / <span class="hljs-number">2</span>;<br>    <span class="hljs-keyword">if</span> (nums[mid] &gt; target) &#123;<br>      right = mid;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[mid] &lt; target) &#123;<br>      left = mid + <span class="hljs-number">1</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-keyword">return</span> mid;<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul></li>
+</ol>
 
       </div>
     </div>
@@ -184,7 +162,7 @@
     
     <div class="post-nav">
   
-    <a class="post-nav-item-left" href="/2023/07/07/RBAC%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">
+    <a class="post-nav-item-left" href="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
       <div class="text-align">
         <svg t="1670570876164"
              class="icon"
@@ -195,12 +173,12 @@
         </svg>
         <span class="text-small">上一篇</span>
       </div>
-      <div>RBAC权限管理</div>
+      <div>ClimateNeRF环境配置</div>
     </a>
   
   <div class="vhr"></div>
   
-    <a class="post-nav-item-right" href="/2022/08/01/java%E5%AD%97%E8%8A%82%E7%A0%81/">
+    <a class="post-nav-item-right" href="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/">
       <div class="text-align">
         <span class="text-small">下一篇</span>
         <svg t="1670570876164"
@@ -212,7 +190,7 @@
           <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
         </svg>
       </div>
-      java字节码
+      垃圾回收策略与算法
     </a>
   
 </div>
@@ -220,7 +198,7 @@
     
       <div class="related-post">
   <div class="related__head">
-  <a href="/tags/%E9%85%8D%E7%BD%AE/" class="post-tag">#配置</a>
+  <a href="/tags/%E7%AE%97%E6%B3%95/" class="post-tag">#算法</a>
 
 </div>
   <div class="realated__body">

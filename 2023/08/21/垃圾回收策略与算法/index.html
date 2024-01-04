@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
     <title>
       
-        配置中心 | C'est la vie
+        垃圾回收策略与算法 | C'est la vie
       
     </title>
     <meta name="description" content=""/>
@@ -91,19 +91,19 @@
   <article class="post-content">
     <div class="post-inner--toc">
       <div class="post-content__head">
-        <div class="post-title">配置中心</div>
+        <div class="post-title">垃圾回收策略与算法</div>
         <div class="post-info">
           
-  <a href="/tags/%E9%85%8D%E7%BD%AE/" class="post-tag">#配置</a>
+  <a href="/tags/GC/" class="post-tag">#GC</a>
 
 
-          <span class="post-date">2023-06-26</span>
+          <span class="post-date">2023-08-21</span>
         </div>
       </div>
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%97%AE%E9%A2%98"><span class="post-toc-text">问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9B%AE%E6%A0%87"><span class="post-toc-text">目标</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="post-toc-text">解决办法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-text">参考资料</span></a></li></ol>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5"><span class="post-toc-text">垃圾回收策略</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E6%B3%95"><span class="post-toc-text">引用计数法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90"><span class="post-toc-text">可达性分析</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="post-toc-text">垃圾回收算法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95mark-sweep"><span class="post-toc-text">标记-清除算法（Mark-Sweep）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95mark-compact"><span class="post-toc-text">标记-整理算法（Mark-Compact）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95copying"><span class="post-toc-text">复制算法（Copying）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95generational-collection"><span class="post-toc-text">分代收集算法（Generational Collection）</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-text">参考资料</span></a></li></ol>
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -113,41 +113,68 @@
             
           </div>
         
-        <h2 id="问题">问题</h2>
-<ol type="1">
-<li>静态化配置</li>
-</ol>
-<p>大多数在项目配置写在例如 <strong>application.yml</strong>，然后将各类参数配置、应用配置、环境配置、安全配置、业务配置都写到这个文件里。当项目代码逻辑中需要使用配置的时候，就从这个配置文件中读取。这种做法虽然简单，但如果参数需要修改，<strong>就需要重启运行中的项目才能生效</strong>。</p>
-<ol start="2" type="1">
-<li>配置文件无法区分环境。</li>
-</ol>
-<p>由于配置文件是放在项目中的，但是我们项目可能会有多个环境，例如：测试环境、预发布环境、生产环境。每一个环境所使用的配置参数理论上都是不同的，所以我们在配置文件中根据<strong>不同环境配置不同的参数，这些都是手动维护</strong>，在项目发布的时候，极其容易因开发人员的失误导致出错。</p>
-<ol start="3" type="1">
-<li>配置文件过于分散</li>
-</ol>
-<p>如果一个项目中存在多个逻辑模块独立部署，每个模块所使用的配置内容又不相同，传统的做法是会在每一个模块中都放一个配置文件，甚至不同模块的配置文件格式还不一样。那么长期的结果就是<strong>配置文件过于分散混乱，难以管理</strong>。</p>
-<ol start="4" type="1">
-<li>配置修改无法追溯</li>
-</ol>
-<p>因为采用的静态配置文件方式，所以当配置进行修改之后，<strong>不容易形成记录</strong>，更无法追溯是谁修改的、修改时间是什么、修改前是什么内容。既然无法追溯，那么当配置出错时，更没办法回滚配置了。</p>
-<h2 id="目标">目标</h2>
-<p>是否有一种方法能在不重启项目也能动态修改配置呢？</p>
-<h2 id="解决办法">解决办法</h2>
-<p>nacos 的配置中心提供了这个功能。</p>
-<p>我们可以在配置管理 -&gt; 配置列表中创建我们的配置，每次修改这个配置时服务会热更新而不用重启。</p>
+        <h1 id="垃圾回收策略">垃圾回收策略</h1>
+<h2 id="引用计数法">引用计数法</h2>
+<p>当对象被引用时程序计数器 +1，释放时 -1。当为 0 时证明对象未被引用，可以回收。</p>
+<p>但是这个算法有明显的缺陷，对于循环引用的情况下，循环引用的对象就不会被回收。例如下图：对象 A与 B 循环引用，即便没有其他的对象引用 A 和 B，A 和 B 也都不会被回收。</p>
 <figure>
-<img src="/2023/06/26/%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/nacos.png" alt="nacos"><figcaption aria-hidden="true">nacos</figcaption>
+<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/ref_count.png" alt="ref_count"><figcaption aria-hidden="true">ref_count</figcaption>
 </figure>
-<p>同时，我们在项目的每个服务的配置文件 application.yml 中修改如下：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-string">xxx</span> <span class="hljs-comment"># 端口当然要不一样</span><br><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">@artifactId@</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">server-addr:</span> <span class="hljs-string">$&#123;NACOS_HOST:localhost&#125;:$&#123;NACOS_PORT:8848&#125;</span><br>        <span class="hljs-attr">namespace:</span> <span class="hljs-string">@nacos.namespace@</span><br>      <span class="hljs-attr">config:</span><br>        <span class="hljs-attr">server-addr:</span> <span class="hljs-string">$&#123;spring.cloud.nacos.discovery.server-addr&#125;</span><br>        <span class="hljs-attr">namespace:</span> <span class="hljs-string">@nacos.namespace@</span><br>  <span class="hljs-attr">config:</span><br>    <span class="hljs-attr">import:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:application-@profiles.active@.@file.extension@</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:$&#123;spring.application.name&#125;-@profiles.active@.@file.extension@</span><br></code></pre></td></tr></table></figure>
-<p>其中，<span class="citation" data-cites="artifactId">@artifactId</span>@ 在当前服务的 pom.xml 中配置，也即当前服务的 artifactId</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>the_artifactId_to_change<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<p>其他@<span class="citation" data-cites="的内容在最外层的">@的内容在最外层的</span> pom.xml 中配置，主要是用于区分开发（dev）、测试（test）、上线（prod）配置。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- using in application.yml, surrounded with @ --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">profiles</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">profile</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>dev<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">profiles.active</span>&gt;</span>dev<span class="hljs-tag">&lt;/<span class="hljs-name">profiles.active</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">nacos.namespace</span>&gt;</span>the_namspace_to_change<span class="hljs-tag">&lt;/<span class="hljs-name">nacos.namespace</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">file.extension</span>&gt;</span>yml<span class="hljs-tag">&lt;/<span class="hljs-name">file.extension</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">activation</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- if default environment --&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">activeByDefault</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">activeByDefault</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">activation</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">profile</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">profiles</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<h2 id="参考资料">参考资料</h2>
+<h2 id="可达性分析">可达性分析</h2>
+<p>通过一系列称之为 <code>GC Roots</code> 的对象作为起点，从此起点向下搜索，所走过的路径称之为引用链。当一个对象到 GC Roots 没有任何引用链相连接，代表此对象不可达。</p>
+<figure>
+<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/achievable.png" alt="achievable"><figcaption aria-hidden="true">achievable</figcaption>
+</figure>
+<p>在 Java 可以作为 GC Roots 的对象包括：</p>
+<ol type="1">
+<li>虚拟机栈（帧栈中的局部变量表）中的引用对象；</li>
+<li>方法区中类静态属性（static）引用的对象；</li>
+<li>方法区中常量（constant）引用的对象；</li>
+<li>本地方法栈中 JNI（即一般说的 Native 方法）的引用对象；</li>
+</ol>
+<h1 id="垃圾回收算法">垃圾回收算法</h1>
+<h2 id="标记-清除算法mark-sweep">标记-清除算法（Mark-Sweep）</h2>
+<p>首先利用可达性去遍历内存，把存活对象和垃圾对象进行标记。标记结束后统一将所有标记的对象回收掉。</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/66097586">微服务架构之「 配置中心 」</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/58113078">为什么需要分布式配置中心？</a></li>
+<li>标记阶段：标记出所有需要回收的对象；</li>
+<li>清除阶段：回收被标记的对象所占用的空间。</li>
+</ul>
+<figure>
+<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/mark_sweep.png" alt="mark_sweep"><figcaption aria-hidden="true">mark_sweep</figcaption>
+</figure>
+<p>优点：实现简单</p>
+<p>缺点：效率较低，并且会产生大量不连续的内存空间碎片，后续可能发生大对象不能找到可利用空间的问题</p>
+<h2 id="标记-整理算法mark-compact">标记-整理算法（Mark-Compact）</h2>
+<p>标记后不是清理对象，而是将存活对象移向内存的一端。然后清除端边界外的对象。</p>
+<figure>
+<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/mark_compact.png" alt="mark_compact"><figcaption aria-hidden="true">mark_compact</figcaption>
+</figure>
+<h2 id="复制算法copying">复制算法（Copying）</h2>
+<p>按内存容量将内存划分为等大小的两块。每次只使用其中一块，当这一块内存满后将尚存活的对象复制到另一块上去，把已使用的内存清掉。</p>
+<figure>
+<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/copying.png" alt="copying"><figcaption aria-hidden="true">copying</figcaption>
+</figure>
+<p>优点：实现简单，运行高效，不易产生碎片</p>
+<p>缺点：可用内存缩小为了原来的一半，浪费空间。若存活对象增多的话，该算法的效率会大大降低</p>
+<h2 id="分代收集算法generational-collection">分代收集算法（Generational Collection）</h2>
+<p>分代收集法是目前大部分 JVM 所采用的方法，GC 堆划分为新生代（Young Generation）和老生代（Tenured/Old Generation）。新生代和老年代的默认比例为 1 : 2；新生代又分为 Eden 区， from Survivor 区（简称 S0 ），to Survivor 区（简称 S1 ），三者的比例为 8: 1 : 1。</p>
+<figure>
+<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/generational_collection.png" alt="generational_collection"><figcaption aria-hidden="true">generational_collection</figcaption>
+</figure>
+<p>我们把新生代发生的 GC 称为 Young GC（也叫 Minor GC ）,老年代发生的 GC 称为 Old GC（也称为 Full GC ）。新老生代会使用不同的垃圾回收算法，一般情况下</p>
+<ul>
+<li>新生代使用复制算法</li>
+<li>老年代使用标记清除算法或者标记整理算法</li>
+</ul>
+<p>在新生代中，每次垃圾收集时都有大批对象死去，只有少量存活，使用复制算法比较合适，只需要付出少量存活对象的复制成本就可以完成收集。老年代对象存活率高，适合使用标记-清理或者标记-整理算法进行垃圾回收。</p>
+<figure>
+<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/new_generation.png" alt="new_generation"><figcaption aria-hidden="true">new_generation</figcaption>
+</figure>
+<p>对象的内存分配主要在新生代的 <code>Eden Space</code> 和 Survivor 区的 <code>From Space</code>（Survivor 目前存放对象的那一块），少数情况会直接分配到老生代。当新生代的 Eden Space 和 From Space 空间不足时就会发生一次 GC，进行 GC 后，Eden Space 和 From Space 区的存活对象会被挪到 To Space，然后将 Eden Space 和 From Space 进行清理。如果 To Space 无法足够存储某个对象，则将这个对象存储到老生代。在进行 GC 后，使用的便是 Eden Space 和 To Space 了，如此反复循环。当对象在 Survivor 区躲过一次 GC 后，其年龄就会+1。默认情况下年龄到达 15 的对象会被移到老生代中。</p>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_36246371/article/details/52998505">垃圾回收算法之分代回收算法</a></li>
+<li><a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1674235021824640450&amp;wfr=spider&amp;for=pc">垃圾回收策略和算法，看这篇就够了</a></li>
 </ul>
 
       </div>
@@ -184,7 +211,7 @@
     
     <div class="post-nav">
   
-    <a class="post-nav-item-left" href="/2023/07/07/RBAC%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">
+    <a class="post-nav-item-left" href="/2023/08/23/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
       <div class="text-align">
         <svg t="1670570876164"
              class="icon"
@@ -195,12 +222,12 @@
         </svg>
         <span class="text-small">上一篇</span>
       </div>
-      <div>RBAC权限管理</div>
+      <div>二分查找</div>
     </a>
   
   <div class="vhr"></div>
   
-    <a class="post-nav-item-right" href="/2022/08/01/java%E5%AD%97%E8%8A%82%E7%A0%81/">
+    <a class="post-nav-item-right" href="/2023/07/07/RBAC%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">
       <div class="text-align">
         <span class="text-small">下一篇</span>
         <svg t="1670570876164"
@@ -212,7 +239,7 @@
           <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
         </svg>
       </div>
-      java字节码
+      RBAC权限管理
     </a>
   
 </div>
@@ -220,7 +247,7 @@
     
       <div class="related-post">
   <div class="related__head">
-  <a href="/tags/%E9%85%8D%E7%BD%AE/" class="post-tag">#配置</a>
+  <a href="/tags/GC/" class="post-tag">#GC</a>
 
 </div>
   <div class="realated__body">
