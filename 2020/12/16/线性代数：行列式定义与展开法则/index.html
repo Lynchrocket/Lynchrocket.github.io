@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
     <title>
       
-        线性代数：高斯消元 | C'est la vie
+        线性代数：行列式定义与展开法则 | C'est la vie
       
     </title>
     <meta name="description" content=""/>
@@ -91,7 +91,7 @@
   <article class="post-content">
     <div class="post-inner--toc">
       <div class="post-content__head">
-        <div class="post-title">线性代数：高斯消元</div>
+        <div class="post-title">线性代数：行列式定义与展开法则</div>
         <div class="post-info">
           
   <a href="/tags/%E7%BA%BF%E4%BB%A3/" class="post-tag">#线代</a>
@@ -113,48 +113,23 @@
             
           </div>
         
-        <p>笔者是今年9月份开始的大学生活，也是从9月份开始线性代数的学习。在线代中，有许多新鲜的定义和运算，所以与高等数学相比，笔者觉得线代更难学得通透。因此，笔者希望通过该篇以及后续文章来梳理下线代中的知识。</p>
-<p>笔者所用的线代教材是 <em>Gilbert Strang</em> 所编写的 Linear Algebra and its Application (the 4th edition) ，在B站上也有他的相关教学视频 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV134411y7uH?from=search&amp;seid=2698493779032149614">MIT《线性代数》吉尔伯特.斯特朗</a></p>
-<p>好，接下来我们开始线代的学习。初入线代，不同于同济紫本从行列式开始（刚看同济书的时候头都大了），我们先从矩阵与高斯消元法讲起。</p>
-<p>线代的中心问题就是如何求解线性方程组，因此我们有必要了解什么是线性方程和线性方程组，以及其中的专有名词。</p>
-<ul>
-<li><p>线性方程（linear equation）：</p>
-<p>正如其名，线性方程（linear equation）就是形如 <span class="math display">\[
-  a_1x_1+a_2x_2+...+a_nx_n=b
-  \]</span> 的方程。其中，<span class="math inline">\(a_i\)</span> 是系数（coefficient），<span class="math inline">\(x_i\)</span> 是变量（variable，或称未知数unknown），<span class="math inline">\(b\)</span> 是常数（constant）。</p></li>
-</ul>
-<p>由此，我们可以有线性方程组（system of linear equations），即多个线性方程方程所构成的方程组，其解取决于系数与常数项！于是，为了简便美化写法，我们便引入了矩阵来表示线性方程组。</p>
-<ul>
-<li><p>矩阵记号（matrix notation）：</p>
-<ul>
-<li><p>系数矩阵（coefficient matrix）： $$</p>
-<p>$$</p></li>
-<li><p>增广矩阵（augmented matrix）： $$</p>
-<p>$$</p></li>
-</ul></li>
-<li><p>高斯消元法（Guassian elimination）：</p>
-<p>是通过初等行变换（Elementary row operation, ERO）来将矩阵转化为上三角矩阵（upper triangular matrix）或行阶梯形矩阵（row echelon form matrix），进而通过回代求解线性方程组的方法。</p>
-<ol type="1">
-<li>对换（interchange）：交换任意两行；</li>
-<li>倍乘（scaling）：用非零实数乘以某行；</li>
-<li>倍加（replacement）：将某个方程的倍数加到另一个方程上。</li>
-</ol>
-<p>经过ERO处理前后的矩阵行等价（row equivalent），故ERO可逆。</p></li>
-<li><p>回代（back-substitution）：</p>
-<p>矩阵化为上三角阵或行阶梯形后，从最后一个未知数开始由尾至头逐步代回，得出解的过程。</p></li>
-<li><p>解的情况</p>
-<ul>
-<li>相容（consistent）：方程组有解：
-<ol type="1">
-<li>唯一解；</li>
-<li>无穷多解。</li>
-</ol></li>
-<li>不相容（inconsistent）：方程组无解。</li>
-</ul></li>
-<li><p>总结：</p>
-<p>高斯消元法实际上是个很简单的过程：</p>
-<p>原线性方程组 -&gt; 高斯消元（行变换）-&gt; 三角矩阵 -&gt; 回代 -&gt; 得出解</p></li>
-</ul>
+        <p>对于一个 <span class="math inline">\(n\times n\)</span> 的矩阵 <span class="math inline">\(A\)</span> 的行列式，我们有</p>
+<p>1、当 <span class="math inline">\(n=1\)</span> 时，<span class="math inline">\(\det{(A)}=a_{11}\)</span></p>
+<p>2、当 <span class="math inline">\(n\ge 2\)</span> 时，令 <span class="math inline">\(M_{ij} (1\le i, j \ge n)\)</span> 为删除掉矩阵 <span class="math inline">\(A\)</span> 的第 <span class="math inline">\(i\)</span> 行和第 <span class="math inline">\(j\)</span> 列的一个 <span class="math inline">\((n-1)\times(n-1)\)</span> 矩阵。若按 <span class="math inline">\(\det{(A)}\)</span> 的第一行展开，则有：</p>
+<p><span class="math display">\[
+\begin{vmatrix} A \end{vmatrix} =\det{(A)}=a_{11}\begin{vmatrix} M_{11} \end{vmatrix}-a_{12}\begin{vmatrix} M_{12} \end{vmatrix}+\dots+(-1)^{n+1}a_{1n}\begin{vmatrix} M_{1n} \end{vmatrix} \\ =\sum_{j=1}^n (-1)^{j+1} a_{1j} \det{(M_{1j})}
+\]</span></p>
+<p>当然，我们也可不必沿着第一行展开，此时我们只需将公式中的 “1” 换成其他数字就好，而且由于行列式与转置行列式相等，按列展开也是同理进行。</p>
+<p>特殊地，若 <span class="math inline">\(n\times n\)</span> 矩阵 <span class="math inline">\(A\)</span> 是三角阵（上、下三角）或对角阵，则其行列式的值为</p>
+<p><span class="math display">\[
+\begin{vmatrix} A \end{vmatrix}=a_{11}a_{22}\dots a_{nn}
+\]</span></p>
+<p>即对角元之积。若为反三角阵或反对角阵，则其行列式的值为</p>
+<p><span class="math display">\[
+\begin{vmatrix} A \end{vmatrix}=(-1)^{\frac{n(n-1)}{2}}b_1b_2\dots b_n
+\]</span></p>
+<p>其中 <span class="math inline">\(b_i (i=1\dots n)\)</span> 是该阵的反对角元。</p>
+<p>后面有空再补</p>
 
       </div>
     </div>
@@ -190,7 +165,7 @@
     
     <div class="post-nav">
   
-    <a class="post-nav-item-left" href="/2020/12/16/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%EF%BC%9A%E5%8E%84%E7%B1%B3%E7%89%B9%E7%9F%A9%E9%98%B5%E3%80%81%E9%85%89%E7%9F%A9%E9%98%B5/">
+    <a class="post-nav-item-left" href="/2020/12/19/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6%EF%BC%9A%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F/">
       <div class="text-align">
         <svg t="1670570876164"
              class="icon"
@@ -201,12 +176,25 @@
         </svg>
         <span class="text-small">上一篇</span>
       </div>
-      <div>线性代数：厄米特矩阵、酉矩阵</div>
+      <div>高等数学：泰勒公式</div>
     </a>
   
   <div class="vhr"></div>
   
-    <div class="post-nav-item-right"></div>
+    <a class="post-nav-item-right" href="/2020/12/16/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%EF%BC%9A%E5%8E%84%E7%B1%B3%E7%89%B9%E7%9F%A9%E9%98%B5%E3%80%81%E9%85%89%E7%9F%A9%E9%98%B5/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      线性代数：厄米特矩阵、酉矩阵
+    </a>
   
 </div>
 
@@ -218,7 +206,7 @@
 </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\2020\12\16\线性代数：厄米特矩阵、酉矩阵\" title="线性代数：厄米特矩阵、酉矩阵" rel="bookmark">线性代数：厄米特矩阵、酉矩阵</a></div></div><div class="null-item"><div class="null-title"><a href="\2020\12\16\线性代数：行列式定义与展开法则\" title="线性代数：行列式定义与展开法则" rel="bookmark">线性代数：行列式定义与展开法则</a></div></div><div class="null-item"><div class="null-title"><a href="\2024\01\05\矩阵计算\" title="矩阵计算" rel="bookmark">矩阵计算</a></div></div><div class="null-item"><div class="null-title"><a href="\2020\12\19\高等数学：泰勒公式\" title="高等数学：泰勒公式" rel="bookmark">高等数学：泰勒公式</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\2020\12\16\线性代数：高斯消元\" title="线性代数：高斯消元" rel="bookmark">线性代数：高斯消元</a></div></div><div class="null-item"><div class="null-title"><a href="\2020\12\16\线性代数：厄米特矩阵、酉矩阵\" title="线性代数：厄米特矩阵、酉矩阵" rel="bookmark">线性代数：厄米特矩阵、酉矩阵</a></div></div><div class="null-item"><div class="null-title"><a href="\2024\01\05\矩阵计算\" title="矩阵计算" rel="bookmark">矩阵计算</a></div></div><div class="null-item"><div class="null-title"><a href="\2020\12\19\高等数学：泰勒公式\" title="高等数学：泰勒公式" rel="bookmark">高等数学：泰勒公式</a></div></div></div>
     
   </div>
 </div>
