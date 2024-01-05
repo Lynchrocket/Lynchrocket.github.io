@@ -198,6 +198,9 @@ k\mathbf{a}=(ka_1,ka_2,...,ka_n)
 <li>若向量 <span class="math inline">\(\mathbf{a}\)</span> 的模为 <span class="math inline">\(1\)</span>，则称 <span class="math inline">\(\mathbf{a}\)</span> 为单位向量。设非零向量 <span class="math inline">\(\mathbf{a}\)</span>，令 <span class="math inline">\(\eta=\frac{\mathbf{a}}{||\mathbf{a}||}\)</span>，则 <span class="math inline">\(||\eta||=1\)</span>，且方向与 <span class="math inline">\(\mathbf{a}\)</span> 相同。</li>
 </ol>
 <h3 id="向量夹角">向量夹角</h3>
+<figure>
+<img src="/2024/01/05/%E7%9F%A9%E9%98%B5%E8%AE%A1%E7%AE%97/angle.png" alt="angle"><figcaption aria-hidden="true">angle</figcaption>
+</figure>
 <ul>
 <li>定义</li>
 </ul>
@@ -490,6 +493,9 @@ p(\hat y|x^*,D)=\int_\theta p(\hat y|x^*,\theta)p(\theta|D)d\theta
 p(\theta|D)=\frac{p(D|\theta)p(\theta)}{\int p(D|\theta)p(\theta)d\theta}
 \]</span></p>
 <p>后验概率需要近似计算.</p>
+<figure>
+<img src="/2024/01/05/%E7%9F%A9%E9%98%B5%E8%AE%A1%E7%AE%97/MLE_MAP_Bay.png" alt="MLE_MAP_Bay"><figcaption aria-hidden="true">MLE_MAP_Bay</figcaption>
+</figure>
 <h3 id="蒙特卡洛方法">蒙特卡洛方法</h3>
 <p>通过随机抽样方法，以随机事件出现的频率估计其概率，或者以抽样的数字特征估算随机变量的数字特征，并将其作为问题的解。</p>
 <h2 id="隐马尔科夫模型hidden-markov-model-hmm">隐马尔科夫模型（Hidden Markov Model, HMM）</h2>
@@ -503,6 +509,9 @@ p(\theta|D)=\frac{p(D|\theta)p(\theta)}{\int p(D|\theta)p(\theta)d\theta}
 <li>因变量 <span class="math inline">\(y \in Y\)</span> ：在<span class="math inline">\(i\)</span>时刻系统所处的状态（通常离散型）</li>
 <li>观察变量 <span class="math inline">\(x \in X\)</span> ：在<span class="math inline">\(i\)</span>时刻所处的观察值（离散、连续）</li>
 </ul>
+<figure>
+<img src="/2024/01/05/%E7%9F%A9%E9%98%B5%E8%AE%A1%E7%AE%97/13_HMM.png" alt="HMM"><figcaption aria-hidden="true">HMM</figcaption>
+</figure>
 <h3 id="状态">状态</h3>
 <p>下一个状态仅由当前状态决定，与其他状态变量无关.</p>
 <p><span class="math inline">\(x\)</span> 在给定 <span class="math inline">\(y\)</span> 的情况下条件独立，HMM 中因变量和观察变量的联合分布可以写为</p>
