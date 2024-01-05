@@ -375,8 +375,10 @@ h_n \cdot f
 \]</span></p>
 <ul>
 <li>常见类型的梯度 <span class="math display">\[
-\nabla(x^Tx)=\frac{\partial x^Tx}{\partial x} = 2x,\quad \nabla(a^Tx)=\frac{\partial a^Tx}{\partial x} = a,\\
-\nabla(x^TA)=\frac{\partial x^TA}{\partial x} = A,\quad \nabla(x^TAx)=\frac{\partial x^TAx}{\partial x} = (A+A^T)x
+\begin{align*}
+  \nabla(x^Tx)=\frac{\partial x^Tx}{\partial x} = 2x,\quad \nabla(a^Tx)=\frac{\partial a^Tx}{\partial x} = a,\\
+  \nabla(x^TA)=\frac{\partial x^TA}{\partial x} = A,\quad \nabla(x^TAx)=\frac{\partial x^TAx}{\partial x} = (A+A^T)x
+\end{align*}
 \]</span></li>
 </ul>
 <h3 id="jacobian-矩阵-1">Jacobian 矩阵</h3>
@@ -505,8 +507,10 @@ p(\theta|D)=\frac{p(D|\theta)p(\theta)}{\int p(D|\theta)p(\theta)d\theta}
 <p>下一个状态仅由当前状态决定，与其他状态变量无关.</p>
 <p><span class="math inline">\(x\)</span> 在给定 <span class="math inline">\(y\)</span> 的情况下条件独立，HMM 中因变量和观察变量的联合分布可以写为</p>
 <p><span class="math display">\[
-p(\textbf{x}^n,\textbf{y}^n)=p(y_1)p(x_1|y_1)\prod_{t=2}^Tp(x_t|y_t)p(y_t|y_{t-1})\\
-\textbf{x}^n=(x_1,x_2,...,x_T),\quad \textbf{y}^n=(y_1,y_2,...,y_T)
+\begin{align*}
+    p(\textbf{x}^n,\textbf{y}^n)=p(y_1)p(x_1|y_1)\prod_{t=2}^Tp(x_t|y_t)p(y_t|y_{t-1})\\
+    \textbf{x}^n=(x_1,x_2,...,x_T),\quad \textbf{y}^n=(y_1,y_2,...,y_T)
+\end{align*}
 \]</span></p>
 
       </div>
