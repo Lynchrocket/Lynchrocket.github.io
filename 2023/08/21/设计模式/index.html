@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        设计模式 | C'est la vie
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+
+  <meta name="generator" content="Hexo 7.0.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/computer">计算机</a>
+            
+              <a class="nav-menu-item" href="/math">数学</a>
+            
+              <a class="nav-menu-item" href="/misc">杂记</a>
+            
+              <a class="nav-menu-item" href="/life">生活随笔</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">设计模式</div>
+        <div class="post-info">
+          
+  <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" class="post-tag">#软件开发</a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-tag">#设计模式</a>
+
+
+          <span class="post-date">2023-08-21</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#gofgang-of-four"><span class="post-toc-text">GOF（Gang of Four）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="post-toc-text">设计模式的类型</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%85%AD%E5%A4%A7%E5%8E%9F%E5%88%99"><span class="post-toc-text">设计模式六大原则</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <p>设计模式（Design pattern）代表了软件开发中最佳的实践，通常被有经验的面向对象的软件开发人员所采用。</p>
+<span id="more"></span>
+<h1 id="gofgang-of-four">GOF（Gang of Four）</h1>
+<p>由 Erich Gamma、Richard Helm、Ralph Johnson 和 John Vlissides 四人合著出版了一本名为 <strong>Design Patterns - Elements of Reusable Object-Oriented Software（中文译名：设计模式 - 可复用的面向对象软件元素）</strong> 的书，该书首次提到了软件开发中设计模式的概念。</p>
+<h1 id="设计模式的类型">设计模式的类型</h1>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>类型</th>
+<th>描述</th>
+<th>设计模式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>创建型模式</td>
+<td>在创建对象的同时隐藏创建逻辑的方式</td>
+<td>工厂模式（Factory Pattern）<br> 抽象工厂模式（Abstract Factory Pattern）<br> 单例模式（Singleton Pattern）<br> 建造者模式（Builder Pattern）<br> 原型模式（Prototype Pattern）</td>
+</tr>
+<tr class="even">
+<td>结构型模式</td>
+<td>关注对象之间的组合和关系，旨在解决如何构建灵活且可复用的类和对象结构</td>
+<td>适配器模式（Adapter Pattern）<br> 桥接模式（Bridge Pattern）<br> 过滤器模式（Filter、Criteria Pattern）<br> 组合模式（Composite Pattern）<br> 装饰器模式（Decorator Pattern）<br> 外观模式（Facade Pattern）<br> 享元模式（Flyweight Pattern）<br> 代理模式（Proxy Pattern）</td>
+</tr>
+<tr class="odd">
+<td>行为型模式</td>
+<td>关注对象之间的通信和交互，旨在解决对象之间的责任分配和算法的封装。</td>
+<td>责任链模式（Chain of Responsibility Pattern）<br> 命令模式（Command Pattern）<br> 解释器模式（Interpreter Pattern）<br> 迭代器模式（Iterator Pattern）<br> 中介者模式（Mediator Pattern）<br> 备忘录模式（Memento Pattern）<br> 观察者模式（Observer Pattern）<br> 状态模式（State Pattern）<br> 空对象模式（Null Object Pattern）<br> 策略模式（Strategy Pattern）<br> 模板模式（Template Pattern）<br> 访问者模式（Visitor Pattern）</td>
+</tr>
+<tr class="even">
+<td>J2EE 模式</td>
+<td>特别关注表示层，是由 Sun Java Center 鉴定的</td>
+<td>MVC 模式（MVC Pattern）<br> 业务代表模式（Business Delegate Pattern）<br> 组合实体模式（Composite Entity Pattern）<br> 数据访问对象模式（Data Access Object Pattern）<br> 前端控制器模式（Front Controller Pattern）<br> 拦截过滤器模式（Intercepting Filter Pattern）<br> 服务定位器模式（Service Locator Pattern）<br> 传输对象模式（Transfer Object Pattern）</td>
+</tr>
+</tbody>
+</table>
+<h1 id="设计模式六大原则">设计模式六大原则</h1>
+<ol type="1">
+<li><p>开闭原则（Open Close Principle）</p>
+<p>对扩展开放，对修改关闭。</p></li>
+<li><p>里氏替换原则（Liskov Substitution Principle）</p>
+<p>任何基类可以出现的地方，派生类一定可以出现。里氏代换原则是对开闭原则的补充。</p></li>
+<li><p>依赖倒转原则（Dependence Inversion Principle）</p>
+<p>这个原则是开闭原则的基础，具体内容：针对接口编程，依赖于抽象而不依赖于具体。</p></li>
+<li><p>接口隔离原则（Interface Segregation Principle）</p>
+<p>这个原则的意思是：使用多个隔离的接口，比使用单个接口要好。它还有另外一个意思是：降低类之间的耦合度。由此可见，其实设计模式就是从大型软件架构出发、便于升级和维护的软件设计思想，它强调降低依赖，降低耦合。</p></li>
+<li><p>迪米特法则（Demeter Principle）</p>
+<p>又称最少知识原则（Least Knowledge Principle），指：一个实体应当尽量少地与其他实体之间发生相互作用，使得系统功能模块相对独立。</p></li>
+<li><p>合成复用原则（Composite Reuse Principle）</p>
+<p>合成复用原则是指：尽量使用合成/聚合的方式，而不是使用继承。</p></li>
+</ol>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+      <div class="like-author">
+  <input type="checkbox" id="likeCode" />
+  <div class="author-face">
+    <img height="100px"
+         width="100px"
+         id="front-face"
+         alt="author face"
+         src="/assets/avatar.jpg" />
+    <img height="100px"
+         width="100px"
+         id="back-face"
+         alt="like code"
+         src="/assets/sponsor.png" />
+  </div>
+  <div class="like-text">给作者倒杯卡布奇诺</div>
+  <label for="likeCode" class="like-btn">
+    <svg viewBox="0 0 1024 1024"
+         width="20px"
+         style="margin-right: 10px"
+         height="20px">
+      <path d="M466.88 908.96L113.824 563.296a270.08 270.08 0 0 1 0-387.392c108.8-106.56 284.896-106.56 393.696 0 1.504 1.472 2.976 2.944 4.448 4.48 1.472-1.536 2.944-3.008 4.448-4.48 108.8-106.56 284.896-106.56 393.696 0a269.952 269.952 0 0 1 34.016 347.072l-387.392 385.6a64 64 0 0 1-89.92 0.384z" p-id="13650" fill="#ee4242" />
+    </svg>
+    喜欢作者
+  </label>
+</div>
+
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2023/08/23/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>二分查找</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2023/08/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9A%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      设计模式：工厂模式
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" class="post-tag">#软件开发</a><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-tag">#设计模式</a>
+
+</div>
+  <div class="realated__body">
+    
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\2023\08\21\设计模式：工厂模式\" title="设计模式：工厂模式" rel="bookmark">设计模式：工厂模式</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\07\07\RBAC权限管理\" title="RBAC权限管理" rel="bookmark">RBAC权限管理</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\06\26\配置中心\" title="配置中心" rel="bookmark">配置中心</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\25\Git信息泄露\" title="Git信息泄露" rel="bookmark">Git信息泄露</a></div></div></div>
+    
+  </div>
+</div>
+
+    
+    <div id="gitalk-container"></div>
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">海</div>
+              
+                <div class="matts">内</div>
+              
+                <div class="matts">存</div>
+              
+                <div class="matts">知</div>
+              
+                <div class="matts">己</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">天</div>
+              
+                <div class="matts">涯</div>
+              
+                <div class="matts">若</div>
+              
+                <div class="matts">比</div>
+              
+                <div class="matts">邻</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+            <div class="foot-item">
+              <div class="foot-item__head">朋友</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/icon/icon-link.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://shennoter.top/">Shennoter</a>
+                  </div>
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/icon/icon-link.svg"/>
+                    <a class="foot-link" href="">Jobove</a>
+                  </div>
+                
+                <div class="text">
+                  <img alt="link" height="20px" width="20px" src="/images/icon/icon-link+.svg"/>
+                  <a class="foot-link"
+                     href="mailto:lynchrocket@gmail.com?subject=%E7%94%B3%E8%AF%B7%20Hozen.site%20%E7%9A%84%E5%8F%8B%E9%93%BE%E4%BD%8D%E7%BD%AE">
+                  申请友链</a>
+                </div>
+              </div>
+            </div>
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/Lynchrocket">Lynchrocket</a>
+                  </div>
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-zh.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://www.zhihu.com/people/lynchrocket">Lynchrocket</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:lynchrocket@gmail.com">lynchrocket@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="https://lynchrocket.github.io">C'est la vie</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+      <script src="https://unpkg.com/js-polyfills@0.1.43/es6.js"></script>
+      <script id="MathJax-script"
+              async
+              src="https://www.unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+    
+    
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const param = JSON.parse('{"enable":true,"owner":"Lynchrocket","admin":"Lynchrocket","repo":"Lynchrocket.github.io","clientID":"45d8817d291626df7894","clientSecret":"2761427f37f733d92cc64be2e2a3826cc8454cf3","distractionFreeMode":false,"proxy":"https://worker-lingering-hat-47a4.lynchrocket.workers.dev/?https://github.com/login/oauth/access_token","language":"zh-CN","per_page":20}')
+  param.id = location.pathname
+  const gitalk = new Gitalk(param)
+  gitalk.render('gitalk-container')
+</script>
+
+
+  </body>
+</html>

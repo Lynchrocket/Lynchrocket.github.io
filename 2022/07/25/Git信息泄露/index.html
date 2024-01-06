@@ -103,7 +103,7 @@
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-%E7%AE%80%E4%BB%8B"><span class="post-toc-text">Git 简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#svn%E4%B8%8Egit%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB"><span class="post-toc-text">SVN与Git的主要区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-%E5%AD%98%E5%82%A8%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="post-toc-text">Git 存储目录结构</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-%E4%BB%93%E5%BA%93%E6%96%87%E4%BB%B6%E7%8A%B6%E6%80%81"><span class="post-toc-text">Git 仓库文件状态</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-%E5%AF%B9%E8%B1%A1"><span class="post-toc-text">Git 对象</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%93%88%E5%B8%8C%E5%80%BC%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="post-toc-text">Git 对象的哈希值对应关系</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E6%BC%8F%E6%B4%9E"><span class="post-toc-text">Git 信息泄露漏洞</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E5%88%A9%E7%94%A8%E6%80%BB%E7%BB%93"><span class="post-toc-text">Git 信息泄露利用总结</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E5%8F%91%E7%8E%B0"><span class="post-toc-text">Git 信息泄露发现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BE%8B%E9%A2%98"><span class="post-toc-text">例题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-text">参考资料</span></a></li></ol>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git-%E7%AE%80%E4%BB%8B"><span class="post-toc-text">Git 简介</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#svn%E4%B8%8Egit%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB"><span class="post-toc-text">SVN与Git的主要区别</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git-%E5%AD%98%E5%82%A8%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="post-toc-text">Git 存储目录结构</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git-%E4%BB%93%E5%BA%93%E6%96%87%E4%BB%B6%E7%8A%B6%E6%80%81"><span class="post-toc-text">Git 仓库文件状态</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git-%E5%AF%B9%E8%B1%A1"><span class="post-toc-text">Git 对象</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#git-%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%93%88%E5%B8%8C%E5%80%BC%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="post-toc-text">Git 对象的哈希值对应关系</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E6%BC%8F%E6%B4%9E"><span class="post-toc-text">Git 信息泄露漏洞</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E5%88%A9%E7%94%A8%E6%80%BB%E7%BB%93"><span class="post-toc-text">Git 信息泄露利用总结</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#git-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%E5%8F%91%E7%8E%B0"><span class="post-toc-text">Git 信息泄露发现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BE%8B%E9%A2%98"><span class="post-toc-text">例题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-text">参考资料</span></a></li></ol></li></ol>
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -113,14 +113,16 @@
             
           </div>
         
-        <h2 id="git-简介">Git 简介</h2>
+        <p>在配置不当的情况下，可能会将 <code>.git</code> 文件夹直接部署到线上环境，这就造成了 Git 泄露问题。攻击者利用该漏洞下载 .git 文件夹中的所有内容。如果文件夹中存在敏感信息(数据库账号密码、源码等)，通过白盒的审计等方式就可能直接获得控制服务器的权限和机会。</p>
+<span id="more"></span>
+<h1 id="git-简介">Git 简介</h1>
 <ul>
 <li>Git 始终保存快照而不是文件差异。</li>
 <li>任何数据存储前始终使用 SHA-1 计算校验和，保证内容完整性。</li>
 <li>使用分布式仓库设计，让大多数操作都在本地进行，保证了使用效率。几乎所有操作都是向数据库增加数据，提交之后就很难丢失数据。</li>
 </ul>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git.png" alt="git"><figcaption aria-hidden="true">git</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_description.png" alt="git description"><figcaption aria-hidden="true">git description</figcaption>
 </figure>
 <p>Git 是一个<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Content-addressable_storage">内容寻址文件系统(content-addressed filesystem)</a>，其存储内容都是通过内容地址维护，可以把它理解成一个<strong>键值对</strong>存储方式：即给定一个存储文件，该系统根据文件信息和内容，使用SHA-1算法计算，返回一个由40个十六进制字符组成的字符串，之后只需要通过该字符串即可访问该文件，这个字符串就是 Git 中通常所说的<strong>校验和</strong>。</p>
 <ul>
@@ -135,10 +137,10 @@
 <blockquote>
 <p>在 Git 系统中，每个 Git 对象都通过哈希值来代表这个对象。哈希值是通过 SHA-1 算法计算出来的，长度为40个字符（40-digit）。</p>
 </blockquote>
-<h2 id="svn与git的主要区别">SVN与Git的主要区别</h2>
+<h1 id="svn与git的主要区别">SVN与Git的主要区别</h1>
 <p>SVN是集中式版本控制系统，版本库是集中放在中央服务器的。而干活的时候，用的都是自己的电脑，所以首先要从中央服务器哪里得到最新的版本，然后干活，干完后，需要把自己做完的活推送到中央服务器。集中式版本控制系统是必须联网才能工作，如果在局域网还可以，带宽够大，速度够快，如果在互联网下，如果网速慢的话，就纳闷了。</p>
 <p>Git是分布式版本控制系统，那么它就没有中央服务器的，每个人的电脑就是一个完整的版本库，这样，工作的时候就不需要联网了，因为版本都是在自己的电脑上。既然每个人的电脑都有一个完整的版本库，那多个人如何协作呢？比如说自己在电脑上改了文件A，其他人也在电脑上改了文件A，这时，你们两之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。</p>
-<h2 id="git-存储目录结构">Git 存储目录结构</h2>
+<h1 id="git-存储目录结构">Git 存储目录结构</h1>
 <p>在初始化 Git 仓库的时候（git clone 或 git init），Git 会生成 .git 隐藏目录。Git 会将所有的文件，目录，提交等转化为 Git 对象，压缩存储在这个目录当中。该目录内容大致如下：</p>
 <ul>
 <li>文件：
@@ -159,7 +161,7 @@
 <li>refs：这个目录一般包括三个子文件夹，heads、remotes 和 tags，heads 中的文件标识了项目中的各个分支指向的当前commit</li>
 </ul></li>
 </ul>
-<h2 id="git-仓库文件状态">Git 仓库文件状态</h2>
+<h1 id="git-仓库文件状态">Git 仓库文件状态</h1>
 <p>Git 仓库文件有五种状态（或者四种，即前四种）：</p>
 <ul>
 <li><strong>Untracked</strong>：未跟踪。此文件在文件夹中，但并没有加入到 git 库，不参与版本控制。通过<code>git add</code> 将状态变为<code>Staged</code>。</li>
@@ -190,7 +192,7 @@
 <figure>
 <img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/simplification.png" alt="simplification"><figcaption aria-hidden="true">simplification</figcaption>
 </figure>
-<h2 id="git-对象">Git 对象</h2>
+<h1 id="git-对象">Git 对象</h1>
 <p>在 Git 系统中有四种对象，所有的 Git 操作都是基于这些对象。</p>
 <ul>
 <li>blob：用来保存文件的内容。
@@ -221,7 +223,7 @@
 <figure>
 <img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/object.png" alt="object"><figcaption aria-hidden="true">object</figcaption>
 </figure>
-<h2 id="git-对象的哈希值对应关系"><strong>Git 对象的哈希值对应关系</strong></h2>
+<h1 id="git-对象的哈希值对应关系">Git 对象的哈希值对应关系</h1>
 <p>每个 Git 对象都有个哈希值代表这个对象（即 {hash : object}）。这个哈希值是通过 SHA-1 算法计算出来的，长度为40个字符。</p>
 <p><code>git init</code></p>
 <p>此命令初始化一个新本地仓库，它在工作目录下生成一个名为 .git 的隐藏文件夹。Git会将所有的文件、目录、提交等转化为 Git 对象，压缩存储在这个文件夹当中。</p>
@@ -389,7 +391,7 @@
     
     <div class="post-nav">
   
-    <a class="post-nav-item-left" href="/2022/08/01/java%E5%AD%97%E8%8A%82%E7%A0%81/">
+    <a class="post-nav-item-left" href="/2022/08/01/Java%E5%AD%97%E8%8A%82%E7%A0%81/">
       <div class="text-align">
         <svg t="1670570876164"
              class="icon"
@@ -400,7 +402,7 @@
         </svg>
         <span class="text-small">上一篇</span>
       </div>
-      <div>java字节码</div>
+      <div>Java字节码</div>
     </a>
   
   <div class="vhr"></div>
@@ -430,7 +432,7 @@
 </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\2022\08\01\java字节码\" title="java字节码" rel="bookmark">java字节码</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\07\07\RBAC权限管理\" title="RBAC权限管理" rel="bookmark">RBAC权限管理</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\08\23\二分查找\" title="二分查找" rel="bookmark">二分查找</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\2022\08\01\Java字节码\" title="Java字节码" rel="bookmark">Java字节码</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\07\07\RBAC权限管理\" title="RBAC权限管理" rel="bookmark">RBAC权限管理</a></div></div></div>
     
   </div>
 </div>
