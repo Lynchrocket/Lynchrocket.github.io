@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+        Base64编码 | C'est la vie
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/images/apple-touch-icon.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/images/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/images/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/images/logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/regular.ttf);
+        font-weight: regular;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+
+  <meta name="generator" content="Hexo 7.0.0"></head>
+  <body>
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/images/logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-menu">
+          
+            
+              <a class="nav-menu-item" href="/computer">计算机</a>
+            
+              <a class="nav-menu-item" href="/math">数学</a>
+            
+              <a class="nav-menu-item" href="/physic">物理</a>
+            
+              <a class="nav-menu-item" href="/life">生活随笔</a>
+            
+          
+          
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    
+      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize([object Object]);
+        }
+      </script>
+    
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">Base64编码</div>
+        <div class="post-info">
+          
+  
+    <a href="/tags/%E7%BC%96%E7%A0%81/" class="post-tag">#编码</a>
+  
+
+
+          <span class="post-date">2022-07-27</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <p>Base64 是一种基于<strong>64个可打印字符</strong>来表示<strong>二进制数据</strong>的表示方法。</p>
+<span id="more"></span>
+<p>因为</p>
+<p><span class="math display">\[
+64=2^{6} \\ 3 \times 8 = 4 \times 6 = 24
+\]</span></p>
+<p>所以以<strong>每6个bit</strong>为一组来表示某个可打印字符。<strong>每3个byte</strong>的二进制数据可由<strong>4个可打印字符</strong>来表示，然后把每个可打印字符的6bit再添两位高位0，组成8bit，也就是说，转换后的字符串理论上将要比原来的<strong>长1/3</strong>。</p>
+<p>在Base64中的可打印字符包括大小写字母 <code>A-Z</code>、<code>a-z</code>、数字 <code>0-9</code>，以及两个可打印符号（这两个可打印符号在不同的系统中不同）。下表是标准的Base64表</p>
+<table>
+<thead>
+<tr class="header">
+<th>Index</th>
+<th>Char</th>
+<th>Index</th>
+<th>Char</th>
+<th>Index</th>
+<th>Char</th>
+<th>Index</th>
+<th>Char</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>A</td>
+<td>16</td>
+<td>Q</td>
+<td>32</td>
+<td>g</td>
+<td>48</td>
+<td>w</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>B</td>
+<td>17</td>
+<td>R</td>
+<td>33</td>
+<td>h</td>
+<td>49</td>
+<td>x</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>C</td>
+<td>18</td>
+<td>S</td>
+<td>34</td>
+<td>i</td>
+<td>50</td>
+<td>y</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>D</td>
+<td>19</td>
+<td>T</td>
+<td>35</td>
+<td>j</td>
+<td>51</td>
+<td>z</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>E</td>
+<td>20</td>
+<td>U</td>
+<td>36</td>
+<td>k</td>
+<td>52</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>F</td>
+<td>21</td>
+<td>V</td>
+<td>37</td>
+<td>l</td>
+<td>53</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>G</td>
+<td>22</td>
+<td>W</td>
+<td>38</td>
+<td>m</td>
+<td>54</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>H</td>
+<td>23</td>
+<td>X</td>
+<td>39</td>
+<td>n</td>
+<td>55</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>I</td>
+<td>24</td>
+<td>Y</td>
+<td>40</td>
+<td>o</td>
+<td>56</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>J</td>
+<td>25</td>
+<td>Z</td>
+<td>41</td>
+<td>p</td>
+<td>57</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>K</td>
+<td>26</td>
+<td>a</td>
+<td>42</td>
+<td>q</td>
+<td>58</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>L</td>
+<td>27</td>
+<td>b</td>
+<td>43</td>
+<td>r</td>
+<td>59</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>M</td>
+<td>28</td>
+<td>c</td>
+<td>44</td>
+<td>s</td>
+<td>60</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>N</td>
+<td>29</td>
+<td>d</td>
+<td>45</td>
+<td>t</td>
+<td>61</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>O</td>
+<td>30</td>
+<td>e</td>
+<td>46</td>
+<td>u</td>
+<td>62</td>
+<td>+</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>P</td>
+<td>31</td>
+<td>f</td>
+<td>47</td>
+<td>v</td>
+<td>63</td>
+<td>/</td>
+</tr>
+</tbody>
+</table>
+<p>注意到第62，63个字符，这两个字符会随系统的不同而不同。</p>
+<ul>
+<li>URL编码器会把标准Base64中的 ‘/’ 和 ‘+’ 字符变为形如 ’%XX’ 的形式，而这些 ‘%’ 号在存入数据库时还需要再进行转换，因为ANSI SQL中已将 ’%’ 号用作通配符。为解决此问题，可采用一种用于URL的改进Base64编码，它在末尾填充 '=' 号，并将标准Base64中的 ‘+’ 和 ‘/’ 分别改成了 ‘-’ 和 ‘_’ 。</li>
+<li>用于正则表达式的改进Base64变种，将 ’+’ 和 ‘/’ 改成了 ‘!’ 和 ‘-’</li>
+<li>将 ‘+/’ 改为 ‘<em>-’ 或 ‘<em>._’</em>（用作编程语言中的标识符名称）或 ‘.-’（用于XML中的Nmtoken）甚至 ‘</em>:’（用于XML中的Name）</li>
+</ul>
+<p>下面给出了标准 Base64 编码实现的算法（C语言和Python）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br> <br><span class="hljs-comment">// base64 转换表, 共64个</span><br><span class="hljs-type">static</span> <span class="hljs-type">const</span> <span class="hljs-type">char</span> base64_alphabet[] = &#123;<br>    <span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-string">&#x27;D&#x27;</span>, <span class="hljs-string">&#x27;E&#x27;</span>, <span class="hljs-string">&#x27;F&#x27;</span>, <span class="hljs-string">&#x27;G&#x27;</span>,<br>    <span class="hljs-string">&#x27;H&#x27;</span>, <span class="hljs-string">&#x27;I&#x27;</span>, <span class="hljs-string">&#x27;J&#x27;</span>, <span class="hljs-string">&#x27;K&#x27;</span>, <span class="hljs-string">&#x27;L&#x27;</span>, <span class="hljs-string">&#x27;M&#x27;</span>, <span class="hljs-string">&#x27;N&#x27;</span>,<br>    <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;P&#x27;</span>, <span class="hljs-string">&#x27;Q&#x27;</span>, <span class="hljs-string">&#x27;R&#x27;</span>, <span class="hljs-string">&#x27;S&#x27;</span>, <span class="hljs-string">&#x27;T&#x27;</span>,<br>    <span class="hljs-string">&#x27;U&#x27;</span>, <span class="hljs-string">&#x27;V&#x27;</span>, <span class="hljs-string">&#x27;W&#x27;</span>, <span class="hljs-string">&#x27;X&#x27;</span>, <span class="hljs-string">&#x27;Y&#x27;</span>, <span class="hljs-string">&#x27;Z&#x27;</span>,<br>    <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-string">&#x27;d&#x27;</span>, <span class="hljs-string">&#x27;e&#x27;</span>, <span class="hljs-string">&#x27;f&#x27;</span>, <span class="hljs-string">&#x27;g&#x27;</span>,<br>    <span class="hljs-string">&#x27;h&#x27;</span>, <span class="hljs-string">&#x27;i&#x27;</span>, <span class="hljs-string">&#x27;j&#x27;</span>, <span class="hljs-string">&#x27;k&#x27;</span>, <span class="hljs-string">&#x27;l&#x27;</span>, <span class="hljs-string">&#x27;m&#x27;</span>, <span class="hljs-string">&#x27;n&#x27;</span>,<br>    <span class="hljs-string">&#x27;o&#x27;</span>, <span class="hljs-string">&#x27;p&#x27;</span>, <span class="hljs-string">&#x27;q&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>, <span class="hljs-string">&#x27;s&#x27;</span>, <span class="hljs-string">&#x27;t&#x27;</span>,<br>    <span class="hljs-string">&#x27;u&#x27;</span>, <span class="hljs-string">&#x27;v&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, <span class="hljs-string">&#x27;x&#x27;</span>, <span class="hljs-string">&#x27;y&#x27;</span>, <span class="hljs-string">&#x27;z&#x27;</span>,<br>    <span class="hljs-string">&#x27;0&#x27;</span>, <span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>, <span class="hljs-string">&#x27;4&#x27;</span>, <span class="hljs-string">&#x27;5&#x27;</span>, <span class="hljs-string">&#x27;6&#x27;</span>, <span class="hljs-string">&#x27;7&#x27;</span>, <span class="hljs-string">&#x27;8&#x27;</span>, <span class="hljs-string">&#x27;9&#x27;</span>,<br>    <span class="hljs-string">&#x27;+&#x27;</span>, <span class="hljs-string">&#x27;/&#x27;</span><br>    &#125;;<br> <br><span class="hljs-comment">// 解码时使用    base64DecodeChars</span><br><span class="hljs-type">static</span> <span class="hljs-type">const</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> base64_suffix_map[<span class="hljs-number">256</span>] = &#123;<br>    <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">253</span>, <span class="hljs-number">255</span>,<br>    <span class="hljs-number">255</span>, <span class="hljs-number">253</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,<br>    <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">253</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,<br>    <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,  <span class="hljs-number">62</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,  <span class="hljs-number">63</span>,<br>    <span class="hljs-number">52</span>,  <span class="hljs-number">53</span>,  <span class="hljs-number">54</span>,  <span class="hljs-number">55</span>,  <span class="hljs-number">56</span>,  <span class="hljs-number">57</span>,  <span class="hljs-number">58</span>,  <span class="hljs-number">59</span>,  <span class="hljs-number">60</span>,  <span class="hljs-number">61</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,<br>    <span class="hljs-number">255</span>, <span class="hljs-number">254</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,   <span class="hljs-number">0</span>,   <span class="hljs-number">1</span>,   <span class="hljs-number">2</span>,   <span class="hljs-number">3</span>,   <span class="hljs-number">4</span>,   <span class="hljs-number">5</span>,   <span class="hljs-number">6</span>,<br>    <span class="hljs-number">7</span>,   <span class="hljs-number">8</span>,   <span class="hljs-number">9</span>,  <span class="hljs-number">10</span>,  <span class="hljs-number">11</span>,  <span class="hljs-number">12</span>,  <span class="hljs-number">13</span>,  <span class="hljs-number">14</span>,  <span class="hljs-number">15</span>,  <span class="hljs-number">16</span>,  <span class="hljs-number">17</span>,  <span class="hljs-number">18</span>,<br>    <span class="hljs-number">19</span>,  <span class="hljs-number">20</span>,  <span class="hljs-number">21</span>,  <span class="hljs-number">22</span>,  <span class="hljs-number">23</span>,  <span class="hljs-number">24</span>,  <span class="hljs-number">25</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,<br>    <span class="hljs-number">255</span>,  <span class="hljs-number">26</span>,  <span class="hljs-number">27</span>,  <span class="hljs-number">28</span>,  <span class="hljs-number">29</span>,  <span class="hljs-number">30</span>,  <span class="hljs-number">31</span>,  <span class="hljs-number">32</span>,  <span class="hljs-number">33</span>,  <span class="hljs-number">34</span>,  <span class="hljs-number">35</span>,  <span class="hljs-number">36</span>,<br>    <span class="hljs-number">37</span>,  <span class="hljs-number">38</span>,  <span class="hljs-number">39</span>,  <span class="hljs-number">40</span>,  <span class="hljs-number">41</span>,  <span class="hljs-number">42</span>,  <span class="hljs-number">43</span>,  <span class="hljs-number">44</span>,  <span class="hljs-number">45</span>,  <span class="hljs-number">46</span>,  <span class="hljs-number">47</span>,  <span class="hljs-number">48</span>,<br>    <span class="hljs-number">49</span>,  <span class="hljs-number">50</span>,  <span class="hljs-number">51</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,<br>    <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,<br>    <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,<br>    <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,<br>    <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,<br>    <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,<br>    <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,<br>    <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,<br>    <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,<br>    <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,<br>    <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>,<br>    <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span> <br>    &#125;;<br> <br><span class="hljs-type">static</span> <span class="hljs-type">char</span> <span class="hljs-title function_">cmove_bits</span><span class="hljs-params">(<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> src, <span class="hljs-type">unsigned</span> lnum, <span class="hljs-type">unsigned</span> rnum)</span> &#123;<br>    src &lt;&lt;= lnum; <br>    src &gt;&gt;= rnum;<br>    <span class="hljs-keyword">return</span> src;<br>&#125;<br> <br><span class="hljs-type">int</span> <span class="hljs-title function_">base64_encode</span><span class="hljs-params">(  <span class="hljs-type">char</span> *indata, <span class="hljs-type">int</span> inlen, <span class="hljs-type">char</span> *outdata, <span class="hljs-type">int</span> *outlen)</span> &#123;<br>    <br>    <span class="hljs-type">int</span> ret = <span class="hljs-number">0</span>; <span class="hljs-comment">// return value</span><br>    <span class="hljs-keyword">if</span> (indata == <span class="hljs-literal">NULL</span> || inlen == <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">return</span> ret = <span class="hljs-number">-1</span>;<br>    &#125;<br>    <br>    <span class="hljs-type">int</span> in_len = <span class="hljs-number">0</span>; <span class="hljs-comment">// 源字符串长度, 如果in_len不是3的倍数, 那么需要补成3的倍数</span><br>    <span class="hljs-type">int</span> pad_num = <span class="hljs-number">0</span>; <span class="hljs-comment">// 需要补齐的字符个数, 这样只有2, 1, 0(0的话不需要拼接, )</span><br>    <span class="hljs-keyword">if</span> (inlen % <span class="hljs-number">3</span> != <span class="hljs-number">0</span>) &#123;<br>        pad_num = <span class="hljs-number">3</span> - inlen % <span class="hljs-number">3</span>;<br>    &#125;<br>    in_len = inlen + pad_num; <span class="hljs-comment">// 拼接后的长度, 实际编码需要的长度(3的倍数)</span><br>    <br>    <span class="hljs-type">int</span> out_len = in_len * <span class="hljs-number">8</span> / <span class="hljs-number">6</span>; <span class="hljs-comment">// 编码后的长度</span><br>    <br>    <span class="hljs-type">char</span> *p = outdata; <span class="hljs-comment">// 定义指针指向传出data的首地址</span><br>    <br>    <span class="hljs-comment">//编码, 长度为调整后的长度, 3字节一组</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; in_len; i+=<span class="hljs-number">3</span>) &#123;<br>        <span class="hljs-type">int</span> value = *indata &gt;&gt; <span class="hljs-number">2</span>; <span class="hljs-comment">// 将indata第一个字符向右移动2bit(丢弃2bit)</span><br>        <span class="hljs-type">char</span> c = base64_alphabet[value]; <span class="hljs-comment">// 对应base64转换表的字符</span><br>        *p = c; <span class="hljs-comment">// 将对应字符(编码后字符)赋值给outdata第一字节</span><br>        <br>        <span class="hljs-comment">//处理最后一组(最后3字节)的数据</span><br>        <span class="hljs-keyword">if</span> (i == inlen + pad_num - <span class="hljs-number">3</span> &amp;&amp; pad_num != <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">if</span>(pad_num == <span class="hljs-number">1</span>) &#123;<br>                *(p + <span class="hljs-number">1</span>) = base64_alphabet[(<span class="hljs-type">int</span>)(cmove_bits(*indata, <span class="hljs-number">6</span>, <span class="hljs-number">2</span>) + cmove_bits(*(indata + <span class="hljs-number">1</span>), <span class="hljs-number">0</span>, <span class="hljs-number">4</span>))];<br>                *(p + <span class="hljs-number">2</span>) = base64_alphabet[(<span class="hljs-type">int</span>)cmove_bits(*(indata + <span class="hljs-number">1</span>), <span class="hljs-number">4</span>, <span class="hljs-number">2</span>)];<br>                *(p + <span class="hljs-number">3</span>) = <span class="hljs-string">&#x27;=&#x27;</span>;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pad_num == <span class="hljs-number">2</span>) &#123; <span class="hljs-comment">// 编码后的数据要补两个 &#x27;=&#x27;</span><br>                *(p + <span class="hljs-number">1</span>) = base64_alphabet[(<span class="hljs-type">int</span>)cmove_bits(*indata, <span class="hljs-number">6</span>, <span class="hljs-number">2</span>)];<br>                *(p + <span class="hljs-number">2</span>) = <span class="hljs-string">&#x27;=&#x27;</span>;<br>                *(p + <span class="hljs-number">3</span>) = <span class="hljs-string">&#x27;=&#x27;</span>;<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// 处理正常的3字节的数据</span><br>            *(p + <span class="hljs-number">1</span>) = base64_alphabet[cmove_bits(*indata, <span class="hljs-number">6</span>, <span class="hljs-number">2</span>) + cmove_bits(*(indata + <span class="hljs-number">1</span>), <span class="hljs-number">0</span>, <span class="hljs-number">4</span>)];<br>            *(p + <span class="hljs-number">2</span>) = base64_alphabet[cmove_bits(*(indata + <span class="hljs-number">1</span>), <span class="hljs-number">4</span>, <span class="hljs-number">2</span>) + cmove_bits(*(indata + <span class="hljs-number">2</span>), <span class="hljs-number">0</span>, <span class="hljs-number">6</span>)];<br>            *(p + <span class="hljs-number">3</span>) = base64_alphabet[*(indata + <span class="hljs-number">2</span>) &amp; <span class="hljs-number">0x3f</span>];<br>        &#125;<br>        <br>        p += <span class="hljs-number">4</span>;<br>        indata += <span class="hljs-number">3</span>;<br>    &#125;<br>    <br>    <span class="hljs-keyword">if</span>(outlen != <span class="hljs-literal">NULL</span>) &#123;<br>        *outlen = out_len;<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> ret;<br>&#125;<br> <br> <br><span class="hljs-type">int</span> <span class="hljs-title function_">base64_decode</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *indata, <span class="hljs-type">int</span> inlen, <span class="hljs-type">char</span> *outdata, <span class="hljs-type">int</span> *outlen)</span> &#123;<br>    <br>    <span class="hljs-type">int</span> ret = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span> (indata == <span class="hljs-literal">NULL</span> || inlen &lt;= <span class="hljs-number">0</span> || outdata == <span class="hljs-literal">NULL</span> || outlen == <span class="hljs-literal">NULL</span>) &#123;<br>        <span class="hljs-keyword">return</span> ret = <span class="hljs-number">-1</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (inlen % <span class="hljs-number">4</span> != <span class="hljs-number">0</span>) &#123; <span class="hljs-comment">// 需要解码的数据不是4字节倍数</span><br>        <span class="hljs-keyword">return</span> ret = <span class="hljs-number">-2</span>;<br>    &#125;<br>    <br>    <span class="hljs-type">int</span> t = <span class="hljs-number">0</span>, x = <span class="hljs-number">0</span>, y = <span class="hljs-number">0</span>, i = <span class="hljs-number">0</span>;<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> c = <span class="hljs-number">0</span>;<br>    <span class="hljs-type">int</span> g = <span class="hljs-number">3</span>;<br>    <br>    <span class="hljs-comment">//while (indata[x] != 0) &#123;</span><br>    <span class="hljs-keyword">while</span> (x &lt; inlen) &#123;<br>        <span class="hljs-comment">// 需要解码的数据对应的ASCII值对应base64_suffix_map的值</span><br>        c = base64_suffix_map[indata[x++]];<br>        <span class="hljs-keyword">if</span> (c == <span class="hljs-number">255</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<span class="hljs-comment">// 对应的值不在转码表中</span><br>        <span class="hljs-keyword">if</span> (c == <span class="hljs-number">253</span>) <span class="hljs-keyword">continue</span>;<span class="hljs-comment">// 对应的值是换行或者回车</span><br>        <span class="hljs-keyword">if</span> (c == <span class="hljs-number">254</span>) &#123; c = <span class="hljs-number">0</span>; g--; &#125;<span class="hljs-comment">// 对应的值是&#x27;=&#x27;</span><br>        t = (t&lt;&lt;<span class="hljs-number">6</span>) | c; <span class="hljs-comment">// 将其依次放入一个int型中占3字节</span><br>        <span class="hljs-keyword">if</span> (++y == <span class="hljs-number">4</span>) &#123;<br>            outdata[i++] = (<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>)((t&gt;&gt;<span class="hljs-number">16</span>)&amp;<span class="hljs-number">0xff</span>);<br>            <span class="hljs-keyword">if</span> (g &gt; <span class="hljs-number">1</span>) outdata[i++] = (<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>)((t&gt;&gt;<span class="hljs-number">8</span>)&amp;<span class="hljs-number">0xff</span>);<br>            <span class="hljs-keyword">if</span> (g &gt; <span class="hljs-number">2</span>) outdata[i++] = (<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span>)(t&amp;<span class="hljs-number">0xff</span>);<br>            y = t = <span class="hljs-number">0</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (outlen != <span class="hljs-literal">NULL</span>) &#123;<br>        *outlen = i;<br>    &#125;<br>    <span class="hljs-keyword">return</span> ret;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python">base64_list = [<span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-string">&#x27;D&#x27;</span>, <span class="hljs-string">&#x27;E&#x27;</span>, <span class="hljs-string">&#x27;F&#x27;</span>, <span class="hljs-string">&#x27;G&#x27;</span>, <span class="hljs-string">&#x27;H&#x27;</span>, <span class="hljs-string">&#x27;I&#x27;</span>, <span class="hljs-string">&#x27;J&#x27;</span>, <span class="hljs-string">&#x27;K&#x27;</span>, <span class="hljs-string">&#x27;L&#x27;</span>, <span class="hljs-string">&#x27;M&#x27;</span>, <span class="hljs-string">&#x27;N&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;P&#x27;</span>,<br>               <span class="hljs-string">&#x27;Q&#x27;</span>, <span class="hljs-string">&#x27;R&#x27;</span>, <span class="hljs-string">&#x27;S&#x27;</span>, <span class="hljs-string">&#x27;T&#x27;</span>, <span class="hljs-string">&#x27;U&#x27;</span>, <span class="hljs-string">&#x27;V&#x27;</span>, <span class="hljs-string">&#x27;W&#x27;</span>, <span class="hljs-string">&#x27;X&#x27;</span>, <span class="hljs-string">&#x27;Y&#x27;</span>, <span class="hljs-string">&#x27;Z&#x27;</span>, <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-string">&#x27;d&#x27;</span>, <span class="hljs-string">&#x27;e&#x27;</span>, <span class="hljs-string">&#x27;f&#x27;</span>,<br>               <span class="hljs-string">&#x27;g&#x27;</span>, <span class="hljs-string">&#x27;h&#x27;</span>, <span class="hljs-string">&#x27;i&#x27;</span>, <span class="hljs-string">&#x27;j&#x27;</span>, <span class="hljs-string">&#x27;k&#x27;</span>, <span class="hljs-string">&#x27;l&#x27;</span>, <span class="hljs-string">&#x27;m&#x27;</span>, <span class="hljs-string">&#x27;n&#x27;</span>, <span class="hljs-string">&#x27;o&#x27;</span>, <span class="hljs-string">&#x27;p&#x27;</span>, <span class="hljs-string">&#x27;q&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>, <span class="hljs-string">&#x27;s&#x27;</span>, <span class="hljs-string">&#x27;t&#x27;</span>, <span class="hljs-string">&#x27;u&#x27;</span>, <span class="hljs-string">&#x27;v&#x27;</span>,<br>               <span class="hljs-string">&#x27;w&#x27;</span>, <span class="hljs-string">&#x27;x&#x27;</span>, <span class="hljs-string">&#x27;y&#x27;</span>, <span class="hljs-string">&#x27;z&#x27;</span>, <span class="hljs-string">&#x27;0&#x27;</span>, <span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>, <span class="hljs-string">&#x27;4&#x27;</span>, <span class="hljs-string">&#x27;5&#x27;</span>, <span class="hljs-string">&#x27;6&#x27;</span>, <span class="hljs-string">&#x27;7&#x27;</span>, <span class="hljs-string">&#x27;8&#x27;</span>, <span class="hljs-string">&#x27;9&#x27;</span>, <span class="hljs-string">&#x27;+&#x27;</span>, <span class="hljs-string">&#x27;/&#x27;</span>]<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">base64_encode</span>(<span class="hljs-params">string: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    oldstr = <span class="hljs-string">&#x27;&#x27;</span><br>    newstr = []<br>    base64 = <span class="hljs-string">&#x27;&#x27;</span><br>    <span class="hljs-keyword">global</span> base64_list<br>    <span class="hljs-comment"># 把原始字符串转换为二进制，用bin转换后是0b开头的，所以把b替换了，首位补0补齐8位</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> string:<br>        oldstr += <span class="hljs-string">&#x27;&#123;:08&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">int</span>(<span class="hljs-built_in">str</span>(<span class="hljs-built_in">bin</span>(<span class="hljs-built_in">ord</span>(i))).replace(<span class="hljs-string">&#x27;0b&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)))<br>    <span class="hljs-comment"># 把转换好的二进制按照6位一组分好，最后一组不足6位的后面补0</span><br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(oldstr), <span class="hljs-number">6</span>):<br>        newstr.append(<span class="hljs-string">&#x27;&#123;:&lt;06&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(oldstr[j:j + <span class="hljs-number">6</span>]))<br>    <span class="hljs-comment"># 在base_list中找到对应的字符，拼接</span><br>    <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(newstr)):<br>        base64 += base64_list[<span class="hljs-built_in">int</span>(newstr[k], <span class="hljs-number">2</span>)]<br>    <span class="hljs-comment"># 判断base字符结尾补几个&#x27;=&#x27;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(string) % <span class="hljs-number">3</span> == <span class="hljs-number">1</span>:<br>        base64 += <span class="hljs-string">&#x27;==&#x27;</span><br>    <span class="hljs-keyword">elif</span> <span class="hljs-built_in">len</span>(string) % <span class="hljs-number">3</span> == <span class="hljs-number">2</span>:<br>        base64 += <span class="hljs-string">&#x27;=&#x27;</span><br>    <span class="hljs-keyword">return</span> base64<br></code></pre></td></tr></table></figure>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+      <div class="like-author">
+  <input type="checkbox" id="likeCode" />
+  <div class="author-face">
+    <img height="100px"
+         width="100px"
+         id="front-face"
+         alt="author face"
+         src="/assets/avatar.jpg" />
+    <img height="100px"
+         width="100px"
+         id="back-face"
+         alt="like code"
+         src="/assets/sponsor.png" />
+  </div>
+  <div class="like-text">给作者倒杯卡布奇诺</div>
+  <label for="likeCode" class="like-btn">
+    <svg viewBox="0 0 1024 1024"
+         width="20px"
+         style="margin-right: 10px"
+         height="20px">
+      <path d="M466.88 908.96L113.824 563.296a270.08 270.08 0 0 1 0-387.392c108.8-106.56 284.896-106.56 393.696 0 1.504 1.472 2.976 2.944 4.448 4.48 1.472-1.536 2.944-3.008 4.448-4.48 108.8-106.56 284.896-106.56 393.696 0a269.952 269.952 0 0 1 34.016 347.072l-387.392 385.6a64 64 0 0 1-89.92 0.384z" p-id="13650" fill="#ee4242" />
+    </svg>
+    喜欢作者
+  </label>
+</div>
+
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/2022/08/01/Java%E5%AD%97%E8%8A%82%E7%A0%81/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>Java字节码</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      Git信息泄露
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  
+    <a href="/tags/%E7%BC%96%E7%A0%81/" class="post-tag">#编码</a>
+  
+
+</div>
+  <div class="realated__body">
+    
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\2022\07\25\Git信息泄露\" title="Git信息泄露" rel="bookmark">Git信息泄露</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div></div>
+    
+  </div>
+</div>
+
+    
+    <div id="gitalk-container"></div>
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">海</div>
+              
+                <div class="matts">内</div>
+              
+                <div class="matts">存</div>
+              
+                <div class="matts">知</div>
+              
+                <div class="matts">己</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">天</div>
+              
+                <div class="matts">涯</div>
+              
+                <div class="matts">若</div>
+              
+                <div class="matts">比</div>
+              
+                <div class="matts">邻</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+            <div class="foot-item">
+              <div class="foot-item__head">友链</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/icon/icon-link.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://shennoter.top/">Shennoter</a>
+                  </div>
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/icon/icon-link.svg"/>
+                    <a class="foot-link" href="">Jobove</a>
+                  </div>
+                
+                <div class="text">
+                  <img alt="link" height="20px" width="20px" src="/images/icon/icon-link+.svg"/>
+                  <a class="foot-link"
+                     href="mailto:lynchrocket@gmail.com?subject=%E7%94%B3%E8%AF%B7%20Hozen.site%20%E7%9A%84%E5%8F%8B%E9%93%BE%E4%BD%8D%E7%BD%AE">
+                  申请友链</a>
+                </div>
+              </div>
+            </div>
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/Lynchrocket">Lynchrocket</a>
+                  </div>
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/images/logo-zh.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://www.zhihu.com/people/lynchrocket">Lynchrocket</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/images/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:lynchrocket@gmail.com">lynchrocket@gmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <a href="https://lynchrocket.github.io">C'est la vie</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
+          <svg width="20" height="20" viewBox="0 0 725 725">
+            <path fill-rule="evenodd" fill="rgb(221, 221, 221)" d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z"/>
+            <path fill-rule="evenodd" fill="rgb(159, 159, 159)" d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z"/>
+            <path fill-rule="evenodd" fill="rgb(0, 0, 0)" d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z"/>
+          </svg>
+          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+      <script src="https://unpkg.com/js-polyfills@0.1.43/es6.js"></script>
+      <script id="MathJax-script"
+              async
+              src="https://www.unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+    
+    
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const param = JSON.parse('{"enable":true,"owner":"Lynchrocket","admin":"Lynchrocket","repo":"Lynchrocket.github.io","clientID":"45d8817d291626df7894","clientSecret":"2761427f37f733d92cc64be2e2a3826cc8454cf3","distractionFreeMode":false,"proxy":"https://worker-lingering-hat-47a4.lynchrocket.workers.dev/?https://github.com/login/oauth/access_token","language":"zh-CN","per_page":20}')
+  param.id = location.pathname
+  const gitalk = new Gitalk(param)
+  gitalk.render('gitalk-container')
+</script>
+
+
+  </body>
+</html>

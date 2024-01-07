@@ -76,7 +76,7 @@
             
               <a class="nav-menu-item" href="/math">数学</a>
             
-              <a class="nav-menu-item" href="/misc">杂记</a>
+              <a class="nav-menu-item" href="/physic">物理</a>
             
               <a class="nav-menu-item" href="/life">生活随笔</a>
             
@@ -89,12 +89,22 @@
     <div class="body">
       
   <article class="post-content">
+    
+      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize([object Object]);
+        }
+      </script>
+    
     <div class="post-inner--toc">
       <div class="post-content__head">
         <div class="post-title">Kotlin：构造器和初始化</div>
         <div class="post-info">
           
-  <a href="/tags/Kotlin/" class="post-tag">#Kotlin</a>
+  
+    <a href="/tags/Kotlin/" class="post-tag">#Kotlin</a>
+  
 
 
           <span class="post-date">2022-08-06</span>
@@ -103,7 +113,7 @@
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%B8%BB%E6%9E%84%E9%80%A0%E5%99%A8%E5%A3%B0%E6%98%8E"><span class="post-toc-text">主构造器声明</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%A9%BA%E5%8F%82%E6%9C%89%E5%8F%82%E4%B8%BB%E6%9E%84%E9%80%A0%E5%99%A8"><span class="post-toc-text">空参&#x2F;有参主构造器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#init-%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="post-toc-text">init 代码块</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%AC%A1%E6%9E%84%E9%80%A0%E5%99%A8%E5%A3%B0%E6%98%8E"><span class="post-toc-text">次构造器声明</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%A9%BA%E5%8F%82%E6%9C%89%E5%8F%82%E6%AC%A1%E6%9E%84%E9%80%A0%E5%99%A8"><span class="post-toc-text">空参&#x2F;有参次构造器</span></a></li></ol></li></ol>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%B8%BB%E6%9E%84%E9%80%A0%E5%99%A8%E5%A3%B0%E6%98%8E"><span class="post-toc-number">1.</span> <span class="post-toc-text">主构造器声明</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%A9%BA%E5%8F%82%E6%9C%89%E5%8F%82%E4%B8%BB%E6%9E%84%E9%80%A0%E5%99%A8"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">空参&#x2F;有参主构造器</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#init-%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">init 代码块</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%AC%A1%E6%9E%84%E9%80%A0%E5%99%A8%E5%A3%B0%E6%98%8E"><span class="post-toc-number">2.</span> <span class="post-toc-text">次构造器声明</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%A9%BA%E5%8F%82%E6%9C%89%E5%8F%82%E6%AC%A1%E6%9E%84%E9%80%A0%E5%99%A8"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">空参&#x2F;有参次构造器</span></a></li></ol></li></ol>
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -210,12 +220,14 @@
     
       <div class="related-post">
   <div class="related__head">
-  <a href="/tags/Kotlin/" class="post-tag">#Kotlin</a>
+  
+    <a href="/tags/Kotlin/" class="post-tag">#Kotlin</a>
+  
 
 </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\2022\08\19\Kotlin：内置排序方法\" title="Kotlin：内置排序方法" rel="bookmark">Kotlin：内置排序方法</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\07\07\RBAC权限管理\" title="RBAC权限管理" rel="bookmark">RBAC权限管理</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\2022\08\19\Kotlin：内置排序方法\" title="Kotlin：内置排序方法" rel="bookmark">Kotlin：内置排序方法</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\25\Git信息泄露\" title="Git信息泄露" rel="bookmark">Git信息泄露</a></div></div></div>
     
   </div>
 </div>
@@ -261,7 +273,7 @@
         <div class="foot__body">
           
             <div class="foot-item">
-              <div class="foot-item__head">朋友</div>
+              <div class="foot-item__head">友链</div>
               <div class="foot-item__body">
                 
                   <div class="text">

@@ -76,7 +76,7 @@
             
               <a class="nav-menu-item" href="/math">数学</a>
             
-              <a class="nav-menu-item" href="/misc">杂记</a>
+              <a class="nav-menu-item" href="/physic">物理</a>
             
               <a class="nav-menu-item" href="/life">生活随笔</a>
             
@@ -89,12 +89,24 @@
     <div class="body">
       
   <article class="post-content">
+    
+      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize([object Object]);
+        }
+      </script>
+    
     <div class="post-inner--toc">
       <div class="post-content__head">
         <div class="post-title">Java字节码</div>
         <div class="post-info">
           
-  <a href="/tags/%E9%80%86%E5%90%91/" class="post-tag">#逆向</a><a href="/tags/Java/" class="post-tag">#Java</a>
+  
+    <a href="/tags/%E9%80%86%E5%90%91/" class="post-tag">#逆向</a>
+  
+    <a href="/tags/Java/" class="post-tag">#Java</a>
+  
 
 
           <span class="post-date">2022-08-01</span>
@@ -103,7 +115,7 @@
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B0%86%E5%B8%B8%E9%87%8F%E5%8E%8B%E5%85%A5%E6%93%8D%E4%BD%9C%E6%95%B0%E6%A0%88%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="post-toc-text">1.将常量压入操作数栈中的指令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#iconst_n-lconst_nfconst_ndconst_n"><span class="post-toc-text">（1）iconst_n、 lconst_n、fconst_n、dconst_n</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#bipushsipush"><span class="post-toc-text">（2）bipush、sipush</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#idc"><span class="post-toc-text">（3）idc</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B0%86%E6%93%8D%E4%BD%9C%E6%95%B0%E6%A0%88%E4%B8%AD%E7%9A%84%E5%80%BC%E5%AD%98%E5%85%A5%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E8%A1%A8%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="post-toc-text">2.将操作数栈中的值存入局部变量表中的指令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#istore_nlstore_nfstore_ndstore_nastore_n"><span class="post-toc-text">（1）istore_n、lstore_n、fstore_n、dstore_n、astore_n</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#astore_niastorelastorefastore-dastore-aastore-bastorecastoresastore"><span class="post-toc-text">（2）astore_n、iastore、lastore、fastore 、dastore 、aastore 、bastore、castore、sastore</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#wide"><span class="post-toc-text">（3）wide</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BB%8E%E6%A0%88%E4%B8%AD%E7%BB%99%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E4%B8%AD%E8%A3%85%E8%BD%BD%E5%80%BC%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="post-toc-text">3.从栈中给局部变量中装载值的指令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#iload_nlload_n-fload_ndload_n"><span class="post-toc-text">（1）iload_n、lload_n 、fload_n、dload_n</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#aload_nialoadlaloadfaload-daloadaaloadbaloadcaloadsaload"><span class="post-toc-text">（2）aload_n、iaload、laload、faload 、daload、aaload、baload、caload、saload</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E5%8C%96%E7%9A%84%E6%8C%87%E4%BB%A4i2li2dl2ff2di2bi2ci2s"><span class="post-toc-text">4.类型转化的指令（i2l、i2d、l2f、f2d、i2b、i2c、i2s…）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%95%B4%E6%95%B0%E8%BF%90%E7%AE%97iaddladd-isubimul-idivirem-ineg-iinc"><span class="post-toc-text">5.整数运算（iadd、ladd 、isub、imul 、idiv、irem 、ineg 、iinc …）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97"><span class="post-toc-text">6.逻辑运算</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%A7%BB%E4%BD%8D%E6%93%8D%E4%BD%9C-ishllshlishrlshriushrlushr"><span class="post-toc-text">（1）移位操作 （ishl、lshl、ishr、lshr、iushr、lushr）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%8C%89%E4%BD%8D%E5%B8%83%E5%B0%94%E8%BF%90%E7%AE%97-iandlandior-lorixorlxor"><span class="post-toc-text">（2）按位布尔运算 （iand、land、ior 、lor、ixor、lxor）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97"><span class="post-toc-text">（3）浮点运算</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%95%B0%E7%BB%84%E6%8C%87%E4%BB%A4"><span class="post-toc-text">7.对象和数组指令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AF%B9%E8%B1%A1%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4-getstaticputstatic"><span class="post-toc-text">（1）对象操作指令 （getstatic、putstatic…）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4-newarrayarraylength"><span class="post-toc-text">（2）数组操作指令 （newarray、arraylength…）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%8E%A7%E5%88%B6%E6%B5%81%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="post-toc-text">7.控制流相关指令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9D%A1%E4%BB%B6%E5%88%86%E6%94%AF%E6%8C%87%E4%BB%A4-ifeqiflt-ifge-ifleif_icmpcqif_icmpltif_icmpleif_icmpneifnullif_acmpeq-if_acmpnc"><span class="post-toc-text">（1）条件分支指令 （ifeq、iflt 、ifge 、ifle、if_icmpcq、if_icmplt、if_icmple、if_icmpne、ifnull、if_acmpeq 、if_acmpnc、… ）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%AF%94%E8%BE%83%E6%8C%87%E4%BB%A4-lcmpfcmpl-fcmpg-dcmpldcmpg"><span class="post-toc-text">（2）比较指令 （lcmp、fcmpl 、fcmpg 、dcmpl、dcmpg ）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%97%A0%E6%9D%A1%E4%BB%B6%E8%BD%AC%E7%A7%BB%E6%8C%87%E4%BB%A4-gototableswitchlookupswitch"><span class="post-toc-text">（3）无条件转移指令 （goto、tableswitch、lookupswitch）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%82%E5%B8%B8-athrow"><span class="post-toc-text">（4）异常 （athrow）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#finally%E5%AD%90%E5%8F%A5-jsrjsr_wrct"><span class="post-toc-text">（5）finally子句 （jsr、jsr_w、rct）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E4%B8%8E%E8%BF%94%E5%9B%9E"><span class="post-toc-text">（6）方法调用与返回</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5-montiorentermonitorexit"><span class="post-toc-text">（8）线程同步 （montiorenter、monitorexit）</span></a></li></ol></li></ol>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B0%86%E5%B8%B8%E9%87%8F%E5%8E%8B%E5%85%A5%E6%93%8D%E4%BD%9C%E6%95%B0%E6%A0%88%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.将常量压入操作数栈中的指令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#iconst_n-lconst_nfconst_ndconst_n"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">（1）iconst_n、 lconst_n、fconst_n、dconst_n</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#bipushsipush"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">（2）bipush、sipush</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#idc"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">（3）idc</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B0%86%E6%93%8D%E4%BD%9C%E6%95%B0%E6%A0%88%E4%B8%AD%E7%9A%84%E5%80%BC%E5%AD%98%E5%85%A5%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E8%A1%A8%E4%B8%AD%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.将操作数栈中的值存入局部变量表中的指令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#istore_nlstore_nfstore_ndstore_nastore_n"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">（1）istore_n、lstore_n、fstore_n、dstore_n、astore_n</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#astore_niastorelastorefastore-dastore-aastore-bastorecastoresastore"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">（2）astore_n、iastore、lastore、fastore 、dastore 、aastore 、bastore、castore、sastore</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#wide"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">（3）wide</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BB%8E%E6%A0%88%E4%B8%AD%E7%BB%99%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E4%B8%AD%E8%A3%85%E8%BD%BD%E5%80%BC%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.从栈中给局部变量中装载值的指令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#iload_nlload_n-fload_ndload_n"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">（1）iload_n、lload_n 、fload_n、dload_n</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#aload_nialoadlaloadfaload-daloadaaloadbaloadcaloadsaload"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">（2）aload_n、iaload、laload、faload 、daload、aaload、baload、caload、saload</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E5%8C%96%E7%9A%84%E6%8C%87%E4%BB%A4i2li2dl2ff2di2bi2ci2s"><span class="post-toc-number">4.</span> <span class="post-toc-text">4.类型转化的指令（i2l、i2d、l2f、f2d、i2b、i2c、i2s…）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%95%B4%E6%95%B0%E8%BF%90%E7%AE%97iaddladd-isubimul-idivirem-ineg-iinc"><span class="post-toc-number">5.</span> <span class="post-toc-text">5.整数运算（iadd、ladd 、isub、imul 、idiv、irem 、ineg 、iinc …）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97"><span class="post-toc-number">6.</span> <span class="post-toc-text">6.逻辑运算</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%A7%BB%E4%BD%8D%E6%93%8D%E4%BD%9C-ishllshlishrlshriushrlushr"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">（1）移位操作 （ishl、lshl、ishr、lshr、iushr、lushr）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%8C%89%E4%BD%8D%E5%B8%83%E5%B0%94%E8%BF%90%E7%AE%97-iandlandior-lorixorlxor"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">（2）按位布尔运算 （iand、land、ior 、lor、ixor、lxor）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">（3）浮点运算</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%95%B0%E7%BB%84%E6%8C%87%E4%BB%A4"><span class="post-toc-number">7.</span> <span class="post-toc-text">7.对象和数组指令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%AF%B9%E8%B1%A1%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4-getstaticputstatic"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">（1）对象操作指令 （getstatic、putstatic…）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4-newarrayarraylength"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">（2）数组操作指令 （newarray、arraylength…）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%8E%A7%E5%88%B6%E6%B5%81%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="post-toc-number">8.</span> <span class="post-toc-text">7.控制流相关指令</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%9D%A1%E4%BB%B6%E5%88%86%E6%94%AF%E6%8C%87%E4%BB%A4-ifeqiflt-ifge-ifleif_icmpcqif_icmpltif_icmpleif_icmpneifnullif_acmpeq-if_acmpnc"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">（1）条件分支指令 （ifeq、iflt 、ifge 、ifle、if_icmpcq、if_icmplt、if_icmple、if_icmpne、ifnull、if_acmpeq 、if_acmpnc、… ）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%AF%94%E8%BE%83%E6%8C%87%E4%BB%A4-lcmpfcmpl-fcmpg-dcmpldcmpg"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">（2）比较指令 （lcmp、fcmpl 、fcmpg 、dcmpl、dcmpg ）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%97%A0%E6%9D%A1%E4%BB%B6%E8%BD%AC%E7%A7%BB%E6%8C%87%E4%BB%A4-gototableswitchlookupswitch"><span class="post-toc-number">8.3.</span> <span class="post-toc-text">（3）无条件转移指令 （goto、tableswitch、lookupswitch）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%82%E5%B8%B8-athrow"><span class="post-toc-number">8.4.</span> <span class="post-toc-text">（4）异常 （athrow）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#finally%E5%AD%90%E5%8F%A5-jsrjsr_wrct"><span class="post-toc-number">8.5.</span> <span class="post-toc-text">（5）finally子句 （jsr、jsr_w、rct）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E4%B8%8E%E8%BF%94%E5%9B%9E"><span class="post-toc-number">8.6.</span> <span class="post-toc-text">（6）方法调用与返回</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5-montiorentermonitorexit"><span class="post-toc-number">8.7.</span> <span class="post-toc-text">（8）线程同步 （montiorenter、monitorexit）</span></a></li></ol></li></ol>
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -387,7 +399,7 @@
   
   <div class="vhr"></div>
   
-    <a class="post-nav-item-right" href="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/">
+    <a class="post-nav-item-right" href="/2022/07/27/Base64%E7%BC%96%E7%A0%81/">
       <div class="text-align">
         <span class="text-small">下一篇</span>
         <svg t="1670570876164"
@@ -399,7 +411,7 @@
           <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
         </svg>
       </div>
-      Git信息泄露
+      Base64编码
     </a>
   
 </div>
@@ -407,12 +419,16 @@
     
       <div class="related-post">
   <div class="related__head">
-  <a href="/tags/%E9%80%86%E5%90%91/" class="post-tag">#逆向</a><a href="/tags/Java/" class="post-tag">#Java</a>
+  
+    <a href="/tags/%E9%80%86%E5%90%91/" class="post-tag">#逆向</a>
+  
+    <a href="/tags/Java/" class="post-tag">#Java</a>
+  
 
 </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\2022\07\25\Git信息泄露\" title="Git信息泄露" rel="bookmark">Git信息泄露</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\07\07\RBAC权限管理\" title="RBAC权限管理" rel="bookmark">RBAC权限管理</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\2022\07\25\Git信息泄露\" title="Git信息泄露" rel="bookmark">Git信息泄露</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div></div>
     
   </div>
 </div>
@@ -458,7 +474,7 @@
         <div class="foot__body">
           
             <div class="foot-item">
-              <div class="foot-item__head">朋友</div>
+              <div class="foot-item__head">友链</div>
               <div class="foot-item__body">
                 
                   <div class="text">

@@ -76,7 +76,7 @@
             
               <a class="nav-menu-item" href="/math">数学</a>
             
-              <a class="nav-menu-item" href="/misc">杂记</a>
+              <a class="nav-menu-item" href="/physic">物理</a>
             
               <a class="nav-menu-item" href="/life">生活随笔</a>
             
@@ -89,12 +89,22 @@
     <div class="body">
       
   <article class="post-content">
+    
+      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize([object Object]);
+        }
+      </script>
+    
     <div class="post-inner--toc">
       <div class="post-content__head">
         <div class="post-title">垃圾回收策略与算法</div>
         <div class="post-info">
           
-  <a href="/tags/GC/" class="post-tag">#GC</a>
+  
+    <a href="/tags/GC/" class="post-tag">#GC</a>
+  
 
 
           <span class="post-date">2023-08-21</span>
@@ -103,7 +113,7 @@
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5"><span class="post-toc-text">垃圾回收策略</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E6%B3%95"><span class="post-toc-text">引用计数法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90"><span class="post-toc-text">可达性分析</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="post-toc-text">垃圾回收算法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95mark-sweep"><span class="post-toc-text">标记-清除算法（Mark-Sweep）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95mark-compact"><span class="post-toc-text">标记-整理算法（Mark-Compact）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95copying"><span class="post-toc-text">复制算法（Copying）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95generational-collection"><span class="post-toc-text">分代收集算法（Generational Collection）</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-text">参考资料</span></a></li></ol>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5"><span class="post-toc-number">1.</span> <span class="post-toc-text">垃圾回收策略</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E6%B3%95"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">引用计数法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">可达性分析</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="post-toc-number">2.</span> <span class="post-toc-text">垃圾回收算法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95mark-sweep"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">标记-清除算法（Mark-Sweep）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95mark-compact"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">标记-整理算法（Mark-Compact）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95copying"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">复制算法（Copying）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95generational-collection"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">分代收集算法（Generational Collection）</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -247,12 +257,14 @@
     
       <div class="related-post">
   <div class="related__head">
-  <a href="/tags/GC/" class="post-tag">#GC</a>
+  
+    <a href="/tags/GC/" class="post-tag">#GC</a>
+  
 
 </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\07\07\RBAC权限管理\" title="RBAC权限管理" rel="bookmark">RBAC权限管理</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\25\Git信息泄露\" title="Git信息泄露" rel="bookmark">Git信息泄露</a></div></div></div>
     
   </div>
 </div>
@@ -298,7 +310,7 @@
         <div class="foot__body">
           
             <div class="foot-item">
-              <div class="foot-item__head">朋友</div>
+              <div class="foot-item__head">友链</div>
               <div class="foot-item__body">
                 
                   <div class="text">
