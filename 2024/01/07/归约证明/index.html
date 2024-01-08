@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
     <title>
       
-        高等数学：泰勒公式 | C'est la vie
+        归约证明 | C'est la vie
       
     </title>
     <meta name="description" content=""/>
@@ -99,21 +99,21 @@
     
     <div class="post-inner--toc">
       <div class="post-content__head">
-        <div class="post-title">高等数学：泰勒公式</div>
+        <div class="post-title">归约证明</div>
         <div class="post-info">
           
   
-    <a href="/tags/%E9%AB%98%E6%95%B0/" class="post-tag">#高数</a>
+    <a href="/tags/%E8%AF%81%E6%98%8E/" class="post-tag">#证明</a>
   
 
 
-          <span class="post-date">2020-12-19</span>
+          <span class="post-date">2024-01-07</span>
         </div>
       </div>
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BB%8E%E4%B8%80%E9%98%B6%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F%E8%AF%B4%E8%B5%B7"><span class="post-toc-number">1.</span> <span class="post-toc-text">从一阶泰勒公式说起</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%B8%80%E9%98%B6%E5%88%B0%E4%BA%8C%E9%98%B6"><span class="post-toc-number">2.</span> <span class="post-toc-text">一阶到二阶</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%A6%82%E6%B3%95%E7%82%AE%E5%88%B6"><span class="post-toc-number">3.</span> <span class="post-toc-text">如法炮制……</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%B3%A8%E8%AE%B0"><span class="post-toc-number">4.</span> <span class="post-toc-text">注记</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%84%BF%E6%84%8F%E8%AF%95%E8%AF%95%E6%89%8B%E5%90%97"><span class="post-toc-number">5.</span> <span class="post-toc-text">愿意试试手吗？</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">6.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+          
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -123,96 +123,8 @@
             
           </div>
         
-        <p>泰勒公式虽然形式不算复杂，但来路比较诡异。几乎所有的教材都是直接给出这个公式，然后再进行相应的结论证明，显得过于突兀，也不便于理解。本文尝试给出一种由基本的导数公式和极限定理推导泰勒公式的方法，希望能对读者诸君有所帮助。</p>
+        <p>归约（reduction）是指问题 A 的任何实例能用问题 B 的方法来解决（判断），并且 A 的解为“是”，当且仅当 B 的解也是“是”。此时可标为 <span class="math inline">\(A\leq_p B\)</span></p>
 <span id="more"></span>
-<h1 id="从一阶泰勒公式说起">从一阶泰勒公式说起</h1>
-<p>我们首先从一阶导数着手。假设 <span class="math inline">\(f(x)\)</span> 在 <span class="math inline">\(x_0\)</span> 有一阶导数，那么根据定义，就有</p>
-<p><span class="math display">\[
-\begin{equation}
-  \lim_{x\rightarrow x_0}\frac{f(x)-f(x_0)}{x-x_0}=f&#39;(x_0)
-\end{equation}
-\]</span></p>
-<p>现在回顾一下关于函数极限的一个结论：</p>
-<p><span class="math display">\[
-\begin{equation}
-  \lim_{x\rightarrow x^*}f(x)=L \Leftrightarrow f(x)=L+\alpha(x)
-\end{equation}
-\]</span></p>
-<p>其中， <span class="math inline">\(\alpha(x)\)</span> 是该极限过程下的某个无穷小，即 <span class="math inline">\(\alpha\rightarrow 0\)</span> 当 <span class="math inline">\(x\rightarrow x^*\)</span>. 利用这个结论，可以将 公式(1) 改写为</p>
-<p><span class="math display">\[
-\begin{equation}
-  \frac{f(x)-f(x_0)}{x-x_0}=f&#39;(x_0)+\alpha_1(x)
-\end{equation}
-\]</span></p>
-<p>其中，<span class="math inline">\(\alpha\rightarrow 0\)</span> 当 <span class="math inline">\(x\rightarrow x^*\)</span>. 再进一步变形，就可以得到</p>
-<p><span class="math display">\[
-\begin{equation}
-  f(x)=f(x_0)+f&#39;(x_0)(x-x_0)+\alpha_1(x)\cdot(x-x_0)
-\end{equation}
-\]</span></p>
-<p>注意到 公式(4) 末尾那一项，显然，它是 <span class="math inline">\((x-x_0)\)</span> 的高阶无穷小，这是因为</p>
-<p><span class="math display">\[
-\begin{equation}
-  \lim_{x\rightarrow x_0}\frac{\alpha_1(x)\cdot(x-x_0)}{x-x_0}=\lim_{x\rightarrow x_0}\alpha_1(x)=0
-\end{equation}
-\]</span></p>
-<p>于是，我们可以直接将它记作</p>
-<p><span class="math display">\[
-\begin{equation}
-  \alpha_1(x)\cdot(x-x_0)=\omicron_1(x-x_0)
-\end{equation}
-\]</span></p>
-<p>这样的话， 公式(4) 式可进一步改写为</p>
-<p><span class="math display">\[
-\begin{equation}
-  f(x)=f(x_0)+f&#39;(x_0)(x-x_0)+\omicron_1(x-x_0)
-\end{equation}
-\]</span></p>
-<p>好了！这就是一阶泰勒公式。</p>
-<h1 id="一阶到二阶">一阶到二阶</h1>
-<p>那么如何得到二阶的呢？</p>
-<p>先比较一下二阶泰勒和一阶泰勒形式上的差别吧。它们前两项都是一样的，只不过二阶的又多出了一项。注意到，高阶无穷小的记号实际上是一个「收纳筐」，它里面装着很多隐藏着的东西。如此，我们猜测，二阶泰勒多出来的这一项，一定是从一阶泰勒那个高阶无穷小中「分析」出来的。</p>
-<p>这启发我们来考察这样一个极限</p>
-<p><span class="math display">\[
-\begin{equation}
-  \lim_{x\rightarrow x_0}\frac{\omicron_1(x-x_0)}{(x-x_0)^2}=\lim_{x\rightarrow x_0}\frac{f(x)-f(x_0)-f&#39;(x_0)(x-x_0)}{(x-x_0)^2}
-\end{equation}
-\]</span></p>
-<p>这是一个 <span class="math inline">\(0/0\)</span> 的极限，要求解它可以考虑使用洛必达。但是，请注意，我们现在只有 <span class="math inline">\(f(x)\)</span> 在 <span class="math inline">\(x_0\)</span> 一点一阶可导的条件，这还不足以让我们使用洛必达。不过，这并没有太大困难，只要加强条件就行，比如：我们让 <span class="math inline">\(f(x)\)</span> 在 <span class="math inline">\(x_0\)</span> 二阶可导，这样的话，就不仅保证了 <span class="math inline">\(f&#39;&#39;(x_0)\)</span> 存在，还同时保证了 <span class="math inline">\(f(x)\)</span> 在 <span class="math inline">\(x_0\)</span> 某邻域内一阶可导，这就满足了洛必达的使用条件。</p>
-<p>好了！开始洛必达！</p>
-<p><span class="math display">\[
-\begin{align}
-  &amp;\lim_{x\rightarrow x_0}\frac{\omicron_1(x-x_0)}{(x-x_0)^2}\notag \\
-  &amp;=\lim_{x\rightarrow x_0}\frac{f(x)-f(x_0)-f&#39;(x_0)(x-x_0)}{(x-x_0)^2}\notag \\
-  &amp;=\lim_{x\rightarrow x_0}\frac{f&#39;(x)-f&#39;(x_0)}{2(x-x_0)}\notag \\
-  &amp;=\frac{1}{2}f&#39;&#39;(x_0)
-\end{align}
-\]</span></p>
-<p>现在，我们又利用 公式(2) 的结论，将这个极限改写为</p>
-<p><span class="math display">\[
-\begin{equation}
-  \omicron_1(x-x_0)=\frac{1}{2}f&#39;&#39;(x_0)(x-x_0)^2+\alpha_2(x)\cdot(x-x_0)^2
-\end{equation}
-\]</span></p>
-<p>基于同样的理由， <span class="math inline">\(\alpha_2(x)\cdot(x-x_0)^2=\omicron_2((x-x_0)^2)\)</span> 我们将它代入 公式(10) 并连同 公式(10) 一起代回 公式(7) ,就将得到</p>
-<p><span class="math display">\[
-\begin{equation}
-  f(x)=f(x_0)+f&#39;(x_0)(x-x_0)+\frac{1}{2}f&#39;&#39;(x_0)(x-x_0)^2+\omicron_2((x-x_0)^2)
-\end{equation}
-\]</span></p>
-<p>显然，这就是二阶泰勒公式！</p>
-<h1 id="如法炮制">如法炮制……</h1>
-<p>至此，已经十分明显了，只要给定 <span class="math inline">\(f(x)\)</span> 在 <span class="math inline">\(x_0\)</span> 三阶、四阶……直至 <span class="math inline">\(n\)</span> 阶可导，我们就可以沿用此法反复地将低一阶公式中的高阶无穷小分析着展开，依次得到三阶、四阶……直至 <span class="math inline">\(n\)</span> 阶的泰勒公式。</p>
-<h1 id="注记">注记</h1>
-<p>当然，细心的读者可能注意到一点，我们在这里给定的 <span class="math inline">\(n\)</span> 阶泰勒公式展开条件，仅仅是 <span class="math inline">\(f(x)\)</span> 在 <span class="math inline">\(x_0\)</span> 一点处的 <span class="math inline">\(n\)</span> 阶可导，而并不是通行教材中约定的「在包含 <span class="math inline">\(x_0\)</span> 的某闭区间 <span class="math inline">\([a,b]\)</span> 上 <span class="math inline">\(n\)</span> 阶可导、且在开区间 <span class="math inline">\((a,b)\)</span> 内 <span class="math inline">\(n+1\)</span> 阶可导」！</p>
-<p>这又是为什么呢？</p>
-<p>事实上，我们这里推导的泰勒公式是带皮亚诺余项的泰勒公式，而不是带拉格朗日余项的泰勒公式，而要得出那个拉格朗日余项，就还必须再用一次拉格朗日中值定理，于是就需要有更强的条件！关于这一点，读者只需要回顾一下拉格朗日中值定理的条件，就很容易理解了。</p>
-<h1 id="愿意试试手吗">愿意试试手吗？</h1>
-<p>讲了这么多，现在就请你拿出纸笔从分析 <span class="math inline">\(\lim_{x\rightarrow x_0}\frac{\omicron_2((x-x_0)^2)}{(x-x_0)^3}\)</span> 入手推导三阶泰勒，我相信你能行！</p>
-<h1 id="参考资料">参考资料</h1>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/89717331">我们来更自然地推导泰勒公式！</a></li>
-</ul>
 
       </div>
     </div>
@@ -248,23 +160,11 @@
     
     <div class="post-nav">
   
-    <a class="post-nav-item-left" href="/2021/01/07/manim-3b1b%E6%95%B0%E5%AD%A6%E5%8A%A8%E7%94%BB%E5%BC%95%E6%93%8E%E5%AE%89%E8%A3%85/">
-      <div class="text-align">
-        <svg t="1670570876164"
-             class="icon"
-             viewBox="0 0 1024 1024"
-             width="16"
-             height="16">
-          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
-        </svg>
-        <span class="text-small">上一篇</span>
-      </div>
-      <div>manim--3b1b数学动画引擎安装</div>
-    </a>
+    <div class="post-nav-item-left"></div>
   
   <div class="vhr"></div>
   
-    <a class="post-nav-item-right" href="/2020/12/17/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86%EF%BC%9A%E7%83%AD%E5%AD%A6/">
+    <a class="post-nav-item-right" href="/2024/01/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">
       <div class="text-align">
         <span class="text-small">下一篇</span>
         <svg t="1670570876164"
@@ -276,7 +176,7 @@
           <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
         </svg>
       </div>
-      大学物理：热学
+      机器学习：线性回归
     </a>
   
 </div>
@@ -285,7 +185,7 @@
       <div class="related-post">
   <div class="related__head">
   
-    <a href="/tags/%E9%AB%98%E6%95%B0/" class="post-tag">#高数</a>
+    <a href="/tags/%E8%AF%81%E6%98%8E/" class="post-tag">#证明</a>
   
 
 </div>
