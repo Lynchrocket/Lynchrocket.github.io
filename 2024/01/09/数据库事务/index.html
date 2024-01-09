@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
     <title>
       
-        生活随笔 | C'est la vie
+        数据库事务 | C'est la vie
       
     </title>
     <meta name="description" content=""/>
@@ -58,7 +58,8 @@
           href='/css/layout.css'/>
     
     
-  <link rel="stylesheet" type="text/css" href="/css/category.css" />
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
 
   <meta name="generator" content="Hexo 7.0.0"></head>
   <body>
@@ -87,45 +88,146 @@
     </div>
     <div class="body">
       
-  <div class="wall wall-category--plain">
-    <div class="wall-main">
-      <div class="wall-category-title">
-        <div class="title-icon"
-             style="background-image: url(/images/icon/icon-sunrise.svg)"></div>
-        生活随笔
-      </div>
-      <div class="wall-category-description">长风破浪会有时，直挂云帆济沧海</div>
-      <div class="wall-category-tags">
-        <div id="tags-outer"><a href="/tags/%E6%97%A5%E6%9C%AC/" style="font-size: 1em;">日本</a></div>
-      </div>
-    </div>
-  </div>
-  <div class="post-list">
+  <article class="post-content">
     
-      
+      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize([object Object]);
+        }
+      </script>
+    
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">数据库事务</div>
+        <div class="post-info">
+          
   
-  <div class="post-card">
-    <div class="post__head">
-      <a href="/2024/01/09/%E4%BF%B3%E5%8F%A5/" class="post-title hover-line">俳句</a>
-      
-    </div>
-    <div class="post__body">
-      
-      <div class="post-excerpt"></div>
-    </div>
-    <div class="post__foot">
-      <div class="post-tags">
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-tag">#数据库</a>
   
-    <a href="/tags/%E6%97%A5%E6%9C%AC/" class="post-tag">#日本</a>
+
+
+          <span class="post-date">2024-01-09</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8B%E5%8A%A1%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98"><span class="post-toc-number">1.</span> <span class="post-toc-text">事务并发问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%84%8F%E8%AF%BB"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">脏读</span></a></li></ol></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <h1 id="事务并发问题">事务并发问题</h1>
+<p>在多个事务并发操作数据库时，如果没有有效的机制进行避免就会导致脏读（Dirty Read），不可重复读（Non-repeatable Read），幻读（Phantom Read）。</p>
+<h2 id="脏读">脏读</h2>
+<ol type="1">
+<li>事务 A 对数据资源进行了修改，事务 B 读取了事务 A 修改后的数据；</li>
+<li>由于某些原因，事务 A 并没有完成提交（commit），回滚（RollBack）了操作，则事务 B 读取的数据就是脏数据。</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th>事务 A</th>
+<th>事务 B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>UPDATE user SET age=21 WHERE id=1;</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>SELECT * FROM user WHERE id=1;</code></td>
+</tr>
+<tr class="odd">
+<td><code>ROLLBACK;</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid">flowchart LR
+  A((A)) --> age1[age=10] --SET age=21--> age2[age=21] --ROLLBACK--> age3[age=10]
+  B((B)) --->age4[age=21]</pre>
+
+      </div>
+    </div>
+  </article>
+  <div class="post__foot">
+    
+      <div class="like-author">
+  <input type="checkbox" id="likeCode" />
+  <div class="author-face">
+    <img height="100px"
+         width="100px"
+         id="front-face"
+         alt="author face"
+         src="/assets/avatar.jpg" />
+    <img height="100px"
+         width="100px"
+         id="back-face"
+         alt="like code"
+         src="/assets/sponsor.png" />
+  </div>
+  <div class="like-text">给作者倒杯卡布奇诺</div>
+  <label for="likeCode" class="like-btn">
+    <svg viewBox="0 0 1024 1024"
+         width="20px"
+         style="margin-right: 10px"
+         height="20px">
+      <path d="M466.88 908.96L113.824 563.296a270.08 270.08 0 0 1 0-387.392c108.8-106.56 284.896-106.56 393.696 0 1.504 1.472 2.976 2.944 4.448 4.48 1.472-1.536 2.944-3.008 4.448-4.48 108.8-106.56 284.896-106.56 393.696 0a269.952 269.952 0 0 1 34.016 347.072l-387.392 385.6a64 64 0 0 1-89.92 0.384z" p-id="13650" fill="#ee4242" />
+    </svg>
+    喜欢作者
+  </label>
+</div>
+
+    
+    <div class="post-nav">
+  
+    <div class="post-nav-item-left"></div>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/2024/01/09/MySQL%E9%94%81/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      MySQL锁
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-tag">#数据库</a>
   
 
 </div>
-    </div>
+  <div class="realated__body">
+    
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\2024\01\09\MySQL锁\" title="MySQL锁" rel="bookmark">MySQL锁</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div></div>
+    
   </div>
-
+</div>
 
     
-    
+    <div id="gitalk-container"></div>
   </div>
 
     </div>
@@ -227,7 +329,14 @@
               src="https://www.unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
     
     
-  
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const param = JSON.parse('{"enable":true,"owner":"Lynchrocket","admin":"Lynchrocket","repo":"Lynchrocket.github.io","clientID":"45d8817d291626df7894","clientSecret":"2761427f37f733d92cc64be2e2a3826cc8454cf3","distractionFreeMode":false,"proxy":"https://worker-lingering-hat-47a4.lynchrocket.workers.dev/?https://github.com/login/oauth/access_token","language":"zh-CN","per_page":20}')
+  param.id = location.pathname
+  const gitalk = new Gitalk(param)
+  gitalk.render('gitalk-container')
+</script>
+
 
   </body>
 </html>
