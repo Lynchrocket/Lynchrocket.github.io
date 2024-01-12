@@ -58,8 +58,8 @@
           href='/css/layout.css'/>
     
     
-  <link rel="stylesheet" type="text/css" href="/css/post.css" />
-  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  <link rel="stylesheet" type="text/css" href="/css/post.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"/>
 
   <meta name="generator" content="Hexo 7.0.0"></head>
   <body>
@@ -89,24 +89,12 @@
     <div class="body">
       
   <article class="post-content">
-    
-      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
-      <script>
-        if (window.mermaid) {
-          mermaid.initialize([object Object]);
-        }
-      </script>
-    
     <div class="post-inner--toc">
       <div class="post-content__head">
         <div class="post-title">Git信息泄露</div>
         <div class="post-info">
           
-  
-    <a href="/tags/%E9%80%86%E5%90%91/" class="post-tag">#逆向</a>
-  
-    <a href="/tags/Git/" class="post-tag">#Git</a>
-  
+  <a href="/tags/%E9%80%86%E5%90%91/" class="post-tag">#逆向</a><a href="/tags/Git/" class="post-tag">#Git</a>
 
 
           <span class="post-date">2022-07-25</span>
@@ -371,6 +359,14 @@
 
       </div>
     </div>
+    
+      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize({"startOnload":true});
+        }
+      </script>
+    
   </article>
   <div class="post__foot">
     
@@ -439,11 +435,7 @@
     
       <div class="related-post">
   <div class="related__head">
-  
-    <a href="/tags/%E9%80%86%E5%90%91/" class="post-tag">#逆向</a>
-  
-    <a href="/tags/Git/" class="post-tag">#Git</a>
-  
+  <a href="/tags/%E9%80%86%E5%90%91/" class="post-tag">#逆向</a><a href="/tags/Git/" class="post-tag">#Git</a>
 
 </div>
   <div class="realated__body">
@@ -454,7 +446,9 @@
 </div>
 
     
-    <div id="gitalk-container"></div>
+    
+      <div id="gitalk-container"></div>
+    
   </div>
 
     </div>
@@ -564,6 +558,7 @@
   gitalk.render('gitalk-container')
 </script>
 
+  
 
   </body>
 </html>

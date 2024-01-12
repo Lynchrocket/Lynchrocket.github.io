@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
     <title>
       
-        MySQL锁 | C'est la vie
+        Linux杂项 | C'est la vie
       
     </title>
     <meta name="description" content=""/>
@@ -58,8 +58,8 @@
           href='/css/layout.css'/>
     
     
-  <link rel="stylesheet" type="text/css" href="/css/post.css" />
-  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  <link rel="stylesheet" type="text/css" href="/css/post.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"/>
 
   <meta name="generator" content="Hexo 7.0.0"></head>
   <body>
@@ -89,31 +89,21 @@
     <div class="body">
       
   <article class="post-content">
-    
-      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
-      <script>
-        if (window.mermaid) {
-          mermaid.initialize([object Object]);
-        }
-      </script>
-    
     <div class="post-inner--toc">
       <div class="post-content__head">
-        <div class="post-title">MySQL锁</div>
+        <div class="post-title">Linux杂项</div>
         <div class="post-info">
           
-  
-    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-tag">#数据库</a>
-  
+  <a href="/tags/Linux/" class="post-tag">#Linux</a>
 
 
-          <span class="post-date">2024-01-09</span>
+          <span class="post-date">2024-01-12</span>
         </div>
       </div>
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%94%81%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="post-toc-number">1.</span> <span class="post-toc-text">锁的功能</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%94%81%E7%9A%84%E5%88%86%E7%B1%BB"><span class="post-toc-number">2.</span> <span class="post-toc-text">锁的分类</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+          
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -123,18 +113,34 @@
             
           </div>
         
-        <p>锁（lock）是计算机用以协调多个进程间并发（concurrent）访问同一共享资源的一种机制。MySQL 中为了保证数据访问的一致性与有效性等功能，实现了锁机制。MySQL 中的锁是在服务器层或者存储引擎层实现的。</p>
+        <p>本文用于记录使用 Linux 过程中遇到的问题。</p>
 <span id="more"></span>
-<h1 id="锁的功能">锁的功能</h1>
-<p>我们需要在最大程度地利用数据库的并发访问能力的同时，也要确保每个用户能以一致的方式读取和修改数据。但是，事务并发执行时可能会带来各种问题（详见<a href="/2024/01/09/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/" title="数据库事务">数据库事务</a>）。要解决并发事务的问题，就需要借助到锁。</p>
-<h1 id="锁的分类">锁的分类</h1>
-<h1 id="参考资料">参考资料</h1>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wugongzi/p/16784313.html">一文读懂 MySQL 锁</a></li>
+<li>删除 .nfs 文件</li>
 </ul>
+<ol type="1">
+<li>查找 .nfs 文件的 PID</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">lsof .nfs0000000009e000d700000012<br></code></pre></td></tr></table></figure>
+<ol start="2" type="1">
+<li>弹出大量信息，最后一行如下</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME<br><br>tar 32961 t3g 5r REG 0,57 8076 0023639 .nfs0000000007b000d700000049<br></code></pre></td></tr></table></figure>
+<ol start="3" type="1">
+<li>杀死占用的进程，从而删除 .nfs 文件</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">kill -9 32961<br></code></pre></td></tr></table></figure>
 
       </div>
     </div>
+    
+      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize({"startOnload":true});
+        }
+      </script>
+    
   </article>
   <div class="post__foot">
     
@@ -167,23 +173,11 @@
     
     <div class="post-nav">
   
-    <a class="post-nav-item-left" href="/2024/01/09/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/">
-      <div class="text-align">
-        <svg t="1670570876164"
-             class="icon"
-             viewBox="0 0 1024 1024"
-             width="16"
-             height="16">
-          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
-        </svg>
-        <span class="text-small">上一篇</span>
-      </div>
-      <div>数据库事务</div>
-    </a>
+    <div class="post-nav-item-left"></div>
   
   <div class="vhr"></div>
   
-    <a class="post-nav-item-right" href="/2024/01/09/%E4%BF%B3%E5%8F%A5/">
+    <a class="post-nav-item-right" href="/2024/01/12/TTC%E6%B5%8B%E8%B7%9D%E7%A2%B0%E6%92%9E%E7%AE%97%E6%B3%95/">
       <div class="text-align">
         <span class="text-small">下一篇</span>
         <svg t="1670570876164"
@@ -195,7 +189,7 @@
           <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
         </svg>
       </div>
-      俳句
+      TTC测距碰撞算法
     </a>
   
 </div>
@@ -203,20 +197,20 @@
     
       <div class="related-post">
   <div class="related__head">
-  
-    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-tag">#数据库</a>
-  
+  <a href="/tags/Linux/" class="post-tag">#Linux</a>
 
 </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\2024\01\09\数据库事务\" title="数据库事务" rel="bookmark">数据库事务</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div></div>
     
   </div>
 </div>
 
     
-    <div id="gitalk-container"></div>
+    
+      <div id="gitalk-container"></div>
+    
   </div>
 
     </div>
@@ -326,6 +320,7 @@
   gitalk.render('gitalk-container')
 </script>
 
+  
 
   </body>
 </html>

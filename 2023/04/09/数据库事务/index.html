@@ -58,8 +58,8 @@
           href='/css/layout.css'/>
     
     
-  <link rel="stylesheet" type="text/css" href="/css/post.css" />
-  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  <link rel="stylesheet" type="text/css" href="/css/post.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"/>
 
   <meta name="generator" content="Hexo 7.0.0"></head>
   <body>
@@ -89,31 +89,21 @@
     <div class="body">
       
   <article class="post-content">
-    
-      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
-      <script>
-        if (window.mermaid) {
-          mermaid.initialize([object Object]);
-        }
-      </script>
-    
     <div class="post-inner--toc">
       <div class="post-content__head">
         <div class="post-title">数据库事务</div>
         <div class="post-info">
           
-  
-    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-tag">#数据库</a>
-  
+  <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-tag">#数据库</a>
 
 
-          <span class="post-date">2024-01-09</span>
+          <span class="post-date">2023-04-09</span>
         </div>
       </div>
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="post-toc-number">1.</span> <span class="post-toc-text">事务的定义</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#acid"><span class="post-toc-number">2.</span> <span class="post-toc-text">ACID</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8B%E5%8A%A1%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98"><span class="post-toc-number">3.</span> <span class="post-toc-text">事务并发问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%A2%E5%A4%B1%E4%BF%AE%E6%94%B9"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">丢失修改</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%84%8F%E8%AF%BB"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">脏读</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">不可重复读</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B9%BB%E8%AF%BB"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">幻读</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="post-toc-number">1.</span> <span class="post-toc-text">事务的定义</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#acid"><span class="post-toc-number">2.</span> <span class="post-toc-text">ACID</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8B%E5%8A%A1%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98"><span class="post-toc-number">3.</span> <span class="post-toc-text">事务并发问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%A2%E5%A4%B1%E4%BF%AE%E6%94%B9"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">丢失修改</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%84%8F%E8%AF%BB"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">脏读</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">不可重复读</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B9%BB%E8%AF%BB"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">幻读</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%92%8C%E5%B9%BB%E8%AF%BB%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">不可重复读和幻读的区别</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB"><span class="post-toc-number">4.</span> <span class="post-toc-text">事务隔离</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="post-toc-number">5.</span> <span class="post-toc-text">如何实现隔离级别</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#mysql-%E7%9A%84%E9%BB%98%E8%AE%A4%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="post-toc-number">6.</span> <span class="post-toc-text">MySQL 的默认隔离级别</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">7.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -138,7 +128,7 @@
 <li>持久性（Durability）：一个事务被提交之后。它对数据库中数据的改变是持久的，即使数据库发生故障也不应该对其有任何影响。</li>
 </ul>
 <p>但是，这四个特性不是平级关系。A、I、D 是手段，C 是目的。我们需要保证事务的原子性、隔离性、持久性之后，才能有事务的一致性。</p>
-<pre class="mermaid">flowchart LR
+<pre class="mermaid">flowchart TB
   Atomicity --> Consistency
   Isolation --> Consistency
   Durability --> Consistency</pre>
@@ -267,7 +257,65 @@
 </table>
 <pre class="mermaid">flowchart LR
   A((A)) ----INSERT---> END((end))
-  B((B)) --SELECT count(*)--> num2[num=10] --SELECT count(*)---> num3[num=11] --> END((end))</pre>
+  B((B)) --SELECT count(*)--> num2[num=10] --SELECT count(*)---> num3[num=11] --> END</pre>
+<h2 id="不可重复读和幻读的区别">不可重复读和幻读的区别</h2>
+<ul>
+<li>不可重复读的重点在于内容<code>修改</code>或者记录<code>减少</code>；</li>
+<li>幻读的重点在于记录<code>新增</code>。</li>
+</ul>
+<p>幻读本质上是不可重复读的特殊情况，单独区分幻读的原因是解决幻读和不可重复读的方案不一样。</p>
+<blockquote>
+<p>执行 <code>delete</code> 和 <code>update</code> 操作的时候，可以直接对记录加锁。而执行 <code>insert</code> 操作的时候，由于记录锁（Record Lock）只能锁住已经存在的记录，为了避免插入新记录，需要依赖间隙锁（Gap Lock）。也就是说执行 <code>insert</code> 操作的时候需要依赖 Next-Key Lock（Record Lock+Gap Lock）来保证不出现幻读。</p>
+</blockquote>
+<h1 id="事务隔离">事务隔离</h1>
+<p>SQL 标准定义了四个隔离级别</p>
+<ul>
+<li>读取未提交（READ-UNCOMMITTED）：允许读取尚未提交的数据变更，可能会导致脏读、幻读或不可重复读。</li>
+<li>读取已提交（READ-COMMITTED）：只能读取已经提交的事务所做的修改。</li>
+<li>可重复读（REPEATABLE-READ）：保证在事务中多次读取同一数据的结果是一样的。</li>
+<li>可串行化（SERIALIZABLE）：完全服从 ACID 的隔离级别。强制所有事务串行执行，这样事务之间就完全互不干扰。</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>READ-UNCOMMITTED</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr class="even">
+<td>READ-COMMITTED</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr class="odd">
+<td>REPEATABLE-READ</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr class="even">
+<td>SERIALIZABLE</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody>
+</table>
+<h1 id="如何实现隔离级别">如何实现隔离级别</h1>
+<p>由锁和 MVCC（Multiversion concurrency control）机制共同实现。</p>
+<p>SERIALIZABLE 隔离级别是通过锁来实现的，READ-COMMITTED 和 REPEATABLE-READ 隔离级别是基于 MVCC 实现的。不过， SERIALIZABLE 之外的其他隔离级别可能也需要用到锁机制，就比如 REPEATABLE-READ 在当前读情况下需要使用加锁读来保证不会出现幻读。</p>
+<h1 id="mysql-的默认隔离级别">MySQL 的默认隔离级别</h1>
+<p>MySQL InnoDB 存储引擎的默认支持的隔离级别是 REPEATABLE-READ（可重复读）。可以通过 <code>SELECT @@tx_isolation;</code> 命令来查看</p>
 <h1 id="参考资料">参考资料</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://javaguide.cn/database/mysql/mysql-questions-01.html#mysql-%E4%BA%8B%E5%8A%A1">MySQL常见面试题总结</a></li>
@@ -276,6 +324,14 @@
 
       </div>
     </div>
+    
+      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize({"startOnload":true});
+        }
+      </script>
+    
   </article>
   <div class="post__foot">
     
@@ -308,7 +364,7 @@
     
     <div class="post-nav">
   
-    <a class="post-nav-item-left" href="/2024/01/12/TTC%E6%B5%8B%E8%B7%9D%E7%A2%B0%E6%92%9E%E7%AE%97%E6%B3%95/">
+    <a class="post-nav-item-left" href="/2023/06/16/RSA/">
       <div class="text-align">
         <svg t="1670570876164"
              class="icon"
@@ -319,12 +375,12 @@
         </svg>
         <span class="text-small">上一篇</span>
       </div>
-      <div>TTC测距碰撞算法</div>
+      <div>RSA</div>
     </a>
   
   <div class="vhr"></div>
   
-    <a class="post-nav-item-right" href="/2024/01/09/MySQL%E9%94%81/">
+    <a class="post-nav-item-right" href="/2023/04/09/MySQL%E9%94%81/">
       <div class="text-align">
         <span class="text-small">下一篇</span>
         <svg t="1670570876164"
@@ -344,20 +400,20 @@
     
       <div class="related-post">
   <div class="related__head">
-  
-    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-tag">#数据库</a>
-  
+  <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-tag">#数据库</a>
 
 </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\2024\01\09\MySQL锁\" title="MySQL锁" rel="bookmark">MySQL锁</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\2023\04\09\MySQL锁\" title="MySQL锁" rel="bookmark">MySQL锁</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div></div>
     
   </div>
 </div>
 
     
-    <div id="gitalk-container"></div>
+    
+      <div id="gitalk-container"></div>
+    
   </div>
 
     </div>
@@ -467,6 +523,7 @@
   gitalk.render('gitalk-container')
 </script>
 
+  
 
   </body>
 </html>
