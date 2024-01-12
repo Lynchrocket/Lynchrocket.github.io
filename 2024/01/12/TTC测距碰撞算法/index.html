@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
     <title>
       
-        Maven | C'est la vie
+        TTC测距碰撞算法 | C'est la vie
       
     </title>
     <meta name="description" content=""/>
@@ -58,9 +58,8 @@
           href='/css/layout.css'/>
     
     
-  <link rel="stylesheet"
-        type="text/css"
-        href="/css/category.css" />
+  <link rel="stylesheet" type="text/css" href="/css/post.css" />
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
 
   <meta name="generator" content="Hexo 7.0.0"></head>
   <body>
@@ -89,35 +88,124 @@
     </div>
     <div class="body">
       
-  <div class="tag-page-title">#Maven</div>
-  <div class="post-list">
+  <article class="post-content">
     
+      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize([object Object]);
+        }
+      </script>
+    
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">TTC测距碰撞算法</div>
+        <div class="post-info">
+          
   
-  <div class="post-card">
-    <div class="post__head">
-      <a href="/2023/08/22/Maven/" class="post-title hover-line">Maven</a>
+    <a href="/tags/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/" class="post-tag">#自动驾驶</a>
+  
+
+
+          <span class="post-date">2024-01-12</span>
+        </div>
+      </div>
       
-    </div>
-    <div class="post__body">
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">1.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
       
-      <div class="post-excerpt"><p>Maven 作为一个构建工具，不仅能自动化构建项目，还能够抽象构建过程，提供构建任务实现；它跨平台，对外提供了一致的操作接口，这一切足以使它成为优秀的、流行的构建工具。Maven 不仅是构建工具，还是一个依赖管理工具和项目管理工具。它提供了中央仓库，且能按照配置自动下载构件。</p></div>
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <p>创新实践又忘记搞个定量指标了，要被老板痛批了，赶快赶一个。</p>
+<span id="more"></span>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/9Yq15GsSlM8i9rxsCZ22Mw">一文读懂TTC碰撞时间算法</a></li>
+<li><a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1782615956499586607&amp;wfr=spider&amp;for=pc">ADAS系统横纵向控制策略之碰撞时间计算方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_66159157/article/details/129653950">评估车辆之间安全距离的指标</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/112342540">TTC测距碰撞算法</a></li>
+<li><a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/5309851">Time to contact estimation using interest points</a></li>
+</ul>
+
+      </div>
     </div>
-    <div class="post__foot">
-      <div class="post-tags">
+  </article>
+  <div class="post__foot">
+    
+      <div class="like-author">
+  <input type="checkbox" id="likeCode" />
+  <div class="author-face">
+    <img height="100px"
+         width="100px"
+         id="front-face"
+         alt="author face"
+         src="/assets/avatar.jpg" />
+    <img height="100px"
+         width="100px"
+         id="back-face"
+         alt="like code"
+         src="/assets/sponsor.png" />
+  </div>
+  <div class="like-text">给作者倒杯卡布奇诺</div>
+  <label for="likeCode" class="like-btn">
+    <svg viewBox="0 0 1024 1024"
+         width="20px"
+         style="margin-right: 10px"
+         height="20px">
+      <path d="M466.88 908.96L113.824 563.296a270.08 270.08 0 0 1 0-387.392c108.8-106.56 284.896-106.56 393.696 0 1.504 1.472 2.976 2.944 4.448 4.48 1.472-1.536 2.944-3.008 4.448-4.48 108.8-106.56 284.896-106.56 393.696 0a269.952 269.952 0 0 1 34.016 347.072l-387.392 385.6a64 64 0 0 1-89.92 0.384z" p-id="13650" fill="#ee4242" />
+    </svg>
+    喜欢作者
+  </label>
+</div>
+
+    
+    <div class="post-nav">
   
-    <a href="/tags/%E9%85%8D%E7%BD%AE/" class="post-tag">#配置</a>
+    <div class="post-nav-item-left"></div>
   
-    <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" class="post-tag">#软件开发</a>
+  <div class="vhr"></div>
   
-    <a href="/tags/Maven/" class="post-tag">#Maven</a>
+    <a class="post-nav-item-right" href="/2024/01/09/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      数据库事务
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+  
+    <a href="/tags/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/" class="post-tag">#自动驾驶</a>
   
 
 </div>
-    </div>
+  <div class="realated__body">
+    
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div></div>
+    
   </div>
-
+</div>
 
     
+    <div id="gitalk-container"></div>
   </div>
 
     </div>
@@ -219,5 +307,14 @@
               src="https://www.unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
     
     
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const param = JSON.parse('{"enable":true,"owner":"Lynchrocket","admin":"Lynchrocket","repo":"Lynchrocket.github.io","clientID":"45d8817d291626df7894","clientSecret":"2761427f37f733d92cc64be2e2a3826cc8454cf3","distractionFreeMode":false,"proxy":"https://worker-lingering-hat-47a4.lynchrocket.workers.dev/?https://github.com/login/oauth/access_token","language":"zh-CN","per_page":20}')
+  param.id = location.pathname
+  const gitalk = new Gitalk(param)
+  gitalk.render('gitalk-container')
+</script>
+
+
   </body>
 </html>

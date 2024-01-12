@@ -113,7 +113,7 @@
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8B%E5%8A%A1%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98"><span class="post-toc-number">1.</span> <span class="post-toc-text">事务并发问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%84%8F%E8%AF%BB"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">脏读</span></a></li></ol></li></ol>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="post-toc-number">1.</span> <span class="post-toc-text">事务的定义</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#acid"><span class="post-toc-number">2.</span> <span class="post-toc-text">ACID</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8B%E5%8A%A1%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98"><span class="post-toc-number">3.</span> <span class="post-toc-text">事务并发问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%A2%E5%A4%B1%E4%BF%AE%E6%94%B9"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">丢失修改</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%84%8F%E8%AF%BB"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">脏读</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">不可重复读</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B9%BB%E8%AF%BB"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">幻读</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -123,12 +123,65 @@
             
           </div>
         
-        <h1 id="事务并发问题">事务并发问题</h1>
-<p>在多个事务并发操作数据库时，如果没有有效的机制进行避免就会导致脏读（Dirty Read），不可重复读（Non-repeatable Read），幻读（Phantom Read）。</p>
+        <h1 id="事务的定义">事务的定义</h1>
+<p>事务是逻辑上的一组原子操作，即要么都执行，要么都不执行。在数据库中，<code>START TRANSACTION;</code> 和 <code>COMMIT;</code> 及其之间的所有语句被视为一个事务。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plaintext"># 开启一个事务<br>START TRANSACTION;<br># 多条 SQL 语句<br>SQL1,SQL2...<br># 提交事务<br>COMMIT;<br><br># 回滚<br>ROLLBACK;<br></code></pre></td></tr></table></figure>
+<pre class="mermaid">flowchart LR
+  start((开启事务)) --> sql(sql1 --> sql2 --> ... --> sqln) --sql全部执行成功--> commit((提交事务))
+  sql --有一个sql执行失败--> rollback((回滚事务))</pre>
+<h1 id="acid">ACID</h1>
+<p>现代关系型数据库中的事务都有 ACID 的特性</p>
+<ul>
+<li>原子性（Atomicity）：事务是最小的执行单位，不允许分割。事务的原子性确保动作要么全部完成，要么完全不起作用；</li>
+<li>一致性（Consistency）：执行事务前后，数据保持一致。例如转账业务中，无论事务是否成功，转账者和收款人的总额应该是不变的；</li>
+<li>隔离性（Isolation）：并发访问数据库时，一个用户的事务不被其他事务所干扰，各并发事务之间数据库是独立的；</li>
+<li>持久性（Durability）：一个事务被提交之后。它对数据库中数据的改变是持久的，即使数据库发生故障也不应该对其有任何影响。</li>
+</ul>
+<p>但是，这四个特性不是平级关系。A、I、D 是手段，C 是目的。我们需要保证事务的原子性、隔离性、持久性之后，才能有事务的一致性。</p>
+<pre class="mermaid">flowchart LR
+  Atomicity --> Consistency
+  Isolation --> Consistency
+  Durability --> Consistency</pre>
+<h1 id="事务并发问题">事务并发问题</h1>
+<p>在多个事务并发操作数据库时，如果没有有效的机制进行避免就会导致丢失修改（Lost to modify），脏读（Dirty Read），不可重复读（Unrepeatable Read），幻读（Phantom Read）。</p>
+<h2 id="丢失修改">丢失修改</h2>
+<ol type="1">
+<li>事务 A 对数据进行了修改，然后事务 B 在事务 A 提交之前也对数据进行了修改；</li>
+<li>事务 B 提交后，事务 A 的修改被覆盖。</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th>事务 A</th>
+<th>事务 B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>UPDATE user SET age=21 WHERE id=1;</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>UPDATE user SET age=20 WHERE id=1;</code></td>
+</tr>
+<tr class="odd">
+<td><code>COMMIT;</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>COMMIT;</code></td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid">flowchart LR
+  A((A)) --> age1A[age=10] --SET age=21--> age2[age=21] --COMMIT--> age3[age=10]
+  B((B)) --> age1B[age=10]  --SET age=20--> age4[age=20] --COMMIT---> age5[age=20]</pre>
 <h2 id="脏读">脏读</h2>
 <ol type="1">
-<li>事务 A 对数据资源进行了修改，事务 B 读取了事务 A 修改后的数据；</li>
-<li>由于某些原因，事务 A 并没有完成提交（commit），回滚（RollBack）了操作，则事务 B 读取的数据就是脏数据。</li>
+<li>事务 A 对数据进行了修改，事务 B 读取了事务 A 修改后的数据；</li>
+<li>由于某些原因，事务 A 并没有完成提交，回滚了操作，则事务 B 读取的数据就是脏数据。</li>
 </ol>
 <table>
 <thead>
@@ -154,7 +207,72 @@
 </table>
 <pre class="mermaid">flowchart LR
   A((A)) --> age1[age=10] --SET age=21--> age2[age=21] --ROLLBACK--> age3[age=10]
-  B((B)) --->age4[age=21]</pre>
+  B((B)) ---> age4[age=21]</pre>
+<h2 id="不可重复读">不可重复读</h2>
+<ol type="1">
+<li>在事务 A 未结束时，事务 B 先读取了一次数据；</li>
+<li>事务 A 修改了数据，事务 B 再次读取同一数据，两次读取的数据不一样。</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th>事务 A</th>
+<th>事务 B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><code>SELECT * FROM user WHERE id=1;</code></td>
+</tr>
+<tr class="even">
+<td><code>UPDATE user SET age=21 WHERE id=1;</code></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>SELECT * FROM user WHERE id=1;</code></td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid">flowchart LR
+  A((A)) --> age1[age=10] --SET age=21--> age2[age=21]
+  B((B)) --SELECT--> age3[age=10] --SELECT---> age4[age=21]</pre>
+<h2 id="幻读">幻读</h2>
+<ol type="1">
+<li>在事务 B 读取数据行数后，事务 A 插入数据；</li>
+<li>事务 B 再次读取数据行数，发现有新的记录。</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th>事务 A</th>
+<th>事务 B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><code>SELECT count(*) FROM user;</code></td>
+</tr>
+<tr class="even">
+<td><code>INSERT INTO user VALUES (1,2,3,4,5);</code></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>SELECT count(*) FROM user;</code></td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid">flowchart LR
+  A((A)) ----INSERT---> END((end))
+  B((B)) --SELECT count(*)--> num2[num=10] --SELECT count(*)---> num3[num=11] --> END((end))</pre>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://javaguide.cn/database/mysql/mysql-questions-01.html#mysql-%E4%BA%8B%E5%8A%A1">MySQL常见面试题总结</a></li>
+<li><a target="_blank" rel="noopener" href="https://cyc2018.xyz/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86.html#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86">数据库系统原理</a></li>
+</ul>
 
       </div>
     </div>
@@ -190,7 +308,19 @@
     
     <div class="post-nav">
   
-    <div class="post-nav-item-left"></div>
+    <a class="post-nav-item-left" href="/2024/01/12/TTC%E6%B5%8B%E8%B7%9D%E7%A2%B0%E6%92%9E%E7%AE%97%E6%B3%95/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>TTC测距碰撞算法</div>
+    </a>
   
   <div class="vhr"></div>
   

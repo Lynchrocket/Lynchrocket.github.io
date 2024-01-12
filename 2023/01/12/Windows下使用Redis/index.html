@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
     <title>
       
-        深度学习：Pytorch基本操作 | C'est la vie
+        Windows下使用Redis | C'est la vie
       
     </title>
     <meta name="description" content=""/>
@@ -99,23 +99,21 @@
     
     <div class="post-inner--toc">
       <div class="post-content__head">
-        <div class="post-title">深度学习：Pytorch基本操作</div>
+        <div class="post-title">Windows下使用Redis</div>
         <div class="post-info">
           
   
-    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-tag">#深度学习</a>
-  
-    <a href="/tags/Pytorch/" class="post-tag">#Pytorch</a>
+    <a href="/tags/%E9%85%8D%E7%BD%AE/" class="post-tag">#配置</a>
   
 
 
-          <span class="post-date">2024-01-06</span>
+          <span class="post-date">2023-01-12</span>
         </div>
       </div>
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ndarray-tensor"><span class="post-toc-number">1.</span> <span class="post-toc-text">ndarray (tensor)</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C"><span class="post-toc-number">2.</span> <span class="post-toc-text">数据操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AE%BF%E9%97%AE%E5%85%83%E7%B4%A0"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">访问元素</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B9%BF%E6%92%AD%E6%9C%BA%E5%88%B6-broadcasting-mechanism"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">广播机制 (broadcasting mechanism)</span></a></li></ol></li></ol>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="post-toc-number">1.</span> <span class="post-toc-text">常见问题</span></a></li></ol>
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -125,26 +123,26 @@
             
           </div>
         
-        <h1 id="ndarray-tensor">ndarray (tensor)</h1>
-<p>N-dimensional array.</p>
+        <p>Redis 官方不支持 Windows，只支持 Linux。但是微软开发了 Windows 版本的，可见于<a target="_blank" rel="noopener" href="https://github.com/MicrosoftArchive/redis/releases">Releases · microsoftarchive/redis (github.com)</a></p>
+<p>下载需要的版本到合适的位置并解压，然后进入相应的目录，打开命令行并输入命令 <code>redis-server.exe redis.windows.conf</code> 即可启动 Redis 服务器。</p>
 <figure>
-<img src="/2024/01/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%9APytorch%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/ndarray1.png" alt="ndarray"><figcaption aria-hidden="true">ndarray</figcaption>
+<img src="/2023/01/12/Windows%E4%B8%8B%E4%BD%BF%E7%94%A8Redis/Redis.png" alt="Redis"><figcaption aria-hidden="true">Redis</figcaption>
 </figure>
 <figure>
-<img src="/2024/01/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%9APytorch%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/ndarray2.png" alt="ndarray"><figcaption aria-hidden="true">ndarray</figcaption>
+<img src="/2023/01/12/Windows%E4%B8%8B%E4%BD%BF%E7%94%A8Redis/start.png" alt="start"><figcaption aria-hidden="true">start</figcaption>
 </figure>
-<h1 id="数据操作">数据操作</h1>
-<h2 id="访问元素">访问元素</h2>
+<h1 id="常见问题">常见问题</h1>
+<blockquote>
+<p>Creating Server TCP listening socket *:6379: bind: Unknown error</p>
+</blockquote>
 <figure>
-<img src="/2024/01/06/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%9APytorch%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/access_elements.png" alt="access elements"><figcaption aria-hidden="true">access elements</figcaption>
+<img src="/2023/01/12/Windows%E4%B8%8B%E4%BD%BF%E7%94%A8Redis/error.png" alt="error"><figcaption aria-hidden="true">error</figcaption>
 </figure>
-<h2 id="广播机制-broadcasting-mechanism">广播机制 (broadcasting mechanism)</h2>
-<p>在某些情况下，即使形状不同，我们仍然可以通过调用 <em>广播机制</em> 来执行按元素操作。这种机制的工作方式如下：</p>
-<ol type="1">
-<li>通过适当复制元素来扩展一个或两个数组，以便在转换之后，两个张量具有相同的形状；</li>
-<li>对生成的数组执行按元素操作。</li>
-</ol>
-<p>后面有空再补</p>
+<p>同样的目录下，输入如下命令，就可以正常使用了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">redis-cli.exe                         <span class="hljs-comment"># 进入命令行</span><br>shutdown                              <span class="hljs-comment"># 关闭 redis</span><br><span class="hljs-built_in">exit</span>                                  <span class="hljs-comment"># 推出命令行</span><br>redis-server.exe redis.windows.conf   <span class="hljs-comment"># 再次启动 redis</span><br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/01/12/Windows%E4%B8%8B%E4%BD%BF%E7%94%A8Redis/reboot.png" alt="reboot"><figcaption aria-hidden="true">reboot</figcaption>
+</figure>
 
       </div>
     </div>
@@ -180,7 +178,7 @@
     
     <div class="post-nav">
   
-    <a class="post-nav-item-left" href="/2024/01/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">
+    <a class="post-nav-item-left" href="/2023/06/16/RSA/">
       <div class="text-align">
         <svg t="1670570876164"
              class="icon"
@@ -191,12 +189,12 @@
         </svg>
         <span class="text-small">上一篇</span>
       </div>
-      <div>机器学习：线性回归</div>
+      <div>RSA</div>
     </a>
   
   <div class="vhr"></div>
   
-    <a class="post-nav-item-right" href="/2024/01/05/%E7%9F%A9%E9%98%B5%E8%AE%A1%E7%AE%97/">
+    <a class="post-nav-item-right" href="/2022/08/19/Kotlin%EF%BC%9A%E5%86%85%E7%BD%AE%E6%8E%92%E5%BA%8F%E6%96%B9%E6%B3%95/">
       <div class="text-align">
         <span class="text-small">下一篇</span>
         <svg t="1670570876164"
@@ -208,7 +206,7 @@
           <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
         </svg>
       </div>
-      矩阵计算
+      Kotlin：内置排序方法
     </a>
   
 </div>
@@ -217,15 +215,13 @@
       <div class="related-post">
   <div class="related__head">
   
-    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-tag">#深度学习</a>
-  
-    <a href="/tags/Pytorch/" class="post-tag">#Pytorch</a>
+    <a href="/tags/%E9%85%8D%E7%BD%AE/" class="post-tag">#配置</a>
   
 
 </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2024\01\08\深度学习：卷积神经网络（CNN）\" title="深度学习：卷积神经网络（CNN）" rel="bookmark">深度学习：卷积神经网络（CNN）</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\08\01\Java字节码\" title="Java字节码" rel="bookmark">Java字节码</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\08\22\Maven\" title="Maven" rel="bookmark">Maven</a></div></div><div class="null-item"><div class="null-title"><a href="\2021\01\07\manim-3b1b数学动画引擎安装\" title="manim--3b1b数学动画引擎安装" rel="bookmark">manim--3b1b数学动画引擎安装</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\08\01\Java字节码\" title="Java字节码" rel="bookmark">Java字节码</a></div></div></div>
     
   </div>
 </div>
