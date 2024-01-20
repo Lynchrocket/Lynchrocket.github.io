@@ -113,7 +113,8 @@
             
           </div>
         
-        <p>原文是大二时写的，但是找不到了，于是重新写了一篇。默认是有 git 经验的，没有的话可以看看这篇文章 <a href="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" title="Git信息泄露">Git信息泄露</a></p>
+        <p>原文是大二时写的，但是找不到了，于是重新写了一篇。默认是有 git
+经验的，没有的话可以看看这篇文章 <a href="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" title="Git信息泄露">Git信息泄露</a></p>
 <span id="more"></span>
 <h1 id="流程">流程</h1>
 <ul>
@@ -121,14 +122,16 @@
 </ul>
 <p>可以先提一个 issue 与原作者交流</p>
 <figure>
-<img src="/2024/01/08/%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4pr/issue.png" alt="issue"><figcaption aria-hidden="true">issue</figcaption>
+<img src="/2024/01/08/%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4pr/issue.png" alt="issue">
+<figcaption aria-hidden="true">issue</figcaption>
 </figure>
 <ul>
 <li>Fork 仓库</li>
 </ul>
 <p>Fork 需要提交 pr 的仓库到自己的仓库中。</p>
 <figure>
-<img src="/2024/01/08/%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4pr/fork.png" alt="Fork 仓库"><figcaption aria-hidden="true">Fork 仓库</figcaption>
+<img src="/2024/01/08/%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4pr/fork.png" alt="Fork 仓库">
+<figcaption aria-hidden="true">Fork 仓库</figcaption>
 </figure>
 <ul>
 <li>git clone 到本地</li>
@@ -140,7 +143,8 @@
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git checkout -b add_mermaid<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="/2024/01/08/%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4pr/git1.png" alt="git clone &amp; branch"><figcaption aria-hidden="true">git clone &amp; branch</figcaption>
+<img src="/2024/01/08/%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4pr/git1.png" alt="git clone &amp; branch">
+<figcaption aria-hidden="true">git clone &amp; branch</figcaption>
 </figure>
 <ul>
 <li>做出修改</li>
@@ -152,27 +156,34 @@
 <p>由于分支是在本地创建的，git push 需要加上 --set-upstream</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git add .<br>git commit -m <span class="hljs-string">&quot;add mermaid&quot;</span><br>git push --set-upstream origin add_mermaid<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="/2024/01/08/%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4pr/git2.png" alt="提交修改"><figcaption aria-hidden="true">提交修改</figcaption>
+<img src="/2024/01/08/%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4pr/git2.png" alt="提交修改">
+<figcaption aria-hidden="true">提交修改</figcaption>
 </figure>
 <ul>
 <li>创建 pull request</li>
 </ul>
 <p>在 Fork 的仓库中，点击 <code>Compare &amp; pull request</code></p>
 <figure>
-<img src="/2024/01/08/%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4pr/Compare%20&amp;%20pull%20request.png" alt="Compare &amp; pull request"><figcaption aria-hidden="true">Compare &amp; pull request</figcaption>
+<img src="/2024/01/08/%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4pr/Compare%20&amp;%20pull%20request.png" alt="Compare &amp; pull request">
+<figcaption aria-hidden="true">Compare &amp; pull request</figcaption>
 </figure>
-<p>选择你想并入的原项目分支，标题和描述信息。如果有对应的 issue，就通过键入 <code>#</code> 添加(Github 会自动展示 issues 列表)</p>
+<p>选择你想并入的原项目分支，标题和描述信息。如果有对应的
+issue，就通过键入 <code>#</code> 添加(Github 会自动展示 issues 列表)</p>
 <figure>
-<img src="/2024/01/08/%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4pr/link_issue.png" alt="link_issue"><figcaption aria-hidden="true">link_issue</figcaption>
+<img src="/2024/01/08/%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4pr/link_issue.png" alt="link_issue">
+<figcaption aria-hidden="true">link_issue</figcaption>
 </figure>
 <p>点击 <code>Create pull request</code>，就行了。结果如下：</p>
 <figure>
-<img src="/2024/01/08/%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4pr/result.png" alt="result"><figcaption aria-hidden="true">result</figcaption>
+<img src="/2024/01/08/%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4pr/result.png" alt="result">
+<figcaption aria-hidden="true">result</figcaption>
 </figure>
 <h1 id="参考资料">参考资料</h1>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://docs.github.com/en/get-started/quickstart/github-flow">GitHub flow</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/584834288">如何在 Github 上规范的提交 PR（图文详解）</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.github.com/en/get-started/quickstart/github-flow">GitHub
+flow</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/584834288">如何在 Github
+上规范的提交 PR（图文详解）</a></li>
 </ul>
 
       </div>

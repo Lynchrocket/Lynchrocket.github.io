@@ -127,71 +127,94 @@
 <li><p>需要指定版本 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda install -c <span class="hljs-string">&quot;nvidia/label/cuda-11.7.0&quot;</span> cuda-nvcc<br></code></pre></td></tr></table></figure></p></li>
 <li><p>头文件： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda install -c conda-forge cudatoolkit-dev<br></code></pre></td></tr></table></figure></p></li>
 </ul></li>
-<li><p>安装 tinycudann 的 PyTorch extension：需要注意要根据这个 <a target="_blank" rel="noopener" href="https://github.com/NVlabs/tiny-cuda-nn/issues/51">Complie PyTorch Bindings with float32 precision</a> 来安装 float32 precision 的</p></li>
+<li><p>安装 tinycudann 的 PyTorch extension：需要注意要根据这个 <a target="_blank" rel="noopener" href="https://github.com/NVlabs/tiny-cuda-nn/issues/51">Complie PyTorch
+Bindings with float32 precision</a> 来安装 float32 precision 的</p></li>
 <li><p>克隆 tinycudann： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> --recursive https://github.com/nvlabs/tiny-cuda-nn<br></code></pre></td></tr></table></figure></p></li>
 <li><p><code>cd tiny-cuda-nn</code></p></li>
-<li><p>这个地方由于服务器环境的原因 cmake 参数需要设置一下，同时在 gpu 节点上运行： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">cmake . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -S . -G Ninja<br>cmake --build build --config RelWithDebInfo -j<br></code></pre></td></tr></table></figure></p></li>
+<li><p>这个地方由于服务器环境的原因 cmake 参数需要设置一下，同时在 gpu
+节点上运行： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">cmake . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -S . -G Ninja<br>cmake --build build --config RelWithDebInfo -j<br></code></pre></td></tr></table></figure></p></li>
 <li><p>安装 PyTorch extension： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> bindings/torch<br>python setup.py install<br></code></pre></td></tr></table></figure></p></li>
-<li><p>安装 mmsegmentation：<a target="_blank" rel="noopener" href="https://mmsegmentation.readthedocs.io/en/latest/get_started.html">GET STARTED: INSTALL AND RUN MMSEG</a>：</p>
+<li><p>安装 mmsegmentation：<a target="_blank" rel="noopener" href="https://mmsegmentation.readthedocs.io/en/latest/get_started.html">GET
+STARTED: INSTALL AND RUN MMSEG</a>：</p>
 <ul>
 <li><p>Install MMCV using MIM <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install -U openmim<br>mim install mmengine<br>mim install <span class="hljs-string">&quot;mmcv&gt;=2.0.0&quot;</span><br></code></pre></td></tr></table></figure></p></li>
 <li><p>Install MMSegmentation <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install <span class="hljs-string">&quot;mmsegmentation&gt;=1.0.0&quot;</span><br></code></pre></td></tr></table></figure></p></li>
-<li><p>下载 segmentation model <code>segformer_mit-b5_8xb1-160k_cityscapes-1024x1024</code> 到合适的文件夹中： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mim download mmsegmentation --config segformer_mit-b5_8xb1-160k_cityscapes-1024x1024 --dest .<br></code></pre></td></tr></table></figure></p></li>
+<li><p>下载 segmentation model
+<code>segformer_mit-b5_8xb1-160k_cityscapes-1024x1024</code>
+到合适的文件夹中： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mim download mmsegmentation --config segformer_mit-b5_8xb1-160k_cityscapes-1024x1024 --dest .<br></code></pre></td></tr></table></figure></p></li>
 </ul></li>
 <li><p>安装 MTMT： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip3 install --no-build-isolation git+https://github.com/lucasb-eyer/pydensecrf.git<br></code></pre></td></tr></table></figure></p>
 <ul>
-<li><p>安装这个的时候出现了一些问题（如下图）。错误的原因是缺失 pydensecrf/eigen.cpp 这个文件。需要换用另一种方式下载 pydensecrf <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda install -c conda-forge pydensecrf<br></code></pre></td></tr></table></figure></p>
+<li><p>安装这个的时候出现了一些问题（如下图）。错误的原因是缺失
+pydensecrf/eigen.cpp 这个文件。需要换用另一种方式下载 pydensecrf
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda install -c conda-forge pydensecrf<br></code></pre></td></tr></table></figure></p>
 <figure>
-<img src="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/MTMT.png" alt="安装MTMT时的问题"><figcaption aria-hidden="true">安装MTMT时的问题</figcaption>
+<img src="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/MTMT.png" alt="安装MTMT时的问题">
+<figcaption aria-hidden="true">安装MTMT时的问题</figcaption>
 </figure></li>
 </ul></li>
-<li><p>下载 MTMT 的 checkpoint：<a target="_blank" rel="noopener" href="https://github.com/eraserNut/MTMT?tab=readme-ov-file#trained-model">Trained Model</a></p></li>
+<li><p>下载 MTMT 的 checkpoint：<a target="_blank" rel="noopener" href="https://github.com/eraserNut/MTMT?tab=readme-ov-file#trained-model">Trained
+Model</a></p></li>
 <li><p>安装剩余的依赖： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install -r requirements.txt<br></code></pre></td></tr></table></figure></p>
 <ul>
-<li><p>在这其中安装 cupy 的时候出错了。使用命令 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install cupy-cuda113<br></code></pre></td></tr></table></figure> 单独安装（要根据自己的 cuda 版本来），然后删掉 requirements.txt 中的 cupy 这一项</p>
+<li><p>在这其中安装 cupy 的时候出错了。使用命令 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install cupy-cuda113<br></code></pre></td></tr></table></figure>
+单独安装（要根据自己的 cuda 版本来），然后删掉 requirements.txt 中的
+cupy 这一项</p>
 <figure>
-<img src="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/cupy.png" alt="cupy"><figcaption aria-hidden="true">cupy</figcaption>
+<img src="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/cupy.png" alt="cupy">
+<figcaption aria-hidden="true">cupy</figcaption>
 </figure>
 <figure>
-<img src="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/delete_cupy.png" alt="delete cupy"><figcaption aria-hidden="true">delete cupy</figcaption>
+<img src="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/delete_cupy.png" alt="delete cupy">
+<figcaption aria-hidden="true">delete cupy</figcaption>
 </figure></li>
 </ul></li>
 <li><p>安装 cuda extension： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install models/csrc<br></code></pre></td></tr></table></figure></p>
-<p>注意需要 <code>pip &gt;= 22.1</code>（照着流程来的话 pip 版本应该不会错），并且该安装要在 gpu 节点上进行</p></li>
+<p>注意需要 <code>pip &gt;= 22.1</code>（照着流程来的话 pip
+版本应该不会错），并且该安装要在 gpu 节点上进行</p></li>
 </ul>
 <p>然后应该就可以运行了。跑个 training 试试看。</p>
 <h1 id="训练问题">训练问题</h1>
 <ol type="1">
 <li>ftfy 和 regex</li>
 </ol>
-<p>直接安装：<code>pip install ftfy</code> 和 <code>pip install regex</code></p>
+<p>直接安装：<code>pip install ftfy</code> 和
+<code>pip install regex</code></p>
 <figure>
-<img src="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/ftfy.png" alt="ftfy"><figcaption aria-hidden="true">ftfy</figcaption>
+<img src="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/ftfy.png" alt="ftfy">
+<figcaption aria-hidden="true">ftfy</figcaption>
 </figure>
 <figure>
-<img src="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/regex.png" alt="regex"><figcaption aria-hidden="true">regex</figcaption>
+<img src="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/regex.png" alt="regex">
+<figcaption aria-hidden="true">regex</figcaption>
 </figure>
 <ol start="2" type="1">
 <li>cuda 头文件（这个是在另一个服务器上发生的问题，也记录一下）</li>
 </ol>
-<p>train 跑起来后出现了这样的错误，错误的原因是找不到 cuda 的某个头文件。这是由于作者把头文件路径写死了，但是我们的服务器环境路径不一样。</p>
+<p>train 跑起来后出现了这样的错误，错误的原因是找不到 cuda
+的某个头文件。这是由于作者把头文件路径写死了，但是我们的服务器环境路径不一样。</p>
 <figure>
-<img src="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/head_file.png" alt="head file"><figcaption aria-hidden="true">head file</figcaption>
+<img src="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/head_file.png" alt="head file">
+<figcaption aria-hidden="true">head file</figcaption>
 </figure>
-<p>翻下 conda 环境，发现该头文件在这个路径：<code>/home/haoq_lab/cse30013594/miniconda3/envs/climatenerf/include/math_functions.h</code></p>
+<p>翻下 conda
+环境，发现该头文件在这个路径：<code>/home/haoq_lab/cse30013594/miniconda3/envs/climatenerf/include/math_functions.h</code></p>
 <p>修改 <code>./datasets/stylize_tools/smooth_filter.py</code> 文件</p>
 <figure>
-<img src="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/smooth_filter1.png" alt="第一处"><figcaption aria-hidden="true">第一处</figcaption>
+<img src="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/smooth_filter1.png" alt="第一处">
+<figcaption aria-hidden="true">第一处</figcaption>
 </figure>
 <figure>
-<img src="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/smooth_filter2.png" alt="第二处"><figcaption aria-hidden="true">第二处</figcaption>
+<img src="/2023/12/29/ClimateNeRF%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/smooth_filter2.png" alt="第二处">
+<figcaption aria-hidden="true">第二处</figcaption>
 </figure>
 <p>然后就能正常跑了。</p>
 <h1 id="参考资料">参考资料</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/y-u-a-n-l-i/Climate_NeRF">Climate_NeRF</a></li>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/657765799?utm_id=0">丝滑安装pydensecrf库</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xueying_2017/article/details/116045080">cupy 安装时提示报错 Exception: Your CUDA environment is invalid.</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xueying_2017/article/details/116045080">cupy
+安装时提示报错 Exception: Your CUDA environment is invalid.</a></li>
 </ul>
 
       </div>
@@ -252,7 +275,7 @@
   
   <div class="vhr"></div>
   
-    <a class="post-nav-item-right" href="/2023/09/07/%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/">
+    <a class="post-nav-item-right" href="/2023/09/12/Paxos%E7%AE%97%E6%B3%95/">
       <div class="text-align">
         <span class="text-small">下一篇</span>
         <svg t="1670570876164"
@@ -264,7 +287,7 @@
           <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
         </svg>
       </div>
-      认证与授权
+      Paxos算法
     </a>
   
 </div>
@@ -277,7 +300,7 @@
 </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\2023\08\22\Maven\" title="Maven" rel="bookmark">Maven</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\01\12\Windows下使用Redis\" title="Windows下使用Redis" rel="bookmark">Windows下使用Redis</a></div></div><div class="null-item"><div class="null-title"><a href="\2021\01\07\manim-3b1b数学动画引擎安装\" title="manim--3b1b数学动画引擎安装" rel="bookmark">manim--3b1b数学动画引擎安装</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\08\01\Java字节码\" title="Java字节码" rel="bookmark">Java字节码</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\2023\08\22\Maven\" title="Maven" rel="bookmark">Maven</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\01\12\Windows下使用Redis\" title="Windows下使用Redis" rel="bookmark">Windows下使用Redis</a></div></div><div class="null-item"><div class="null-title"><a href="\2021\01\07\manim-3b1b数学动画引擎安装\" title="manim--3b1b数学动画引擎安装" rel="bookmark">manim--3b1b数学动画引擎安装</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\25\Git信息泄露\" title="Git信息泄露" rel="bookmark">Git信息泄露</a></div></div></div>
     
   </div>
 </div>

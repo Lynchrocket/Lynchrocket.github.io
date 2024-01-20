@@ -114,7 +114,8 @@
           </div>
         
         <h1 id="事务的定义">事务的定义</h1>
-<p>事务是逻辑上的一组原子操作，即要么都执行，要么都不执行。在数据库中，<code>START TRANSACTION;</code> 和 <code>COMMIT;</code> 及其之间的所有语句被视为一个事务。</p>
+<p>事务是逻辑上的一组原子操作，即要么都执行，要么都不执行。在数据库中，<code>START TRANSACTION;</code>
+和 <code>COMMIT;</code> 及其之间的所有语句被视为一个事务。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plaintext"># 开启一个事务<br>START TRANSACTION;<br># 多条 SQL 语句<br>SQL1,SQL2...<br># 提交事务<br>COMMIT;<br><br># 回滚<br>ROLLBACK;<br></code></pre></td></tr></table></figure>
 <pre class="mermaid">flowchart LR
   start((开启事务)) --> sql(sql1 --> sql2 --> ... --> sqln) --sql全部执行成功--> commit((提交事务))
@@ -127,19 +128,27 @@
 <li>隔离性（Isolation）：并发访问数据库时，一个用户的事务不被其他事务所干扰，各并发事务之间数据库是独立的；</li>
 <li>持久性（Durability）：一个事务被提交之后。它对数据库中数据的改变是持久的，即使数据库发生故障也不应该对其有任何影响。</li>
 </ul>
-<p>但是，这四个特性不是平级关系。A、I、D 是手段，C 是目的。我们需要保证事务的原子性、隔离性、持久性之后，才能有事务的一致性。</p>
+<p>但是，这四个特性不是平级关系。A、I、D 是手段，C
+是目的。我们需要保证事务的原子性、隔离性、持久性之后，才能有事务的一致性。</p>
 <pre class="mermaid">flowchart TB
   Atomicity --> Consistency
   Isolation --> Consistency
   Durability --> Consistency</pre>
 <h1 id="事务并发问题">事务并发问题</h1>
-<p>在多个事务并发操作数据库时，如果没有有效的机制进行避免就会导致丢失修改（Lost to modify），脏读（Dirty Read），不可重复读（Unrepeatable Read），幻读（Phantom Read）。</p>
+<p>在多个事务并发操作数据库时，如果没有有效的机制进行避免就会导致丢失修改（Lost
+to modify），脏读（Dirty Read），不可重复读（Unrepeatable
+Read），幻读（Phantom Read）。</p>
 <h2 id="丢失修改">丢失修改</h2>
 <ol type="1">
-<li>事务 A 对数据进行了修改，然后事务 B 在事务 A 提交之前也对数据进行了修改；</li>
+<li>事务 A 对数据进行了修改，然后事务 B 在事务 A
+提交之前也对数据进行了修改；</li>
 <li>事务 B 提交后，事务 A 的修改被覆盖。</li>
 </ol>
 <table>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>事务 A</th>
@@ -171,9 +180,14 @@
 <h2 id="脏读">脏读</h2>
 <ol type="1">
 <li>事务 A 对数据进行了修改，事务 B 读取了事务 A 修改后的数据；</li>
-<li>由于某些原因，事务 A 并没有完成提交，回滚了操作，则事务 B 读取的数据就是脏数据。</li>
+<li>由于某些原因，事务 A 并没有完成提交，回滚了操作，则事务 B
+读取的数据就是脏数据。</li>
 </ol>
 <table>
+<colgroup>
+<col style="width: 52%">
+<col style="width: 47%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>事务 A</th>
@@ -201,9 +215,14 @@
 <h2 id="不可重复读">不可重复读</h2>
 <ol type="1">
 <li>在事务 A 未结束时，事务 B 先读取了一次数据；</li>
-<li>事务 A 修改了数据，事务 B 再次读取同一数据，两次读取的数据不一样。</li>
+<li>事务 A 修改了数据，事务 B
+再次读取同一数据，两次读取的数据不一样。</li>
 </ol>
 <table>
+<colgroup>
+<col style="width: 52%">
+<col style="width: 47%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>事务 A</th>
@@ -234,6 +253,10 @@
 <li>事务 B 再次读取数据行数，发现有新的记录。</li>
 </ol>
 <table>
+<colgroup>
+<col style="width: 57%">
+<col style="width: 42%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>事务 A</th>
@@ -265,7 +288,12 @@
 </ul>
 <p>幻读本质上是不可重复读的特殊情况，单独区分幻读的原因是解决幻读和不可重复读的方案不一样。</p>
 <blockquote>
-<p>执行 <code>delete</code> 和 <code>update</code> 操作的时候，可以直接对记录加锁。而执行 <code>insert</code> 操作的时候，由于记录锁（Record Lock）只能锁住已经存在的记录，为了避免插入新记录，需要依赖间隙锁（Gap Lock）。也就是说执行 <code>insert</code> 操作的时候需要依赖 Next-Key Lock（Record Lock+Gap Lock）来保证不出现幻读。</p>
+<p>执行 <code>delete</code> 和 <code>update</code>
+操作的时候，可以直接对记录加锁。而执行 <code>insert</code>
+操作的时候，由于记录锁（Record
+Lock）只能锁住已经存在的记录，为了避免插入新记录，需要依赖间隙锁（Gap
+Lock）。也就是说执行 <code>insert</code> 操作的时候需要依赖 Next-Key
+Lock（Record Lock+Gap Lock）来保证不出现幻读。</p>
 </blockquote>
 <h1 id="事务隔离">事务隔离</h1>
 <p>SQL 标准定义了四个隔离级别</p>
@@ -273,7 +301,8 @@
 <li>读取未提交（READ-UNCOMMITTED）：允许读取尚未提交的数据变更，可能会导致脏读、幻读或不可重复读。</li>
 <li>读取已提交（READ-COMMITTED）：只能读取已经提交的事务所做的修改。</li>
 <li>可重复读（REPEATABLE-READ）：保证在事务中多次读取同一数据的结果是一样的。</li>
-<li>可串行化（SERIALIZABLE）：完全服从 ACID 的隔离级别。强制所有事务串行执行，这样事务之间就完全互不干扰。</li>
+<li>可串行化（SERIALIZABLE）：完全服从 ACID
+的隔离级别。强制所有事务串行执行，这样事务之间就完全互不干扰。</li>
 </ul>
 <table>
 <thead>
@@ -313,9 +342,14 @@
 </table>
 <h1 id="如何实现隔离级别">如何实现隔离级别</h1>
 <p>由锁和 MVCC（Multiversion concurrency control）机制共同实现。</p>
-<p>SERIALIZABLE 隔离级别是通过锁来实现的，READ-COMMITTED 和 REPEATABLE-READ 隔离级别是基于 MVCC 实现的。不过， SERIALIZABLE 之外的其他隔离级别可能也需要用到锁机制，就比如 REPEATABLE-READ 在当前读情况下需要使用加锁读来保证不会出现幻读。</p>
+<p>SERIALIZABLE 隔离级别是通过锁来实现的，READ-COMMITTED 和
+REPEATABLE-READ 隔离级别是基于 MVCC 实现的。不过， SERIALIZABLE
+之外的其他隔离级别可能也需要用到锁机制，就比如 REPEATABLE-READ
+在当前读情况下需要使用加锁读来保证不会出现幻读。</p>
 <h1 id="mysql-的默认隔离级别">MySQL 的默认隔离级别</h1>
-<p>MySQL InnoDB 存储引擎的默认支持的隔离级别是 REPEATABLE-READ（可重复读）。可以通过 <code>SELECT @@tx_isolation;</code> 命令来查看</p>
+<p>MySQL InnoDB 存储引擎的默认支持的隔离级别是
+REPEATABLE-READ（可重复读）。可以通过
+<code>SELECT @@tx_isolation;</code> 命令来查看</p>
 <h1 id="参考资料">参考资料</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://javaguide.cn/database/mysql/mysql-questions-01.html#mysql-%E4%BA%8B%E5%8A%A1">MySQL常见面试题总结</a></li>

@@ -120,44 +120,69 @@
 <p><span class="math display">\[
 z=re^{i\theta}=r(cos\theta+isin\theta)
 \]</span></p>
-<p>其满足 <span class="math inline">\(z_1·z_2=r_1r_2e^{i(\alpha+\theta)}\)</span> , <span class="math inline">\(\frac{z_1}{z_2}=\frac{r_1}{r_2}e^{i(\alpha-\theta)}\)</span>. 这都是一些非常好的性质。</p>
+<p>其满足 <span class="math inline">\(z_1·z_2=r_1r_2e^{i(\alpha+\theta)}\)</span> ,
+<span class="math inline">\(\frac{z_1}{z_2}=\frac{r_1}{r_2}e^{i(\alpha-\theta)}\)</span>.
+这都是一些非常好的性质。</p>
 <p>厄米特矩阵（Hermitian matrix）：</p>
 <p>即自共轭矩阵，共轭转置等于自身。矩阵中每一个第i行第j列的元素都与第j行第i列的元素的共轭相等。厄米特特矩阵主对角线上的元素都是实数的，其特征值也是实数。（可类比为实对称矩阵）</p>
-<p>共轭转置（conjugate transpose）操作，可类比为实矩阵的转置操作（对实矩阵来说，转置和厄米共轭操作是相同的），同样有如下性质：</p>
+<p>共轭转置（conjugate
+transpose）操作，可类比为实矩阵的转置操作（对实矩阵来说，转置和厄米共轭操作是相同的），同样有如下性质：</p>
 <p><span class="math inline">\((AB)^H=B^HA^H\)</span> ；<span class="math inline">\((A^H)^H=A\)</span> ；<span class="math inline">\((A+B)^H=A^H+B^H\)</span></p>
 <p>厄米特矩阵的性质：</p>
-<p>① <span class="math inline">\(A^H=A\)</span> ：这条性质要求厄米特矩阵的主对角元必须为实数；</p>
+<p>① <span class="math inline">\(A^H=A\)</span>
+：这条性质要求厄米特矩阵的主对角元必须为实数；</p>
 <p>② 对厄米特矩阵 <span class="math inline">\(A\)</span> 和复向量 <span class="math inline">\(x\)</span>，数 <span class="math inline">\(x^HAx\)</span> 必为实数;</p>
 <p>证：</p>
 <p><span class="math display">\[
 (x^HAx)^H=x^HA(x^H)^H=X^HAx
 \]</span></p>
-<p>即 <span class="math inline">\(x^HAx\)</span> 等于它自身的共轭，故 <span class="math inline">\(x^HAx\)</span> 必是实数.</p>
+<p>即 <span class="math inline">\(x^HAx\)</span> 等于它自身的共轭，故
+<span class="math inline">\(x^HAx\)</span> 必是实数.</p>
 <p>③ 厄米特矩阵的特征值是实数；</p>
-<p>证：法一：设 <span class="math inline">\(Ax=\lambda x (x\neq 0)\)</span>，则有</p>
+<p>证：法一：设 <span class="math inline">\(Ax=\lambda x (x\neq
+0)\)</span>，则有</p>
 <p><span class="math display">\[
 x^HAx=x^H\lambda x=\lambda x^Hx=\lambda\begin{Vmatrix}x\end{Vmatrix}^2
 \]</span></p>
-<p>由性质①可知 <span class="math inline">\(x^HAx\)</span> 必为实数，并且由于 <span class="math inline">\(x\neq 0\)</span>，<span class="math inline">\(\begin{Vmatrix}x\end{Vmatrix}^2\)</span> 必为正实数，所以，特征值 <span class="math inline">\(\lambda=\frac{x^Hx}{\begin{Vmatrix}x\end{Vmatrix}^2}\)</span> 必为实数.</p>
-<p>法二：设<span class="math inline">\(Ax=\lambda x (x\neq 0)\)</span>，<span class="math inline">\(\overline \lambda x^Hx=(\lambda x)^Hx=(Ax)^Hx=x^HA^Hx=x^HAx=x^H\lambda x=\lambda x^Hx\)</span> ，所以，我们有 <span class="math inline">\(\overline \lambda\)</span>，故 <span class="math inline">\(\lambda\)</span> 必为实数.</p>
-<p>④ 厄米特矩阵 <span class="math inline">\(A\)</span> 的属于不同特征值的特征向量是正交的（实对称矩阵也同样满足）；</p>
-<p>证：设 <span class="math inline">\(x_1, x_2\)</span> 是分别对应于特征值 <span class="math inline">\(\lambda_1 , \lambda_2\)</span> 的 <span class="math inline">\(A\)</span> 的特征向量，则</p>
+<p>由性质①可知 <span class="math inline">\(x^HAx\)</span>
+必为实数，并且由于 <span class="math inline">\(x\neq 0\)</span>，<span class="math inline">\(\begin{Vmatrix}x\end{Vmatrix}^2\)</span>
+必为正实数，所以，特征值 <span class="math inline">\(\lambda=\frac{x^Hx}{\begin{Vmatrix}x\end{Vmatrix}^2}\)</span>
+必为实数.</p>
+<p>法二：设<span class="math inline">\(Ax=\lambda x (x\neq
+0)\)</span>，<span class="math inline">\(\overline \lambda x^Hx=(\lambda
+x)^Hx=(Ax)^Hx=x^HA^Hx=x^HAx=x^H\lambda x=\lambda x^Hx\)</span>
+，所以，我们有 <span class="math inline">\(\overline
+\lambda\)</span>，故 <span class="math inline">\(\lambda\)</span>
+必为实数.</p>
+<p>④ 厄米特矩阵 <span class="math inline">\(A\)</span>
+的属于不同特征值的特征向量是正交的（实对称矩阵也同样满足）；</p>
+<p>证：设 <span class="math inline">\(x_1, x_2\)</span>
+是分别对应于特征值 <span class="math inline">\(\lambda_1 ,
+\lambda_2\)</span> 的 <span class="math inline">\(A\)</span>
+的特征向量，则</p>
 <p><span class="math display">\[
 Ax_1=\lambda_1 x_1 , Ax_2=\lambda_2 x_2
 \]</span></p>
 <p>因此，</p>
 <p><span class="math display">\[
-\lambda_1 x_1^Hx_2=(\lambda_1 x_1)^Hx_2=(Ax_1)^Hx_2=x_1^HA^Hx_2=x_1^HAx_2=x_1^H\lambda_2 x_2=\lambda_2 x_1^Hx_2
+\lambda_1 x_1^Hx_2=(\lambda_1
+x_1)^Hx_2=(Ax_1)^Hx_2=x_1^HA^Hx_2=x_1^HAx_2=x_1^H\lambda_2 x_2=\lambda_2
+x_1^Hx_2
 \]</span></p>
 <p>又因为 <span class="math inline">\(\lambda_1=\lambda_2\)</span>，所以我们有 <span class="math inline">\(x_1^Hx_2=0\)</span>，它们是正交的.</p>
 <p>酉矩阵（幺正矩阵，unitary matrix）：</p>
 <p>可类比于实正交矩阵，满足厄米共轭矩阵等于逆阵，即 <span class="math inline">\(U^H=U^{-1}\)</span>，等价有 <span class="math inline">\(U^HU=I , UU^H=I\)</span></p>
 <p>酉矩阵的性质：</p>
-<p>① 内积和向量长度可被酉矩阵保留？（这段话不知如何翻译，意思可看证明过程）；</p>
-<p>证：<span class="math inline">\((Ux)^H(Uy)=x^HU^HUy=x^Hy\)</span> 故同理有 <span class="math inline">\(\begin{Vmatrix}U\end{Vmatrix}^2=\begin{Vmatrix}x\end{Vmatrix}^2\)</span></p>
+<p>①
+内积和向量长度可被酉矩阵保留？（这段话不知如何翻译，意思可看证明过程）；</p>
+<p>证：<span class="math inline">\((Ux)^H(Uy)=x^HU^HUy=x^Hy\)</span>
+故同理有 <span class="math inline">\(\begin{Vmatrix}U\end{Vmatrix}^2=\begin{Vmatrix}x\end{Vmatrix}^2\)</span></p>
 <p>② 酉矩阵的特征值的绝对值等于 <span class="math inline">\(1\)</span>；</p>
-<p>证：设 <span class="math inline">\(Ux=\lambda x\)</span>，则 <span class="math inline">\(\begin{Vmatrix}Ux\end{Vmatrix}=\begin{Vmatrix}\lambda x\end{Vmatrix}=\begin{vmatrix}\lambda\end{vmatrix} \begin{Vmatrix}x\end{Vmatrix}\)</span> 由性质①我们有，<span class="math inline">\(\begin{Vmatrix}Ux\end{Vmatrix}=\begin{Vmatrix}x\end{Vmatrix}^2\)</span>，所以<span class="math inline">\(\begin{Vmatrix}x\end{Vmatrix}=\begin{vmatrix}\lambda\end{vmatrix}·\begin{Vmatrix}x\end{Vmatrix}\)</span>，故<span class="math inline">\(\begin{vmatrix}\lambda\end{vmatrix}=1\)</span></p>
-<p>③ 酉矩阵 <span class="math inline">\(U\)</span> 的属于不同特征值的特征向量是正交的。</p>
+<p>证：设 <span class="math inline">\(Ux=\lambda x\)</span>，则 <span class="math inline">\(\begin{Vmatrix}Ux\end{Vmatrix}=\begin{Vmatrix}\lambda
+x\end{Vmatrix}=\begin{vmatrix}\lambda\end{vmatrix}
+\begin{Vmatrix}x\end{Vmatrix}\)</span> 由性质①我们有，<span class="math inline">\(\begin{Vmatrix}Ux\end{Vmatrix}=\begin{Vmatrix}x\end{Vmatrix}^2\)</span>，所以<span class="math inline">\(\begin{Vmatrix}x\end{Vmatrix}=\begin{vmatrix}\lambda\end{vmatrix}·\begin{Vmatrix}x\end{Vmatrix}\)</span>，故<span class="math inline">\(\begin{vmatrix}\lambda\end{vmatrix}=1\)</span></p>
+<p>③ 酉矩阵 <span class="math inline">\(U\)</span>
+的属于不同特征值的特征向量是正交的。</p>
 <p>证：</p>
 <p>后面有空再补了</p>
 

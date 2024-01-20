@@ -120,6 +120,14 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">swap</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> i, <span class="hljs-type">int</span> j)</span> &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">tmp</span> <span class="hljs-operator">=</span> nums[i];<br>    nums[i] = nums[j];<br>    nums[j] = tmp;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h1 id="十大经典排序算法">十大经典排序算法</h1>
 <table>
+<colgroup>
+<col style="width: 12%">
+<col style="width: 21%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 16%">
+<col style="width: 9%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>排序算法</th>
@@ -214,7 +222,8 @@
 </tbody>
 </table>
 <h2 id="冒泡排序">冒泡排序</h2>
-<p>冒泡排序要对一个列表多次重复遍历。它要比较相邻的两项，并且交换顺序排错的项。每对 列表实行一次遍历，就有一个最大项排在了正确的位置。</p>
+<p>冒泡排序要对一个列表多次重复遍历。它要比较相邻的两项，并且交换顺序排错的项。每对
+列表实行一次遍历，就有一个最大项排在了正确的位置。</p>
 <p>普通版：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">bubbleSort</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; n; i++) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; n - i; j++) &#123;<br>            <span class="hljs-keyword">if</span> (nums[j] &gt; nums[j + <span class="hljs-number">1</span>])<br>                swap(nums, j, j + <span class="hljs-number">1</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>如果发现列表已经排好序了，那么就可以提前结束。</p>
@@ -267,7 +276,7 @@
     
     <div class="post-nav">
   
-    <a class="post-nav-item-left" href="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/">
+    <a class="post-nav-item-left" href="/2022/07/17/http%E8%AF%B7%E6%B1%82%E8%B5%B0%E7%A7%81/">
       <div class="text-align">
         <svg t="1670570876164"
              class="icon"
@@ -278,7 +287,7 @@
         </svg>
         <span class="text-small">上一篇</span>
       </div>
-      <div>Git信息泄露</div>
+      <div>http请求走私</div>
     </a>
   
   <div class="vhr"></div>

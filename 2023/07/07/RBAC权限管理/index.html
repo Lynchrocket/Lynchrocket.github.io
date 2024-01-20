@@ -113,7 +113,10 @@
             
           </div>
         
-        <p>RBAC（Role-Based Access Control）作为当前使用范围最广的一种权限设计模型，有 3 个基础组成部分，分别是：用户、角色和权限。RBAC 通过定义角色的权限，并对用户授予某个角色从而来控制用户的权限，实现了用户和权限的逻辑分离（区别于ACL模型）。不同角色对应不同权限，用户可充当多个角色。</p>
+        <p>RBAC（Role-Based Access
+Control）作为当前使用范围最广的一种权限设计模型，有 3
+个基础组成部分，分别是：用户、角色和权限。RBAC
+通过定义角色的权限，并对用户授予某个角色从而来控制用户的权限，实现了用户和权限的逻辑分离（区别于ACL模型）。不同角色对应不同权限，用户可充当多个角色。</p>
 <span id="more"></span>
 <h1 id="原则">原则</h1>
 <ul>
@@ -136,13 +139,18 @@
 <p>标准的RBAC模型包括四个部件模型，分别为基本模型RABC0、角色分级模型RABC1、角色限制模型RABC2、统一模型RABC3。</p>
 <ul>
 <li>RBAC0（基本模型）定义了完全支持RBAC概念的任何系统的<strong>最低需求</strong>。RBAC0的模型中包括用户（U）、角色（R）和许可权（P）等3类实体集合，RABC0是权限管理的核心部分，其他的版本都是建立在0的基础上。</li>
-<li>RBAC1（角色分级模型）基于RBAC0模型，引入角色间的<strong>继承关系</strong>（Hierarchical Role），即角色上有了上下级的区别，角色间的继承关系可分为一般继承关系和受限继承关系：
+<li>RBAC1（角色分级模型）基于RBAC0模型，引入角色间的<strong>继承关系</strong>（Hierarchical
+Role），即角色上有了上下级的区别，角色间的继承关系可分为一般继承关系和受限继承关系：
 <ul>
 <li>一般继承关系仅要求角色继承关系是一个绝对偏序关系，允许角色间的多继承。</li>
 <li>受限继承关系则进一步要求角色继承关系是一个树结构，实现角色间的单继承。这种模型合适于角色之间的层次明确，包含明确。</li>
 </ul></li>
 </ul>
 <table>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>一般继承关系：上级可继承下级角色的权限，而不受到下级角色所属的限制</th>
@@ -268,7 +276,7 @@
 </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\2023\09\07\认证与授权\" title="认证与授权" rel="bookmark">认证与授权</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\08\30\MQTT\" title="MQTT" rel="bookmark">MQTT</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\08\22\Maven\" title="Maven" rel="bookmark">Maven</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\2023\09\07\认证与授权\" title="认证与授权" rel="bookmark">认证与授权</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\08\22\Maven\" title="Maven" rel="bookmark">Maven</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\08\30\MQTT\" title="MQTT" rel="bookmark">MQTT</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div></div>
     
   </div>
 </div>

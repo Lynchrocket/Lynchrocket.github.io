@@ -113,7 +113,10 @@
             
           </div>
         
-        <p>在配置不当的情况下，可能会将 <code>.git</code> 文件夹直接部署到线上环境，这就造成了 Git 泄露问题。攻击者利用该漏洞下载 .git 文件夹中的所有内容。如果文件夹中存在敏感信息(数据库账号密码、源码等)，通过白盒的审计等方式就可能直接获得控制服务器的权限和机会。</p>
+        <p>在配置不当的情况下，可能会将 <code>.git</code>
+文件夹直接部署到线上环境，这就造成了 Git 泄露问题。攻击者利用该漏洞下载
+.git
+文件夹中的所有内容。如果文件夹中存在敏感信息(数据库账号密码、源码等)，通过白盒的审计等方式就可能直接获得控制服务器的权限和机会。</p>
 <span id="more"></span>
 <h1 id="git-简介">Git 简介</h1>
 <ul>
@@ -122,34 +125,43 @@
 <li>使用分布式仓库设计，让大多数操作都在本地进行，保证了使用效率。几乎所有操作都是向数据库增加数据，提交之后就很难丢失数据。</li>
 </ul>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_description.png" alt="git description"><figcaption aria-hidden="true">git description</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_description.png" alt="git description">
+<figcaption aria-hidden="true">git description</figcaption>
 </figure>
-<p>Git 是一个<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Content-addressable_storage">内容寻址文件系统(content-addressed filesystem)</a>，其存储内容都是通过内容地址维护，可以把它理解成一个<strong>键值对</strong>存储方式：即给定一个存储文件，该系统根据文件信息和内容，使用SHA-1算法计算，返回一个由40个十六进制字符组成的字符串，之后只需要通过该字符串即可访问该文件，这个字符串就是 Git 中通常所说的<strong>校验和</strong>。</p>
+<p>Git 是一个<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Content-addressable_storage">内容寻址文件系统(content-addressed
+filesystem)</a>，其存储内容都是通过内容地址维护，可以把它理解成一个<strong>键值对</strong>存储方式：即给定一个存储文件，该系统根据文件信息和内容，使用SHA-1算法计算，返回一个由40个十六进制字符组成的字符串，之后只需要通过该字符串即可访问该文件，这个字符串就是
+Git 中通常所说的<strong>校验和</strong>。</p>
 <ul>
 <li>内容寻址</li>
 </ul>
 <blockquote>
-<p>谈到内容寻址，有必要了解一下的就是本地寻址，或者叫物理寻址。对于物理寻址系统，其所有数据存储在物理媒介的可用空间，与其内容无关，系统记录其物理地址（physical location）供随后使用，这些物理地址通常通过使用一个列表或者目录来维护，当再次请求特定数据时，需要使用其物理地址，如路径和文件名。而对于一个内容寻址系统，系统记录的是一个内容地址（content-address），该内容地址是对应数据的一个唯一且持久的识别符，它是通过加密哈希算法（如，SHA-1或MD5）计算出来的一串值，当我们需要数据时，提供该内容地址，系统即可通过该地址获取数据的物理地址，返回数据；同时，对于数据的任何变更都将导致内容地址发生变化。</p>
+<p>谈到内容寻址，有必要了解一下的就是本地寻址，或者叫物理寻址。对于物理寻址系统，其所有数据存储在物理媒介的可用空间，与其内容无关，系统记录其物理地址（physical
+location）供随后使用，这些物理地址通常通过使用一个列表或者目录来维护，当再次请求特定数据时，需要使用其物理地址，如路径和文件名。而对于一个内容寻址系统，系统记录的是一个内容地址（content-address），该内容地址是对应数据的一个唯一且持久的识别符，它是通过加密哈希算法（如，SHA-1或MD5）计算出来的一串值，当我们需要数据时，提供该内容地址，系统即可通过该地址获取数据的物理地址，返回数据；同时，对于数据的任何变更都将导致内容地址发生变化。</p>
 </blockquote>
 <ul>
 <li>SHA-1哈希值</li>
 </ul>
 <blockquote>
-<p>在 Git 系统中，每个 Git 对象都通过哈希值来代表这个对象。哈希值是通过 SHA-1 算法计算出来的，长度为40个字符（40-digit）。</p>
+<p>在 Git 系统中，每个 Git 对象都通过哈希值来代表这个对象。哈希值是通过
+SHA-1 算法计算出来的，长度为40个字符（40-digit）。</p>
 </blockquote>
 <h1 id="svn与git的主要区别">SVN与Git的主要区别</h1>
 <p>SVN是集中式版本控制系统，版本库是集中放在中央服务器的。而干活的时候，用的都是自己的电脑，所以首先要从中央服务器哪里得到最新的版本，然后干活，干完后，需要把自己做完的活推送到中央服务器。集中式版本控制系统是必须联网才能工作，如果在局域网还可以，带宽够大，速度够快，如果在互联网下，如果网速慢的话，就纳闷了。</p>
 <p>Git是分布式版本控制系统，那么它就没有中央服务器的，每个人的电脑就是一个完整的版本库，这样，工作的时候就不需要联网了，因为版本都是在自己的电脑上。既然每个人的电脑都有一个完整的版本库，那多个人如何协作呢？比如说自己在电脑上改了文件A，其他人也在电脑上改了文件A，这时，你们两之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。</p>
 <h1 id="git-存储目录结构">Git 存储目录结构</h1>
-<p>在初始化 Git 仓库的时候（git clone 或 git init），Git 会生成 .git 隐藏目录。Git 会将所有的文件，目录，提交等转化为 Git 对象，压缩存储在这个目录当中。该目录内容大致如下：</p>
+<p>在初始化 Git 仓库的时候（git clone 或 git init），Git 会生成 .git
+隐藏目录。Git 会将所有的文件，目录，提交等转化为 Git
+对象，压缩存储在这个目录当中。该目录内容大致如下：</p>
 <ul>
 <li>文件：
 <ul>
-<li>COMMIT_EDITMSG：保存最新的commit message，Git系统不会用到这个文件，是给用户的一个参考文件</li>
+<li>COMMIT_EDITMSG：保存最新的commit
+message，Git系统不会用到这个文件，是给用户的一个参考文件</li>
 <li>config：Git仓库的配置文件</li>
 <li>description：仓库的描述信息，主要给gitweb等git托管系统使用</li>
 <li>HEAD：这个文件包含了一个档期分支（branch）的引用，通过这个文件Git可以得到下一次commit的parent</li>
-<li>hooks：这个目录存放一些shell脚本，可以设置特定的git命令后触发相应的脚本；在搭建gitweb系统或其他 Git 托管系统会经常用到hook script(钩子脚本)</li>
+<li>hooks：这个目录存放一些shell脚本，可以设置特定的git命令后触发相应的脚本；在搭建gitweb系统或其他
+Git 托管系统会经常用到hook script(钩子脚本)</li>
 <li>index：这个文件是暂存区（stage），一个二进制文件</li>
 <li>ORIG_HEAD：HEAD指针的前一个状态</li>
 </ul></li>
@@ -157,40 +169,52 @@
 <ul>
 <li>info：包含仓库的一些信息</li>
 <li>logs：保存所有更新的引用记录</li>
-<li>objects：所有的 Git 对象都会存放在这个目录中，对象的SHA-1哈希值的前两位是文件夹名称，后38位作为对象文件名</li>
-<li>refs：这个目录一般包括三个子文件夹，heads、remotes 和 tags，heads 中的文件标识了项目中的各个分支指向的当前commit</li>
+<li>objects：所有的 Git
+对象都会存放在这个目录中，对象的SHA-1哈希值的前两位是文件夹名称，后38位作为对象文件名</li>
+<li>refs：这个目录一般包括三个子文件夹，heads、remotes 和 tags，heads
+中的文件标识了项目中的各个分支指向的当前commit</li>
 </ul></li>
 </ul>
 <h1 id="git-仓库文件状态">Git 仓库文件状态</h1>
 <p>Git 仓库文件有五种状态（或者四种，即前四种）：</p>
 <ul>
-<li><strong>Untracked</strong>：未跟踪。此文件在文件夹中，但并没有加入到 git 库，不参与版本控制。通过<code>git add</code> 将状态变为<code>Staged</code>。</li>
-<li><strong>Unmodified</strong>： 文件已经入库，但未修改。即版本库中的文件快照内容与文件夹中完全一致。这种类型的文件有两种去处：如果它被修改，则变为<code>Modified</code>；如果使用<code>git rm</code>移出版本库，则成为<code>Untracked</code>文件。</li>
+<li><strong>Untracked</strong>：未跟踪。此文件在文件夹中，但并没有加入到
+git
+库，不参与版本控制。通过<code>git add</code> 将状态变为<code>Staged</code>。</li>
+<li><strong>Unmodified</strong>：
+文件已经入库，但未修改。即版本库中的文件快照内容与文件夹中完全一致。这种类型的文件有两种去处：如果它被修改，则变为<code>Modified</code>；如果使用<code>git rm</code>移出版本库，则成为<code>Untracked</code>文件。</li>
 <li><strong>Modified</strong>：文件已修改，但仅仅是修改。这个文件也有两个去处：通过<code>git add</code>可进入暂存区，成为<code>staged</code>状态；使用<code>git checkout</code>丢弃修改过程，返回到<code>unmodify</code>状态。这个<code>git checkout</code>即从库中取出文件，覆盖当前修改。</li>
-<li><strong>Staged</strong>：暂存状态。执行<code>git commit</code>则将修改同步到库中，进入<code>Untracked</code>状态，这时库中的文件和本地文件又变为一致，文件为<code>Unmodify</code>状态. 执行<code>git reset HEAD filename</code>取消暂存, 文件状态为<code>Modified</code>。</li>
+<li><strong>Staged</strong>：暂存状态。执行<code>git commit</code>则将修改同步到库中，进入<code>Untracked</code>状态，这时库中的文件和本地文件又变为一致，文件为<code>Unmodify</code>状态.
+执行<code>git reset HEAD filename</code>取消暂存,
+文件状态为<code>Modified</code>。</li>
 <li><strong>Committed</strong>：文件已提交到远程仓库。</li>
 </ul>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/status.png" alt="git_status"><figcaption aria-hidden="true">git_status</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/status.png" alt="git_status">
+<figcaption aria-hidden="true">git_status</figcaption>
 </figure>
 <p>由上面的文件状态可以推出四个工作区域（或者三个，即前三个）：</p>
 <ul>
 <li><strong>Workspace</strong>：工作区，就是平时存放项目代码的地方。</li>
-<li><strong>Index / Stage</strong>：暂存区，用于临时存放项目的改动，事实上它只是一个文件，保存即将提交到文件列表信息。</li>
+<li><strong>Index /
+Stage</strong>：暂存区，用于临时存放项目的改动，事实上它只是一个文件，保存即将提交到文件列表信息。</li>
 <li><strong>Repository</strong>：仓库区（或版本库），就是安全存放数据的位置，这里面有提交到所有版本的数据。其中HEAD指向最新放入仓库的版本。</li>
 <li><strong>Remote</strong>：远程仓库，托管代码的服务器，可以简单的认为是项目组中的一台电脑用于远程数据交换。</li>
 </ul>
 <p>文件在这四个区域之间的转换关系如下（箭头上面是对应的 git 指令）：</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/workspace.png" alt="workspace"><figcaption aria-hidden="true">workspace</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/workspace.png" alt="workspace">
+<figcaption aria-hidden="true">workspace</figcaption>
 </figure>
 <p>各种状态和区域之间的转换关系：</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/relationship.png" alt="relationship"><figcaption aria-hidden="true">relationship</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/relationship.png" alt="relationship">
+<figcaption aria-hidden="true">relationship</figcaption>
 </figure>
 <p>或者可以简化一下，不同工作区域对应的 .git 文件：</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/simplification.png" alt="simplification"><figcaption aria-hidden="true">simplification</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/simplification.png" alt="simplification">
+<figcaption aria-hidden="true">simplification</figcaption>
 </figure>
 <h1 id="git-对象">Git 对象</h1>
 <p>在 Git 系统中有四种对象，所有的 Git 操作都是基于这些对象。</p>
@@ -206,7 +230,8 @@
 <li>代表 blob 的哈希值；</li>
 <li>指向 tree 对象的哈希值。</li>
 </ul></li>
-<li>commit：指向一个 tree，它用来标记项目某个特定时间点的状态。它包括以下关于时间点的元数据，如时间戳、最近一次提交的作者、指向上次提交。
+<li>commit：指向一个
+tree，它用来标记项目某个特定时间点的状态。它包括以下关于时间点的元数据，如时间戳、最近一次提交的作者、指向上次提交。
 <ul>
 <li>代表 commit 的哈希值</li>
 <li>指向 tree 对象的哈希值</li>
@@ -215,20 +240,31 @@
 </ul></li>
 <li>tag：给某个提交增添的标记。
 <ul>
-<li>可当成一个指针，指向某个 commit （其实就是 Git 版本库的一个快照）</li>
-<li>目前的项目开发中，当发布版本时一般会使用tag（例如 v1.1，v1.2，……）</li>
+<li>可当成一个指针，指向某个 commit （其实就是 Git
+版本库的一个快照）</li>
+<li>目前的项目开发中，当发布版本时一般会使用tag（例如
+v1.1，v1.2，……）</li>
 </ul></li>
 </ul>
 <p>Git 对象之间的个关系如下图：</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/object.png" alt="object"><figcaption aria-hidden="true">object</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/object.png" alt="object">
+<figcaption aria-hidden="true">object</figcaption>
 </figure>
 <h1 id="git-对象的哈希值对应关系">Git 对象的哈希值对应关系</h1>
-<p>每个 Git 对象都有个哈希值代表这个对象（即 {hash : object}）。这个哈希值是通过 SHA-1 算法计算出来的，长度为40个字符。</p>
+<p>每个 Git 对象都有个哈希值代表这个对象（即 {hash :
+object}）。这个哈希值是通过 SHA-1 算法计算出来的，长度为40个字符。</p>
 <p><code>git init</code></p>
-<p>此命令初始化一个新本地仓库，它在工作目录下生成一个名为 .git 的隐藏文件夹。Git会将所有的文件、目录、提交等转化为 Git 对象，压缩存储在这个文件夹当中。</p>
-<p>初始的 .git 文件夹内只有七个文件（夹），在objects目录下只有两个文件夹。</p>
+<p>此命令初始化一个新本地仓库，它在工作目录下生成一个名为 .git
+的隐藏文件夹。Git会将所有的文件、目录、提交等转化为 Git
+对象，压缩存储在这个文件夹当中。</p>
+<p>初始的 .git
+文件夹内只有七个文件（夹），在objects目录下只有两个文件夹。</p>
 <table>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <tbody>
 <tr class="odd">
 <td><img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_init.png" alt="git_init"></td>
@@ -237,43 +273,69 @@
 </tbody>
 </table>
 <p><code>git status</code></p>
-<p>此命令可以查看当前状态。创建一个 test.txt 文件并写入内容，此时 test.txt 文件位于<code>工作目录</code>，状态为 <code>untracked</code>。</p>
+<p>此命令可以查看当前状态。创建一个 test.txt 文件并写入内容，此时
+test.txt 文件位于<code>工作目录</code>，状态为
+<code>untracked</code>。</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_status.png" alt="git_status"><figcaption aria-hidden="true">git_status</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_status.png" alt="git_status">
+<figcaption aria-hidden="true">git_status</figcaption>
 </figure>
 <p><code>git add</code></p>
-<p>此命令将文件放到暂存区，并将更改写入到 .git/index 文件中。通过git add跟踪这个文件，把test.txt文件放到<code>暂存区</code>。（可以使用<code>git rm --cached</code>命令来取消暂存）</p>
+<p>此命令将文件放到暂存区，并将更改写入到 .git/index 文件中。通过git
+add跟踪这个文件，把test.txt文件放到<code>暂存区</code>。（可以使用<code>git rm --cached</code>命令来取消暂存）</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_add.png" alt="git_add"><figcaption aria-hidden="true">git_add</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_add.png" alt="git_add">
+<figcaption aria-hidden="true">git_add</figcaption>
 </figure>
-<p>执行完 git add 后，.git 文件夹下会多出一个二进制文件 index，用十六进制编辑器打开可以查看该文件的内容。</p>
+<p>执行完 git add 后，.git 文件夹下会多出一个二进制文件
+index，用十六进制编辑器打开可以查看该文件的内容。</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/binary_index.png" alt="binary_index"><figcaption aria-hidden="true">binary_index</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/binary_index.png" alt="binary_index">
+<figcaption aria-hidden="true">binary_index</figcaption>
 </figure>
-<p>似乎其中有刚刚新创建的文件。因为 Git 存储的都是对象信息，这份文件在 Git 系统中也会以对象的形式存储，可以看到在 .git/objects 文件夹内确实多了一个文件夹。</p>
+<p>似乎其中有刚刚新创建的文件。因为 Git 存储的都是对象信息，这份文件在
+Git 系统中也会以对象的形式存储，可以看到在 .git/objects
+文件夹内确实多了一个文件夹。</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_objects_dir.png" alt="git_objects_dir"><figcaption aria-hidden="true">git_objects_dir</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_objects_dir.png" alt="git_objects_dir">
+<figcaption aria-hidden="true">git_objects_dir</figcaption>
 </figure>
-<p>再次查看 index 文件信息，果然存储了该对象的地址信息（也就是校检和）。（该地址是经过 SHA-1 算法加密后得到的）</p>
+<p>再次查看 index
+文件信息，果然存储了该对象的地址信息（也就是校检和）。（该地址是经过
+SHA-1 算法加密后得到的）</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/addr_info.png" alt="addr_info"><figcaption aria-hidden="true">addr_info</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/addr_info.png" alt="addr_info">
+<figcaption aria-hidden="true">addr_info</figcaption>
 </figure>
 <p><code>git cat-file</code></p>
 <p>此命令会解密校验和。如下就是解密了刚刚新建的文件。</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_cat-file.png" alt="git_cat-file"><figcaption aria-hidden="true">git_cat-file</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_cat-file.png" alt="git_cat-file">
+<figcaption aria-hidden="true">git_cat-file</figcaption>
 </figure>
-<p>因为在 Git 中，这些对象存储文件都是通过 zlib 进行压缩的，所以我们同样可以使用 zlib 将其解压出来，来看看这个文件里面存储的内容是什么。</p>
+<p>因为在 Git 中，这些对象存储文件都是通过 zlib
+进行压缩的，所以我们同样可以使用 zlib
+将其解压出来，来看看这个文件里面存储的内容是什么。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> zlib<br><span class="hljs-keyword">import</span> requests<br><br>url = <span class="hljs-string">&#x27;http://192.168.192.160:8080/d/ctf_tools/tmp_files/git_leak/.git/objects/a0/423896973644771497bdc03eb99d5281615b51&#x27;</span><br>re = requests.get(url)<br>ss = re.content<br>word = zlib.decompress(ss)<br><span class="hljs-built_in">print</span>(word)<br></code></pre></td></tr></table></figure>
 <p>（不知为何打不开，换用如下方式，道理还是一样的）</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> zlib<br><br>file_name = <span class="hljs-string">&#x27;423896973644771497bdc03eb99d5281615b51&#x27;</span><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(file_name, <span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>    word = zlib.decompress(f.read())<br>    <span class="hljs-built_in">print</span>(word)<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/objects_dec.png" alt="objects_dec"><figcaption aria-hidden="true">objects_dec</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/objects_dec.png" alt="objects_dec">
+<figcaption aria-hidden="true">objects_dec</figcaption>
 </figure>
-<p>发现 objects 对应文件标记了是 blob 对象，存储的是新建的 test.txt 文件的内容。</p>
+<p>发现 objects 对应文件标记了是 blob 对象，存储的是新建的 test.txt
+文件的内容。</p>
 <p><code>git commit</code></p>
-<p>在暂存区的文件使用git commit提交到版本库（<code>数据目录</code>）中。-m 参数表示提交的注释，如果不使用 -m 参数那么会跳出页面提示主动输入注释。commit 完成后，working tree 就会清空。</p>
+<p>在暂存区的文件使用git
+commit提交到版本库（<code>数据目录</code>）中。-m
+参数表示提交的注释，如果不使用 -m
+参数那么会跳出页面提示主动输入注释。commit 完成后，working tree
+就会清空。</p>
 <table>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <tbody>
 <tr class="odd">
 <td><img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_commit.png" alt="git_commit"></td>
@@ -281,71 +343,104 @@
 </tr>
 </tbody>
 </table>
-<p>修改 test.txt 文件，并用 git status 查看文件状态，得知文件已被修改，但是未提交修改到版本库中。</p>
+<p>修改 test.txt 文件，并用 git status
+查看文件状态，得知文件已被修改，但是未提交修改到版本库中。</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/modify_no_commit.png" alt="modify_no_commit"><figcaption aria-hidden="true">modify_no_commit</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/modify_no_commit.png" alt="modify_no_commit">
+<figcaption aria-hidden="true">modify_no_commit</figcaption>
 </figure>
 <p><code>git diff</code></p>
 <p>对比工作区和暂存区文件的差异，查看文件被修改的地方</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_diff.png" alt="git_diff"><figcaption aria-hidden="true">git_diff</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_diff.png" alt="git_diff">
+<figcaption aria-hidden="true">git_diff</figcaption>
 </figure>
 <p>确认修改无误后将修改提交到版本库的方法和提交初始文件一样，需要先提交到暂存区，然后提交到版本库。</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/submit.png" alt="submit"><figcaption aria-hidden="true">submit</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/submit.png" alt="submit">
+<figcaption aria-hidden="true">submit</figcaption>
 </figure>
 <p><code>git log</code></p>
-<p> 此命令能查看 commit 的历史记录。(HEAD -&gt; master) 与 .git/HEAD 文件的内容的意义一样，是指到最后提交的版本的指针。</p>
+<p> 此命令能查看 commit 的历史记录。(HEAD -&gt; master) 与 .git/HEAD
+文件的内容的意义一样，是指到最后提交的版本的指针。</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_log.png" alt="git_log"><figcaption aria-hidden="true">git_log</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_log.png" alt="git_log">
+<figcaption aria-hidden="true">git_log</figcaption>
 </figure>
 <p><code>git reset --hard</code></p>
-<p>此命令能回退版本。特别地，若想回退到上一个版本，可以用<code>git reset --hard HEAD^</code>，若要回退到上上个版本只需把 <strong>HEAD^ 改成 HEAD^^</strong>，以此类推。若要回退到前100个版本的话，可以使用这个简便命令操作：<code>git reset --hard HEAD~100</code></p>
+<p>此命令能回退版本。特别地，若想回退到上一个版本，可以用<code>git reset --hard HEAD^</code>，若要回退到上上个版本只需把
+<strong>HEAD^ 改成 HEAD^^</strong>，以此类推。若要回退到前100个版本的话，可以使用这个简便命令操作：<code>git reset --hard HEAD~100</code></p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_reset.png" alt="git_reset"><figcaption aria-hidden="true">git_reset</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_reset.png" alt="git_reset">
+<figcaption aria-hidden="true">git_reset</figcaption>
 </figure>
 <p>可以看到 HEAD 指针也指到了提交的版本，修改的版本看不到了。</p>
-<p>但是要是因为操作失误，怎么追回第二次修改的版本呢？可以使用 <code>git reset --hard 版本号</code> 追回。</p>
+<p>但是要是因为操作失误，怎么追回第二次修改的版本呢？可以使用
+<code>git reset --hard 版本号</code> 追回。</p>
 <p><code>git reflog</code></p>
-<p>获取版本号。获得修改的版本号为 <code>93bf5b9</code>。<code>git reset --hard 93bf5b9</code> 恢复</p>
+<p>获取版本号。获得修改的版本号为
+<code>93bf5b9</code>。<code>git reset --hard 93bf5b9</code> 恢复</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_reflog.png" alt="git_reflog"><figcaption aria-hidden="true">git_reflog</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/git_reflog.png" alt="git_reflog">
+<figcaption aria-hidden="true">git_reflog</figcaption>
 </figure>
-<p>当然，用 git log 查询时 commit 后面的 SHA-1 字符串也可以当作版本号来回退。</p>
+<p>当然，用 git log 查询时 commit 后面的 SHA-1
+字符串也可以当作版本号来回退。</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/rollback.png" alt="rollback"><figcaption aria-hidden="true">rollback</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/rollback.png" alt="rollback">
+<figcaption aria-hidden="true">rollback</figcaption>
 </figure>
-<p>在工作区修改的文件 git add 提交到暂存区后，也可以使用 <code>git checkout -- test.txt</code> 把工作区的修改撤销。这样，文件就会回退到上一次提交时的状态。</p>
+<p>在工作区修改的文件 git add 提交到暂存区后，也可以使用
+<code>git checkout -- test.txt</code>
+把工作区的修改撤销。这样，文件就会回退到上一次提交时的状态。</p>
 <h2 id="git-信息泄露漏洞">Git 信息泄露漏洞</h2>
-<p>由上面一些简单的过程，可以很形象地了解到 Git 在解析存储版本信息的时候，利用的是内存地址寻址的方式分布式存储版本信息的。</p>
-<p>如果配置不当，可能会将 .git 文件夹泄露，这就引起了 Git 泄露漏洞。我们就可以通过 zlib 解压等方式获取到网站的相关版本信息等等，进而进行代码审计等操作，分析应用的漏洞以及社工等等。也就是说 Git 信息泄露漏洞的入手点就是 .git 文件夹。</p>
+<p>由上面一些简单的过程，可以很形象地了解到 Git
+在解析存储版本信息的时候，利用的是内存地址寻址的方式分布式存储版本信息的。</p>
+<p>如果配置不当，可能会将 .git 文件夹泄露，这就引起了 Git
+泄露漏洞。我们就可以通过 zlib
+解压等方式获取到网站的相关版本信息等等，进而进行代码审计等操作，分析应用的漏洞以及社工等等。也就是说
+Git 信息泄露漏洞的入手点就是 .git 文件夹。</p>
 <h2 id="git-信息泄露利用总结">Git 信息泄露利用总结</h2>
 <p>首先，我们需要对应的授权站点是否存在这个漏洞：</p>
 <ul>
-<li>可以先观察一下站点是否有醒目地指出 Git，如果有的话，那就说明站点很大可能存在这个问题。</li>
-<li>如果站点没有醒目的提示的话，可以利用 dirsearch 这类扫描工具，如果存在 ./git 泄露的问题的话，会被扫描出来。</li>
-<li>最直观的方式，就是直接通过网页访问 .git 目录，如果能访问就说明存在。</li>
+<li>可以先观察一下站点是否有醒目地指出
+Git，如果有的话，那就说明站点很大可能存在这个问题。</li>
+<li>如果站点没有醒目的提示的话，可以利用 dirsearch
+这类扫描工具，如果存在 ./git 泄露的问题的话，会被扫描出来。</li>
+<li>最直观的方式，就是直接通过网页访问 .git
+目录，如果能访问就说明存在。</li>
 </ul>
-<p>当确认存在这个漏洞之后，就可以通过工具来下载 Git 泄露的全部源码（工具例如：GitHack等等）</p>
+<p>当确认存在这个漏洞之后，就可以通过工具来下载 Git
+泄露的全部源码（工具例如：GitHack等等）</p>
 <h2 id="git-信息泄露发现">Git 信息泄露发现</h2>
 <ul>
-<li>通过泄露的 <code>.git</code> 文件夹下的文件，还原重建工程源代码。</li>
-<li>解析 <code>.git/index</code> 文件，找到工程中所有的（文件名，文件 SHA-1）。</li>
+<li>通过泄露的 <code>.git</code>
+文件夹下的文件，还原重建工程源代码。</li>
+<li>解析 <code>.git/index</code> 文件，找到工程中所有的（文件名，文件
+SHA-1）。</li>
 <li>去 <code>.git/objects</code> 文件夹下下载对应的文件。</li>
 <li><code>zlib</code> 解压文件，按原始的目录结构写入源代码。</li>
 </ul>
 <h2 id="例题">例题</h2>
 <p>可以看最近 2022 DiceCTF @ HOPE 比赛的一道 Misc 题 orphan。</p>
-<p>下载附件解压后是一个叫 orphan 的文件夹，里面只有 .git 文件夹和 foo.txt，很显然考的是 Git 信息泄露。</p>
+<p>下载附件解压后是一个叫 orphan 的文件夹，里面只有 .git 文件夹和
+foo.txt，很显然考的是 Git 信息泄露。</p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/orphan_src.png" alt="orphan_src"><figcaption aria-hidden="true">orphan_src</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/orphan_src.png" alt="orphan_src">
+<figcaption aria-hidden="true">orphan_src</figcaption>
 </figure>
-<p>在此文件夹下开启 Git Bash，可以通过 <code>git reflog</code> 看到过去的修改，显然版本号 <code>b53c9e6</code> 对应着 flag。用 <code>git reset --hard b53c9e6</code> 回退，可以看到 foo.txt 变成了 flag.txt。打开即得 <code>flag：hope&#123;ba9f11ecc3497d9993b933fdc2bd61e5&#125;</code></p>
+<p>在此文件夹下开启 Git Bash，可以通过 <code>git reflog</code>
+看到过去的修改，显然版本号 <code>b53c9e6</code> 对应着 flag。用
+<code>git reset --hard b53c9e6</code> 回退，可以看到 foo.txt 变成了
+flag.txt。打开即得
+<code>flag：hope&#123;ba9f11ecc3497d9993b933fdc2bd61e5&#125;</code></p>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/orphan_git_reflog.png" alt="orphan_git_reflog"><figcaption aria-hidden="true">orphan_git_reflog</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/orphan_git_reflog.png" alt="orphan_git_reflog">
+<figcaption aria-hidden="true">orphan_git_reflog</figcaption>
 </figure>
 <figure>
-<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/flag.png" alt="flag"><figcaption aria-hidden="true">flag</figcaption>
+<img src="/2022/07/25/Git%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/flag.png" alt="flag">
+<figcaption aria-hidden="true">flag</figcaption>
 </figure>
 <h1 id="参考资料">参考资料</h1>
 <ul>
@@ -415,7 +510,7 @@
   
   <div class="vhr"></div>
   
-    <a class="post-nav-item-right" href="/2022/07/09/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+    <a class="post-nav-item-right" href="/2022/07/17/http%E8%AF%B7%E6%B1%82%E8%B5%B0%E7%A7%81/">
       <div class="text-align">
         <span class="text-small">下一篇</span>
         <svg t="1670570876164"
@@ -427,7 +522,7 @@
           <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
         </svg>
       </div>
-      排序算法
+      http请求走私
     </a>
   
 </div>

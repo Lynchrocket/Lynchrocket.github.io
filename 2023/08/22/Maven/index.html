@@ -94,7 +94,7 @@
         <div class="post-title">Maven</div>
         <div class="post-info">
           
-  <a href="/tags/%E9%85%8D%E7%BD%AE/" class="post-tag">#配置</a><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" class="post-tag">#软件开发</a><a href="/tags/Maven/" class="post-tag">#Maven</a>
+  <a href="/tags/%E9%85%8D%E7%BD%AE/" class="post-tag">#配置</a><a href="/tags/Maven/" class="post-tag">#Maven</a><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" class="post-tag">#软件开发</a>
 
 
           <span class="post-date">2023-08-22</span>
@@ -113,21 +113,29 @@
             
           </div>
         
-        <p>Maven 作为一个构建工具，不仅能自动化构建项目，还能够抽象构建过程，提供构建任务实现；它跨平台，对外提供了一致的操作接口，这一切足以使它成为优秀的、流行的构建工具。Maven 不仅是构建工具，还是一个依赖管理工具和项目管理工具。它提供了中央仓库，且能按照配置自动下载构件。</p>
+        <p>Maven
+作为一个构建工具，不仅能自动化构建项目，还能够抽象构建过程，提供构建任务实现；它跨平台，对外提供了一致的操作接口，这一切足以使它成为优秀的、流行的构建工具。Maven
+不仅是构建工具，还是一个依赖管理工具和项目管理工具。它提供了中央仓库，且能按照配置自动下载构件。</p>
 <span id="more"></span>
 <h1 id="maven-坐标">Maven 坐标</h1>
-<p>项目中依赖的第三方库及插件可统称为构件（artifact），每个 artifact 都可用 Maven 坐标唯一标识。坐标元素包括：</p>
+<p>项目中依赖的第三方库及插件可统称为构件（artifact），每个 artifact
+都可用 Maven 坐标唯一标识。坐标元素包括：</p>
 <ul>
 <li>必须元素
 <ul>
-<li><strong>groupId</strong>：定义了当前 Maven 项目隶属的组织或公司。groupId 一般分为多段，通常情况下，第一段为域，第二段为公司名称。</li>
-<li><strong>artifactId</strong>：定义了当前 Maven 项目的名称，项目的唯一的标识符，对应项目根目录的名称。</li>
+<li><strong>groupId</strong>：定义了当前 Maven
+项目隶属的组织或公司。groupId
+一般分为多段，通常情况下，第一段为域，第二段为公司名称。</li>
+<li><strong>artifactId</strong>：定义了当前 Maven
+项目的名称，项目的唯一的标识符，对应项目根目录的名称。</li>
 <li><strong>version</strong>：定义了 Maven 项目当前所处版本。</li>
 </ul></li>
 <li>可选元素
 <ul>
-<li><strong>packaging</strong>（可选）：定义了 Maven 项目的打包方式（如jar，war，……），默认为 jar</li>
-<li><strong>classifier</strong>（可选）：常用于区分从同一 POM 构建的具有不同内容的构件，可以是任意的字符串，附加在版本号之后。</li>
+<li><strong>packaging</strong>（可选）：定义了 Maven
+项目的打包方式（如jar，war，……），默认为 jar</li>
+<li><strong>classifier</strong>（可选）：常用于区分从同一 POM
+构建的具有不同内容的构件，可以是任意的字符串，附加在版本号之后。</li>
 </ul></li>
 </ul>
 <p>引入依赖，一般来说只需要指定其中三个坐标元素即可。</p>
@@ -139,19 +147,25 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">project</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">type</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">type</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">optional</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">optional</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">exclusions</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">exclusion</span>&gt;</span><br>                  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>                  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>                <span class="hljs-tag">&lt;/<span class="hljs-name">exclusion</span>&gt;</span><br>          <span class="hljs-tag">&lt;/<span class="hljs-name">exclusions</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">project</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <h3 id="配置说明">配置说明</h3>
 <ul>
-<li><strong>dependencies</strong>：一个 pom.xml 文件中只能存在一个这样的标签，是用来管理依赖的总标签。</li>
-<li><strong>dependency</strong>：包含在 dependencies 标签中，可有多个，每个表示项目的一个依赖。</li>
+<li><strong>dependencies</strong>：一个 pom.xml
+文件中只能存在一个这样的标签，是用来管理依赖的总标签。</li>
+<li><strong>dependency</strong>：包含在 dependencies
+标签中，可有多个，每个表示项目的一个依赖。</li>
 <li><strong>groupId</strong>，<strong>artifactId</strong>，<strong>version</strong>：依赖的基本坐标。</li>
 <li>可选配置
 <ul>
-<li><strong>type</strong>：依赖的类型，对应于项目坐标定义的 packaging。大部分情况下使用默认值 jar 即可。</li>
+<li><strong>type</strong>：依赖的类型，对应于项目坐标定义的
+packaging。大部分情况下使用默认值 jar 即可。</li>
 <li><strong>scope</strong>：依赖的范围，默认值为 compile。</li>
 <li><strong>optional</strong>：标记依赖是否可选。</li>
-<li><strong>exclusions</strong>：用于排除传递性依赖，避免 jar 包冲突。</li>
+<li><strong>exclusions</strong>：用于排除传递性依赖，避免 jar
+包冲突。</li>
 </ul></li>
 </ul>
 <h2 id="依赖范围">依赖范围</h2>
-<p><strong>classpath</strong> 用于指定 <code>.class</code> 文件存放的位置，类加载器会从该路径中加载所需的 <code>.class</code> 文件到内存中。</p>
+<p><strong>classpath</strong> 用于指定 <code>.class</code>
+文件存放的位置，类加载器会从该路径中加载所需的 <code>.class</code>
+文件到内存中。</p>
 <p>Maven 在编译、执行测试、实际运行有着三套不同的 classpath：</p>
 <ul>
 <li><strong>编译 classpath</strong>：编译主代码有效</li>
@@ -164,12 +178,16 @@
 <li><strong>test</strong>：测试依赖范围。表明该依赖只能用于测试。</li>
 <li><strong>provided</strong>：对编译、测试有效，对运行无效。</li>
 <li><strong>runtime</strong>：运行时依赖范围。对测试和运行有效，但是在编译主代码时无效。</li>
-<li><strong>system</strong>：系统依赖范围。使用有该范围的依赖时必须通过 systemPath 元素显式地指定依赖文件的路径，而不依赖 Maven 仓库解析，所以可能会造成构建的不可移植。</li>
+<li><strong>system</strong>：系统依赖范围。使用有该范围的依赖时必须通过
+systemPath 元素显式地指定依赖文件的路径，而不依赖 Maven
+仓库解析，所以可能会造成构建的不可移植。</li>
 </ul>
 <h2 id="传递依赖">传递依赖</h2>
 <h3 id="依赖冲突">依赖冲突</h3>
 <ol type="1">
-<li>同一个 <code>groupId</code> 和同一个 <code>artifactId</code> 下，只能使用一个 <code>version</code>。若有不同，则只会引入后一个声明的依赖。</li>
+<li>同一个 <code>groupId</code> 和同一个 <code>artifactId</code>
+下，只能使用一个
+<code>version</code>。若有不同，则只会引入后一个声明的依赖。</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>in.hocg.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mybatis-plus-spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.0.48<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-comment">&lt;!-- 只会使用 1.0.49 这个版本的依赖 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>in.hocg.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mybatis-plus-spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.0.49<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <ol start="2" type="1">
@@ -179,12 +197,16 @@
 <pre class="mermaid">graph LR
   A --> B --> C --> X_2.0
   A --> D --> X_1.0</pre>
-<p>依赖路径上有两个版本的 X，为了避免依赖重复，Maven 只会选择其中的一个进行解析。</p>
+<p>依赖路径上有两个版本的 X，为了避免依赖重复，Maven
+只会选择其中的一个进行解析。</p>
 <h4 id="maven-依赖调解">Maven 依赖调解</h4>
-<p>在遇到上述问题的时候，Maven 会遵循 <strong>路径最短优先</strong> 和 <strong>声明顺序优先</strong> 两大原则来解决，解决的过程被称作 <strong>Maven 依赖调解</strong>。</p>
+<p>在遇到上述问题的时候，Maven 会遵循
+<strong>路径最短优先</strong> 和 <strong>声明顺序优先</strong> 两大原则来解决，解决的过程被称作
+<strong>Maven 依赖调解</strong>。</p>
 <ul>
 <li><p><strong>路径最短优先</strong></p>
-<p>根据上述的依赖路径，X 2.0 会被解析使用。这是因为第二条路径长度（2）小于第一条（3）。</p>
+<p>根据上述的依赖路径，X 2.0
+会被解析使用。这是因为第二条路径长度（2）小于第一条（3）。</p>
 <p>但是该原则也并非通用的，若遇到路径长度相等的情况，就需要使用声明顺序优先原则了。</p></li>
 </ul>
 <pre class="mermaid">graph LR
@@ -192,36 +214,53 @@
   A --> D --> Y_1.0</pre>
 <ul>
 <li><p><strong>声明顺序优先</strong></p>
-<p>在依赖路径长度相等的前提下，在 <code>pom.xml</code> 中依赖声明的顺序决定了谁会被解析使用，顺序最前的那个依赖优胜。在上述例子中，若 B 的依赖声明在 D 之前，那么 Y 1.0 就会被解析使用。</p></li>
+<p>在依赖路径长度相等的前提下，在 <code>pom.xml</code> 中依赖声明的顺序决定了谁会被解析使用，顺序最前的那个依赖优胜。在上述例子中，若
+B 的依赖声明在 D 之前，那么 Y 1.0 就会被解析使用。</p></li>
 </ul>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- A pom.xml --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>    ...<br>    dependency B<br>    ...<br>    dependency D<br>		...<br><span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <h3 id="排除依赖">排除依赖</h3>
 <p>有时侯需要我们手动排除依赖来解决依赖冲突问题。</p>
-<p>同样的例子，根据路径最短优先原则，X 1.0 会被解析使用。但是如果依赖 C 用到了 X 2.0 中才有的类或方法时，运行项目就会报 <code>NoClassDefFoundError</code> 或 <code>NoSuchMethodError</code> 错误。</p>
+<p>同样的例子，根据路径最短优先原则，X 1.0 会被解析使用。但是如果依赖 C
+用到了 X 2.0 中才有的类或方法时，运行项目就会报
+<code>NoClassDefFoundError</code> 或 <code>NoSuchMethodError</code>
+错误。</p>
 <pre class="mermaid">graph LR
   A --> B --> C --> X_2.0
   A --> D --> X_1.0</pre>
-<p>要解决该问题，需要在引入依赖时通过 <code>exclusion</code> 标签手动将 X 1.0 排除。</p>
+<p>要解决该问题，需要在引入依赖时通过 <code>exclusion</code> 标签手动将
+X 1.0 排除。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    ......<br>    <span class="hljs-tag">&lt;<span class="hljs-name">exclusions</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">exclusion</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>x<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>group.x<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">exclusion</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">exclusions</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<p>一般都会优先保留版本较高的，因为大部分 jar 在升级的时候都会做到向下兼容。</p>
-<p>但如果出现 jar 不向下兼容的情况，应考虑升级其上层依赖。如同样的例子，若 X 2.0 删除了一些 X 1.0 的类或方法，那么要考虑升级依赖 D 的版本到一个 X 2.0 兼容的版本。</p>
+<p>一般都会优先保留版本较高的，因为大部分 jar
+在升级的时候都会做到向下兼容。</p>
+<p>但如果出现 jar
+不向下兼容的情况，应考虑升级其上层依赖。如同样的例子，若 X 2.0
+删除了一些 X 1.0 的类或方法，那么要考虑升级依赖 D 的版本到一个 X 2.0
+兼容的版本。</p>
 <h1 id="maven-仓库">Maven 仓库</h1>
-<p>Maven 通过仓库来统一管理构件（artifact），每个构件都有一组坐标唯一标识。通过该坐标我们可以在仓库中找到该构件。</p>
+<p>Maven
+通过仓库来统一管理构件（artifact），每个构件都有一组坐标唯一标识。通过该坐标我们可以在仓库中找到该构件。</p>
 <p>Maven 仓库分为：</p>
 <ul>
 <li><p>本地仓库：</p>
-<p>运行 Maven 的计算机上的一个目录，缓存有远程下载的构件并包括尚未发布的临时构件。<code>settings.xml</code> 文件中可以看到 Maven 的本地仓库路径配置，默认本地仓库路径是在 <code>$&#123;user.home&#125;/.m2/repository</code>。</p></li>
+<p>运行 Maven
+的计算机上的一个目录，缓存有远程下载的构件并包括尚未发布的临时构件。<code>settings.xml</code> 文件中可以看到
+Maven
+的本地仓库路径配置，默认本地仓库路径是在 <code>$&#123;user.home&#125;/.m2/repository</code>。</p></li>
 <li><p>远程仓库：</p>
 <p>官方或其他组织维护的 Maven 仓库。</p></li>
 </ul>
 <p>Maven 远程仓库分为：</p>
 <ul>
 <li><p>中央仓库：</p>
-<p>该仓库由 Maven 社区维护，是 Maven 的默认远程仓库。另外为了方便查询，还提供了一个查询地址，开发者可以通过这个地址更快的搜索需要构件的坐标。<a target="_blank" rel="noopener" href="https://mvnrepository.com/">Maven Repository</a></p></li>
+<p>该仓库由 Maven 社区维护，是 Maven
+的默认远程仓库。另外为了方便查询，还提供了一个查询地址，开发者可以通过这个地址更快的搜索需要构件的坐标。<a target="_blank" rel="noopener" href="https://mvnrepository.com/">Maven Repository</a></p></li>
 <li><p>私服：</p>
-<p>私服是一种特殊的远程 Maven 仓库，它是架设在局域网内的仓库服务，私服一般被配置为互联网远程仓库的镜像，供局域网内的 Maven 用户使用。</p></li>
+<p>私服是一种特殊的远程 Maven
+仓库，它是架设在局域网内的仓库服务，私服一般被配置为互联网远程仓库的镜像，供局域网内的
+Maven 用户使用。</p></li>
 <li><p>其他公共仓库</p>
-<p>有一些公共仓库是为了加速访问（比如阿里云 Maven 镜像仓库）或者部分构件不存在于中央仓库中。</p></li>
+<p>有一些公共仓库是为了加速访问（比如阿里云 Maven
+镜像仓库）或者部分构件不存在于中央仓库中。</p></li>
 </ul>
 <p><strong>Maven 依赖包寻找顺序</strong></p>
 <ol type="1">
@@ -230,8 +269,10 @@
 <li>若远程仓库没有找到，会报错。</li>
 </ol>
 <h1 id="maven-生命周期">Maven 生命周期</h1>
-<p>Maven 的生命周期是为了对所有的构建过程进行抽象和统一，包含了项目的清理、初始化、编译、测试、打包、集成测试、验证、部署和站点生成等几乎所有构建步骤。</p>
-<p>Maven 定义了 3 个生命周期 <code>META-INF/plexus/components.xml</code>：</p>
+<p>Maven
+的生命周期是为了对所有的构建过程进行抽象和统一，包含了项目的清理、初始化、编译、测试、打包、集成测试、验证、部署和站点生成等几乎所有构建步骤。</p>
+<p>Maven 定义了 3 个生命周期
+<code>META-INF/plexus/components.xml</code>：</p>
 <ul>
 <li><code>default</code></li>
 <li><code>clean</code></li>
@@ -241,9 +282,12 @@
 <p>执行 Maven 生命周期的命令格式如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mvn 阶段 [阶段2] ... [阶段n]<br></code></pre></td></tr></table></figure>
 <h2 id="default-生命周期">default 生命周期</h2>
-<p><code>default</code> 生命周期是在没有任何关联插件的情况下定义的，是 Maven 的主要生命周期，用于构建应用程序，共包含 23 个阶段。</p>
+<p><code>default</code> 生命周期是在没有任何关联插件的情况下定义的，是
+Maven 的主要生命周期，用于构建应用程序，共包含 23 个阶段。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">phases</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 验证项目是否正确，并且所有必要的信息可用于完成构建过程 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>validate<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 建立初始化状态，例如设置属性 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>initialize<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 生成要包含在编译阶段的源代码 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>generate-sources<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 处理源代码 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>process-sources<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 生成要包含在包中的资源 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>generate-resources<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 将资源复制并处理到目标目录中，为打包阶段做好准备。 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>process-resources<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 编译项目的源代码  --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>compile<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 对编译生成的文件进行后处理，例如对 Java 类进行字节码增强/优化 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>process-classes<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 生成要包含在编译阶段的任何测试源代码 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>generate-test-sources<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 处理测试源代码 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>process-test-sources<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 生成要包含在编译阶段的测试源代码 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>generate-test-resources<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 处理从测试代码文件编译生成的文件 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>process-test-resources<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 编译测试源代码 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>test-compile<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 处理从测试代码文件编译生成的文件 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>process-test-classes<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 使用合适的单元测试框架（Junit 就是其中之一）运行测试 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 在实际打包之前，执行任何的必要的操作为打包做准备 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>prepare-package<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 获取已编译的代码并将其打包成可分发的格式，例如 JAR、WAR 或 EAR 文件 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>package<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 在执行集成测试之前执行所需的操作。 例如，设置所需的环境 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>pre-integration-test<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 处理并在必要时部署软件包到集成测试可以运行的环境 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>integration-test<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 执行集成测试后执行所需的操作。 例如，清理环境  --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>post-integration-test<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 运行任何检查以验证打的包是否有效并符合质量标准。 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>verify<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 	将包安装到本地仓库中，可以作为本地其他项目的依赖 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>install<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- 将最终的项目包复制到远程仓库中与其他开发者和项目共享 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>deploy<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">phases</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<p>根据前面提到的阶段间依赖关系理论，当我们执行 <code>mvn test</code> 命令的时候，会执行从 validate 到 test 的所有阶段，这也就解释了为什么执行测试的时候，项目的代码能够自动编译。</p>
+<p>根据前面提到的阶段间依赖关系理论，当我们执行 <code>mvn test</code>
+命令的时候，会执行从 validate 到 test
+的所有阶段，这也就解释了为什么执行测试的时候，项目的代码能够自动编译。</p>
 <h2 id="clean-生命周期">clean 生命周期</h2>
 <p>clean 生命周期的目的是清理项目，共包含 3 个阶段：</p>
 <ol type="1">
@@ -252,7 +296,8 @@
 <li>post-clean</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">phases</span>&gt;</span><br>  <span class="hljs-comment">&lt;!--  执行一些需要在clean之前完成的工作 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>pre-clean<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!--  移除所有上一次构建生成的文件 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>clean<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!--  执行一些需要在clean之后立刻完成的工作 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>post-clean<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">phases</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">default-phases</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">clean</span>&gt;</span><br>    org.apache.maven.plugins:maven-clean-plugin:2.5:clean<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">clean</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">default-phases</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<p>根据前面提到的阶段间依赖关系理论，当我们执行 <code>mvn clean</code> 的时候，会执行 clean 生命周期中的 pre-clean 和 clean 阶段。</p>
+<p>根据前面提到的阶段间依赖关系理论，当我们执行 <code>mvn clean</code> 的时候，会执行
+clean 生命周期中的 pre-clean 和 clean 阶段。</p>
 <h2 id="site-生命周期">site 生命周期</h2>
 <p>site 生命周期的目的是建立和发布项目站点，共包含 4 个阶段：</p>
 <ol type="1">
@@ -262,17 +307,26 @@
 <li>site-deploy</li>
 </ol>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">phases</span>&gt;</span><br>  <span class="hljs-comment">&lt;!--  执行一些需要在生成站点文档之前完成的工作 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>pre-site<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!--  生成项目的站点文档作 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>site<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!--  执行一些需要在生成站点文档之后完成的工作，并且为部署做准备 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>post-site<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br>  <span class="hljs-comment">&lt;!--  将生成的站点文档部署到特定的服务器上 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">phase</span>&gt;</span>site-deploy<span class="hljs-tag">&lt;/<span class="hljs-name">phase</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">phases</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">default-phases</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">site</span>&gt;</span><br>    org.apache.maven.plugins:maven-site-plugin:3.3:site<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">site</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">site-deploy</span>&gt;</span><br>    org.apache.maven.plugins:maven-site-plugin:3.3:deploy<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">site-deploy</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">default-phases</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<p>Maven 能够基于 <code>pom.xml</code> 所包含的信息，自动生成一个友好的站点，方便团队交流和发布项目信息。</p>
+<p>Maven
+能够基于 <code>pom.xml</code> 所包含的信息，自动生成一个友好的站点，方便团队交流和发布项目信息。</p>
 <h1 id="maven-插件">Maven 插件</h1>
-<p>Maven 本质上是一个插件执行框架，所有的执行过程都由一个个插件独立完成。上述所使用到的 install、clean 等命令，底层都是一个个 Maven 插件。本地的默认插件路径为 <code>$&#123;user.home&#125;/.m2/repository/org/apache/maven/plugins</code>。关于 Maven 的核心插件可以参考 <a target="_blank" rel="noopener" href="https://maven.apache.org/plugins/index.html">Maven Plugins</a>。</p>
-<p>Maven 插件可以理解为一组任务的集合，用户可以通过命令行直接运行指定插件的任务，也可以将插件任务挂载到构建生命周期，随着生命周期运行。</p>
+<p>Maven
+本质上是一个插件执行框架，所有的执行过程都由一个个插件独立完成。上述所使用到的
+install、clean 等命令，底层都是一个个 Maven 插件。本地的默认插件路径为
+<code>$&#123;user.home&#125;/.m2/repository/org/apache/maven/plugins</code>。关于
+Maven 的核心插件可以参考 <a target="_blank" rel="noopener" href="https://maven.apache.org/plugins/index.html">Maven
+Plugins</a>。</p>
+<p>Maven
+插件可以理解为一组任务的集合，用户可以通过命令行直接运行指定插件的任务，也可以将插件任务挂载到构建生命周期，随着生命周期运行。</p>
 <p>Maven 插件被分为下面两种类型：</p>
 <ul>
 <li><strong>Build plugins</strong>：在构建时执行。</li>
 <li><strong>Reporting plugins</strong>：在网站生成过程中执行。</li>
 </ul>
 <h1 id="maven-多模块管理">Maven 多模块管理</h1>
-<p>多模块管理简单地来说就是将一个项目分为多个模块，每个模块只负责单一的功能实现。直观的表现就是一个 Maven 项目中不止有一个 <code>pom.xml</code> 文件，会在不同的目录中有多个 <code>pom.xml</code> 文件，进而实现多模块管理。</p>
+<p>多模块管理简单地来说就是将一个项目分为多个模块，每个模块只负责单一的功能实现。直观的表现就是一个
+Maven 项目中不止有一个 <code>pom.xml</code> 文件，会在不同的目录中有多个
+<code>pom.xml</code> 文件，进而实现多模块管理。</p>
 <p>多模块管理除了可以更加便于项目开发和管理，还有如下好处：</p>
 <ol type="1">
 <li>降低代码之间的耦合性（从类级别的耦合提升到 jar 包级别的耦合）；</li>
@@ -280,7 +334,10 @@
 <li>每个模块都可以是自解释的（通过模块名或者模块文档）；</li>
 <li>模块还规范了代码边界的划分，开发者很容易通过模块确定自己所负责的内容。</li>
 </ol>
-<p>多模块管理下，会有一个父模块，其他的都是子模块。父模块通常只有一个 <code>pom.xml</code>，没有其他内容。父模块的 <code>pom.xml</code> 一般只定义了各个依赖的版本号、包含哪些子模块以及插件有哪些。不过，要注意的是，如果依赖只在某个子项目中使用，则可以在子项目的 pom.xml 中直接引入，防止父 pom 的过于臃肿。</p>
+<p>多模块管理下，会有一个父模块，其他的都是子模块。父模块通常只有一个
+<code>pom.xml</code>，没有其他内容。父模块的 <code>pom.xml</code>
+一般只定义了各个依赖的版本号、包含哪些子模块以及插件有哪些。不过，要注意的是，如果依赖只在某个子项目中使用，则可以在子项目的
+pom.xml 中直接引入，防止父 pom 的过于臃肿。</p>
 
       </div>
     </div>
@@ -360,12 +417,12 @@
     
       <div class="related-post">
   <div class="related__head">
-  <a href="/tags/%E9%85%8D%E7%BD%AE/" class="post-tag">#配置</a><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" class="post-tag">#软件开发</a><a href="/tags/Maven/" class="post-tag">#Maven</a>
+  <a href="/tags/%E9%85%8D%E7%BD%AE/" class="post-tag">#配置</a><a href="/tags/Maven/" class="post-tag">#Maven</a><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" class="post-tag">#软件开发</a>
 
 </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\2023\06\26\配置中心\" title="配置中心" rel="bookmark">配置中心</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\01\12\Windows下使用Redis\" title="Windows下使用Redis" rel="bookmark">Windows下使用Redis</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\08\01\Java字节码\" title="Java字节码" rel="bookmark">Java字节码</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\2023\06\26\配置中心\" title="配置中心" rel="bookmark">配置中心</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\01\12\Windows下使用Redis\" title="Windows下使用Redis" rel="bookmark">Windows下使用Redis</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\25\Git信息泄露\" title="Git信息泄露" rel="bookmark">Git信息泄露</a></div></div></div>
     
   </div>
 </div>

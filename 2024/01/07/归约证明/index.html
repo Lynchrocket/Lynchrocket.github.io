@@ -113,10 +113,16 @@
             
           </div>
         
-        <p>归约（reduction）是指问题 A 的任何实例能用问题 B 的方法来解决（判断），并且 A 的解为 true，当且仅当 B 的解也是 true。此时可标为 <span class="math inline">\(A\leq_p B\)</span>。也就是说，归约可以将难以直接证明（或直接证明较为复杂）的问题转化为证明另一个较为简单问题。</p>
+        <p>归约（reduction）是指问题 A 的任何实例能用问题 B
+的方法来解决（判断），并且 A 的解为 true，当且仅当 B 的解也是
+true。此时可标为 <span class="math inline">\(A\leq_p
+B\)</span>。也就是说，归约可以将难以直接证明（或直接证明较为复杂）的问题转化为证明另一个较为简单问题。</p>
 <span id="more"></span>
 <h1 id="密码学中的归约证明">密码学中的归约证明</h1>
-<p>在现代密码学中要证明方案或协议的安全性，常常使用 game 的形式来构造证明过程。归约证明（proof by reduction）就是其中的核心。它的理论依据是逻辑学中的肯定前件式（Modus Ponens）</p>
+<p>在现代密码学中要证明方案或协议的安全性，常常使用 game
+的形式来构造证明过程。归约证明（proof by
+reduction）就是其中的核心。它的理论依据是逻辑学中的肯定前件式（Modus
+Ponens）</p>
 <p><span class="math display">\[
 \begin{align}
   &amp;p\rightarrow q \notag\\
@@ -126,9 +132,11 @@
 \end{align}
 \]</span></p>
 <h1 id="证明过程">证明过程</h1>
-<p>一般来说，一个密码学方案或协议 <span class="math inline">\(\Pi\)</span> 是建立在已被证明安全的方案或协议，或者是某些困难问题之上（记为 <span class="math inline">\(X\)</span>）。困难问题就相当于地基，密码学方案或协议就相当于高楼。只要地基是稳固的，高楼一般就安全了。因此我们希望下面的命题是为真的：</p>
+<p>一般来说，一个密码学方案或协议 <span class="math inline">\(\Pi\)</span>
+是建立在已被证明安全的方案或协议，或者是某些困难问题之上（记为 <span class="math inline">\(X\)</span>）。困难问题就相当于地基，密码学方案或协议就相当于高楼。只要地基是稳固的，高楼一般就安全了。因此我们希望下面的命题是为真的：</p>
 <blockquote>
-<p>命题：如果 <span class="math inline">\(X\)</span> 是安全的，那么方案 <span class="math inline">\(\Pi\)</span> 就是安全的。若 <span class="math inline">\(X\)</span> 被有效攻破，那么 方案 <span class="math inline">\(\Pi\)</span> 就不再安全。</p>
+<p>命题：如果 <span class="math inline">\(X\)</span> 是安全的，那么方案
+<span class="math inline">\(\Pi\)</span> 就是安全的。若 <span class="math inline">\(X\)</span> 被有效攻破，那么 方案 <span class="math inline">\(\Pi\)</span> 就不再安全。</p>
 </blockquote>
 <h1 id="参考资料">参考资料</h1>
 <ul>

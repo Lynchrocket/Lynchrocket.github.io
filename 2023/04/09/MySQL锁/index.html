@@ -113,7 +113,9 @@
             
           </div>
         
-        <p>锁（lock）是计算机用以协调多个进程间并发（concurrent）访问同一共享资源的一种机制。MySQL 中为了保证数据访问的一致性与有效性等功能，实现了锁机制。MySQL 中的锁是在服务器层或者存储引擎层实现的。</p>
+        <p>锁（lock）是计算机用以协调多个进程间并发（concurrent）访问同一共享资源的一种机制。MySQL
+中为了保证数据访问的一致性与有效性等功能，实现了锁机制。MySQL
+中的锁是在服务器层或者存储引擎层实现的。</p>
 <span id="more"></span>
 <h1 id="锁的功能">锁的功能</h1>
 <p>我们需要在最大程度地利用数据库的并发访问能力的同时，也要确保每个用户能以一致的方式读取和修改数据。但是，事务并发执行时可能会带来各种问题（详见<a href="/2023/04/09/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/" title="数据库事务">数据库事务</a>）。要解决并发事务的问题，就需要借助到锁。</p>
@@ -140,19 +142,28 @@
 <h2 id="乐观锁">乐观锁</h2>
 <p>乐观锁认为数据一般情况下不会造成冲突，所以在数据提交更新的时候才会去检测。适用于读多写少的场景。</p>
 <h3 id="实现">实现</h3>
-<p>乐观锁是基本版本号机制实现的。表中增加一个 <code>version</code> 字段，读取数据时将 version 一起读出。数据每更新一次，<code>version += 1</code>。当修改需要提交时，将读取时的 version 与表当前的 version 做比较：如果一致，说明在此期间无人修改这条记录，不一致则说明已经被修改了，提交失败。</p>
+<p>乐观锁是基本版本号机制实现的。表中增加一个 <code>version</code>
+字段，读取数据时将 version
+一起读出。数据每更新一次，<code>version += 1</code>。当修改需要提交时，将读取时的
+version 与表当前的 version
+做比较：如果一致，说明在此期间无人修改这条记录，不一致则说明已经被修改了，提交失败。</p>
 <h2 id="悲观锁">悲观锁</h2>
 <p>悲观锁认为数据每次操作都会被修改，所以在每次操作数据时都会加上锁。适用于并发量不大、写多读少的场景。</p>
 <h3 id="实现-1">实现</h3>
 <p>通过共享锁和排他锁实现。</p>
 <h1 id="共享排他锁">共享/排他锁</h1>
 <h2 id="共享锁">共享锁</h2>
-<p>共享锁，又称读锁，简称 S 锁。当事务对某数据加上读锁后，其他事务只能对该数据加读锁，不能加写锁。</p>
+<p>共享锁，又称读锁，简称 S
+锁。当事务对某数据加上读锁后，其他事务只能对该数据加读锁，不能加写锁。</p>
 <h3 id="实现-2">实现</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"># MySQL <span class="hljs-number">5.7</span> 和 MySQL <span class="hljs-number">8.0</span><br><span class="hljs-keyword">SELECT</span> ... LOCK <span class="hljs-keyword">IN</span> SHARE; MODE<br># MySQL <span class="hljs-number">8.0</span><br><span class="hljs-keyword">SELECT</span> ... <span class="hljs-keyword">FOR</span> SHARE;<br></code></pre></td></tr></table></figure>
 <h2 id="排他锁">排他锁</h2>
-<p>排他锁，又称为写锁，简称 X 锁，当事务对数据加上排他锁后，其他事务无法对该数据进行查询或者修改。</p>
-<p>MySQL InnoDB 引擎默认 <code>update</code>，<code>delete</code>，<code>insert</code> 都会自动给涉及到的数据加上排他锁，<code>select</code> 语句默认不会加任何锁类型。</p>
+<p>排他锁，又称为写锁，简称 X
+锁，当事务对数据加上排他锁后，其他事务无法对该数据进行查询或者修改。</p>
+<p>MySQL InnoDB 引擎默认
+<code>update</code>，<code>delete</code>，<code>insert</code>
+都会自动给涉及到的数据加上排他锁，<code>select</code>
+语句默认不会加任何锁类型。</p>
 <h3 id="实现-3">实现</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> ... <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">UPDATE</span>;<br></code></pre></td></tr></table></figure>
 <h2 id="兼容性">兼容性</h2>
@@ -179,7 +190,8 @@
 </table>
 <h1 id="粒度锁">粒度锁</h1>
 <h2 id="全局锁">全局锁</h2>
-<p>对整个 MySQL 数据库实例加锁，加锁期间，对数据库的任何增删改操作都无法执行。只适用于全库数据备份。</p>
+<p>对整个 MySQL
+数据库实例加锁，加锁期间，对数据库的任何增删改操作都无法执行。只适用于全库数据备份。</p>
 <h3 id="实现-4">实现</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Flush tables with <span class="hljs-built_in">read</span> lock (FTWRL)<br></code></pre></td></tr></table></figure>
 <h2 id="表级锁">表级锁</h2>
@@ -187,17 +199,22 @@
 <h3 id="实现-5">实现</h3>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">LOCK <span class="hljs-keyword">TABLE</span> READ<br>LOCK <span class="hljs-keyword">TABLE</span> WRITE<br></code></pre></td></tr></table></figure>
 <h2 id="页级锁">页级锁</h2>
-<p>表级锁速度快，但冲突多，行级冲突少，但速度慢。因此采取了折衷的页级锁，一次锁定相邻的一组记录。BDB 引擎支持页级锁。</p>
+<p>表级锁速度快，但冲突多，行级冲突少，但速度慢。因此采取了折衷的页级锁，一次锁定相邻的一组记录。BDB
+引擎支持页级锁。</p>
 <h2 id="行级锁">行级锁</h2>
-<p>发生锁冲突概率最低，但是加锁慢，开销大。MySQL 中只有 InnoDB 引擎支持行锁，其他不支持。</p>
+<p>发生锁冲突概率最低，但是加锁慢，开销大。MySQL 中只有 InnoDB
+引擎支持行锁，其他不支持。</p>
 <h3 id="实现-6">实现</h3>
-<p>MySQL 中，行级锁并不是之间锁记录，而是锁的索引。MySQL 在执行 <code>update</code>、<code>delete</code> 语句时会自动加上行锁。</p>
+<p>MySQL 中，行级锁并不是之间锁记录，而是锁的索引。MySQL 在执行
+<code>update</code>、<code>delete</code> 语句时会自动加上行锁。</p>
 <h1 id="意向锁">意向锁</h1>
 <p>意向锁是表锁。为了协调行锁和表锁的关系，支持多粒度（表锁与行锁）的锁并存。</p>
 <h2 id="作用">作用</h2>
-<p>当有事务 A 有行锁时，MySQL会自动为该表添加意向锁。事务 B 如果想申请整个表的写锁，那么不需要遍历每一行判断是否存在行锁，而直接判断是否存在意向锁，增强性能。</p>
+<p>当有事务 A 有行锁时，MySQL会自动为该表添加意向锁。事务 B
+如果想申请整个表的写锁，那么不需要遍历每一行判断是否存在行锁，而直接判断是否存在意向锁，增强性能。</p>
 <h2 id="实现-7">实现</h2>
-<p>意向锁是由数据引擎自己维护的，用户无法手动操作意向锁。在为数据行加共享/排他锁之前，InnoDB 会先获取该数据行所在在数据表的对应意向锁。</p>
+<p>意向锁是由数据引擎自己维护的，用户无法手动操作意向锁。在为数据行加共享/排他锁之前，InnoDB
+会先获取该数据行所在在数据表的对应意向锁。</p>
 <h2 id="兼容性-1">兼容性</h2>
 <table>
 <thead>
@@ -249,14 +266,18 @@
 <h2 id="间隙锁gap-lock">间隙锁（Gap Lock）</h2>
 <p>间隙锁锁定一段区间内的索引记录，而不仅仅是这个区间中的每一条数据。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> id <span class="hljs-operator">&lt;</span> <span class="hljs-number">10</span> <span class="hljs-keyword">for</span> <span class="hljs-keyword">update</span>;<br></code></pre></td></tr></table></figure>
-<p>即所有在 <code>[1，10)</code> 区间内的记录行都会被锁住，所有id 为 1、2、3、4、5、6、7、8、9 的数据行的插入会被阻塞</p>
+<p>即所有在 <code>[1，10)</code> 区间内的记录行都会被锁住，所有id 为
+1、2、3、4、5、6、7、8、9 的数据行的插入会被阻塞</p>
 <h2 id="临键锁next-key-lock">临键锁（Next-Key Lock）</h2>
 <p>临键锁是记录锁与间隙锁的组合。其封锁范围既包含索引记录，又包含左闭右开的索引区间。临键锁主要为了避免幻读。</p>
-<p>每个数据行上的非唯一索引列上都会存在一把临键锁，当某个事务持有该数据行的临键锁时，会锁住一段左开右闭区间的数据。需要强调的一点是，InnoDB 中行级锁是基于索引实现的，临键锁只与非唯一索引列有关，在唯一索引列（包括主键列）上不存在临键锁。</p>
+<p>每个数据行上的非唯一索引列上都会存在一把临键锁，当某个事务持有该数据行的临键锁时，会锁住一段左开右闭区间的数据。需要强调的一点是，InnoDB
+中行级锁是基于索引实现的，临键锁只与非唯一索引列有关，在唯一索引列（包括主键列）上不存在临键锁。</p>
 <h1 id="参考资料">参考资料</h1>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wugongzi/p/16784313.html">一文读懂 MySQL 锁</a></li>
-<li><a target="_blank" rel="noopener" href="https://javaguide.cn/database/mysql/mysql-questions-01.html#mysql-%E9%94%81">MySQL 锁</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wugongzi/p/16784313.html">一文读懂
+MySQL 锁</a></li>
+<li><a target="_blank" rel="noopener" href="https://javaguide.cn/database/mysql/mysql-questions-01.html#mysql-%E9%94%81">MySQL
+锁</a></li>
 </ul>
 
       </div>

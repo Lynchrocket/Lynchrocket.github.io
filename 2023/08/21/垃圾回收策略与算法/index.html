@@ -103,7 +103,8 @@
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5"><span class="post-toc-number">1.</span> <span class="post-toc-text">垃圾回收策略</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E6%B3%95"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">引用计数法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">可达性分析</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="post-toc-number">2.</span> <span class="post-toc-text">垃圾回收算法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95mark-sweep"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">标记-清除算法（Mark-Sweep）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95mark-compact"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">标记-整理算法（Mark-Compact）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95copying"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">复制算法（Copying）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95generational-collection"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">分代收集算法（Generational Collection）</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5"><span class="post-toc-number">1.</span> <span class="post-toc-text">垃圾回收策略</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E6%B3%95"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">引用计数法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">可达性分析</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="post-toc-number">2.</span> <span class="post-toc-text">垃圾回收算法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95mark-sweep"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">标记-清除算法（Mark-Sweep）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95mark-compact"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">标记-整理算法（Mark-Compact）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95copying"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">复制算法（Copying）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95generational-collection"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">分代收集算法（Generational
+Collection）</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -113,19 +114,27 @@
             
           </div>
         
-        <p>垃圾收集器（garbage collector）是一种动态存储分配器，它自动释放程序不再需要的内存块，这些块也称为<code>垃圾</code>。自动回收垃圾的过程则称为<code>垃圾收集（garbage collection）</code>。在一个支持垃圾收集的语言中，程序显式地申请内存，但从不需要显式的释放它们。垃圾收集器会定期识别垃圾块，并将垃圾块放回空闲链表中。</p>
+        <p>垃圾收集器（garbage
+collector）是一种动态存储分配器，它自动释放程序不再需要的内存块，这些块也称为<code>垃圾</code>。自动回收垃圾的过程则称为<code>垃圾收集（garbage collection）</code>。在一个支持垃圾收集的语言中，程序显式地申请内存，但从不需要显式的释放它们。垃圾收集器会定期识别垃圾块，并将垃圾块放回空闲链表中。</p>
 <span id="more"></span>
 <h1 id="垃圾回收策略">垃圾回收策略</h1>
 <h2 id="引用计数法">引用计数法</h2>
-<p>当对象被引用时程序计数器 +1，释放时 -1。当为 0 时证明对象未被引用，可以回收。</p>
-<p>但是这个算法有明显的缺陷，对于循环引用的情况下，循环引用的对象就不会被回收。例如下图：对象 A与 B 循环引用，即便没有其他的对象引用 A 和 B，A 和 B 也都不会被回收。</p>
+<p>当对象被引用时程序计数器 +1，释放时 -1。当为 0
+时证明对象未被引用，可以回收。</p>
+<p>但是这个算法有明显的缺陷，对于循环引用的情况下，循环引用的对象就不会被回收。例如下图：对象
+A与 B 循环引用，即便没有其他的对象引用 A 和 B，A 和 B
+也都不会被回收。</p>
 <figure>
-<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/ref_count.png" alt="ref_count"><figcaption aria-hidden="true">ref_count</figcaption>
+<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/ref_count.png" alt="ref_count">
+<figcaption aria-hidden="true">ref_count</figcaption>
 </figure>
 <h2 id="可达性分析">可达性分析</h2>
-<p>通过一系列称之为 <code>GC Roots</code> 的对象作为起点，从此起点向下搜索，所走过的路径称之为引用链。当一个对象到 GC Roots 没有任何引用链相连接，代表此对象不可达。</p>
+<p>通过一系列称之为 <code>GC Roots</code>
+的对象作为起点，从此起点向下搜索，所走过的路径称之为引用链。当一个对象到
+GC Roots 没有任何引用链相连接，代表此对象不可达。</p>
 <figure>
-<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/achievable.png" alt="achievable"><figcaption aria-hidden="true">achievable</figcaption>
+<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/achievable.png" alt="achievable">
+<figcaption aria-hidden="true">achievable</figcaption>
 </figure>
 <p>在 Java 可以作为 GC Roots 的对象包括：</p>
 <ol type="1">
@@ -142,37 +151,57 @@
 <li>清除阶段：回收被标记的对象所占用的空间。</li>
 </ul>
 <figure>
-<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/mark_sweep.png" alt="mark_sweep"><figcaption aria-hidden="true">mark_sweep</figcaption>
+<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/mark_sweep.png" alt="mark_sweep">
+<figcaption aria-hidden="true">mark_sweep</figcaption>
 </figure>
 <p>优点：实现简单</p>
 <p>缺点：效率较低，并且会产生大量不连续的内存空间碎片，后续可能发生大对象不能找到可利用空间的问题</p>
 <h2 id="标记-整理算法mark-compact">标记-整理算法（Mark-Compact）</h2>
 <p>标记后不是清理对象，而是将存活对象移向内存的一端。然后清除端边界外的对象。</p>
 <figure>
-<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/mark_compact.png" alt="mark_compact"><figcaption aria-hidden="true">mark_compact</figcaption>
+<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/mark_compact.png" alt="mark_compact">
+<figcaption aria-hidden="true">mark_compact</figcaption>
 </figure>
 <h2 id="复制算法copying">复制算法（Copying）</h2>
 <p>按内存容量将内存划分为等大小的两块。每次只使用其中一块，当这一块内存满后将尚存活的对象复制到另一块上去，把已使用的内存清掉。</p>
 <figure>
-<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/copying.png" alt="copying"><figcaption aria-hidden="true">copying</figcaption>
+<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/copying.png" alt="copying">
+<figcaption aria-hidden="true">copying</figcaption>
 </figure>
 <p>优点：实现简单，运行高效，不易产生碎片</p>
 <p>缺点：可用内存缩小为了原来的一半，浪费空间。若存活对象增多的话，该算法的效率会大大降低</p>
-<h2 id="分代收集算法generational-collection">分代收集算法（Generational Collection）</h2>
-<p>分代收集法是目前大部分 JVM 所采用的方法，GC 堆划分为新生代（Young Generation）和老生代（Tenured/Old Generation）。新生代和老年代的默认比例为 1 : 2；新生代又分为 Eden 区， from Survivor 区（简称 S0 ），to Survivor 区（简称 S1 ），三者的比例为 8: 1 : 1。</p>
+<h2 id="分代收集算法generational-collection">分代收集算法（Generational
+Collection）</h2>
+<p>分代收集法是目前大部分 JVM 所采用的方法，GC 堆划分为新生代（Young
+Generation）和老生代（Tenured/Old
+Generation）。新生代和老年代的默认比例为 1 : 2；新生代又分为 Eden 区，
+from Survivor 区（简称 S0 ），to Survivor 区（简称 S1 ），三者的比例为
+8: 1 : 1。</p>
 <figure>
-<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/generational_collection.png" alt="generational_collection"><figcaption aria-hidden="true">generational_collection</figcaption>
+<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/generational_collection.png" alt="generational_collection">
+<figcaption aria-hidden="true">generational_collection</figcaption>
 </figure>
-<p>我们把新生代发生的 GC 称为 Young GC（也叫 Minor GC ）,老年代发生的 GC 称为 Old GC（也称为 Full GC ）。新老生代会使用不同的垃圾回收算法，一般情况下</p>
+<p>我们把新生代发生的 GC 称为 Young GC（也叫 Minor GC ）,老年代发生的 GC
+称为 Old GC（也称为 Full GC
+）。新老生代会使用不同的垃圾回收算法，一般情况下</p>
 <ul>
 <li>新生代使用复制算法</li>
 <li>老年代使用标记清除算法或者标记整理算法</li>
 </ul>
 <p>在新生代中，每次垃圾收集时都有大批对象死去，只有少量存活，使用复制算法比较合适，只需要付出少量存活对象的复制成本就可以完成收集。老年代对象存活率高，适合使用标记-清理或者标记-整理算法进行垃圾回收。</p>
 <figure>
-<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/new_generation.png" alt="new_generation"><figcaption aria-hidden="true">new_generation</figcaption>
+<img src="/2023/08/21/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AE%97%E6%B3%95/new_generation.png" alt="new_generation">
+<figcaption aria-hidden="true">new_generation</figcaption>
 </figure>
-<p>对象的内存分配主要在新生代的 <code>Eden Space</code> 和 Survivor 区的 <code>From Space</code>（Survivor 目前存放对象的那一块），少数情况会直接分配到老生代。当新生代的 Eden Space 和 From Space 空间不足时就会发生一次 GC，进行 GC 后，Eden Space 和 From Space 区的存活对象会被挪到 To Space，然后将 Eden Space 和 From Space 进行清理。如果 To Space 无法足够存储某个对象，则将这个对象存储到老生代。在进行 GC 后，使用的便是 Eden Space 和 To Space 了，如此反复循环。当对象在 Survivor 区躲过一次 GC 后，其年龄就会+1。默认情况下年龄到达 15 的对象会被移到老生代中。</p>
+<p>对象的内存分配主要在新生代的 <code>Eden Space</code> 和 Survivor 区的
+<code>From Space</code>（Survivor
+目前存放对象的那一块），少数情况会直接分配到老生代。当新生代的 Eden
+Space 和 From Space 空间不足时就会发生一次 GC，进行 GC 后，Eden Space 和
+From Space 区的存活对象会被挪到 To Space，然后将 Eden Space 和 From
+Space 进行清理。如果 To Space
+无法足够存储某个对象，则将这个对象存储到老生代。在进行 GC 后，使用的便是
+Eden Space 和 To Space 了，如此反复循环。当对象在 Survivor 区躲过一次 GC
+后，其年龄就会+1。默认情况下年龄到达 15 的对象会被移到老生代中。</p>
 <h1 id="参考资料">参考资料</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_36246371/article/details/52998505">垃圾回收算法之分代回收算法</a></li>

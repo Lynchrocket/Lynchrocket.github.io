@@ -115,12 +115,18 @@
         
         <p>对于一个 <span class="math inline">\(n\times n\)</span> 的矩阵 <span class="math inline">\(A\)</span> 的行列式，我们有</p>
 <p>1、当 <span class="math inline">\(n=1\)</span> 时，<span class="math inline">\(\det{(A)}=a_{11}\)</span></p>
-<p>2、当 <span class="math inline">\(n\ge 2\)</span> 时，令 <span class="math inline">\(M_{ij} (1\le i, j \ge n)\)</span> 为删除掉矩阵 <span class="math inline">\(A\)</span> 的第 <span class="math inline">\(i\)</span> 行和第 <span class="math inline">\(j\)</span> 列的一个 <span class="math inline">\((n-1)\times(n-1)\)</span> 矩阵。若按 <span class="math inline">\(\det{(A)}\)</span> 的第一行展开，则有：</p>
+<p>2、当 <span class="math inline">\(n\ge 2\)</span> 时，令 <span class="math inline">\(M_{ij} (1\le i, j \ge n)\)</span> 为删除掉矩阵
+<span class="math inline">\(A\)</span> 的第 <span class="math inline">\(i\)</span> 行和第 <span class="math inline">\(j\)</span> 列的一个 <span class="math inline">\((n-1)\times(n-1)\)</span> 矩阵。若按 <span class="math inline">\(\det{(A)}\)</span> 的第一行展开，则有：</p>
 <p><span class="math display">\[
-\begin{vmatrix} A \end{vmatrix} =\det{(A)}=a_{11}\begin{vmatrix} M_{11} \end{vmatrix}-a_{12}\begin{vmatrix} M_{12} \end{vmatrix}+\dots+(-1)^{n+1}a_{1n}\begin{vmatrix} M_{1n} \end{vmatrix} \\ =\sum_{j=1}^n (-1)^{j+1} a_{1j} \det{(M_{1j})}
+\begin{vmatrix} A \end{vmatrix} =\det{(A)}=a_{11}\begin{vmatrix} M_{11}
+\end{vmatrix}-a_{12}\begin{vmatrix} M_{12}
+\end{vmatrix}+\dots+(-1)^{n+1}a_{1n}\begin{vmatrix} M_{1n} \end{vmatrix}
+\\ =\sum_{j=1}^n (-1)^{j+1} a_{1j} \det{(M_{1j})}
 \]</span></p>
-<p>当然，我们也可不必沿着第一行展开，此时我们只需将公式中的 “1” 换成其他数字就好，而且由于行列式与转置行列式相等，按列展开也是同理进行。</p>
-<p>特殊地，若 <span class="math inline">\(n\times n\)</span> 矩阵 <span class="math inline">\(A\)</span> 是三角阵（上、下三角）或对角阵，则其行列式的值为</p>
+<p>当然，我们也可不必沿着第一行展开，此时我们只需将公式中的 “1”
+换成其他数字就好，而且由于行列式与转置行列式相等，按列展开也是同理进行。</p>
+<p>特殊地，若 <span class="math inline">\(n\times n\)</span> 矩阵 <span class="math inline">\(A\)</span>
+是三角阵（上、下三角）或对角阵，则其行列式的值为</p>
 <p><span class="math display">\[
 \begin{vmatrix} A \end{vmatrix}=a_{11}a_{22}\dots a_{nn}
 \]</span></p>
@@ -128,7 +134,8 @@
 <p><span class="math display">\[
 \begin{vmatrix} A \end{vmatrix}=(-1)^{\frac{n(n-1)}{2}}b_1b_2\dots b_n
 \]</span></p>
-<p>其中 <span class="math inline">\(b_i (i=1\dots n)\)</span> 是该阵的反对角元。</p>
+<p>其中 <span class="math inline">\(b_i (i=1\dots n)\)</span>
+是该阵的反对角元。</p>
 <p>后面有空再补</p>
 
       </div>
