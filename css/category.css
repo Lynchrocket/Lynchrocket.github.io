@@ -121,7 +121,7 @@
   display: inline-flex;
   align-items: center;
 }
-#tagCanvas {
+#tag-canvas {
   display: block;
   width: 100%;
   max-width: 500px;
