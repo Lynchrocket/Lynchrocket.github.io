@@ -107,7 +107,9 @@
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="post-toc-number">1.</span> <span class="post-toc-text">基本概念</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">2.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%AD%A6%E4%B9%A0learning"><span class="post-toc-number">1.</span> <span class="post-toc-text">学习（Learning）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BB%BB%E5%8A%A1-t"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">任务 \(T\)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BB%BB%E5%8A%A1%E7%B1%BB%E5%9E%8B"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">任务类型</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%80%A7%E8%83%BD%E5%BA%A6%E9%87%8F-p"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">性能度量 \(P\)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BB%8F%E9%AA%8C-e"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">经验 \(E\)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%B1%BB%E5%9E%8B"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">学习类型</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%9B%91%E7%9D%A3supervised"><span class="post-toc-number">1.4.1.</span> <span class="post-toc-text">监督（Supervised）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%97%A0%E7%9B%91%E7%9D%A3unsupervised"><span class="post-toc-number">1.4.2.</span> <span class="post-toc-text">无监督（Unsupervised）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%8D%8A%E7%9B%91%E7%9D%A3semi-supervised"><span class="post-toc-number">1.4.3.</span> <span class="post-toc-text">半监督（Semi-supervised）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0reinforcement-learning"><span class="post-toc-number">1.4.4.</span> <span class="post-toc-text">强化学习（Reinforcement
+Learning）</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="post-toc-number">2.</span> <span class="post-toc-text">数据集的表示</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%AF%AF%E5%B7%AEerrorloss"><span class="post-toc-number">3.</span> <span class="post-toc-text">误差（error&#x2F;loss）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90data-generating-process"><span class="post-toc-number">4.</span> <span class="post-toc-text">数据生成（data generating
+process）</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%AE%B9%E9%87%8F"><span class="post-toc-number">5.</span> <span class="post-toc-text">容量</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">6.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -124,10 +126,133 @@ automatically through experience.</p>
 <p>-- Machine Learning, Tom Mitchell, McGraw Hill, 1997.</p>
 </blockquote>
 <span id="more"></span>
-<h1 id="基本概念">基本概念</h1>
+<h1 id="学习learning">学习（Learning）</h1>
+<p>对于某类任务 <span class="math inline">\(T\)</span> 和性能度量 <span class="math inline">\(P\)</span>，一个计算机程序被认为可以从经验 <span class="math inline">\(E\)</span> 中学习是指：通过经验 <span class="math inline">\(E\)</span> 改进后，它在任务 <span class="math inline">\(T\)</span> 上由性能度量 <span class="math inline">\(P\)</span> 衡量的性能有所提升。</p>
+<h2 id="任务-t">任务 <span class="math inline">\(T\)</span></h2>
+<p>即机器学习系统应该如何处理<strong>样本</strong></p>
+<blockquote>
+<p>样本（example）：从某些希望机器学习系统处理的对象或事件中收集到的已经量化的<strong>特征（feature）</strong>的集合</p>
 <ul>
-<li>学习（Learning）</li>
+<li>通常样本会被表示成一个向量 <span class="math inline">\(\mathbb{x}\in\mathbb{R}^n\)</span>，其中每一个元素
+<span class="math inline">\(x_i\)</span> 是一个特征
+<ul>
+<li>例如：一张图片的特征通常指这张图片的像素值</li>
+</ul></li>
 </ul>
+</blockquote>
+<h3 id="任务类型">任务类型</h3>
+<table>
+<thead>
+<tr class="header">
+<th>任务类型</th>
+<th>描述</th>
+<th>应用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="性能度量-p">性能度量 <span class="math inline">\(P\)</span></h2>
+<p>性能度量 <span class="math inline">\(P\)</span>
+是特定于系统执行的任务 <span class="math inline">\(T\)</span> 而言的</p>
+<table>
+<thead>
+<tr class="header">
+<th>性能度量</th>
+<th>任务类型</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>准确率（accuracy）、错误率（error rate）</td>
+<td>分类、缺失输入分类、转录</td>
+</tr>
+<tr class="even">
+<td>模型在样本上概率对数的平均值</td>
+<td>密度估计、回归</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>一般使用<strong>测试集（test set）</strong>来评估系统性能</p>
+<p>还有一些</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 32%">
+<col style="width: 67%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>常见指标</th>
+<th>公式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>均方误差（Mean Squared Error）</td>
+<td><span class="math inline">\(MSE_{test}=\frac{1}{m}\sum_i(\hat{y}^{(test)}-y^{(test)})^2_i\)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="经验-e">经验 <span class="math inline">\(E\)</span></h2>
+<p>学习算法可以被理解为在<strong>数据集</strong>上获取经验</p>
+<blockquote>
+<p>数据集（dataset）：很多样本组成的集合</p>
+<ul>
+<li>样本也被称为数据点（data point）</li>
+</ul>
+</blockquote>
+<h2 id="学习类型">学习类型</h2>
+<h3 id="监督supervised">监督（Supervised）</h3>
+<p>使用标记数据集来训练算法，即数据集中的每一个样本都有一个<strong>标签（label）</strong>或<strong>目标（target）</strong>。也即观察随机向量
+<span class="math inline">\(x\)</span> 及其相关联的值或向量 <span class="math inline">\(y\)</span>，然后从 <span class="math inline">\(x\)</span> 预测 <span class="math inline">\(y\)</span>，通常是估计 <span class="math inline">\(p(y|x)\)</span></p>
+<h3 id="无监督unsupervised">无监督（Unsupervised）</h3>
+<p>缺乏足够的先验知识，数据集种的样本没有标签。使用这样的数据集训练，然后学习出这个数据集上有用的结构性质。</p>
+<p>无监督学习可以用于密度估计、合成、去噪、聚类等</p>
+<p>观察随机向量 <span class="math inline">\(x\)</span>
+的好几个样本，试图显式或者隐式地学习出概率分布 <span class="math inline">\(p(x)\)</span>，或者该分布的一些有意思的性质</p>
+<h3 id="半监督semi-supervised">半监督（Semi-supervised）</h3>
+<p>一些样本有监督目标，一些没有</p>
+<h3 id="强化学习reinforcement-learning">强化学习（Reinforcement
+Learning）</h3>
+<p>不是训练于一个固定的数据集，算法会于环境交互</p>
+<h1 id="数据集的表示">数据集的表示</h1>
+<p>表示数据集的常用方法是<strong>设计矩阵（design
+matrix）</strong>，每一个样本要能表示成向量，并且这些向量的维度相同（样本维度不相同的情况在这里暂不做讨论）</p>
+<ul>
+<li>每一行：包含一个不同的样本</li>
+<li>每一列：对应不同的特征</li>
+</ul>
+<p>在监督学习中，样本包含标签或者目标和一组特征</p>
+<h1 id="误差errorloss">误差（error/loss）</h1>
+<p>机器学习的主要挑战是我们的算法或模型必须能够在<strong>先前未观测的新输入上</strong>表现良好</p>
+<blockquote>
+<p>泛化（generalization）：在先前未观测到的输入上表现良好的能力 -
+泛化能力：训练误差和测试误差之间的差距 -
+注意，只有当训练误差很小时，它才有意义 -
+在训练误差很大的情况下，没有必要再谈论泛化能力了</p>
+</blockquote>
+<ul>
+<li>训练误差（training error）：在训练集上计算的误差</li>
+<li>测试误差（test error）/ 泛化误差（generalization
+error）：在测试集（新输入）上的误差</li>
+</ul>
+<p>在训练的时候，我们通过最小化训练误差来训练模型，但实际上我们关注的是测试误差。</p>
+<h1 id="数据生成data-generating-process">数据生成（data generating
+process）</h1>
+<p>训练集和测试集数据通过<strong>数据集上的概率分布</strong>生成，该过程被称为数据生成过程（data
+generating process）。</p>
+<p>通常，它们是满足独立同分布假设的，即每个数据集中的样本都是<strong>相互独立的（independent）</strong>，并且训练集和测试集是<strong>同分布的（identically
+distributed）</strong>。训练集和测试集的样本共享这个潜在的分布——<strong>数据生成分布（data
+generating distribution）</strong>，记为 <span class="math inline">\(p_{data}\)</span></p>
+<p>训练误差和测试误差之间的直接联系：<strong>随机模型训练误差的期望和该模型测试误差的期望是一样的</strong></p>
+<h1 id="容量">容量</h1>
 <h1 id="参考资料">参考资料</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.cs.cmu.edu/~tom/mlbook.html">Machine Learning,
