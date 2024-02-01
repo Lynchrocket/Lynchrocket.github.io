@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+      
+        数据库事务 | C'est la vie
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/assets/favicon/favicon-apple-touch.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/assets/favicon/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/assets/favicon/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/assets/favicon/favicon-logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/normal.ttf);
+        font-weight: normal;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css"/>
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"/>
+  
+
+  <meta name="generator" content="Hexo 7.0.0"></head>
+  <body>
+    
+      <div id="search-mask" style="display:none">
+  <div class="search-main" id="search-main">
+    <div class="search__head">
+      <div class="search-form">
+        <svg t="1706347533072"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             version="1.1"
+             xmlns="http://www.w3.org/2000/svg"
+             p-id="7828"
+             width="20"
+             height="20">
+          <path d="M685.6 660.336l155.152 155.168a16 16 0 0 1 0 22.624l-11.312 11.328a16 16 0 0 1-22.624 0l-158.528-158.544a289.792 289.792 0 0 1-165.152 51.36C322.336 742.256 192 611.904 192 451.12 192 290.336 322.336 160 483.136 160c160.784 0 291.12 130.336 291.12 291.136 0 82.112-33.984 156.272-88.672 209.2z m-202.464 33.92c134.272 0 243.12-108.848 243.12-243.12C726.256 316.848 617.408 208 483.136 208 348.848 208 240 316.848 240 451.136c0 134.272 108.848 243.12 243.136 243.12z" fill="#000000" p-id="7829">
+          </path>
+        </svg>
+        <input id="search-input" placeholder="搜索文章">
+        <svg t="1706361500528"
+             id="search-clear"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             version="1.1"
+             xmlns="http://www.w3.org/2000/svg"
+             p-id="4351"
+             width="20"
+             height="20">
+          <path d="M512 562.688l-264.2944 264.2944-50.688-50.688L461.312 512 197.0176 247.7056l50.688-50.688L512 461.312l264.2944-264.2944 50.688 50.688L562.688 512l264.2944 264.2944-50.688 50.688L512 562.688z" fill="#00" p-id="4352">
+          </path>
+        </svg>
+      </div>
+    </div>
+    <div class="search__body" id="search-result"></div>
+    <div class="search__foot"></div>
+  </div>
+</div>
+
+    
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/assets/favicon/favicon-logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-right">
+          
+            <div class="search-outer">
+  <div class="search" id="search-btn">
+    <svg t="1706347533072"
+         class="icon"
+         viewBox="0 0 1024 1024"
+         version="1.1"
+         xmlns="http://www.w3.org/2000/svg"
+         p-id="7828"
+         width="20"
+         height="20">
+      <path d="M685.6 660.336l155.152 155.168a16 16 0 0 1 0 22.624l-11.312 11.328a16 16 0 0 1-22.624 0l-158.528-158.544a289.792 289.792 0 0 1-165.152 51.36C322.336 742.256 192 611.904 192 451.12 192 290.336 322.336 160 483.136 160c160.784 0 291.12 130.336 291.12 291.136 0 82.112-33.984 156.272-88.672 209.2z m-202.464 33.92c134.272 0 243.12-108.848 243.12-243.12C726.256 316.848 617.408 208 483.136 208 348.848 208 240 316.848 240 451.136c0 134.272 108.848 243.12 243.136 243.12z" fill="#000000" p-id="7829">
+      </path>
+    </svg>
+    <span>搜索</span>
+    <span class="search-shortcut-key">Ctrl K</span>
+  </div>
+</div>
+
+          
+          <div class="nav-menu">
+            
+              
+                <a class="nav-menu-item" href="/computer">计算机</a>
+              
+                <a class="nav-menu-item" href="/math">数学</a>
+              
+                <a class="nav-menu-item" href="/physic">物理</a>
+              
+                <a class="nav-menu-item" href="/life">生活随笔</a>
+              
+            
+          </div>
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">数据库事务</div>
+        <div class="post-info">
+          
+  
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-tag">#数据库</a>
+  
+
+
+          <span class="post-date">2023-04-09</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="post-toc-number">1.</span> <span class="post-toc-text">事务的定义</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#acid"><span class="post-toc-number">2.</span> <span class="post-toc-text">ACID</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8B%E5%8A%A1%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98"><span class="post-toc-number">3.</span> <span class="post-toc-text">事务并发问题</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%A2%E5%A4%B1%E4%BF%AE%E6%94%B9"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">丢失修改</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%84%8F%E8%AF%BB"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">脏读</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">不可重复读</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%B9%BB%E8%AF%BB"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">幻读</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%92%8C%E5%B9%BB%E8%AF%BB%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">不可重复读和幻读的区别</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB"><span class="post-toc-number">4.</span> <span class="post-toc-text">事务隔离</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="post-toc-number">5.</span> <span class="post-toc-text">如何实现隔离级别</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#mysql-%E7%9A%84%E9%BB%98%E8%AE%A4%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="post-toc-number">6.</span> <span class="post-toc-text">MySQL 的默认隔离级别</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">7.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <h1 id="事务的定义">事务的定义</h1>
+<p>事务是逻辑上的一组原子操作，即要么都执行，要么都不执行。在数据库中，<code>START TRANSACTION;</code>
+和 <code>COMMIT;</code> 及其之间的所有语句被视为一个事务。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plaintext"># 开启一个事务<br>START TRANSACTION;<br># 多条 SQL 语句<br>SQL1,SQL2...<br># 提交事务<br>COMMIT;<br><br># 回滚<br>ROLLBACK;<br></code></pre></td></tr></table></figure>
+<pre class="mermaid">flowchart LR
+  start((开启事务)) --> sql(sql1 --> sql2 --> ... --> sqln) --sql全部执行成功--> commit((提交事务))
+  sql --有一个sql执行失败--> rollback((回滚事务))</pre>
+<h1 id="acid">ACID</h1>
+<p>现代关系型数据库中的事务都有 ACID 的特性</p>
+<ul>
+<li>原子性（Atomicity）：事务是最小的执行单位，不允许分割。事务的原子性确保动作要么全部完成，要么完全不起作用；</li>
+<li>一致性（Consistency）：执行事务前后，数据保持一致。例如转账业务中，无论事务是否成功，转账者和收款人的总额应该是不变的；</li>
+<li>隔离性（Isolation）：并发访问数据库时，一个用户的事务不被其他事务所干扰，各并发事务之间数据库是独立的；</li>
+<li>持久性（Durability）：一个事务被提交之后。它对数据库中数据的改变是持久的，即使数据库发生故障也不应该对其有任何影响。</li>
+</ul>
+<p>但是，这四个特性不是平级关系。A、I、D 是手段，C
+是目的。我们需要保证事务的原子性、隔离性、持久性之后，才能有事务的一致性。</p>
+<pre class="mermaid">flowchart TB
+  Atomicity --> Consistency
+  Isolation --> Consistency
+  Durability --> Consistency</pre>
+<h1 id="事务并发问题">事务并发问题</h1>
+<p>在多个事务并发操作数据库时，如果没有有效的机制进行避免就会导致丢失修改（Lost
+to modify），脏读（Dirty Read），不可重复读（Unrepeatable
+Read），幻读（Phantom Read）。</p>
+<h2 id="丢失修改">丢失修改</h2>
+<ol type="1">
+<li>事务 A 对数据进行了修改，然后事务 B 在事务 A
+提交之前也对数据进行了修改；</li>
+<li>事务 B 提交后，事务 A 的修改被覆盖。</li>
+</ol>
+<table>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>事务 A</th>
+<th>事务 B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>UPDATE user SET age=21 WHERE id=1;</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>UPDATE user SET age=20 WHERE id=1;</code></td>
+</tr>
+<tr class="odd">
+<td><code>COMMIT;</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>COMMIT;</code></td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid">flowchart LR
+  A((A)) --> age1A[age=10] --SET age=21--> age2[age=21] --COMMIT--> age3[age=10]
+  B((B)) --> age1B[age=10]  --SET age=20--> age4[age=20] --COMMIT---> age5[age=20]</pre>
+<h2 id="脏读">脏读</h2>
+<ol type="1">
+<li>事务 A 对数据进行了修改，事务 B 读取了事务 A 修改后的数据；</li>
+<li>由于某些原因，事务 A 并没有完成提交，回滚了操作，则事务 B
+读取的数据就是脏数据。</li>
+</ol>
+<table>
+<colgroup>
+<col style="width: 52%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>事务 A</th>
+<th>事务 B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>UPDATE user SET age=21 WHERE id=1;</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>SELECT * FROM user WHERE id=1;</code></td>
+</tr>
+<tr class="odd">
+<td><code>ROLLBACK;</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid">flowchart LR
+  A((A)) --> age1[age=10] --SET age=21--> age2[age=21] --ROLLBACK--> age3[age=10]
+  B((B)) ---> age4[age=21]</pre>
+<h2 id="不可重复读">不可重复读</h2>
+<ol type="1">
+<li>在事务 A 未结束时，事务 B 先读取了一次数据；</li>
+<li>事务 A 修改了数据，事务 B
+再次读取同一数据，两次读取的数据不一样。</li>
+</ol>
+<table>
+<colgroup>
+<col style="width: 52%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>事务 A</th>
+<th>事务 B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><code>SELECT * FROM user WHERE id=1;</code></td>
+</tr>
+<tr class="even">
+<td><code>UPDATE user SET age=21 WHERE id=1;</code></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>SELECT * FROM user WHERE id=1;</code></td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid">flowchart LR
+  A((A)) --> age1[age=10] --SET age=21--> age2[age=21]
+  B((B)) --SELECT--> age3[age=10] --SELECT---> age4[age=21]</pre>
+<h2 id="幻读">幻读</h2>
+<ol type="1">
+<li>在事务 B 读取数据行数后，事务 A 插入数据；</li>
+<li>事务 B 再次读取数据行数，发现有新的记录。</li>
+</ol>
+<table>
+<colgroup>
+<col style="width: 57%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>事务 A</th>
+<th>事务 B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><code>SELECT count(*) FROM user;</code></td>
+</tr>
+<tr class="even">
+<td><code>INSERT INTO user VALUES (1,2,3,4,5);</code></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>SELECT count(*) FROM user;</code></td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid">flowchart LR
+  A((A)) ----INSERT---> END((end))
+  B((B)) --SELECT count(*)--> num2[num=10] --SELECT count(*)---> num3[num=11] --> END</pre>
+<h2 id="不可重复读和幻读的区别">不可重复读和幻读的区别</h2>
+<ul>
+<li>不可重复读的重点在于内容<code>修改</code>或者记录<code>减少</code>；</li>
+<li>幻读的重点在于记录<code>新增</code>。</li>
+</ul>
+<p>幻读本质上是不可重复读的特殊情况，单独区分幻读的原因是解决幻读和不可重复读的方案不一样。</p>
+<blockquote>
+<p>执行 <code>delete</code> 和 <code>update</code>
+操作的时候，可以直接对记录加锁。而执行 <code>insert</code>
+操作的时候，由于记录锁（Record
+Lock）只能锁住已经存在的记录，为了避免插入新记录，需要依赖间隙锁（Gap
+Lock）。也就是说执行 <code>insert</code> 操作的时候需要依赖 Next-Key
+Lock（Record Lock+Gap Lock）来保证不出现幻读。</p>
+</blockquote>
+<h1 id="事务隔离">事务隔离</h1>
+<p>SQL 标准定义了四个隔离级别</p>
+<ul>
+<li>读取未提交（READ-UNCOMMITTED）：允许读取尚未提交的数据变更，可能会导致脏读、幻读或不可重复读。</li>
+<li>读取已提交（READ-COMMITTED）：只能读取已经提交的事务所做的修改。</li>
+<li>可重复读（REPEATABLE-READ）：保证在事务中多次读取同一数据的结果是一样的。</li>
+<li>可串行化（SERIALIZABLE）：完全服从 ACID
+的隔离级别。强制所有事务串行执行，这样事务之间就完全互不干扰。</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>READ-UNCOMMITTED</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr class="even">
+<td>READ-COMMITTED</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr class="odd">
+<td>REPEATABLE-READ</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr class="even">
+<td>SERIALIZABLE</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody>
+</table>
+<h1 id="如何实现隔离级别">如何实现隔离级别</h1>
+<p>由锁和 MVCC（Multiversion concurrency control）机制共同实现。</p>
+<p>SERIALIZABLE 隔离级别是通过锁来实现的，READ-COMMITTED 和
+REPEATABLE-READ 隔离级别是基于 MVCC 实现的。不过， SERIALIZABLE
+之外的其他隔离级别可能也需要用到锁机制，就比如 REPEATABLE-READ
+在当前读情况下需要使用加锁读来保证不会出现幻读。</p>
+<h1 id="mysql-的默认隔离级别">MySQL 的默认隔离级别</h1>
+<p>MySQL InnoDB 存储引擎的默认支持的隔离级别是
+REPEATABLE-READ（可重复读）。可以通过
+<code>SELECT @@tx_isolation;</code> 命令来查看</p>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://javaguide.cn/database/mysql/mysql-questions-01.html#mysql-%E4%BA%8B%E5%8A%A1">MySQL常见面试题总结</a></li>
+<li><a target="_blank" rel="noopener" href="https://cyc2018.xyz/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86.html#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86">数据库系统原理</a></li>
+</ul>
+
+      </div>
+    </div>
+    
+      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize([object Object]);
+        }
+      </script>
+    
+  </article>
+  <div class="post__foot">
+    
+      <div class="like-author">
+  <input type="checkbox" id="likeCode" />
+  <div class="author-face">
+    <img height="100px"
+         width="100px"
+         id="front-face"
+         alt="author face"
+         src="/assets/reward/avatar.png" />
+    <img height="100px"
+         width="100px"
+         id="back-face"
+         alt="like code"
+         src="/assets/reward/sponsor.png" />
+  </div>
+  <div class="like-text">
+    给作者倒杯卡布奇诺
+  </div>
+  <label for="likeCode" class="like-btn">
+    <svg viewBox="0 0 1024 1024"
+         width="20px"
+         style="margin-right: 10px"
+         height="20px">
+      <path d="M466.88 908.96L113.824 563.296a270.08 270.08 0 0 1 0-387.392c108.8-106.56 284.896-106.56 393.696 0 1.504 1.472 2.976 2.944 4.448 4.48 1.472-1.536 2.944-3.008 4.448-4.48 108.8-106.56 284.896-106.56 393.696 0a269.952 269.952 0 0 1 34.016 347.072l-387.392 385.6a64 64 0 0 1-89.92 0.384z" p-id="13650" fill="#ee4242" />
+    </svg>
+    喜欢作者
+  </label>
+</div>
+
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/archives/4445/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>RSA</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/archives/1461/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      MySQL锁
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+    
+  
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-tag">#数据库</a>
+  
+
+
+  </div>
+  <div class="realated__body">
+    
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\1461\" title="MySQL锁" rel="bookmark">MySQL锁</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\55509\" title="CAP & BASE" rel="bookmark">CAP & BASE</a></div></div></div>
+    
+  </div>
+</div>
+
+    
+    
+      <div id="gitalk-container"></div>
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">海</div>
+              
+                <div class="matts">内</div>
+              
+                <div class="matts">存</div>
+              
+                <div class="matts">知</div>
+              
+                <div class="matts">己</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">天</div>
+              
+                <div class="matts">涯</div>
+              
+                <div class="matts">若</div>
+              
+                <div class="matts">比</div>
+              
+                <div class="matts">邻</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+            <div class="foot-item">
+              <div class="foot-item__head">友链</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/icon/icon-link.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://shennoter.top/">Shennoter</a>
+                  </div>
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/icon/icon-link.svg"/>
+                    <a class="foot-link" href="">Jobove</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/logo/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/Lynchrocket">Lynchrocket</a>
+                  </div>
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/logo/logo-zh.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://www.zhihu.com/people/lynchrocket">Lynchrocket</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/assets/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:lynchrocket@gmail.com">lynchrocket@gmail.com</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">访客</div>
+            <div class="foot-item__body">
+              <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+              <span id="busuanzi_container_site_uv">本站总访问量：<span id="busuanzi_value_site_uv"></span>次</span>
+            </div>
+          </div>
+          
+        </div>
+        <div class="copyright">
+          <a href="https://lynchrocket.github.io">C'est la vie</a> &nbsp;|&nbsp;
+          由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;
+          及&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Lynchrocket/hexo-theme-senerity">Senerity</a>&nbsp;驱动
+        </div>
+      </div>
+    </div>
+    
+      <script src="https://unpkg.com/js-polyfills@0.1.43/es6.js"></script>
+      <script id="MathJax-script"
+              async
+              src="https://www.unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+    
+    
+      <script src="/js/search.js"></script>
+      <script>searchInitialize("/search.json")</script>
+    
+    
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const param = JSON.parse('{"enable":true,"owner":"Lynchrocket","admin":"Lynchrocket","repo":"Lynchrocket.github.io","clientID":"45d8817d291626df7894","clientSecret":"2761427f37f733d92cc64be2e2a3826cc8454cf3","distractionFreeMode":false,"proxy":"https://worker-lingering-hat-47a4.lynchrocket.workers.dev/?https://github.com/login/oauth/access_token","language":"zh-CN","per_page":20}')
+  param.id = location.pathname
+  const gitalk = new Gitalk(param)
+  gitalk.render('gitalk-container')
+</script>
+
+  
+
+  </body>
+</html>
