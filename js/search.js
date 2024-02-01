@@ -35,8 +35,11 @@ function searchInitialize(url) {
 
     document.addEventListener('keydown', e => {
       if ((e.ctrlKey || e.metaKey) && e.key == "k") {
-        if (searchStatus) closeSearchDialog()
-        else showSearchDialog()
+        if (searchStatus) {
+          closeSearchDialog()
+        } else {
+          showSearchDialog()
+        }
       }
       if (e.key == 'Escape') {
         closeSearchDialog()
@@ -163,8 +166,7 @@ function trimeContent(keyIndexs, content, keywords, wordLen = 20) {
     keywords.forEach(keyword => {
       content = content
         .slice(start, end)
-        .replace(new RegExp(keyword, 'ig'),
-          `<span class="search-keyword">${keyword}</span>`)
+        .replace(new RegExp(keyword, 'ig'), `<span class="search-keyword">${keyword}</span>`)
     })
 
     return content

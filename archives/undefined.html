@@ -6,7 +6,7 @@
     <title>
       
       
-        深度学习：卷积神经网络（CNN） | C'est la vie
+        线性代数：高斯消元 | C'est la vie
       
     </title>
     <meta name="description" content=""/>
@@ -152,21 +152,21 @@
   <article class="post-content">
     <div class="post-inner--toc">
       <div class="post-content__head">
-        <div class="post-title">深度学习：卷积神经网络（CNN）</div>
+        <div class="post-title">线性代数：高斯消元</div>
         <div class="post-info">
           
   
-    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-tag">#深度学习</a>
+    <a href="/tags/%E7%BA%BF%E4%BB%A3/" class="post-tag">#线代</a>
   
 
 
-          <span class="post-date">2024-01-08</span>
+          <span class="post-date">2020-12-16</span>
         </div>
       </div>
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">1.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+          
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -176,9 +176,56 @@
             
           </div>
         
-        <h1 id="参考资料">参考资料</h1>
+        <p>笔者是今年9月份开始的大学生活，也是从9月份开始线性代数的学习。在线代中，有许多新鲜的定义和运算，所以与高等数学相比，笔者觉得线代更难学得通透。因此，笔者希望通过该篇以及后续文章来梳理下线代中的知识。</p>
+<span id="more"></span>
+<p>笔者所用的线代教材是 <em>Gilbert Strang</em> 所编写的 Linear Algebra
+and its Application (the 4th edition) ，在B站上也有他的相关教学视频 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV134411y7uH?from=search&amp;seid=2698493779032149614">MIT《线性代数》吉尔伯特.斯特朗</a></p>
+<p>好，接下来我们开始线代的学习。初入线代，不同于同济紫本从行列式开始（刚看同济书的时候头都大了），我们先从矩阵与高斯消元法讲起。</p>
+<p>线代的中心问题就是如何求解线性方程组，因此我们有必要了解什么是线性方程和线性方程组，以及其中的专有名词。</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/42559190">【DL笔记6】从此明白了卷积神经网络（CNN）</a></li>
+<li><p>线性方程（linear equation）：</p>
+<p>正如其名，线性方程（linear equation）就是形如 <span class="math display">\[
+  a_1x_1+a_2x_2+...+a_nx_n=b
+  \]</span> 的方程。其中，<span class="math inline">\(a_i\)</span>
+是系数（coefficient），<span class="math inline">\(x_i\)</span>
+是变量（variable，或称未知数unknown），<span class="math inline">\(b\)</span> 是常数（constant）。</p></li>
+</ul>
+<p>由此，我们可以有线性方程组（system of linear
+equations），即多个线性方程方程所构成的方程组，其解取决于系数与常数项！于是，为了简便美化写法，我们便引入了矩阵来表示线性方程组。</p>
+<ul>
+<li><p>矩阵记号（matrix notation）：</p>
+<ul>
+<li><p>系数矩阵（coefficient matrix）： $$</p>
+<p>$$</p></li>
+<li><p>增广矩阵（augmented matrix）： $$</p>
+<p>$$</p></li>
+</ul></li>
+<li><p>高斯消元法（Guassian elimination）：</p>
+<p>是通过初等行变换（Elementary row operation,
+ERO）来将矩阵转化为上三角矩阵（upper triangular
+matrix）或行阶梯形矩阵（row echelon form
+matrix），进而通过回代求解线性方程组的方法。</p>
+<ol type="1">
+<li>对换（interchange）：交换任意两行；</li>
+<li>倍乘（scaling）：用非零实数乘以某行；</li>
+<li>倍加（replacement）：将某个方程的倍数加到另一个方程上。</li>
+</ol>
+<p>经过ERO处理前后的矩阵行等价（row equivalent），故ERO可逆。</p></li>
+<li><p>回代（back-substitution）：</p>
+<p>矩阵化为上三角阵或行阶梯形后，从最后一个未知数开始由尾至头逐步代回，得出解的过程。</p></li>
+<li><p>解的情况</p>
+<ul>
+<li>相容（consistent）：方程组有解：
+<ol type="1">
+<li>唯一解；</li>
+<li>无穷多解。</li>
+</ol></li>
+<li>不相容（inconsistent）：方程组无解。</li>
+</ul></li>
+<li><p>总结：</p>
+<p>高斯消元法实际上是个很简单的过程：</p>
+<p>原线性方程组 -&gt; 高斯消元（行变换）-&gt; 三角矩阵 -&gt; 回代 -&gt;
+得出解</p></li>
 </ul>
 
       </div>
@@ -225,7 +272,7 @@
     
     <div class="post-nav">
   
-    <a class="post-nav-item-left" href="/2024/01/08/%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4pr/">
+    <a class="post-nav-item-left" href="/archives/undefined.html">
       <div class="text-align">
         <svg t="1670570876164"
              class="icon"
@@ -236,25 +283,12 @@
         </svg>
         <span class="text-small">上一篇</span>
       </div>
-      <div>如何提交pr</div>
+      <div>线性代数：厄米特矩阵、酉矩阵</div>
     </a>
   
   <div class="vhr"></div>
   
-    <a class="post-nav-item-right" href="/2024/01/07/%E5%BD%92%E7%BA%A6%E8%AF%81%E6%98%8E/">
-      <div class="text-align">
-        <span class="text-small">下一篇</span>
-        <svg t="1670570876164"
-             class="icon"
-             viewBox="0 0 1024 1024"
-             transform="scale(-1,-1)"
-             width="16"
-             height="16">
-          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
-        </svg>
-      </div>
-      归约证明
-    </a>
+    <div class="post-nav-item-right"></div>
   
 </div>
 
@@ -263,14 +297,14 @@
   <div class="related__head">
     
   
-    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-tag">#深度学习</a>
+    <a href="/tags/%E7%BA%BF%E4%BB%A3/" class="post-tag">#线代</a>
   
 
 
   </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\2023\12\29\ClimateNeRF环境配置\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div><div class="null-item"><div class="null-title"><a href="\2024\01\06\深度学习：Pytorch基本操作\" title="深度学习：Pytorch基本操作" rel="bookmark">深度学习：Pytorch基本操作</a></div></div><div class="null-item"><div class="null-title"><a href="\2022\07\27\Base64编码\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\2023\09\12\CAP-BASE\" title="CAP & BASE" rel="bookmark">CAP & BASE</a></div></div></div>
+      
     
   </div>
 </div>
