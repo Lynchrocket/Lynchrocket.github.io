@@ -58,6 +58,7 @@
           type="text/css"
           href='/css/layout.css'/>
     
+    <script src="https://kit.fontawesome.com/c4ba0a82e6.js" crossorigin="anonymous"></script>
     
   
   <link rel="stylesheet"
@@ -65,6 +66,7 @@
         href='/css/index.css'/>
 
   <meta name="generator" content="Hexo 7.0.0"></head>
+
   <body>
     
       <div id="search-mask" style="display:none">
@@ -349,9 +351,9 @@
           
         </div>
         <div class="copyright">
-          <a href="https://lynchrocket.github.io">C'est la vie</a> &nbsp;|&nbsp;
-          由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;
-          及&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Lynchrocket/hexo-theme-senerity">Senerity</a>&nbsp;驱动
+          <a href="https://lynchrocket.github.io">C'est la vie</a> &nbsp;|
+          &nbsp;Powered by &nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp; &
+          &nbsp;<a target="_blank" rel="noopener" href="https://github.com/Lynchrocket/hexo-theme-senerity">Senerity</a>&nbsp;
         </div>
       </div>
     </div>
@@ -366,186 +368,7 @@
       <script>searchInitialize("/search.json")</script>
     
     
-  <script type="text/javascript">
-  function HeartCurve(w, h) {
-    this.w = w;
-    this.h = h;
-    this.a = undefined;
-    this.ctx = undefined;
-    this.deg = 0;
-    this.speed = 0.4;
-    this.isPause = false;
-    this.init();
-  }
-  HeartCurve.prototype.init = function () {
-    const {
-      w,
-      h
-    } = this;
-    const canvas = document.querySelector('#heart-curve');
-    if (!canvas) throw Error('no canvas element!');
-
-    this.ctx = canvas.getContext('2d');
-    this.ctx.translate(2 * w / 3, h / 2);
-    this.ctx.lineJoin = 'round';
-    this.a = w / 6.2;
-    this.id = null;
-    return this;
-  };
-  HeartCurve.prototype._drawAxis = function () {
-    const {
-      ctx,
-      w,
-      h
-    } = this;
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = "#999";
-    ctx.beginPath();
-    ctx.moveTo(-w * 2 / 3, 0);
-    ctx.lineTo(w / 3, 0);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(0, -h * 0.48);
-    ctx.lineTo(0, h * 0.48);
-    ctx.stroke();
-  };
-  HeartCurve.prototype._drawCure = function () {
-    const {
-      ctx,
-      a
-    } = this;
-    ctx.beginPath();
-    let x, y, deg = 0;
-    ctx.moveTo(0, 0);
-    ctx.strokeStyle = "#ff0000";
-    while (deg <= 360) {
-      const theta = deg / 180 * Math.PI;
-      r = 2 * a * (1 - Math.cos(theta));
-      x = r * Math.cos(theta);
-      y = r * Math.sin(theta);
-      ctx.lineTo(x, y);
-      deg++;
-    }
-    ctx.stroke();
-  };
-  HeartCurve.prototype.spin = function () {
-    let {
-      a,
-      w,
-      h,
-      deg,
-      ctx
-    } = this;
-    if (deg >= 360) deg = 0;
-
-    ctx.clearRect(-w / 3 * 2, -h / 2, w, h);
-    const theta = deg / 180 * Math.PI;
-    this._drawAxis();
-    ctx.lineWidth = 2;
-    this._drawCure();
-    ctx.strokeStyle = "#000";
-    ctx.beginPath();
-    ctx.arc(-a, 0, a, 0, 2 * Math.PI);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(2 * a * Math.cos(theta) - a, 2 * a * Math.sin(theta), a, 0, 2 * Math.PI);
-    ctx.stroke();
-    ctx.beginPath();
-    let r = 2 * a * (1 - Math.cos(theta));
-    let x = r * Math.cos(theta);
-    let y = r * Math.sin(theta);
-    ctx.arc(x, y, 3, 0, 2 * Math.PI);
-    ctx.fill();
-    if (this.isPause) return;
-
-    this.deg = deg + this.speed;
-    this.id = window.requestAnimationFrame(this.spin.bind(this));
-  };
-  HeartCurve.prototype.pause = function () {
-    this.isPause = true;
-    if (window.cancelAnimationFrame) {
-      window.cancelAnimationFrame(this.id);
-    }
-  };
-  HeartCurve.prototype.resume = function () {
-    this.isPause = false;
-    this.spin();
-  };
-
-  (function () {
-    const heartCurve = new HeartCurve(400, 400);
-    heartCurve.spin();
-    mobileAdjust(window.matchMedia("(hover:none"));
-    window.matchMedia("(hover:none)").addListener(mobileAdjust);
-
-    function mobileAdjust(media) {
-      const wallEl = document.querySelector('#wall-main')
-      if (!media.matches) {
-        heartCurve.pause();
-        wallEl.addEventListener('mouseenter', () => {
-          console.log('resume');
-          heartCurve.resume();
-        });
-        wallEl.addEventListener('mouseleave', () => {
-          console.log('pause');
-          heartCurve.pause();
-        });
-      }
-    }
-  })();
-</script>
-  
-  
+      <script src="/js/copy-code.js"></script>
     
-  <script type="text/javascript">
-    const timelineData = {"types":["article","sketch","app"],"posts":[{"title":"机器学习：基本概念","path":"/archives/54364/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2024-01-20"},{"title":"wsl杂项","path":"/archives/45330/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2024-01-13"},{"title":"Linux杂项","path":"/archives/2776/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2024-01-12"},{"title":"TTC测距碰撞算法","path":"/archives/27269/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2024-01-12"},{"title":"俳句","path":"/archives/1937/","icon":"/assets/icon/icon-event.svg","type":"sketch","date":"2024-01-09"},{"title":"如何提交pr","path":"/archives/16781/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2024-01-08"},{"title":"深度学习：卷积神经网络（CNN）","path":"/archives/33779/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2024-01-08"},{"title":"归约证明","path":"/archives/33031/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2024-01-07"},{"title":"机器学习：线性回归","path":"/archives/35487/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2024-01-07"},{"title":"深度学习：Pytorch基本操作","path":"/archives/18730/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2024-01-06"},{"title":"矩阵计算","path":"/archives/61043/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2024-01-05"},{"title":"ClimateNeRF环境配置","path":"/archives/40010/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-12-29"},{"title":"Paxos算法","path":"/archives/1235/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-09-12"},{"title":"共识算法","path":"/archives/2533/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-09-12"},{"title":"共识算法（Consensus Algorithm）","path":"/archives/54588/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-09-12"},{"title":"CAP & BASE","path":"/archives/55509/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-09-12"},{"title":"认证与授权","path":"/archives/48844/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-09-07"},{"title":"URL去重策略（布隆过滤器）","path":"/archives/36029/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-08-30"},{"title":"MQTT","path":"/archives/33401/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-08-30"},{"title":"二分查找","path":"/archives/42877/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-08-23"},{"title":"Maven","path":"/archives/38008/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-08-22"},{"title":"设计模式","path":"/archives/41682/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-08-21"},{"title":"设计模式：工厂模式","path":"/archives/17223/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-08-21"},{"title":"垃圾回收策略与算法","path":"/archives/64652/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-08-21"},{"title":"RBAC权限管理","path":"/archives/27652/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-07-07"},{"title":"配置中心","path":"/archives/6253/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-06-26"},{"title":"RSA","path":"/archives/4445/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-06-16"},{"title":"数据库事务","path":"/archives/25534/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-04-09"},{"title":"MySQL锁","path":"/archives/1461/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-04-09"},{"title":"Windows下使用Redis","path":"/archives/63125/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2023-01-12"},{"title":"Kotlin：内置排序方法","path":"/archives/10423/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2022-08-19"},{"title":"Kotlin：构造器和初始化","path":"/archives/20650/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2022-08-06"},{"title":"Java字节码","path":"/archives/57096/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2022-08-01"},{"title":"Base64编码","path":"/archives/24050/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2022-07-27"},{"title":"Git信息泄露","path":"/archives/8426/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2022-07-25"},{"title":"http请求走私","path":"/archives/63051/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2022-07-17"},{"title":"排序算法","path":"/archives/61237/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2022-07-09"},{"title":"Fallacies","path":"/archives/51297/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2021-03-01"},{"title":"manim--3b1b数学动画引擎安装","path":"/archives/57358/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2021-01-07"},{"title":"高等数学：泰勒公式","path":"/archives/48914/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2020-12-19"},{"title":"大学物理：热学","path":"/archives/13332/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2020-12-17"},{"title":"线性代数：行列式定义与展开法则","path":"/archives/25238/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2020-12-16"},{"title":"线性代数：厄米特矩阵、酉矩阵","path":"/archives/16976/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2020-12-16"},{"title":"线性代数：高斯消元","path":"/archives/15357/","icon":"/assets/icon/icon-article.svg","type":"article","date":"2020-12-16"}]}
-    const {types, posts} = timelineData
-    listEl = document.querySelector("#timeline-list");
-
-    elRefs = getElRefs(types)
-    bindListener(types, elRefs)
-
-    setTimeout(init.bind(this, types, elRefs))
-
-    function getElRefs(types) {
-      return types.map(type => document.querySelector(`#radio-${type}`))
-    }
-
-    function bindListener(names, els) {
-      names.map((name, i) => els[i].addEventListener('change', e => updateList(name, e.target.checked)))
-    }
-
-    function updateList(type, value) {
-      listDom
-        .filter(line => line.type === type)
-        .forEach(line => {
-          line.el.className = line.el.className.replace(/(--hidden)?$/, (value) ? "" : "--hidden");
-        });
-    }
-
-    const listDom = posts.map(t => getLine(t));
-    listEl.append(...listDom.map(i => i.el));
-
-    function getLine(data) {
-      const item = document.createElement("DIV");
-      item.className = `timeline-item-${data.type} timeline-item--hidden`;
-      item.innerHTML = `
-                          <div class="line-date">
-                          <div class="line-date-tag">${data.date}</div></div>
-                          <div class="line-anchor"></div>
-                          <div class="line-title">
-                              <img class="text-icon" src="${data.icon}"/><a class="timeline-post" href="${data.path}">${data.title}</a>
-                          </div>
-                          `;
-      return {el: item, type: data.type};
-    };
-
-    function init(names, els) {
-      names.map((name, i) => updateList(name, els[i].checked))
-    }
-  </script >
-
-  
-
   </body>
 </html>

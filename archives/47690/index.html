@@ -6,7 +6,7 @@
     <title>
       
       
-        线性代数：行列式定义与展开法则 | C'est la vie
+        缓存算法 | C'est la vie
       
     </title>
     <meta name="description" content=""/>
@@ -154,21 +154,21 @@
   <article class="post-content">
     <div class="post-inner--toc">
       <div class="post-content__head">
-        <div class="post-title">线性代数：行列式定义与展开法则</div>
+        <div class="post-title">缓存算法</div>
         <div class="post-info">
           
   
-    <a href="/tags/%E7%BA%BF%E4%BB%A3/" class="post-tag">#线代</a>
+    <a href="/tags/%E7%AE%97%E6%B3%95/" class="post-tag">#算法</a>
   
 
 
-          <span class="post-date">2020-12-16</span>
+          <span class="post-date">2024-02-04</span>
         </div>
       </div>
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%B8%B8%E7%94%A8%E7%BC%93%E5%AD%98%E7%AE%97%E6%B3%95"><span class="post-toc-number">1.</span> <span class="post-toc-text">常用缓存算法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="post-toc-number">2.</span> <span class="post-toc-text">算法实现</span></a></li></ol>
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -178,30 +178,37 @@
             
           </div>
         
-        <p>对于一个 <span class="math inline">\(n\times n\)</span> 的矩阵 <span class="math inline">\(A\)</span> 的行列式，我们有</p>
-<p>1、当 <span class="math inline">\(n=1\)</span> 时，<span class="math inline">\(\det{(A)}=a_{11}\)</span></p>
-<p>2、当 <span class="math inline">\(n\ge 2\)</span> 时，令 <span class="math inline">\(M_{ij} (1\le i, j \ge n)\)</span> 为删除掉矩阵
-<span class="math inline">\(A\)</span> 的第 <span class="math inline">\(i\)</span> 行和第 <span class="math inline">\(j\)</span> 列的一个 <span class="math inline">\((n-1)\times(n-1)\)</span> 矩阵。若按 <span class="math inline">\(\det{(A)}\)</span> 的第一行展开，则有：</p>
-<p><span class="math display">\[
-\begin{vmatrix} A \end{vmatrix} =\det{(A)}=a_{11}\begin{vmatrix} M_{11}
-\end{vmatrix}-a_{12}\begin{vmatrix} M_{12}
-\end{vmatrix}+\dots+(-1)^{n+1}a_{1n}\begin{vmatrix} M_{1n} \end{vmatrix}
-\\ =\sum_{j=1}^n (-1)^{j+1} a_{1j} \det{(M_{1j})}
-\]</span></p>
-<p>当然，我们也可不必沿着第一行展开，此时我们只需将公式中的 “1”
-换成其他数字就好，而且由于行列式与转置行列式相等，按列展开也是同理进行。</p>
-<p>特殊地，若 <span class="math inline">\(n\times n\)</span> 矩阵 <span class="math inline">\(A\)</span>
-是三角阵（上、下三角）或对角阵，则其行列式的值为</p>
-<p><span class="math display">\[
-\begin{vmatrix} A \end{vmatrix}=a_{11}a_{22}\dots a_{nn}
-\]</span></p>
-<p>即对角元之积。若为反三角阵或反对角阵，则其行列式的值为</p>
-<p><span class="math display">\[
-\begin{vmatrix} A \end{vmatrix}=(-1)^{\frac{n(n-1)}{2}}b_1b_2\dots b_n
-\]</span></p>
-<p>其中 <span class="math inline">\(b_i (i=1\dots n)\)</span>
-是该阵的反对角元。</p>
-<p>后面有空再补</p>
+        <p>内存是有限的，不可能无限制地添加数据。假定我们设置缓存能够使用的内存大小为
+N，那么在某一个时间点，添加了某一条缓存记录之后，占用内存超过了
+N，这个时候就需要从缓存中移除一条或多条数据了。</p>
+<span id="more"></span>
+<h1 id="常用缓存算法">常用缓存算法</h1>
+<ul>
+<li>最不经常使用算法（Least Frequently Used,
+LFU）：首先移除最低访问数的条目。
+<ul>
+<li>关键：使用一个计数器来记录条目被访问的频率。</li>
+<li>缺点：不常用。若某个条目在历史上访问次数奇高，且在某个时间点之后长时间几乎不再被访问，则该条目迟迟不能被淘汰。</li>
+</ul></li>
+<li>最近最少使用算法（Least Recently Used.
+LRU）：将最近使用的条目存放到靠近缓存顶部的位置。当一个新条目被访问时，LRU
+将它放置到缓存的顶部。当缓存达到极限时，较早之前访问的条目将从缓存底部开始被移除。这里会使用到昂贵的算法，而且它需要记录“年龄位”来精确显示条目是何时被访问的。此外，当一个LRU缓存算法删除某个条目后，“年龄位”将随其他条目发生改变。</li>
+<li>自适应缓存替换算法（ARC）：在 IBM Almaden
+研究中心开发，这个缓存算法同时跟踪记录 LFU 和
+LRU，以及驱逐缓存条目，来获得可用缓存的最佳使用。</li>
+<li>最近最常使用算法（Most Recently Used,
+MRU）：首先移除最近最常使用的条目。
+<ul>
+<li>优点：擅长处理一个条目越久，越容易被访问的情况。</li>
+</ul></li>
+<li>先进先出算法（First In First Out, FIFO）：先进入缓存的先移除。
+<ul>
+<li>关键：栈式结构。</li>
+<li>优点：实现简单。</li>
+<li>缺点：只能顺序写入和移除，无法指定特定的地址。</li>
+</ul></li>
+</ul>
+<h1 id="算法实现">算法实现</h1>
 
       </div>
     </div>
@@ -247,23 +254,11 @@
     
     <div class="post-nav">
   
-    <a class="post-nav-item-left" href="/archives/13332/">
-      <div class="text-align">
-        <svg t="1670570876164"
-             class="icon"
-             viewBox="0 0 1024 1024"
-             width="16"
-             height="16">
-          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
-        </svg>
-        <span class="text-small">上一篇</span>
-      </div>
-      <div>大学物理：热学</div>
-    </a>
+    <div class="post-nav-item-left"></div>
   
   <div class="vhr"></div>
   
-    <a class="post-nav-item-right" href="/archives/16976/">
+    <a class="post-nav-item-right" href="/archives/54364/">
       <div class="text-align">
         <span class="text-small">下一篇</span>
         <svg t="1670570876164"
@@ -275,7 +270,7 @@
           <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
         </svg>
       </div>
-      线性代数：厄米特矩阵、酉矩阵
+      机器学习：基本概念
     </a>
   
 </div>
@@ -285,14 +280,14 @@
   <div class="related__head">
     
   
-    <a href="/tags/%E7%BA%BF%E4%BB%A3/" class="post-tag">#线代</a>
+    <a href="/tags/%E7%AE%97%E6%B3%95/" class="post-tag">#算法</a>
   
 
 
   </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\16976\" title="线性代数：厄米特矩阵、酉矩阵" rel="bookmark">线性代数：厄米特矩阵、酉矩阵</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\15357\" title="线性代数：高斯消元" rel="bookmark">线性代数：高斯消元</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\51297\" title="Fallacies" rel="bookmark">Fallacies</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\4445\" title="RSA" rel="bookmark">RSA</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\42877\" title="二分查找" rel="bookmark">二分查找</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\61237\" title="排序算法" rel="bookmark">排序算法</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\55509\" title="CAP & BASE" rel="bookmark">CAP & BASE</a></div></div></div>
     
   </div>
 </div>
