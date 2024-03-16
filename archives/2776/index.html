@@ -168,7 +168,8 @@
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%88%A0%E9%99%A4-.nfs-%E6%96%87%E4%BB%B6"><span class="post-toc-number">1.</span> <span class="post-toc-text">删除 .nfs 文件</span></a></li></ol>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%88%A0%E9%99%A4-.nfs-%E6%96%87%E4%BB%B6"><span class="post-toc-number">1.</span> <span class="post-toc-text">删除 .nfs 文件</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#could-not-get-lock-varlibdpkglock-frontend"><span class="post-toc-number">2.</span> <span class="post-toc-text">Could not get lock
+&#x2F;var&#x2F;lib&#x2F;dpkg&#x2F;lock-frontend</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BD%95%E6%97%B6%E8%A7%A6%E5%8F%91"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">何时触发</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%88%90%E5%9B%A0"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">成因</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">解决方案</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">参考资料</span></a></li></ol></li></ol>
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -193,6 +194,33 @@
 <li>杀死占用的进程，从而删除 .nfs 文件</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">kill -9 32961<br></code></pre></td></tr></table></figure>
+<h1 id="could-not-get-lock-varlibdpkglock-frontend">Could not get lock
+/var/lib/dpkg/lock-frontend</h1>
+<h2 id="何时触发">何时触发</h2>
+<p>配置刚安装的系统的其他包的时候</p>
+<h2 id="成因">成因</h2>
+<p>这个错误通常是因为已经有一个 apt 或 dpkg
+进程在运行，导致无法获得锁定文件。</p>
+<h2 id="解决方案">解决方案</h2>
+<ol type="1">
+<li>等待一段时间，可能是其他正在运行的 apt 或 dpkg
+进程完成后自动释放锁。</li>
+<li>检查是否有其他终端或软件包管理器正在使用 apt 或 dpkg
+命令。如果是，请等待其完成或手动终止该进程。</li>
+<li>如果没有其他 apt 或 dpkg
+进程在运行，则可能是锁文件未正确释放。您可以手动删除锁文件，并重新运行
+apt 或 dpkg 命令：</li>
+</ol>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">rm</span> /var/lib/dpkg/lock-frontend <br>sudo dpkg --configure -a<br></code></pre></td></tr></table></figure></p>
+<ol start="4" type="1">
+<li>如果上述方法都没有解决问题，您可以尝试重启系统并再次运行 apt 或 dpkg
+命令。</li>
+</ol>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/623220351?utm_id=0">Could not
+get lock /var/lib/dpkg/lock-frontend ，怎么处理</a></li>
+</ul>
 
       </div>
     </div>

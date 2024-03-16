@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+      
+        图像评价指标 | C'est la vie
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/assets/favicon/favicon-apple-touch.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/assets/favicon/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/assets/favicon/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/assets/favicon/favicon-logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/normal.ttf);
+        font-weight: normal;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    <script src="https://kit.fontawesome.com/c4ba0a82e6.js" crossorigin="anonymous"></script>
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css"/>
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"/>
+  
+
+  <meta name="generator" content="Hexo 7.0.0"></head>
+
+  <body>
+    
+      <div id="search-mask" style="display:none">
+  <div class="search-main" id="search-main">
+    <div class="search__head">
+      <div class="search-form">
+        <svg t="1706347533072"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             version="1.1"
+             xmlns="http://www.w3.org/2000/svg"
+             p-id="7828"
+             width="20"
+             height="20">
+          <path d="M685.6 660.336l155.152 155.168a16 16 0 0 1 0 22.624l-11.312 11.328a16 16 0 0 1-22.624 0l-158.528-158.544a289.792 289.792 0 0 1-165.152 51.36C322.336 742.256 192 611.904 192 451.12 192 290.336 322.336 160 483.136 160c160.784 0 291.12 130.336 291.12 291.136 0 82.112-33.984 156.272-88.672 209.2z m-202.464 33.92c134.272 0 243.12-108.848 243.12-243.12C726.256 316.848 617.408 208 483.136 208 348.848 208 240 316.848 240 451.136c0 134.272 108.848 243.12 243.136 243.12z" fill="#000000" p-id="7829">
+          </path>
+        </svg>
+        <input id="search-input" placeholder="搜索文章">
+        <svg t="1706361500528"
+             id="search-clear"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             version="1.1"
+             xmlns="http://www.w3.org/2000/svg"
+             p-id="4351"
+             width="20"
+             height="20">
+          <path d="M512 562.688l-264.2944 264.2944-50.688-50.688L461.312 512 197.0176 247.7056l50.688-50.688L512 461.312l264.2944-264.2944 50.688 50.688L562.688 512l264.2944 264.2944-50.688 50.688L512 562.688z" fill="#00" p-id="4352">
+          </path>
+        </svg>
+      </div>
+    </div>
+    <div class="search__body" id="search-result"></div>
+    <div class="search__foot"></div>
+  </div>
+</div>
+
+    
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/assets/favicon/favicon-logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-right">
+          
+            <div class="search-outer">
+  <div class="search" id="search-btn">
+    <svg t="1706347533072"
+         class="icon"
+         viewBox="0 0 1024 1024"
+         version="1.1"
+         xmlns="http://www.w3.org/2000/svg"
+         p-id="7828"
+         width="20"
+         height="20">
+      <path d="M685.6 660.336l155.152 155.168a16 16 0 0 1 0 22.624l-11.312 11.328a16 16 0 0 1-22.624 0l-158.528-158.544a289.792 289.792 0 0 1-165.152 51.36C322.336 742.256 192 611.904 192 451.12 192 290.336 322.336 160 483.136 160c160.784 0 291.12 130.336 291.12 291.136 0 82.112-33.984 156.272-88.672 209.2z m-202.464 33.92c134.272 0 243.12-108.848 243.12-243.12C726.256 316.848 617.408 208 483.136 208 348.848 208 240 316.848 240 451.136c0 134.272 108.848 243.12 243.136 243.12z" fill="#000000" p-id="7829">
+      </path>
+    </svg>
+    <span>搜索</span>
+    <span class="search-shortcut-key">Ctrl K</span>
+  </div>
+</div>
+
+          
+          <div class="nav-menu">
+            
+              
+                <a class="nav-menu-item" href="/computer">计算机</a>
+              
+                <a class="nav-menu-item" href="/math">数学</a>
+              
+                <a class="nav-menu-item" href="/physic">物理</a>
+              
+                <a class="nav-menu-item" href="/life">生活随笔</a>
+              
+            
+          </div>
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">图像评价指标</div>
+        <div class="post-info">
+          
+  
+    <a href="/tags/CV/" class="post-tag">#CV</a>
+  
+
+
+          <span class="post-date">2024-03-15</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#psnr"><span class="post-toc-number">1.</span> <span class="post-toc-text">PSNR</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#ssim"><span class="post-toc-number">2.</span> <span class="post-toc-text">SSIM</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#lpips"><span class="post-toc-number">3.</span> <span class="post-toc-text">LPIPS</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#lmd"><span class="post-toc-number">4.</span> <span class="post-toc-text">LMD</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#fid"><span class="post-toc-number">5.</span> <span class="post-toc-text">FID</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">6.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <h1 id="psnr">PSNR</h1>
+<p>Peak Signal to Noise Ratio，峰值信噪比，用于评价图像的质量。</p>
+<p>衡量最大值信号和背景噪音之间的图像质量参考值。单位为
+dB，其值越大，图像失真越少。一般来说，PSNR 高于 40dB
+说明图像质量几乎与原图一样好；在 30-40dB
+之间通常表示图像质量的失真损失在可接受范围内；在 20-30dB
+之间说明图像质量比较差；PSNR 低于 20dB 说明图像失真严重。</p>
+<p><span class="math display">\[
+PSNR=10\cdot\log_{10}\frac{MAX_I^2}{MSE} \\
+MSE=\frac{1}{mn}\sum_{i=0}^{m-1}\sum_{j=0}^{n-1}[I(i,j)-K(i,j)]^2
+\]</span></p>
+<p>其中 - <span class="math inline">\(I\)</span> 为 <span class="math inline">\(m\times n\)</span> 的灰度图； - <span class="math inline">\(K\)</span> 为 <span class="math inline">\(m\times
+n\)</span> 的噪声图； - <span class="math inline">\(MAX_I\)</span>
+为图片可能的最大像素值，即 <span class="math inline">\(n\)</span>-bit
+的图像的 <span class="math inline">\(MAX_I=2^n-1\)</span>。</p>
+<h1 id="ssim">SSIM</h1>
+<p>structural similarity
+index，结构相似性，用于衡量两幅图像间的结构相似性。</p>
+<p>使用亮度、对比度以及结构量化图像的属性，用均值估计亮度，方差估计对比度，协方差估计结构相似度。SSIM
+值的范围为 <span class="math inline">\([0,1]\)</span>，越大代表图像越相似。如果两张图片完全一样时，SSIM
+值为 1。</p>
+<p><span class="math display">\[
+SSIM(x,y)=\frac{(2\mu_x\mu_y+c_1)(2\sigma_{xy}+c_2)}{(\mu_x^2+\mu_y^2+c_1)(\sigma_x^2+\sigma_y^2+c_2)}
+\]</span></p>
+<p>其中 - <span class="math inline">\(u\)</span> 为均值； - <span class="math inline">\(\sigma\)</span> 为方差/协方差； - <span class="math inline">\(c_i=(k_iL)^2\)</span>，<span class="math inline">\(L\)</span> 为像素范围，<span class="math inline">\(n\)</span>-bit 的图像的 <span class="math inline">\(L=2^n-1\)</span>，<span class="math inline">\(k_i\)</span> 为超参数。</p>
+<h1 id="lpips">LPIPS</h1>
+<p>Learned Perceptual Image Patch
+Similarity，学习感知图像块相似度，也称为感知损失（perceptual
+loss），用于度量两张图像之间的差别。</p>
+<p>给定两个输入，利用 <span class="math inline">\(\mathcal{F}\)</span>
+网络提取 <span class="math inline">\(L\)</span> 层的特征，然后利用 <span class="math inline">\(w_l\)</span> 点乘来放缩通道，最后计算 <span class="math inline">\(L_2\)</span> 损失</p>
+<figure>
+<img src="/archives/2070/LPIPS.png" alt="LPIPS">
+<figcaption aria-hidden="true">LPIPS</figcaption>
+</figure>
+<p><span class="math display">\[
+d(x,x_0)=\sum_l\frac{1}{H_lW_l}\sum_{h,w}||w_l\odot(\hat{y}_{hw}^l-\hat{y}_{0hw}^l)||_2^2
+\]</span></p>
+<p>其中 - <span class="math inline">\(x\)</span> 为 ground truth
+图像块； - <span class="math inline">\(x_0\)</span>
+为含噪声图像失真块。</p>
+<p>相关论文： - <a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/8578166">ZHANG R, ISOLA P,
+EFROS A A, et al. The Unreasonable Effectiveness of Deep Features as a
+Perceptual Metric [J]. IEEE, 2018.</a></p>
+<h1 id="lmd">LMD</h1>
+<p>Landmark Distance，用于评估面部图像生成质量的指标。</p>
+<p>度量生成的面部图像与真实面部图像之间的面部特征点的距离，以评估生成图像的面部特征的准确性。</p>
+<p>计算LMD的一般步骤如下： 1.
+从生成的面部图像和真实面部图像中检测面部特征点（例如，眼睛、鼻子、嘴巴等）的位置；
+2. 计算每个特征点之间的欧几里得距离； 3. 汇总或平均这些距离，以获得 LMD
+的最终值。</p>
+<p><span class="math display">\[
+LMD=\frac{1}{N}\sum_{i=1}^N\sqrt{(x_{g_i}-x_{r_i})^2+(y_{g_i}-y_{r_i})^2}
+\]</span></p>
+<p>其中 - <span class="math inline">\(N\)</span> 为特征点数量； - <span class="math inline">\(x_{g_i}\)</span> 和 <span class="math inline">\(y_{g_i}\)</span>
+分别是<strong>生成图像</strong>上第 <span class="math inline">\(i\)</span> 个特征点的 x 和 y 坐标； - <span class="math inline">\(x_{r_i}\)</span> 和 <span class="math inline">\(y_{r_i}\)</span>
+分别是<strong>真实图像</strong>上第 i 个特征点的 x 和 y 坐标。</p>
+<h1 id="fid">FID</h1>
+<p>Fréchet Inception
+Distance，用于评估生成模型性能的指标，特别是在生成对抗网络（GANs）中广泛使用。</p>
+<p>测量生成图像与真实图像分布之间的差异，即<strong>生成图像的质量和多样性</strong>。较低的
+FID 值表示生成图像更接近真实图像的分布，对应的生成模型更好。</p>
+<p>FID 的计算基于两个图像分布之间的特征向量空间的 Fréchet距离。</p>
+<p><span class="math display">\[
+FID(P,G)=||\mu_p-\mu_G||^2+Tr(\Sigma_P+\Sigma_G-2\sqrt{\Sigma_P\Sigma_G})
+\]</span></p>
+<p>其中 - <span class="math inline">\(P\)</span>
+表示真实图像分布的特征向量集合，通常使用 Inception
+网络的中间层的输出来表示； - <span class="math inline">\(G\)</span>
+表示生成图像分布的特征向量集合，也使用相同的方式表示； - <span class="math inline">\(\mu_p\)</span> 和 <span class="math inline">\(\mu_G\)</span> 分别是 <span class="math inline">\(P\)</span> 和 <span class="math inline">\(G\)</span> 的特征向量集合的均值； - <span class="math inline">\(\Sigma_P\)</span> 和 <span class="math inline">\(\Sigma_G\)</span> 分别是 <span class="math inline">\(P\)</span> 和 <span class="math inline">\(G\)</span> 的特征向量集合的协方差矩阵； - <span class="math inline">\(Tr(\Sigma_P+\Sigma_G-2\sqrt{\Sigma_P\Sigma_G})\)</span>
+表示协方差矩阵的迹的平方根。</p>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/658827245">【图像评价指标】PSNR LPIPS
+LMD SSIM FID</a></li>
+</ul>
+
+      </div>
+    </div>
+    
+      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize([object Object]);
+        }
+      </script>
+    
+  </article>
+  <div class="post__foot">
+    
+      <div class="like-author">
+  <input type="checkbox" id="likeCode" />
+  <div class="author-face">
+    <img height="100px"
+         width="100px"
+         id="front-face"
+         alt="author face"
+         src="/assets/reward/avatar.png" />
+    <img height="100px"
+         width="100px"
+         id="back-face"
+         alt="like code"
+         src="/assets/reward/sponsor.png" />
+  </div>
+  <div class="like-text">
+    给作者倒杯卡布奇诺
+  </div>
+  <label for="likeCode" class="like-btn">
+    <svg viewBox="0 0 1024 1024"
+         width="20px"
+         style="margin-right: 10px"
+         height="20px">
+      <path d="M466.88 908.96L113.824 563.296a270.08 270.08 0 0 1 0-387.392c108.8-106.56 284.896-106.56 393.696 0 1.504 1.472 2.976 2.944 4.448 4.48 1.472-1.536 2.944-3.008 4.448-4.48 108.8-106.56 284.896-106.56 393.696 0a269.952 269.952 0 0 1 34.016 347.072l-387.392 385.6a64 64 0 0 1-89.92 0.384z" p-id="13650" fill="#ee4242" />
+    </svg>
+    喜欢作者
+  </label>
+</div>
+
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/archives/61387/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>体渲染</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/archives/48868/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      三维模型
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+    
+  
+    <a href="/tags/CV/" class="post-tag">#CV</a>
+  
+
+
+  </div>
+  <div class="realated__body">
+    
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\27886\" title="相机参数与坐标系变换" rel="bookmark">相机参数与坐标系变换</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\40010\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div></div>
+    
+  </div>
+</div>
+
+    
+    
+      <div id="gitalk-container"></div>
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">海</div>
+              
+                <div class="matts">内</div>
+              
+                <div class="matts">存</div>
+              
+                <div class="matts">知</div>
+              
+                <div class="matts">己</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">天</div>
+              
+                <div class="matts">涯</div>
+              
+                <div class="matts">若</div>
+              
+                <div class="matts">比</div>
+              
+                <div class="matts">邻</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+            <div class="foot-item">
+              <div class="foot-item__head">友链</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/icon/icon-link.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://shennoter.top/">Shennoter</a>
+                  </div>
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/icon/icon-link.svg"/>
+                    <a class="foot-link" href="">Jobove</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/logo/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/Lynchrocket">Lynchrocket</a>
+                  </div>
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/logo/logo-zh.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://www.zhihu.com/people/lynchrocket">Lynchrocket</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/assets/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:lynchrocket@gmail.com">lynchrocket@gmail.com</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">访客</div>
+            <div class="foot-item__body">
+              <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+              <span id="busuanzi_container_site_uv">本站总访问量：<span id="busuanzi_value_site_uv"></span>次</span>
+            </div>
+          </div>
+          
+        </div>
+        <div class="copyright">
+          <a href="https://lynchrocket.github.io">C'est la vie</a> &nbsp;|
+          &nbsp;Powered by &nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp; &
+          &nbsp;<a target="_blank" rel="noopener" href="https://github.com/Lynchrocket/hexo-theme-senerity">Senerity</a>&nbsp;
+        </div>
+      </div>
+    </div>
+    
+      <script src="https://unpkg.com/js-polyfills@0.1.43/es6.js"></script>
+      <script id="MathJax-script"
+              async
+              src="https://www.unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+    
+    
+      <script src="/js/search.js"></script>
+      <script>searchInitialize("/search.json")</script>
+    
+    
+      <script src="/js/copy-code.js"></script>
+    
+    
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const param = JSON.parse('{"enable":true,"owner":"Lynchrocket","admin":"Lynchrocket","repo":"Lynchrocket.github.io","clientID":"45d8817d291626df7894","clientSecret":"2761427f37f733d92cc64be2e2a3826cc8454cf3","distractionFreeMode":false,"proxy":"https://worker-lingering-hat-47a4.lynchrocket.workers.dev/?https://github.com/login/oauth/access_token","language":"zh-CN","per_page":20}')
+  param.id = location.pathname
+  const gitalk = new Gitalk(param)
+  gitalk.render('gitalk-container')
+</script>
+
+  
+
+  </body>
+</html>

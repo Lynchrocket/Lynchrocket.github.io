@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+      
+        体渲染 | C'est la vie
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/assets/favicon/favicon-apple-touch.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/assets/favicon/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/assets/favicon/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/assets/favicon/favicon-logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/normal.ttf);
+        font-weight: normal;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    <script src="https://kit.fontawesome.com/c4ba0a82e6.js" crossorigin="anonymous"></script>
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css"/>
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"/>
+  
+
+  <meta name="generator" content="Hexo 7.0.0"></head>
+
+  <body>
+    
+      <div id="search-mask" style="display:none">
+  <div class="search-main" id="search-main">
+    <div class="search__head">
+      <div class="search-form">
+        <svg t="1706347533072"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             version="1.1"
+             xmlns="http://www.w3.org/2000/svg"
+             p-id="7828"
+             width="20"
+             height="20">
+          <path d="M685.6 660.336l155.152 155.168a16 16 0 0 1 0 22.624l-11.312 11.328a16 16 0 0 1-22.624 0l-158.528-158.544a289.792 289.792 0 0 1-165.152 51.36C322.336 742.256 192 611.904 192 451.12 192 290.336 322.336 160 483.136 160c160.784 0 291.12 130.336 291.12 291.136 0 82.112-33.984 156.272-88.672 209.2z m-202.464 33.92c134.272 0 243.12-108.848 243.12-243.12C726.256 316.848 617.408 208 483.136 208 348.848 208 240 316.848 240 451.136c0 134.272 108.848 243.12 243.136 243.12z" fill="#000000" p-id="7829">
+          </path>
+        </svg>
+        <input id="search-input" placeholder="搜索文章">
+        <svg t="1706361500528"
+             id="search-clear"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             version="1.1"
+             xmlns="http://www.w3.org/2000/svg"
+             p-id="4351"
+             width="20"
+             height="20">
+          <path d="M512 562.688l-264.2944 264.2944-50.688-50.688L461.312 512 197.0176 247.7056l50.688-50.688L512 461.312l264.2944-264.2944 50.688 50.688L562.688 512l264.2944 264.2944-50.688 50.688L512 562.688z" fill="#00" p-id="4352">
+          </path>
+        </svg>
+      </div>
+    </div>
+    <div class="search__body" id="search-result"></div>
+    <div class="search__foot"></div>
+  </div>
+</div>
+
+    
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/assets/favicon/favicon-logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-right">
+          
+            <div class="search-outer">
+  <div class="search" id="search-btn">
+    <svg t="1706347533072"
+         class="icon"
+         viewBox="0 0 1024 1024"
+         version="1.1"
+         xmlns="http://www.w3.org/2000/svg"
+         p-id="7828"
+         width="20"
+         height="20">
+      <path d="M685.6 660.336l155.152 155.168a16 16 0 0 1 0 22.624l-11.312 11.328a16 16 0 0 1-22.624 0l-158.528-158.544a289.792 289.792 0 0 1-165.152 51.36C322.336 742.256 192 611.904 192 451.12 192 290.336 322.336 160 483.136 160c160.784 0 291.12 130.336 291.12 291.136 0 82.112-33.984 156.272-88.672 209.2z m-202.464 33.92c134.272 0 243.12-108.848 243.12-243.12C726.256 316.848 617.408 208 483.136 208 348.848 208 240 316.848 240 451.136c0 134.272 108.848 243.12 243.136 243.12z" fill="#000000" p-id="7829">
+      </path>
+    </svg>
+    <span>搜索</span>
+    <span class="search-shortcut-key">Ctrl K</span>
+  </div>
+</div>
+
+          
+          <div class="nav-menu">
+            
+              
+                <a class="nav-menu-item" href="/computer">计算机</a>
+              
+                <a class="nav-menu-item" href="/math">数学</a>
+              
+                <a class="nav-menu-item" href="/physic">物理</a>
+              
+                <a class="nav-menu-item" href="/life">生活随笔</a>
+              
+            
+          </div>
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">体渲染</div>
+        <div class="post-info">
+          
+  
+    <a href="/tags/CG/" class="post-tag">#CG</a>
+  
+
+
+          <span class="post-date">2024-03-15</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BD%93%E6%B8%B2%E6%9F%93"><span class="post-toc-number">1.</span> <span class="post-toc-text">体渲染</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%90%B8%E6%94%B6-absorbing"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">吸收 (absorbing)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%94%BE%E5%B0%84-emission"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">放射 (emission)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A4%96%E6%95%A3%E5%B0%84-out-scattering"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">外散射 (out-scattering)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%86%85%E6%95%A3%E5%B0%84-in-scattering"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">内散射 (in-scattering)</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E4%BD%93%E6%B8%B2%E6%9F%93%E6%96%B9%E7%A8%8B"><span class="post-toc-number">2.</span> <span class="post-toc-text">体渲染方程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E4%BD%93%E6%B8%B2%E6%9F%93"><span class="post-toc-number">3.</span> <span class="post-toc-text">计算机的体渲染</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <h1 id="体渲染">体渲染</h1>
+<p>体渲染属于整个渲染技术的分支，它的目的主要是为了解决云、烟、果冻这类非刚性物体的渲染建模，可以简单理解为是为了处理密度较小的非固体的渲染。</p>
+<p>为了建模这种非刚性物体的渲染，体渲染把气体等物质抽象成一团飘忽不定的粒子群。光线在穿过这类物体时，其实就是光子在跟粒子发生碰撞的过程。</p>
+<p>下图是体渲染建模的示意图。光沿直线方向穿过一堆粒子
+(粉色部分)，如果能计算出每根光线从最开始发射，到最终打到成像平面上的辐射强度，我们就可以渲染出投影图像。而体渲染要做的，就是对这个过程进行建模。为了简化计算，我们就假设光子只跟它附近的粒子发生作用，这个范围就是图中圆柱体大小的区间。</p>
+<figure>
+<img src="/archives/61387/differential_cylinders.png" alt="differential cylinders">
+<figcaption aria-hidden="true">differential cylinders</figcaption>
+</figure>
+<p>体渲染把光子与粒子发生作用的过程，进一步细化为四种类型：</p>
+<ul>
+<li>吸收
+(absorption)：光子被粒子吸收，会导致入射光的辐射强度<strong>减弱</strong>；</li>
+<li>放射
+(emission)：粒子本身可能发光，比如气体加热到一定程度就会离子化，变成发光的「火焰」。这会进一步<strong>增大</strong>辐射强度；</li>
+<li>外散射
+(out-scattering)：光子在撞击到粒子后，可能会发生弹射，导致方向发生偏移，会<strong>减弱</strong>入射光强度；</li>
+<li>内散射
+(in-scattering)：其他方向的光子在撞到粒子后，可能和当前方向上的光子重合，从而<strong>增强</strong>当前光路上的辐射强度。</li>
+</ul>
+<p>下图是这四种情况的示意图，<span class="math inline">\(L_i\)</span>
+表示入射光，<span class="math inline">\(L_o\)</span> 表示出射光。</p>
+<figure>
+<img src="/archives/61387/four_situations.png" alt="four situations">
+<figcaption aria-hidden="true">four situations</figcaption>
+</figure>
+<p>出射光与入射光之间的变化量，可以表示为这四个过程的叠加：</p>
+<p><span class="math display">\[
+dL(x,w)=\text{emission}+\text{inscattering}-\text{outscattering}-\text{absorption}
+\]</span></p>
+<p>其中 <span class="math inline">\(x\)</span>
+表示光线上某个位置点，<span class="math inline">\(w\)</span>
+表示光线发射方向。</p>
+<h2 id="吸收-absorbing">吸收 (absorbing)</h2>
+<figure>
+<img src="/archives/61387/absorption.png" alt="absorption">
+<figcaption aria-hidden="true">absorption</figcaption>
+</figure>
+<p>假设粒子都是半径为 <span class="math inline">\(r\)</span>
+的球体，那么每个粒子的投影面积是 <span class="math inline">\(A=\pi
+r^2\)</span> (也就是每个粒子对光线的遮挡面积)。假设圆柱体中粒子的密度是
+<span class="math inline">\(\rho\)</span>，圆柱体的底面积是 <span class="math inline">\(E\)</span>。</p>
+<p>当圆柱体足够薄 (薄到跟粒子一样厚)
+的时候，可以认为粒子之间不会互相重叠
+(也就是粒子都平铺在圆柱体一个横截面上)。</p>
+<p>假定这个厚度是 <span class="math inline">\(\Delta
+s\)</span>，那么在这个厚度内，圆柱体体积为 <span class="math inline">\(E\Delta s\)</span>，粒子总数为 <span class="math inline">\(\rho E\Delta s\)</span>。这些粒子遮挡的面积为
+<span class="math inline">\(\rho E\Delta
+sA\)</span>，占整个底面积的比例为 <span class="math inline">\(\rho
+E\Delta sA/E=\rho A\Delta
+s\)</span>。也就是说，<strong>当一束光通过这个圆柱体的时候，有 <span class="math inline">\(\rho A\Delta s\)</span>
+的概率会被遮挡。</strong></p>
+<p>换句话说，如果我们在圆柱体的一端发射无数光线
+(假设都朝相同的方向)，在另一端接收，会发现有些光线安然通过，有些则被粒子遮挡
+(吸收)。<strong>整体上，这些接受到的光线总强度，相比入射光线总强度而言，会有
+<span class="math inline">\(\rho A\Delta s\)</span>
+比例的衰减，即出射光的强度均值是入射光的 <span class="math inline">\(\rho A\Delta s\)</span> 倍。</strong></p>
+<p><span class="math display">\[
+\begin{align}
+    I_o-I_i=\Delta I=-\rho(s)AI(s)\Delta s\notag \\
+    \implies dI=-\rho(s)AI(s)ds
+\end{align}
+\]</span></p>
+<p>粒子密度 <span class="math inline">\(\rho\)</span> 是一个关于 <span class="math inline">\(s\)</span>
+的函数，因为每个区域的密度都是不同的。</p>
+<ol type="1">
+<li>式可以转换为常微分方程：</li>
+</ol>
+<p><span class="math display">\[
+\begin{equation}
+    \frac{dI}{ds}=-\rho(s)AI(s)=-\tau_a(s)I(s)
+\end{equation}
+\]</span></p>
+<p>解这个方程可以得到：</p>
+<p><span class="math display">\[
+\begin{equation}
+    I(s)=I_0\exp(-\int_0^s\tau_a(t)dt)
+\end{equation}
+\]</span></p>
+<p>公式里面的 <span class="math inline">\(I_0\)</span> (注意区分 <span class="math inline">\(I_o\)</span>)
+是常微分方程中的常数项，物理意义上表示光线的起始点。而 <span class="math inline">\(I_o\)</span> 应为 <span class="math inline">\(I_o=I_i\exp(-\int_i^o\tau_a(t)dt)\)</span></p>
+<p>如果介质 (粒子群) 是均匀的，即 <span class="math inline">\(\tau_a(t)\)</span> 处处相等，那么入射光在经过介质
+(粒子群) 后，辐射强度会呈指数衰减。这被称为<strong>比尔-朗伯吸收定律
+(Beer-Lambert Law)</strong>：</p>
+<figure>
+<img src="/archives/61387/beer_lambert.png" alt="Beer-Lambert Law">
+<figcaption aria-hidden="true">Beer-Lambert Law</figcaption>
+</figure>
+<p>可以由此定义<strong>透射比 (transmittance)</strong>：</p>
+<p><span class="math display">\[
+\begin{equation}
+    T(s)=\frac{I_o}{I_i}=\exp(-\int_i^o\tau_a(t)dt)
+\end{equation}
+\]</span></p>
+<p>它表示粒子群某一点的透明度，数值越大，说明粒子群越透明，光线衰减的幅度就越小。</p>
+<p>而透明度本身是关于 <span class="math inline">\(\tau_a(t)\)</span>
+的方程，<span class="math inline">\(\tau_a(t)\)</span> 越大，<span class="math inline">\(T(s)\)</span> 就越小。由公式 (2) 可知，<span class="math inline">\(\tau_a(t)=\rho(t)A\)</span>，它是由粒子密度和投影面积决定的。这在直觉上也很好理解，如果粒子密度大，粒子本身也比较大，那么遮住光线的概率也会相应提升，自然透明度也就下降了。</p>
+<p><span class="math inline">\(\tau_a(t)\)</span>
+也被称为<strong>光学厚度 (optical depth)</strong>。</p>
+<figure>
+<img src="/archives/61387/optical_depth.png" alt="不同光学厚度下，光线透射度对比">
+<figcaption aria-hidden="true">不同光学厚度下，光线透射度对比</figcaption>
+</figure>
+<h2 id="放射-emission">放射 (emission)</h2>
+<p>除了吸收之外，粒子本身也可能发光。</p>
+<p>假设单个粒子发射一束光的辐射强度为 <span class="math inline">\(I_e\)</span>，那么按照前文的描述，在圆柱体足够薄的情况下，粒子总数是
+<span class="math inline">\(\rho AE\Delta s\)</span>，则总的发光强度为
+<span class="math inline">\(I_e\rho AE\Delta s\)</span>。</p>
+<p>如果我们在圆柱体一端去接收粒子们放射的光线，会发现有时候能接收到，有时候刚好接收点所在的光路上没有粒子，就接收不到。能接收到光线的概率为
+<span class="math inline">\(\rho AE\Delta s/E=\rho A\Delta
+s\)</span>，那么接收到的光线的平均强度为 <span class="math inline">\(I_e\rho A\Delta s\)</span>。</p>
+<p>同样地，可以得到放射光强的常微分方程：</p>
+<p><span class="math display">\[
+\begin{equation}
+    \frac{dI}{ds}=I_e(s)\rho(s)A=I_e(s)\tau_a(s)
+\end{equation}
+\]</span></p>
+<p><span class="math inline">\(I_e\)</span> 是一个关于 <span class="math inline">\(s\)</span>
+的函数，因为圆柱体不同位置的粒子，所放射的光强都是有差异的。这里我们也看到，类似吸收，粒子放射的光强同样和
+<span class="math inline">\(\tau_a(s)\)</span>
+有关，这在直觉上也是合理的，如果粒子能发光，那粒子密度和粒子颗粒越大，放射的辐射均值也就越大。</p>
+<h2 id="外散射-out-scattering">外散射 (out-scattering)</h2>
+<p>粒子除了吸收光子，也可能会弹射光子，这个过程称为外散射，即光子被弹射出原本的光路，导致光线强度减弱。</p>
+<p>同吸收一样，外散射对光线的「削弱」程度，也跟光学厚度相关，不过过程相对吸收来说又复杂一些，因此我们用
+<span class="math inline">\(\tau_s\)</span>
+来表示外散射对光线的削弱比例，以区别于 <span class="math inline">\(\tau_a\)</span>。</p>
+<p>同样地，这一过程可以表示为：</p>
+<p><span class="math display">\[
+\begin{equation}
+    \frac{dI}{ds}=-\tau_s(s)I(s)
+\end{equation}
+\]</span></p>
+<h2 id="内散射-in-scattering">内散射 (in-scattering)</h2>
+<p>光子可以被弹射走，自然就有其他光路的光子被弹射到当前光路，这一过程就是内散射。</p>
+<p>内散射的过程比外散射又更加复杂，因为弹射到当前光路的光子可能来自多条不同的光路，因此需要综合考虑其他光路的辐射强度以及各种弹射角度。</p>
+<p>不过本文不打算深入探究这一点，我们就认为其他光路的辐射强度为 <span class="math inline">\(I_s\)</span>，而弹射到当前光路的能量损失比为 <span class="math inline">\(\tau_s\)</span>
+(注意这里和外散射使用的是相同的系数，既然都是散射，那有些性质上自然是共通的)。</p>
+<p>内散射的过程可以表示为：</p>
+<p><span class="math display">\[
+\begin{equation}
+    \frac{dI}{ds}=\tau_s(s)I_s(s)
+\end{equation}
+\]</span></p>
+<h1 id="体渲染方程">体渲染方程</h1>
+<p>我们把以上四个过程都综合到一个公式中：</p>
+<p><span class="math display">\[
+\begin{equation}
+    \frac{dI}{ds}=-\tau_a(s)I(s)-\tau_s(s)I(s)+\tau_a(s)I_e(s)+\tau_s(s)I_s(s)
+\end{equation}
+\]</span></p>
+<p>其中，<strong>吸收</strong>和<strong>外散射</strong>都会削弱光线的辐射强度，并且由于它们都和入射光有关，因此它们共同构成了体渲染中的<strong>衰减项
+(attenuation
+item)</strong>，而粒子<strong>发光</strong>和<strong>内散射</strong>都来自独立的光源，因此被称为<strong>源项
+(source item)</strong>。</p>
+<p>为了求解方便，定义 <span class="math inline">\(\tau_t=\tau_a+\tau_s\)</span>，公式 (8)
+就简化为：</p>
+<p><span class="math display">\[
+\begin{equation}
+    \frac{dI}{ds}=-\tau_t(s)I(s)+\tau_a(s)I_e(s)+\tau_s(s)I_s(s)
+\end{equation}
+\]</span></p>
+<p>求解这个微分方程，得到：</p>
+<p><span class="math display">\[
+\begin{equation}
+    I(s)=\int_0^s\exp(-\int_0^t\tau_t(u)du)[\tau_a(s)I_e(s)+\tau_s(s)I_s(s)]dt+I_0\exp(-\int_0^s\tau_t(t)dt)
+\end{equation}
+\]</span></p>
+<p>公式 (10) 就是体渲染的渲染方程了，其中 <span class="math inline">\(I_0\)</span> 就是入射光最开始的强度，在 NeRF
+中把它当作是背景光。</p>
+<p>这个公式告诉我们，出射光的强度主要由入射光 (背景光) 和源项
+(粒子发光以及内散射) 等构成的，而这两者在传递过程中都伴随着相同的衰减
+(<span class="math inline">\(\tau_t\)</span>)。同时由于从 <span class="math inline">\(I_0\)</span> 到 <span class="math inline">\(I_s\)</span>
+的整个光路上，处处都可能存在粒子发光和内散射现象，因此源项是需要从 <span class="math inline">\(0\)</span> 开始相加一直到 <span class="math inline">\(s\)</span> 的，对应到公式中就是积分 <span class="math inline">\(\int_0^s\)</span>。</p>
+<p>有了这个公式，我们就可以建模出每一条光线在传播介质中，辐射强度的变化，并最终渲染出图像
+(当然前提要知道介质中每一点的 <span class="math inline">\(\tau_t\)</span>、<span class="math inline">\(I_e\)</span> 等信息)。</p>
+<p><strong>注意，虽然我们在讨论这个模型的时候一直是用辐射强度这个概念，但直接把
+<span class="math inline">\(I(s)\)</span>
+替换成颜色也是可以的。</strong></p>
+<p><strong>现在，我们做一个大胆的假设，假设 <span class="math inline">\(\tau_t\)</span>、<span class="math inline">\(\tau_a\)</span>、<span class="math inline">\(\tau_s\)</span> 这些都相等，统一用 <span class="math inline">\(\sigma\)</span> 表示</strong>，同时令 <span class="math inline">\(C=I_e+I_s\)</span>，那么公式 (10)
+可以进一步简化成：</p>
+<p><span class="math display">\[
+\begin{align}
+    I(s)&amp;=\int_0^s\exp(-\int_0^t\sigma(u)du)\sigma(t)C(t)dt+I_0\exp(-\int_0^s\sigma(t)dt)\notag
+\\
+    &amp;=\int_0^sT(t)\sigma(t)C(t)dt+I_0T(s)
+\end{align}
+\]</span></p>
+<p>其中 <span class="math inline">\(T(t)=\exp(-\int_0^t\sigma(u)du)\)</span></p>
+<h1 id="计算机的体渲染">计算机的体渲染</h1>
+<p>公式 (11) 在计算机中是无法表达的，需要进一步离散化。</p>
+<p>我们将整个光路 <span class="math inline">\([0, s]\)</span> 划分为
+<span class="math inline">\(N\)</span> 个相等间距的区间：<span class="math inline">\([t_n,t_{n+1}]\)</span>。那么，只要能算出每个 <span class="math inline">\([t_n,t_{n+1}]\)</span> 区间内的辐射强度 <span class="math inline">\(I(t_n\rightarrow t_{n+1})\)</span>，最后把 <span class="math inline">\(N\)</span>
+个区间的辐射加起来，就可以得到最终的光线强度了。<span class="math inline">\(N\)</span> 越大，则越接近理论数值 (公式
+(11))。</p>
+<p>为了方便运算，我们假设在每个区间内，<span class="math inline">\(\sigma(t)\)</span> 处处等于 <span class="math inline">\(\sigma_n\)</span> ，<span class="math inline">\(C(t)\)</span> 处处等于 <span class="math inline">\(C_n\)</span>。那么可以得到：</p>
+<p><span class="math display">\[
+\begin{align}
+    I(t_n\rightarrow t_{n+1})&amp;=\int_{t_n}^{t_{n+1}}T(t)\sigma_nC_ndt
+\notag\\
+    &amp;=\sigma_nC_n\int_{t_n}^{t_{n+1}}T(t)dt
+\end{align}
+\]</span></p>
+<p>注意 <span class="math inline">\(T(t)=\exp(-\int_0^t\sigma(u)du)\)</span>，是需要从光线起点处开始积分的。不过，好在
+<span class="math inline">\(T(t)\)</span> 可以拆分为两段的乘积：</p>
+<p><span class="math display">\[
+\begin{align}
+    T(t)&amp;=\exp(-\int_0^t\sigma(u)du) \notag\\
+    &amp;=\exp(-[\int_0^{t_n}\sigma(u)du+\int_{t_n}^t\sigma(u)du])
+\notag\\
+    &amp;=\exp(-\int_0^{t_n}\sigma(u)du)\exp(-\int_{t_n}^t\sigma(u)du)
+\notag\\
+    &amp;=T(0\rightarrow t_n)T(t_n\rightarrow t)
+\end{align}
+\]</span></p>
+<p>这样公式 (12) 就变成：</p>
+<p><span class="math display">\[
+\begin{align}
+    I(t_n\rightarrow
+t_{n+1})&amp;=\sigma_nC_n\int_{t_n}^{t_{n+1}}T(0\rightarrow
+t_n)T(t_n\rightarrow t)dt \notag\\
+    &amp;=\sigma_nC_nT(0\rightarrow
+t_n)\int_{t_n}^{t_{n+1}}T(t_n\rightarrow t)dt \notag\\
+    &amp;=\sigma_nC_nT(0\rightarrow
+t_n)\int_{t_n}^{t_{n+1}}\exp(-\int_{t_n}^t\sigma_ndu)dt \notag\\
+    &amp;=\sigma_nC_nT(0\rightarrow
+t_n)\int_{t_n}^{t_{n+1}}\exp(-\sigma_nu|_{t_n}^t)dt \notag\\
+    &amp;=\sigma_nC_nT(0\rightarrow
+t_n)\int_{t_n}^{t_{n+1}}\exp(-\sigma_n(t-t_n))dt \notag\\
+    &amp;=\sigma_nC_nT(0\rightarrow
+t_n)\frac{\exp(-\sigma_n(t-t_n))}{-\sigma_n}|_{t_n}^{t_{n+1}} \notag\\
+    &amp;=C_nT(0\rightarrow t_n)(1-\exp(-\sigma_n(t_{n+1}-t_n)))
+\end{align}
+\]</span></p>
+<p>现在我们得到了 <span class="math inline">\(I(t_n\rightarrow
+t_{n+1})\)</span>，接下来就是把每一段得累加起来了：</p>
+<p><span class="math display">\[
+\begin{align}
+    I(s)&amp;=\int_0^sT(t)\sigma(t)C(t)dt+I_0T(s) \notag\\
+    &amp;\approx\sum_{n=1}^NI(t_n\rightarrow t_{n+1})+I_0T(s) \notag\\
+    &amp;=\sum_{n=1}^NC_nT(0\rightarrow
+t_n)(1-\exp(-\sigma_n(t_{n+1}-t_n)))+I_0T(s)
+\end{align}
+\]</span></p>
+<p>假设 <span class="math inline">\(\delta_n=t_{n+1}-t_n\)</span>，那么
+<span class="math inline">\(\delta_n\)</span>
+表示的就是每个小区间的长度，我们令 <span class="math inline">\(T_n=T(0\rightarrow t_n)\)</span>，则 <span class="math inline">\(T_n\)</span> 也可以离散化为：</p>
+<p><span class="math display">\[
+\begin{align}
+    T_n&amp;=\exp(-\int_0^{t_n}\sigma(u)du) \notag\\
+    &amp;\approx\exp(\sum_{k=1}^{n-1}-\sigma_k\delta_k)
+\end{align}
+\]</span></p>
+<p>将公式 (16) 代入 (15) 后，可以得到最终计算机使用的体渲染公式：</p>
+<p><span class="math display">\[
+\begin{equation}
+    I(s)=\sum_{n=1}^NT_n(1-\exp(-\sigma_k\delta_k))C_n+I_0T(s)
+\end{equation}
+\]</span></p>
+<p>这个公式就是 NeRF 论文中公式 (3) 的出处，只不过加了背景光：</p>
+<figure>
+<img src="/archives/61387/nerf_equation.png" alt="NeRF 体渲染的数值计算公式，省略了背景光">
+<figcaption aria-hidden="true">NeRF
+体渲染的数值计算公式，省略了背景光</figcaption>
+</figure>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.scratchapixel.com/lessons/3d-basic-rendering/volume-rendering-for-developers/volume-rendering-summary-equations.html">Volume
+Rendering</a></li>
+<li><a target="_blank" rel="noopener" href="https://courses.cs.duke.edu/spring03/cps296.8/papers/max95opticalModelsForDirectVolumeRendering.pdf">Optical
+Models for Direct Volume Rendering</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2209.02417">Volume Rendering Digest
+(for NeRF)</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/595117334">NeRF入门之体渲染
+(Volume Rendering)</a></li>
+</ul>
+
+      </div>
+    </div>
+    
+      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize([object Object]);
+        }
+      </script>
+    
+  </article>
+  <div class="post__foot">
+    
+      <div class="like-author">
+  <input type="checkbox" id="likeCode" />
+  <div class="author-face">
+    <img height="100px"
+         width="100px"
+         id="front-face"
+         alt="author face"
+         src="/assets/reward/avatar.png" />
+    <img height="100px"
+         width="100px"
+         id="back-face"
+         alt="like code"
+         src="/assets/reward/sponsor.png" />
+  </div>
+  <div class="like-text">
+    给作者倒杯卡布奇诺
+  </div>
+  <label for="likeCode" class="like-btn">
+    <svg viewBox="0 0 1024 1024"
+         width="20px"
+         style="margin-right: 10px"
+         height="20px">
+      <path d="M466.88 908.96L113.824 563.296a270.08 270.08 0 0 1 0-387.392c108.8-106.56 284.896-106.56 393.696 0 1.504 1.472 2.976 2.944 4.448 4.48 1.472-1.536 2.944-3.008 4.448-4.48 108.8-106.56 284.896-106.56 393.696 0a269.952 269.952 0 0 1 34.016 347.072l-387.392 385.6a64 64 0 0 1-89.92 0.384z" p-id="13650" fill="#ee4242" />
+    </svg>
+    喜欢作者
+  </label>
+</div>
+
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/archives/26715/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>常微分方程</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/archives/2070/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      图像评价指标
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+    
+  
+    <a href="/tags/CG/" class="post-tag">#CG</a>
+  
+
+
+  </div>
+  <div class="realated__body">
+    
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\59645\" title="NeRF学习" rel="bookmark">NeRF学习</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\48868\" title="三维模型" rel="bookmark">三维模型</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\40010\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div></div>
+    
+  </div>
+</div>
+
+    
+    
+      <div id="gitalk-container"></div>
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">海</div>
+              
+                <div class="matts">内</div>
+              
+                <div class="matts">存</div>
+              
+                <div class="matts">知</div>
+              
+                <div class="matts">己</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">天</div>
+              
+                <div class="matts">涯</div>
+              
+                <div class="matts">若</div>
+              
+                <div class="matts">比</div>
+              
+                <div class="matts">邻</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+            <div class="foot-item">
+              <div class="foot-item__head">友链</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/icon/icon-link.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://shennoter.top/">Shennoter</a>
+                  </div>
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/icon/icon-link.svg"/>
+                    <a class="foot-link" href="">Jobove</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/logo/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/Lynchrocket">Lynchrocket</a>
+                  </div>
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/logo/logo-zh.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://www.zhihu.com/people/lynchrocket">Lynchrocket</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/assets/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:lynchrocket@gmail.com">lynchrocket@gmail.com</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">访客</div>
+            <div class="foot-item__body">
+              <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+              <span id="busuanzi_container_site_uv">本站总访问量：<span id="busuanzi_value_site_uv"></span>次</span>
+            </div>
+          </div>
+          
+        </div>
+        <div class="copyright">
+          <a href="https://lynchrocket.github.io">C'est la vie</a> &nbsp;|
+          &nbsp;Powered by &nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp; &
+          &nbsp;<a target="_blank" rel="noopener" href="https://github.com/Lynchrocket/hexo-theme-senerity">Senerity</a>&nbsp;
+        </div>
+      </div>
+    </div>
+    
+      <script src="https://unpkg.com/js-polyfills@0.1.43/es6.js"></script>
+      <script id="MathJax-script"
+              async
+              src="https://www.unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+    
+    
+      <script src="/js/search.js"></script>
+      <script>searchInitialize("/search.json")</script>
+    
+    
+      <script src="/js/copy-code.js"></script>
+    
+    
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const param = JSON.parse('{"enable":true,"owner":"Lynchrocket","admin":"Lynchrocket","repo":"Lynchrocket.github.io","clientID":"45d8817d291626df7894","clientSecret":"2761427f37f733d92cc64be2e2a3826cc8454cf3","distractionFreeMode":false,"proxy":"https://worker-lingering-hat-47a4.lynchrocket.workers.dev/?https://github.com/login/oauth/access_token","language":"zh-CN","per_page":20}')
+  param.id = location.pathname
+  const gitalk = new Gitalk(param)
+  gitalk.render('gitalk-container')
+</script>
+
+  
+
+  </body>
+</html>

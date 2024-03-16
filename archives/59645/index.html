@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+      
+        NeRF学习 | C'est la vie
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/assets/favicon/favicon-apple-touch.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/assets/favicon/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/assets/favicon/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/assets/favicon/favicon-logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/normal.ttf);
+        font-weight: normal;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    <script src="https://kit.fontawesome.com/c4ba0a82e6.js" crossorigin="anonymous"></script>
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css"/>
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"/>
+  
+
+  <meta name="generator" content="Hexo 7.0.0"></head>
+
+  <body>
+    
+      <div id="search-mask" style="display:none">
+  <div class="search-main" id="search-main">
+    <div class="search__head">
+      <div class="search-form">
+        <svg t="1706347533072"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             version="1.1"
+             xmlns="http://www.w3.org/2000/svg"
+             p-id="7828"
+             width="20"
+             height="20">
+          <path d="M685.6 660.336l155.152 155.168a16 16 0 0 1 0 22.624l-11.312 11.328a16 16 0 0 1-22.624 0l-158.528-158.544a289.792 289.792 0 0 1-165.152 51.36C322.336 742.256 192 611.904 192 451.12 192 290.336 322.336 160 483.136 160c160.784 0 291.12 130.336 291.12 291.136 0 82.112-33.984 156.272-88.672 209.2z m-202.464 33.92c134.272 0 243.12-108.848 243.12-243.12C726.256 316.848 617.408 208 483.136 208 348.848 208 240 316.848 240 451.136c0 134.272 108.848 243.12 243.136 243.12z" fill="#000000" p-id="7829">
+          </path>
+        </svg>
+        <input id="search-input" placeholder="搜索文章">
+        <svg t="1706361500528"
+             id="search-clear"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             version="1.1"
+             xmlns="http://www.w3.org/2000/svg"
+             p-id="4351"
+             width="20"
+             height="20">
+          <path d="M512 562.688l-264.2944 264.2944-50.688-50.688L461.312 512 197.0176 247.7056l50.688-50.688L512 461.312l264.2944-264.2944 50.688 50.688L562.688 512l264.2944 264.2944-50.688 50.688L512 562.688z" fill="#00" p-id="4352">
+          </path>
+        </svg>
+      </div>
+    </div>
+    <div class="search__body" id="search-result"></div>
+    <div class="search__foot"></div>
+  </div>
+</div>
+
+    
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/assets/favicon/favicon-logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-right">
+          
+            <div class="search-outer">
+  <div class="search" id="search-btn">
+    <svg t="1706347533072"
+         class="icon"
+         viewBox="0 0 1024 1024"
+         version="1.1"
+         xmlns="http://www.w3.org/2000/svg"
+         p-id="7828"
+         width="20"
+         height="20">
+      <path d="M685.6 660.336l155.152 155.168a16 16 0 0 1 0 22.624l-11.312 11.328a16 16 0 0 1-22.624 0l-158.528-158.544a289.792 289.792 0 0 1-165.152 51.36C322.336 742.256 192 611.904 192 451.12 192 290.336 322.336 160 483.136 160c160.784 0 291.12 130.336 291.12 291.136 0 82.112-33.984 156.272-88.672 209.2z m-202.464 33.92c134.272 0 243.12-108.848 243.12-243.12C726.256 316.848 617.408 208 483.136 208 348.848 208 240 316.848 240 451.136c0 134.272 108.848 243.12 243.136 243.12z" fill="#000000" p-id="7829">
+      </path>
+    </svg>
+    <span>搜索</span>
+    <span class="search-shortcut-key">Ctrl K</span>
+  </div>
+</div>
+
+          
+          <div class="nav-menu">
+            
+              
+                <a class="nav-menu-item" href="/computer">计算机</a>
+              
+                <a class="nav-menu-item" href="/math">数学</a>
+              
+                <a class="nav-menu-item" href="/physic">物理</a>
+              
+                <a class="nav-menu-item" href="/life">生活随笔</a>
+              
+            
+          </div>
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">NeRF学习</div>
+        <div class="post-info">
+          
+  
+    <a href="/tags/CG/" class="post-tag">#CG</a>
+  
+
+
+          <span class="post-date">2024-03-14</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="post-toc-number">1.</span> <span class="post-toc-text">基础知识</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%A1%A8%E5%BE%81%E6%96%B9%E6%B3%95"><span class="post-toc-number">2.</span> <span class="post-toc-text">表征方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#soft-shape"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Soft Shape</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#radiance-field"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Radiance Field</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="post-toc-number">3.</span> <span class="post-toc-text">方法概述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pipeline"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">Pipeline</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#neural-radiance-field-scene-representation"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">Neural Radiance
+Field Scene Representation</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#volume-rendering-with-radiance-fields"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">Volume Rendering with
+Radiance Fields</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#positional-encoding"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">Positional encoding</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#hierarchical-volume-sampling"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">Hierarchical volume sampling</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%8C%87%E6%A0%87"><span class="post-toc-number">4.</span> <span class="post-toc-text">指标</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%8B%8D%E6%91%84%E5%9C%BA%E6%99%AF"><span class="post-toc-number">5.</span> <span class="post-toc-text">拍摄场景</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">6.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <p>NeRF（Neural Radiance Field）即神经辐射场。仅利用多个视角的 RGB
+图像，训练神经网络构建一个隐式的三维表征，即可渲染得到模型没有见过的新视角下的图像。其主要贡献在于实现了<strong>神经场（Neural
+Field）与体渲染（Volume Rendering）的有效结合</strong>。</p>
+<span id="more"></span>
+<h1 id="基础知识">基础知识</h1>
+<ul>
+<li><a href="/archives/undefined/" title="三维模型">三维模型</a></li>
+<li><a href="/archives/undefined/" title="体渲染">体渲染</a></li>
+<li><a href="/archives/undefined/" title="图像评价指标">图像评价指标</a></li>
+<li><a href="/archives/undefined/" title="相机参数与坐标系变换">相机参数与坐标系变换</a></li>
+</ul>
+<h1 id="表征方法">表征方法</h1>
+<h2 id="soft-shape">Soft Shape</h2>
+<p>这是 NeRF 成功及其重要的因素。</p>
+<p>NeRF 使用了<strong>软不透明度场（soft opacity
+field）</strong>来生成形状，即从一片三维虚空中，按图像需要逐渐生成出具有特定结构三维物体。这样生成的形状不像
+Mesh 等 Hard Geometry
+一样具有确定性的空间边界，而是以一定概率连续地弥散在整个空间中的。</p>
+<figure>
+<img src="/archives/59645/nerf_3d_model.png" alt="NeRF的表征方法">
+<figcaption aria-hidden="true">NeRF的表征方法</figcaption>
+</figure>
+<figure>
+<img src="/archives/59645/soft_shape.png" alt="Soft Shape">
+<figcaption aria-hidden="true">Soft Shape</figcaption>
+</figure>
+<p>Soft Geometry 有两大好处： 1. 不需要使用对象分割掩码（object
+segmentation masks）； 2. 没有边界不连续的（boundary
+discontinuity）问题，这意味着更易于做可微渲染。</p>
+<p>同时也有一些缺点，如渲染成本高，编辑困难等等。</p>
+<figure>
+<img src="/archives/59645/compare_to_hard_geo.png" alt="与 Hard Geometry 比较">
+<figcaption aria-hidden="true">与 Hard Geometry 比较</figcaption>
+</figure>
+<p>相关论文：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2112.05131">Yu A , Fridovich-Keil
+S , Tancik M , et al. Plenoxels: Radiance Fields without Neural
+Networks[J]. 2021.</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2111.11215">Sun C , Sun M , Chen H
+T . Direct Voxel Grid Optimization: Super-fast Convergence for Radiance
+Fields Reconstruction[C]. 2021.</a></p></li>
+</ul>
+<h2 id="radiance-field">Radiance Field</h2>
+<p>给出每个表面点 <span class="math inline">\((x，y，z)\)</span>
+处不同的观察角度 <span class="math inline">\((\theta,\phi)\)</span>
+的颜色 <span class="math inline">\((r,b,g)\)</span>。用这种方式可以很方便的描述物体表面的颜色，反射，和阴影等效果。但缺点是不易于修改和编辑。</p>
+<p>相关论文：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://grail.cs.washington.edu/projects/slf/papers/siggraph2000/talk/">Wood
+D N ,Azuma D I ,Aldinger K , et al. Surface light fields for 3D
+photography[C]. SIGGRAPH conference. 2000.</a></li>
+</ul>
+<blockquote>
+<p>以上这两种表征方法都可以视为空间中的函数，因此也方便后续使用神经网络来拟合。</p>
+</blockquote>
+<h1 id="方法概述">方法概述</h1>
+<figure>
+<img src="/archives/59645/overview.png" alt="方法概述">
+<figcaption aria-hidden="true">方法概述</figcaption>
+</figure>
+<p>NeRF
+工作的过程可以分成两部分：<strong>三维重建</strong>和<strong>渲染</strong>。</p>
+<ol type="1">
+<li>三维重建：从二维多视角图像构建三维场景（反渲染）</li>
+</ol>
+<p>利用三维点的位置 <span class="math inline">\((x,y,z)\)</span>
+及方位视角 <span class="math inline">\((\theta, \phi)\)</span>
+作为输入，通过多层感知机（MLP）建模该点对应的颜色（Color，RGB）及体密度
+（Volume Density，<span class="math inline">\(\sigma\)</span>），该建模过程 <span class="math inline">\(F_\Theta\)</span>
+形成了三维场景的<strong>隐式表示</strong>。</p>
+<ol start="2" type="1">
+<li>渲染：计算某视角下的二维图像（体渲染）</li>
+</ol>
+<p>使用可微分渲染器（Differentiable Renderer），利用重建部分得到的 Scene
+Representation 沿着 ray 结合得到最终的二维图像像素值.</p>
+<p>在训练的时候，利用渲染部分得到的二维图像，通过优化与 Ground Truth 的
+L2 Loss 训练网络。</p>
+<h2 id="pipeline">Pipeline</h2>
+<figure>
+<img src="/archives/59645/pipeline.png" alt="Pipeline">
+<figcaption aria-hidden="true">Pipeline</figcaption>
+</figure>
+<h2 id="neural-radiance-field-scene-representation">Neural Radiance
+Field Scene Representation</h2>
+<p>该部分的输入是三维位置 <span class="math inline">\((x,y,z)\)</span>
+和二维方位视角 <span class="math inline">\((\theta,\phi)\)</span>，输出是颜色 <span class="math inline">\(c=(r,g,b)\)</span> 和体密度 <span class="math inline">\(\sigma\)</span>，即利用一个 MLP
+网络近似地表示这种映射 <span class="math inline">\(F_\Theta:
+(x,d)\rightarrow(c,\sigma)\)</span>，这个映射 <span class="math inline">\(F_\Theta\)</span>
+就是一种三维场景的<strong>隐式表示</strong>。</p>
+<p>该 MLP 网络先使用 8 层 256 通道的全连接层接收 <span class="math inline">\((x,y,z)\)</span> 输入，并使用 ReLU 激活，输出
+<span class="math inline">\(\sigma\)</span> 和一个 256
+维的向量。然后这个向量与 <span class="math inline">\((\theta,\phi)\)</span> 连接，并输入 1 层 128
+通道的全连接层，并使用 ReLU 激活，输出颜色 <span class="math inline">\(c=(r,g,b)\)</span>。</p>
+<figure>
+<img src="/archives/59645/network.png" alt="Network">
+<figcaption aria-hidden="true">Network</figcaption>
+</figure>
+<h2 id="volume-rendering-with-radiance-fields">Volume Rendering with
+Radiance Fields</h2>
+<p>我们可以将体密度 <span class="math inline">\(\sigma(\mathbf{x})\)</span> 视为 ray 终止于位置
+<span class="math inline">\(\mathbf{x}\)</span>
+的无限小粒子的微分概率。</p>
+<p>在 ray <span class="math inline">\(\mathbf{r}(t)=\mathbf{o}+t\mathbf{d}\)</span> 上
+<span class="math inline">\([t_n,t_f]\)</span> 段的期望颜色 <span class="math inline">\(C(\mathbf{r})\)</span> 为：</p>
+<p><span class="math display">\[
+C(\mathbf{r})=\int_{t_n}^{t_f}T(t)\sigma(\mathbf{r}(t))\mathbf{c}(\mathbf{r}(t),\mathbf{d})dt,\text{
+where }T(t)=\exp(-\int_{t_n}^t\sigma(\mathbf{r}(s))ds)
+\]</span></p>
+<p>其中 <span class="math inline">\(T(t)\)</span> 表示从 <span class="math inline">\(t_n\)</span> 到 <span class="math inline">\(t\)</span> 沿 ray 的累积透射率，即 ray 从 <span class="math inline">\(t_n\)</span> 到 <span class="math inline">\(t\)</span> 不碰到任何粒子的概率。</p>
+<p>实际训练中，需要对积分进行<strong>离散化处理</strong>，NeRF 采用了
+stratified sampling 方式（Monte Carlo
+法的采样方法）：将射线需要积分的<strong>区域分为 N
+等份</strong>，然后在每一个小区域中进行均匀随机采样：</p>
+<p><span class="math display">\[
+t_i\sim\mathcal{U}[t_n+\frac{i-1}{N}(t_f-t_n),t_n+\frac{i}{N}(t_f-t_n)]
+\]</span></p>
+<p>离散化后，原渲染公式变为：</p>
+<p><span class="math display">\[
+\hat{C}(\mathbf{r})=\sum_{i=1}^NT_i(1-\exp(-\sigma_i\delta_i))\mathbf{c}_i,\text{
+where }T_i=\exp(-\sum_{j=1}^{i-1}\sigma_j\delta_j)
+\]</span></p>
+<p>其中 <span class="math inline">\(\delta_i=t_{i+1}-t_i\)</span>
+为相邻样本间的距离。</p>
+<p>关于体渲染的推导，可参考<a href="/archives/undefined/" title="体渲染">体渲染</a>.</p>
+<p>NeRF 在一条 ray
+上采样多个不同的点，不同的点有各自的颜色，该颜色是通过神经网络预测出的。将
+ray 上所有点的颜色结合起来，即可获得这个 ray 的颜色。</p>
+<figure>
+<img src="/archives/59645/rendering.png" alt="渲染过程">
+<figcaption aria-hidden="true">渲染过程</figcaption>
+</figure>
+<h2 id="positional-encoding">Positional encoding</h2>
+<p>尽管可以利用神经网络把表征的各种映射关系拟合成一个函数，比如映射成颜色的函数，映射成是否
+occupy 的函数，映射成光照密度（density）的函数等等。</p>
+<p>但问题是神经网络表示的是<strong>有偏的（bias）</strong>，通过神经网络可能无法得到高质量的结果，如下图所示，它更偏向于得到光滑（smooth）的结果（也即学习<strong>低频</strong>信号），但我们期待的是得到锐利（sharp）的结果（也即学习<strong>高频</strong>信号）。因此
+NeRF 提出了在将 <span class="math inline">\((x,y,z,\theta,\phi)\)</span>
+传递给网络之前，使用高频函数将输入映射到更高维度的空间，可以更好地拟合包含高频变化的数据。</p>
+<p>NeRF 使用了一个具有傅里叶特征（Fourier features）的函数 <span class="math inline">\(\gamma\)</span> 将 <span class="math inline">\(\mathbb{R}\)</span> 数据映射到 <span class="math inline">\(\mathbb{R}^{2L}\)</span>，即 <span class="math inline">\(F_\Theta=F_\Theta&#39;\circ\gamma\)</span>。该高频编码函数为：</p>
+<p><span class="math display">\[
+\gamma(p)=(\sin(2^0\pi p),\cos(2^0\pi p),...,\sin(2^{L-1}\pi
+p),\cos(2^{L-1}\pi p))
+\]</span></p>
+<p>其中 <span class="math inline">\(p\)</span> 就是 <span class="math inline">\((x,y,z,\theta,\phi)\)</span>
+输入，并且输入均归一化于 <span class="math inline">\([-1,1]\)</span>。</p>
+<p>根据这篇论文：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.10739">Tancik, M., Srinivasan,
+P. P., Mildenhall, B., Fridovich-Keil, S., Raghavan, N., Singhal, U.,
+Ramamoorthi, R., Barron, J. T., &amp; Ng, R. (2020). Fourier features
+let networks learn high frequency functions in low dimensional
+domains.</a></li>
+</ul>
+<p>NeRF 对 <span class="math inline">\((x,y,z)\)</span> 取 <span class="math inline">\(L=10\)</span>，对 <span class="math inline">\((\theta,\phi)\)</span> 取 <span class="math inline">\(L=4\)</span>.</p>
+<p>下图可以看出来，结果相较之前有十分明显的提升。</p>
+<figure>
+<img src="/archives/59645/positional_encoding.png" alt="Positional encoding">
+<figcaption aria-hidden="true">Positional encoding</figcaption>
+</figure>
+<p>使用神经网络表示信号的方式，称为<strong>神经场（Neural
+Field）</strong>。这种方式有三个好处： 1.
+每个三维模型大约只需要10MB就可以表示，利于传输； 2.
+场景不需要离散化（discretized）； 3.
+更加灵活且易于优化：例如在正则化方面更方便，泛化能力更强。</p>
+<figure>
+<img src="/archives/59645/neural_field_pros&amp;cons.png" alt="Neural Field pros &amp; cons">
+<figcaption aria-hidden="true">Neural Field pros &amp; cons</figcaption>
+</figure>
+<h2 id="hierarchical-volume-sampling">Hierarchical volume sampling</h2>
+<p>NeRF
+的任务就是将一系列的微元采样点输入网络，计算体密度和颜色。那么微元的采样就成为一个关键的问题：采样点过多开销过大，采样点过少近似误差太大。直观的一个想法是，最好使得样本点分布在光线与物体相交的表面附近，而尽可能地避免在空缺部分以及被遮挡了的部分进行过多的采样，因为这些部分对最好的颜色贡献是很少的。</p>
+<p>基于这一想法，NeRF 提出 Hierarchical volume
+sampling，<strong>即先按照均匀随机采样进行一次粗采样，将粗采样的输出的结果转化为分布，再根据分布进行一次精采样，最后
+NeRF
+训练的损失也是粗采样和精采样结果相加的结果</strong>。这样就实现了一个自动化
+Coarse-To-Fine 的训练过程。如下图所示。</p>
+<figure>
+<img src="/archives/59645/hierarchical_volume_sampling.png" alt="Hierarchical volume sampling">
+<figcaption aria-hidden="true">Hierarchical volume sampling</figcaption>
+</figure>
+<ol type="1">
+<li><p>Coarse 阶段：</p>
+<p>在 <span class="math inline">\([t_n,t_f]\)</span> 中进行 stratified
+sampling 采样出 <span class="math inline">\(N_c\)</span> 个位置，输入
+coarse 网络，并将输出输入到第二阶段。</p></li>
+<li><p>Fine 阶段：</p>
+<p>考虑到离散化的渲染公式可视为沿着 ray 的所有采样颜色 <span class="math inline">\(c_i\)</span> 的加权和</p>
+<p><span class="math display">\[
+\hat{C}(\mathbf{r})=\sum_{i=1}^{N_c}w_i\mathbf{c}_i,\quad
+w_i=T_i(1-\exp(-\sigma_i\delta_i))
+\]</span></p>
+<p>所以归一化权重 <span class="math inline">\(\hat{w}_i=\frac{w_i}{\sum_{j=1}^{N_c}w_j}\)</span>
+就是 <span class="math inline">\(\hat{C}(\mathbf{r})\)</span> 在 ray
+上的<strong>概率密度函数（PDF）</strong>。</p>
+<p>因此，这一阶段基于 inverse transform sampling，在这个分布中采样出
+<span class="math inline">\(N_f\)</span> 个位置，然后将 <span class="math inline">\(N_c+N_f\)</span> 采样得到的数据输入 fine
+网络，并计算最终渲染的光线颜色 <span class="math inline">\(C(r)\)</span></p></li>
+</ol>
+<p>这上述两阶段的采样达到了类似 importance sampling
+的效果，但将采样点视为非均匀的离散化，而非对每个点进行独立的概率估计。</p>
+<p>对每个场景都需要优化一个单独的 neural continuous volume
+representation network。需要优化的 <span class="math inline">\(L_2\)</span> 损失为（同时优化 coarse 和 fine
+网络）：</p>
+<p><span class="math display">\[
+\mathcal{L}=\sum_{r\in\mathcal{R}}[||\hat{C}_c(\mathbf{r})-C(\mathbf{r})||_2^2+||\hat{C}_f(\mathbf{r})-C(\mathbf{r})||_2^2]
+\]</span></p>
+<p>其中</p>
+<ul>
+<li><span class="math inline">\(\mathcal{R}\)</span>： ray 的集合；</li>
+<li><span class="math inline">\(C(\mathbf{r})\)</span>：ground truth
+RGB；</li>
+<li><span class="math inline">\(\hat{C}_c(\mathbf{r})\)</span>：coarse
+volume predicted RGB；</li>
+<li><span class="math inline">\(\hat{C}_f(\mathbf{r})\)</span>：fine
+volume predicted RGB；</li>
+</ul>
+<p>虽然 Coarse-MLP 和 Fine-MLP 仅在样本点的输入上有所不同（同样的
+Positional Encoding 和 MLP），但其样本点的分布本身就决定了各自 MLP
+能够在何种程度“看到”低频和高频信号。Coarse-MLP 的样本点是光线在 near/far
+区间上的均匀采样，这意味着这条光线上样本点的高频信号失真了（远处的也会包含高频信号）；而
+Fine-MLP 是在表面交点附近的密集采样，这意味着 MLP
+能够密集地“感受”到这一段区域的高频信号（尽可能保证不失真）。</p>
+<p>可以理解为采用不同的采样策略就是施加了不同的“滤波器”。对同一条光线，两组不同的采样使得
+MLP “看到”截然不同的两组信号；如果想让一个 MLP
+同时处理好这两组截然不同的信号，可能得高超的调参技巧与更大的网络了。</p>
+<h1 id="指标">指标</h1>
+<p>NeRF 使用了 <strong>PSNR，SSIM，LPIPS</strong>
+三个指标。关于这三个指标的详细信息，可参考<a href="/archives/undefined/" title="图像评价指标">图像评价指标</a>。</p>
+<h1 id="拍摄场景">拍摄场景</h1>
+<ol type="1">
+<li>物体在中央，相机在四周拍摄，往往用于重建主体；</li>
+<li>相机方向固定，在小范围移动；</li>
+<li>类似全景图拍摄，相机在中间，朝各个方向拍摄，通常用于重建背景；</li>
+<li>在固定空间内随机方向和分布拍摄；</li>
+<li>是 1 和 3 的结合，既重建物体主体，又重建背景。</li>
+</ol>
+<figure>
+<img src="/archives/59645/capture_scenarios.png" alt="capture scenarios">
+<figcaption aria-hidden="true">capture scenarios</figcaption>
+</figure>
+<p>目前 NeRF
+需要解决的问题就是，在空间内重建近景时远景会模糊，反之重建远景的时候近景会模糊。</p>
+<p>为了解决这一问题，NeRF++ 提出了一种解决方案，即将 NeRF
+进行分解和组合，在<strong>近景（Foreground）</strong>和<strong>远景（Background）</strong>处都分别使用一个
+NeRF
+来进行表征，最后再<strong>组合（combined）</strong>到一起。这也就是第五种拍摄场景。</p>
+<figure>
+<img src="/archives/59645/separate_fore&amp;back.png" alt="NeRF++">
+<figcaption aria-hidden="true">NeRF++</figcaption>
+</figure>
+<p>相关论文： - <a target="_blank" rel="noopener" href="http://vladlen.info/publications/nerf-analyzing-improving-neural-radiance-fields/">Zhang
+K , Riegler G , Snavely N , et al. NeRF++: Analyzing and Improving
+Neural Radiance Fields[J]. 2020.</a></p>
+<p>NeRF 实现的几个关键部分：</p>
+<ol type="1">
+<li>有一个<strong>三维空间</strong>，用一个连续的场表示；</li>
+<li>空间里存在一个感兴趣的<strong>物体区域</strong>；</li>
+<li>处于<strong>不同位置和朝向</strong>的相机拍摄多视角图像；</li>
+<li>对于一张<strong>图像</strong>，根据相机中心和图像平面的一个像素点，两点确定一条<strong>射线</strong>穿过三维空间；</li>
+<li>在射线上采样多个<strong>离散的三维点</strong>并利用体素渲染像素的颜色。</li>
+</ol>
+<p>这里面涉及到了三维空间、物体区域、相机位置和朝向、图像、射线、以及三维采样点等。要想优化
+NeRF，我们需要能够表达刚刚提到的这些东西，这就涉及到了如何将拍摄的数据进行转化。</p>
+<p>关于如何正确转换相机参数和坐标系，可详见于<a href="/archives/undefined/" title="相机参数与坐标系变换">相机参数与坐标系变换</a>。</p>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.matthewtancik.com/nerf">NeRF</a></li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2003.08934">NeRF 论文</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/651081306">NeRF介绍</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44580210/article/details/122284120">辐射神经场算法——NeRF算法详解</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44292547/article/details/126042398">NeRF神经辐射场学习笔记（一）——NeRF论文翻译以及原理解读</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46363611/article/details/125608625">NeRF原理解析</a></li>
+<li><a target="_blank" rel="noopener" href="https://yconquesty.github.io/blog/ml/nerf/">A Surge in
+NeRF</a></li>
+</ul>
+
+      </div>
+    </div>
+    
+      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize([object Object]);
+        }
+      </script>
+    
+  </article>
+  <div class="post__foot">
+    
+      <div class="like-author">
+  <input type="checkbox" id="likeCode" />
+  <div class="author-face">
+    <img height="100px"
+         width="100px"
+         id="front-face"
+         alt="author face"
+         src="/assets/reward/avatar.png" />
+    <img height="100px"
+         width="100px"
+         id="back-face"
+         alt="like code"
+         src="/assets/reward/sponsor.png" />
+  </div>
+  <div class="like-text">
+    给作者倒杯卡布奇诺
+  </div>
+  <label for="likeCode" class="like-btn">
+    <svg viewBox="0 0 1024 1024"
+         width="20px"
+         style="margin-right: 10px"
+         height="20px">
+      <path d="M466.88 908.96L113.824 563.296a270.08 270.08 0 0 1 0-387.392c108.8-106.56 284.896-106.56 393.696 0 1.504 1.472 2.976 2.944 4.448 4.48 1.472-1.536 2.944-3.008 4.448-4.48 108.8-106.56 284.896-106.56 393.696 0a269.952 269.952 0 0 1 34.016 347.072l-387.392 385.6a64 64 0 0 1-89.92 0.384z" p-id="13650" fill="#ee4242" />
+    </svg>
+    喜欢作者
+  </label>
+</div>
+
+    
+    <div class="post-nav">
+  
+    <a class="post-nav-item-left" href="/archives/48868/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>三维模型</div>
+    </a>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/archives/7009/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      群论
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+    
+  
+    <a href="/tags/CG/" class="post-tag">#CG</a>
+  
+
+
+  </div>
+  <div class="realated__body">
+    
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\61387\" title="体渲染" rel="bookmark">体渲染</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\48868\" title="三维模型" rel="bookmark">三维模型</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\40010\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div></div>
+    
+  </div>
+</div>
+
+    
+    
+      <div id="gitalk-container"></div>
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">海</div>
+              
+                <div class="matts">内</div>
+              
+                <div class="matts">存</div>
+              
+                <div class="matts">知</div>
+              
+                <div class="matts">己</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">天</div>
+              
+                <div class="matts">涯</div>
+              
+                <div class="matts">若</div>
+              
+                <div class="matts">比</div>
+              
+                <div class="matts">邻</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+            <div class="foot-item">
+              <div class="foot-item__head">友链</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/icon/icon-link.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://shennoter.top/">Shennoter</a>
+                  </div>
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/icon/icon-link.svg"/>
+                    <a class="foot-link" href="">Jobove</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/logo/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/Lynchrocket">Lynchrocket</a>
+                  </div>
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/logo/logo-zh.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://www.zhihu.com/people/lynchrocket">Lynchrocket</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/assets/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:lynchrocket@gmail.com">lynchrocket@gmail.com</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">访客</div>
+            <div class="foot-item__body">
+              <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+              <span id="busuanzi_container_site_uv">本站总访问量：<span id="busuanzi_value_site_uv"></span>次</span>
+            </div>
+          </div>
+          
+        </div>
+        <div class="copyright">
+          <a href="https://lynchrocket.github.io">C'est la vie</a> &nbsp;|
+          &nbsp;Powered by &nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp; &
+          &nbsp;<a target="_blank" rel="noopener" href="https://github.com/Lynchrocket/hexo-theme-senerity">Senerity</a>&nbsp;
+        </div>
+      </div>
+    </div>
+    
+      <script src="https://unpkg.com/js-polyfills@0.1.43/es6.js"></script>
+      <script id="MathJax-script"
+              async
+              src="https://www.unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+    
+    
+      <script src="/js/search.js"></script>
+      <script>searchInitialize("/search.json")</script>
+    
+    
+      <script src="/js/copy-code.js"></script>
+    
+    
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const param = JSON.parse('{"enable":true,"owner":"Lynchrocket","admin":"Lynchrocket","repo":"Lynchrocket.github.io","clientID":"45d8817d291626df7894","clientSecret":"2761427f37f733d92cc64be2e2a3826cc8454cf3","distractionFreeMode":false,"proxy":"https://worker-lingering-hat-47a4.lynchrocket.workers.dev/?https://github.com/login/oauth/access_token","language":"zh-CN","per_page":20}')
+  param.id = location.pathname
+  const gitalk = new Gitalk(param)
+  gitalk.render('gitalk-container')
+</script>
+
+  
+
+  </body>
+</html>
