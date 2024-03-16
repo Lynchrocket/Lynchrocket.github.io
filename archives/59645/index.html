@@ -186,10 +186,10 @@ Field）与体渲染（Volume Rendering）的有效结合</strong>。</p>
 <span id="more"></span>
 <h1 id="基础知识">基础知识</h1>
 <ul>
-<li><a href="/archives/undefined/" title="三维模型">三维模型</a></li>
-<li><a href="/archives/undefined/" title="体渲染">体渲染</a></li>
-<li><a href="/archives/undefined/" title="图像评价指标">图像评价指标</a></li>
-<li><a href="/archives/undefined/" title="相机参数与坐标系变换">相机参数与坐标系变换</a></li>
+<li><a href="/archives/48868/" title="三维模型">三维模型</a></li>
+<li><a href="/archives/61387/" title="体渲染">体渲染</a></li>
+<li><a href="/archives/2070/" title="图像评价指标">图像评价指标</a></li>
+<li><a href="/archives/27886/" title="相机参数与坐标系变换">相机参数与坐标系变换</a></li>
 </ul>
 <h1 id="表征方法">表征方法</h1>
 <h2 id="soft-shape">Soft Shape</h2>
@@ -304,7 +304,7 @@ where }T_i=\exp(-\sum_{j=1}^{i-1}\sigma_j\delta_j)
 \]</span></p>
 <p>其中 <span class="math inline">\(\delta_i=t_{i+1}-t_i\)</span>
 为相邻样本间的距离。</p>
-<p>关于体渲染的推导，可参考<a href="/archives/undefined/" title="体渲染">体渲染</a>.</p>
+<p>关于体渲染的推导，可参考<a href="/archives/61387/" title="体渲染">体渲染</a>.</p>
 <p>NeRF 在一条 ray
 上采样多个不同的点，不同的点有各自的颜色，该颜色是通过神经网络预测出的。将
 ray 上所有点的颜色结合起来，即可获得这个 ray 的颜色。</p>
@@ -407,7 +407,7 @@ MLP “看到”截然不同的两组信号；如果想让一个 MLP
 同时处理好这两组截然不同的信号，可能得高超的调参技巧与更大的网络了。</p>
 <h1 id="指标">指标</h1>
 <p>NeRF 使用了 <strong>PSNR，SSIM，LPIPS</strong>
-三个指标。关于这三个指标的详细信息，可参考<a href="/archives/undefined/" title="图像评价指标">图像评价指标</a>。</p>
+三个指标。关于这三个指标的详细信息，可参考<a href="/archives/2070/" title="图像评价指标">图像评价指标</a>。</p>
 <h1 id="拍摄场景">拍摄场景</h1>
 <ol type="1">
 <li>物体在中央，相机在四周拍摄，往往用于重建主体；</li>
@@ -443,7 +443,7 @@ Neural Radiance Fields[J]. 2020.</a></p>
 </ol>
 <p>这里面涉及到了三维空间、物体区域、相机位置和朝向、图像、射线、以及三维采样点等。要想优化
 NeRF，我们需要能够表达刚刚提到的这些东西，这就涉及到了如何将拍摄的数据进行转化。</p>
-<p>关于如何正确转换相机参数和坐标系，可详见于<a href="/archives/undefined/" title="相机参数与坐标系变换">相机参数与坐标系变换</a>。</p>
+<p>关于如何正确转换相机参数和坐标系，可详见于<a href="/archives/27886/" title="相机参数与坐标系变换">相机参数与坐标系变换</a>。</p>
 <h1 id="参考资料">参考资料</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.matthewtancik.com/nerf">NeRF</a></li>
@@ -452,6 +452,8 @@ NeRF，我们需要能够表达刚刚提到的这些东西，这就涉及到了�
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44580210/article/details/122284120">辐射神经场算法——NeRF算法详解</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44292547/article/details/126042398">NeRF神经辐射场学习笔记（一）——NeRF论文翻译以及原理解读</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46363611/article/details/125608625">NeRF原理解析</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/628804009">反渲染(Inverse
+Rendering)三维重建及神经辐射场(NeRF)核心</a></li>
 <li><a target="_blank" rel="noopener" href="https://yconquesty.github.io/blog/ml/nerf/">A Surge in
 NeRF</a></li>
 </ul>
