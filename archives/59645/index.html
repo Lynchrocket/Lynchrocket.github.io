@@ -198,22 +198,16 @@ Field）与体渲染（Volume Rendering）的有效结合</strong>。</p>
 field）</strong>来生成形状，即从一片三维虚空中，按图像需要逐渐生成出具有特定结构三维物体。这样生成的形状不像
 Mesh 等 Hard Geometry
 一样具有确定性的空间边界，而是以一定概率连续地弥散在整个空间中的。</p>
-<figure>
-<img src="/archives/59645/nerf_3d_model.png" alt="NeRF的表征方法">
-<figcaption aria-hidden="true">NeRF的表征方法</figcaption>
-</figure>
-<figure>
-<img src="/archives/59645/soft_shape.png" alt="Soft Shape">
-<figcaption aria-hidden="true">Soft Shape</figcaption>
-</figure>
-<p>Soft Geometry 有两大好处： 1. 不需要使用对象分割掩码（object
-segmentation masks）； 2. 没有边界不连续的（boundary
-discontinuity）问题，这意味着更易于做可微渲染。</p>
+<img src="/archives/59645/nerf_3d_model.png" class="" title="NeRF的表征方法">
+<img src="/archives/59645/soft_shape.png" class="" title="Soft Shape">
+<p>Soft Geometry 有两大好处：</p>
+<ol type="1">
+<li>不需要使用对象分割掩码（object segmentation masks）；</li>
+<li>没有边界不连续的（boundary
+discontinuity）问题，这意味着更易于做可微渲染。</li>
+</ol>
 <p>同时也有一些缺点，如渲染成本高，编辑困难等等。</p>
-<figure>
-<img src="/archives/59645/compare_to_hard_geo.png" alt="与 Hard Geometry 比较">
-<figcaption aria-hidden="true">与 Hard Geometry 比较</figcaption>
-</figure>
+<img src="/archives/59645/compare_to_hard_geo.png" class="" title="与 Hard Geometry 比较">
 <p>相关论文：</p>
 <ul>
 <li><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2112.05131">Yu A , Fridovich-Keil
@@ -226,10 +220,12 @@ Fields Reconstruction[C]. 2021.</a></p></li>
 <h2 id="radiance-field">Radiance Field</h2>
 <p>给出每个表面点 <span class="math inline">\((x，y，z)\)</span>
 处不同的观察角度 <span class="math inline">\((\theta,\phi)\)</span>
-的颜色 <span class="math inline">\((r,b,g)\)</span>。用这种方式可以很方便的描述物体表面的颜色，反射，和阴影等效果。但缺点是不易于修改和编辑。</p>
+的颜色 <span
+class="math inline">\((r,b,g)\)</span>。用这种方式可以很方便的描述物体表面的颜色，反射，和阴影等效果。但缺点是不易于修改和编辑。</p>
 <p>相关论文：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://grail.cs.washington.edu/projects/slf/papers/siggraph2000/talk/">Wood
+<li><a
+target="_blank" rel="noopener" href="https://grail.cs.washington.edu/projects/slf/papers/siggraph2000/talk/">Wood
 D N ,Azuma D I ,Aldinger K , et al. Surface light fields for 3D
 photography[C]. SIGGRAPH conference. 2000.</a></li>
 </ul>
@@ -237,59 +233,64 @@ photography[C]. SIGGRAPH conference. 2000.</a></li>
 <p>以上这两种表征方法都可以视为空间中的函数，因此也方便后续使用神经网络来拟合。</p>
 </blockquote>
 <h1 id="方法概述">方法概述</h1>
-<figure>
-<img src="/archives/59645/overview.png" alt="方法概述">
-<figcaption aria-hidden="true">方法概述</figcaption>
-</figure>
+<img src="/archives/59645/overview.png" class="" title="方法概述">
 <p>NeRF
 工作的过程可以分成两部分：<strong>三维重建</strong>和<strong>渲染</strong>。</p>
 <ol type="1">
-<li>三维重建：从二维多视角图像构建三维场景（反渲染）</li>
-</ol>
+<li><p>三维重建：从二维多视角图像构建三维场景（反渲染）</p>
 <p>利用三维点的位置 <span class="math inline">\((x,y,z)\)</span>
 及方位视角 <span class="math inline">\((\theta, \phi)\)</span>
 作为输入，通过多层感知机（MLP）建模该点对应的颜色（Color，RGB）及体密度
-（Volume Density，<span class="math inline">\(\sigma\)</span>），该建模过程 <span class="math inline">\(F_\Theta\)</span>
-形成了三维场景的<strong>隐式表示</strong>。</p>
-<ol start="2" type="1">
-<li>渲染：计算某视角下的二维图像（体渲染）</li>
-</ol>
+（Volume Density，<span
+class="math inline">\(\sigma\)</span>），该建模过程 <span
+class="math inline">\(F_\Theta\)</span>
+形成了三维场景的<strong>隐式表示</strong>。</p></li>
+<li><p>渲染：计算某视角下的二维图像（体渲染）</p>
 <p>使用可微分渲染器（Differentiable Renderer），利用重建部分得到的 Scene
-Representation 沿着 ray 结合得到最终的二维图像像素值.</p>
+Representation 沿着 ray 结合得到最终的二维图像像素值.</p></li>
+</ol>
 <p>在训练的时候，利用渲染部分得到的二维图像，通过优化与 Ground Truth 的
 L2 Loss 训练网络。</p>
 <h2 id="pipeline">Pipeline</h2>
-<figure>
-<img src="/archives/59645/pipeline.png" alt="Pipeline">
-<figcaption aria-hidden="true">Pipeline</figcaption>
-</figure>
+<img src="/archives/59645/pipeline.png" class="" title="Pipeline">
 <h2 id="neural-radiance-field-scene-representation">Neural Radiance
 Field Scene Representation</h2>
 <p>该部分的输入是三维位置 <span class="math inline">\((x,y,z)\)</span>
-和二维方位视角 <span class="math inline">\((\theta,\phi)\)</span>，输出是颜色 <span class="math inline">\(c=(r,g,b)\)</span> 和体密度 <span class="math inline">\(\sigma\)</span>，即利用一个 MLP
+和二维方位视角 <span
+class="math inline">\((\theta,\phi)\)</span>，输出是颜色 <span
+class="math inline">\(c=(r,g,b)\)</span> 和体密度 <span
+class="math inline">\(\sigma\)</span>，即利用一个 MLP
 网络近似地表示这种映射 <span class="math inline">\(F_\Theta:
-(x,d)\rightarrow(c,\sigma)\)</span>，这个映射 <span class="math inline">\(F_\Theta\)</span>
+(x,d)\rightarrow(c,\sigma)\)</span>，这个映射 <span
+class="math inline">\(F_\Theta\)</span>
 就是一种三维场景的<strong>隐式表示</strong>。</p>
-<p>该 MLP 网络先使用 8 层 256 通道的全连接层接收 <span class="math inline">\((x,y,z)\)</span> 输入，并使用 ReLU 激活，输出
+<p>该 MLP 网络先使用 8 层 256 通道的全连接层接收 <span
+class="math inline">\((x,y,z)\)</span> 输入，并使用 ReLU 激活，输出
 <span class="math inline">\(\sigma\)</span> 和一个 256
-维的向量。然后这个向量与 <span class="math inline">\((\theta,\phi)\)</span> 连接，并输入 1 层 128
-通道的全连接层，并使用 ReLU 激活，输出颜色 <span class="math inline">\(c=(r,g,b)\)</span>。</p>
-<figure>
-<img src="/archives/59645/network.png" alt="Network">
-<figcaption aria-hidden="true">Network</figcaption>
-</figure>
+维的向量。然后这个向量与 <span
+class="math inline">\((\theta,\phi)\)</span> 连接，并输入 1 层 128
+通道的全连接层，并使用 ReLU 激活，输出颜色 <span
+class="math inline">\(c=(r,g,b)\)</span>。</p>
+<img src="/archives/59645/network.png" class="" title="Network">
 <h2 id="volume-rendering-with-radiance-fields">Volume Rendering with
 Radiance Fields</h2>
-<p>我们可以将体密度 <span class="math inline">\(\sigma(\mathbf{x})\)</span> 视为 ray 终止于位置
+<p>我们可以将体密度 <span
+class="math inline">\(\sigma(\mathbf{x})\)</span> 视为 ray 终止于位置
 <span class="math inline">\(\mathbf{x}\)</span>
 的无限小粒子的微分概率。</p>
-<p>在 ray <span class="math inline">\(\mathbf{r}(t)=\mathbf{o}+t\mathbf{d}\)</span> 上
-<span class="math inline">\([t_n,t_f]\)</span> 段的期望颜色 <span class="math inline">\(C(\mathbf{r})\)</span> 为：</p>
+<p>在 ray <span
+class="math inline">\(\mathbf{r}(t)=\mathbf{o}+t\mathbf{d}\)</span> 上
+<span class="math inline">\([t_n,t_f]\)</span> 段的期望颜色 <span
+class="math inline">\(C(\mathbf{r})\)</span> 为：</p>
 <p><span class="math display">\[
 C(\mathbf{r})=\int_{t_n}^{t_f}T(t)\sigma(\mathbf{r}(t))\mathbf{c}(\mathbf{r}(t),\mathbf{d})dt,\text{
 where }T(t)=\exp(-\int_{t_n}^t\sigma(\mathbf{r}(s))ds)
 \]</span></p>
-<p>其中 <span class="math inline">\(T(t)\)</span> 表示从 <span class="math inline">\(t_n\)</span> 到 <span class="math inline">\(t\)</span> 沿 ray 的累积透射率，即 ray 从 <span class="math inline">\(t_n\)</span> 到 <span class="math inline">\(t\)</span> 不碰到任何粒子的概率。</p>
+<p>其中 <span class="math inline">\(T(t)\)</span> 表示从 <span
+class="math inline">\(t_n\)</span> 到 <span
+class="math inline">\(t\)</span> 沿 ray 的累积透射率，即 ray 从 <span
+class="math inline">\(t_n\)</span> 到 <span
+class="math inline">\(t\)</span> 不碰到任何粒子的概率。</p>
 <p>实际训练中，需要对积分进行<strong>离散化处理</strong>，NeRF 采用了
 stratified sampling 方式（Monte Carlo
 法的采样方法）：将射线需要积分的<strong>区域分为 N
@@ -308,23 +309,26 @@ where }T_i=\exp(-\sum_{j=1}^{i-1}\sigma_j\delta_j)
 <p>NeRF 在一条 ray
 上采样多个不同的点，不同的点有各自的颜色，该颜色是通过神经网络预测出的。将
 ray 上所有点的颜色结合起来，即可获得这个 ray 的颜色。</p>
-<figure>
-<img src="/archives/59645/rendering.png" alt="渲染过程">
-<figcaption aria-hidden="true">渲染过程</figcaption>
-</figure>
+<img src="/archives/59645/rendering.png" class="" title="渲染过程">
 <h2 id="positional-encoding">Positional encoding</h2>
 <p>尽管可以利用神经网络把表征的各种映射关系拟合成一个函数，比如映射成颜色的函数，映射成是否
 occupy 的函数，映射成光照密度（density）的函数等等。</p>
 <p>但问题是神经网络表示的是<strong>有偏的（bias）</strong>，通过神经网络可能无法得到高质量的结果，如下图所示，它更偏向于得到光滑（smooth）的结果（也即学习<strong>低频</strong>信号），但我们期待的是得到锐利（sharp）的结果（也即学习<strong>高频</strong>信号）。因此
 NeRF 提出了在将 <span class="math inline">\((x,y,z,\theta,\phi)\)</span>
 传递给网络之前，使用高频函数将输入映射到更高维度的空间，可以更好地拟合包含高频变化的数据。</p>
-<p>NeRF 使用了一个具有傅里叶特征（Fourier features）的函数 <span class="math inline">\(\gamma\)</span> 将 <span class="math inline">\(\mathbb{R}\)</span> 数据映射到 <span class="math inline">\(\mathbb{R}^{2L}\)</span>，即 <span class="math inline">\(F_\Theta=F_\Theta&#39;\circ\gamma\)</span>。该高频编码函数为：</p>
+<p>NeRF 使用了一个具有傅里叶特征（Fourier features）的函数 <span
+class="math inline">\(\gamma\)</span> 将 <span
+class="math inline">\(\mathbb{R}\)</span> 数据映射到 <span
+class="math inline">\(\mathbb{R}^{2L}\)</span>，即 <span
+class="math inline">\(F_\Theta=F_\Theta&#39;\circ\gamma\)</span>。该高频编码函数为：</p>
 <p><span class="math display">\[
 \gamma(p)=(\sin(2^0\pi p),\cos(2^0\pi p),...,\sin(2^{L-1}\pi
 p),\cos(2^{L-1}\pi p))
 \]</span></p>
-<p>其中 <span class="math inline">\(p\)</span> 就是 <span class="math inline">\((x,y,z,\theta,\phi)\)</span>
-输入，并且输入均归一化于 <span class="math inline">\([-1,1]\)</span>。</p>
+<p>其中 <span class="math inline">\(p\)</span> 就是 <span
+class="math inline">\((x,y,z,\theta,\phi)\)</span>
+输入，并且输入均归一化于 <span
+class="math inline">\([-1,1]\)</span>。</p>
 <p>根据这篇论文：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.10739">Tancik, M., Srinivasan,
@@ -333,21 +337,18 @@ Ramamoorthi, R., Barron, J. T., &amp; Ng, R. (2020). Fourier features
 let networks learn high frequency functions in low dimensional
 domains.</a></li>
 </ul>
-<p>NeRF 对 <span class="math inline">\((x,y,z)\)</span> 取 <span class="math inline">\(L=10\)</span>，对 <span class="math inline">\((\theta,\phi)\)</span> 取 <span class="math inline">\(L=4\)</span>.</p>
+<p>NeRF 对 <span class="math inline">\((x,y,z)\)</span> 取 <span
+class="math inline">\(L=10\)</span>，对 <span
+class="math inline">\((\theta,\phi)\)</span> 取 <span
+class="math inline">\(L=4\)</span>.</p>
 <p>下图可以看出来，结果相较之前有十分明显的提升。</p>
-<figure>
-<img src="/archives/59645/positional_encoding.png" alt="Positional encoding">
-<figcaption aria-hidden="true">Positional encoding</figcaption>
-</figure>
+<img src="/archives/59645/positional_encoding.png" class="" title="Positional encoding">
 <p>使用神经网络表示信号的方式，称为<strong>神经场（Neural
 Field）</strong>。这种方式有三个好处： 1.
 每个三维模型大约只需要10MB就可以表示，利于传输； 2.
 场景不需要离散化（discretized）； 3.
 更加灵活且易于优化：例如在正则化方面更方便，泛化能力更强。</p>
-<figure>
-<img src="/archives/59645/neural_field_pros&amp;cons.png" alt="Neural Field pros &amp; cons">
-<figcaption aria-hidden="true">Neural Field pros &amp; cons</figcaption>
-</figure>
+<img src="/archives/59645/neural_field_pros&cons.png" class="" title="Neural Field pros &amp; cons">
 <h2 id="hierarchical-volume-sampling">Hierarchical volume sampling</h2>
 <p>NeRF
 的任务就是将一系列的微元采样点输入网络，计算体密度和颜色。那么微元的采样就成为一个关键的问题：采样点过多开销过大，采样点过少近似误差太大。直观的一个想法是，最好使得样本点分布在光线与物体相交的表面附近，而尽可能地避免在空缺部分以及被遮挡了的部分进行过多的采样，因为这些部分对最好的颜色贡献是很少的。</p>
@@ -356,39 +357,41 @@ sampling，<strong>即先按照均匀随机采样进行一次粗采样，将粗�
 NeRF
 训练的损失也是粗采样和精采样结果相加的结果</strong>。这样就实现了一个自动化
 Coarse-To-Fine 的训练过程。如下图所示。</p>
-<figure>
-<img src="/archives/59645/hierarchical_volume_sampling.png" alt="Hierarchical volume sampling">
-<figcaption aria-hidden="true">Hierarchical volume sampling</figcaption>
-</figure>
+<img src="/archives/59645/hierarchical_volume_sampling.png" class="" title="Hierarchical volume sampling">
 <ol type="1">
 <li><p>Coarse 阶段：</p>
 <p>在 <span class="math inline">\([t_n,t_f]\)</span> 中进行 stratified
 sampling 采样出 <span class="math inline">\(N_c\)</span> 个位置，输入
 coarse 网络，并将输出输入到第二阶段。</p></li>
 <li><p>Fine 阶段：</p>
-<p>考虑到离散化的渲染公式可视为沿着 ray 的所有采样颜色 <span class="math inline">\(c_i\)</span> 的加权和</p>
+<p>考虑到离散化的渲染公式可视为沿着 ray 的所有采样颜色 <span
+class="math inline">\(c_i\)</span> 的加权和</p>
 <p><span class="math display">\[
 \hat{C}(\mathbf{r})=\sum_{i=1}^{N_c}w_i\mathbf{c}_i,\quad
 w_i=T_i(1-\exp(-\sigma_i\delta_i))
 \]</span></p>
-<p>所以归一化权重 <span class="math inline">\(\hat{w}_i=\frac{w_i}{\sum_{j=1}^{N_c}w_j}\)</span>
+<p>所以归一化权重 <span
+class="math inline">\(\hat{w}_i=\frac{w_i}{\sum_{j=1}^{N_c}w_j}\)</span>
 就是 <span class="math inline">\(\hat{C}(\mathbf{r})\)</span> 在 ray
 上的<strong>概率密度函数（PDF）</strong>。</p>
 <p>因此，这一阶段基于 inverse transform sampling，在这个分布中采样出
-<span class="math inline">\(N_f\)</span> 个位置，然后将 <span class="math inline">\(N_c+N_f\)</span> 采样得到的数据输入 fine
-网络，并计算最终渲染的光线颜色 <span class="math inline">\(C(r)\)</span></p></li>
+<span class="math inline">\(N_f\)</span> 个位置，然后将 <span
+class="math inline">\(N_c+N_f\)</span> 采样得到的数据输入 fine
+网络，并计算最终渲染的光线颜色 <span
+class="math inline">\(C(r)\)</span></p></li>
 </ol>
 <p>这上述两阶段的采样达到了类似 importance sampling
 的效果，但将采样点视为非均匀的离散化，而非对每个点进行独立的概率估计。</p>
 <p>对每个场景都需要优化一个单独的 neural continuous volume
-representation network。需要优化的 <span class="math inline">\(L_2\)</span> 损失为（同时优化 coarse 和 fine
+representation network。需要优化的 <span
+class="math inline">\(L_2\)</span> 损失为（同时优化 coarse 和 fine
 网络）：</p>
 <p><span class="math display">\[
 \mathcal{L}=\sum_{r\in\mathcal{R}}[||\hat{C}_c(\mathbf{r})-C(\mathbf{r})||_2^2+||\hat{C}_f(\mathbf{r})-C(\mathbf{r})||_2^2]
 \]</span></p>
 <p>其中</p>
 <ul>
-<li><span class="math inline">\(\mathcal{R}\)</span>： ray 的集合；</li>
+<li><span class="math inline">\(\mathcal{R}\)</span>：ray 的集合；</li>
 <li><span class="math inline">\(C(\mathbf{r})\)</span>：ground truth
 RGB；</li>
 <li><span class="math inline">\(\hat{C}_c(\mathbf{r})\)</span>：coarse
@@ -416,21 +419,16 @@ MLP “看到”截然不同的两组信号；如果想让一个 MLP
 <li>在固定空间内随机方向和分布拍摄；</li>
 <li>是 1 和 3 的结合，既重建物体主体，又重建背景。</li>
 </ol>
-<figure>
-<img src="/archives/59645/capture_scenarios.png" alt="capture scenarios">
-<figcaption aria-hidden="true">capture scenarios</figcaption>
-</figure>
+<img src="/archives/59645/capture_scenarios.png" class="" title="capture scenarios">
 <p>目前 NeRF
 需要解决的问题就是，在空间内重建近景时远景会模糊，反之重建远景的时候近景会模糊。</p>
 <p>为了解决这一问题，NeRF++ 提出了一种解决方案，即将 NeRF
 进行分解和组合，在<strong>近景（Foreground）</strong>和<strong>远景（Background）</strong>处都分别使用一个
 NeRF
 来进行表征，最后再<strong>组合（combined）</strong>到一起。这也就是第五种拍摄场景。</p>
-<figure>
-<img src="/archives/59645/separate_fore&amp;back.png" alt="NeRF++">
-<figcaption aria-hidden="true">NeRF++</figcaption>
-</figure>
-<p>相关论文： - <a target="_blank" rel="noopener" href="http://vladlen.info/publications/nerf-analyzing-improving-neural-radiance-fields/">Zhang
+<img src="/archives/59645/separate_fore&back.png" class="" title="NeRF++">
+<p>相关论文： - <a
+target="_blank" rel="noopener" href="http://vladlen.info/publications/nerf-analyzing-improving-neural-radiance-fields/">Zhang
 K , Riegler G , Snavely N , et al. NeRF++: Analyzing and Improving
 Neural Radiance Fields[J]. 2020.</a></p>
 <p>NeRF 实现的几个关键部分：</p>
@@ -449,9 +447,12 @@ NeRF，我们需要能够表达刚刚提到的这些东西，这就涉及到了�
 <li><a target="_blank" rel="noopener" href="https://www.matthewtancik.com/nerf">NeRF</a></li>
 <li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2003.08934">NeRF 论文</a></li>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/651081306">NeRF介绍</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44580210/article/details/122284120">辐射神经场算法——NeRF算法详解</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44292547/article/details/126042398">NeRF神经辐射场学习笔记（一）——NeRF论文翻译以及原理解读</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46363611/article/details/125608625">NeRF原理解析</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44580210/article/details/122284120">辐射神经场算法——NeRF算法详解</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44292547/article/details/126042398">NeRF神经辐射场学习笔记（一）——NeRF论文翻译以及原理解读</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46363611/article/details/125608625">NeRF原理解析</a></li>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/628804009">反渲染(Inverse
 Rendering)三维重建及神经辐射场(NeRF)核心</a></li>
 <li><a target="_blank" rel="noopener" href="https://yconquesty.github.io/blog/ml/nerf/">A Surge in
@@ -547,7 +548,7 @@ NeRF</a></li>
   </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\61387\" title="体渲染" rel="bookmark">体渲染</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\48868\" title="三维模型" rel="bookmark">三维模型</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\40010\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\48868\" title="三维模型" rel="bookmark">三维模型</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\61387\" title="体渲染" rel="bookmark">体渲染</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\55509\" title="CAP & BASE" rel="bookmark">CAP & BASE</a></div></div></div>
     
   </div>
 </div>

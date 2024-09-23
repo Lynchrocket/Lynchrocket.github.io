@@ -204,23 +204,23 @@
 <p>nacos 的配置中心提供了这个功能。</p>
 <p>我们可以在配置管理 -&gt;
 配置列表中创建我们的配置，每次修改这个配置时服务会热更新而不用重启。</p>
-<figure>
-<img src="/archives/6253/nacos.png" alt="nacos">
-<figcaption aria-hidden="true">nacos</figcaption>
-</figure>
+<img src="/archives/6253/nacos.png" class="" title="nacos">
 <p>同时，我们在项目的每个服务的配置文件 application.yml 中修改如下：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-string">xxx</span> <span class="hljs-comment"># 端口当然要不一样</span><br><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">@artifactId@</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">server-addr:</span> <span class="hljs-string">$&#123;NACOS_HOST:localhost&#125;:$&#123;NACOS_PORT:8848&#125;</span><br>        <span class="hljs-attr">namespace:</span> <span class="hljs-string">@nacos.namespace@</span><br>      <span class="hljs-attr">config:</span><br>        <span class="hljs-attr">server-addr:</span> <span class="hljs-string">$&#123;spring.cloud.nacos.discovery.server-addr&#125;</span><br>        <span class="hljs-attr">namespace:</span> <span class="hljs-string">@nacos.namespace@</span><br>  <span class="hljs-attr">config:</span><br>    <span class="hljs-attr">import:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:application-@profiles.active@.@file.extension@</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">optional:nacos:$&#123;spring.application.name&#125;-@profiles.active@.@file.extension@</span><br></code></pre></td></tr></table></figure>
-<p>其中，<span class="citation" data-cites="artifactId">@artifactId</span>@ 在当前服务的 pom.xml
+<p>其中，<span class="citation"
+data-cites="artifactId">@artifactId</span>@ 在当前服务的 pom.xml
 中配置，也即当前服务的 artifactId</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>the_artifactId_to_change<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<p>其他@<span class="citation" data-cites="的内容在最外层的">@的内容在最外层的</span> pom.xml
+<p>其他@<span class="citation"
+data-cites="的内容在最外层的">@的内容在最外层的</span> pom.xml
 中配置，主要是用于区分开发（dev）、测试（test）、上线（prod）配置。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- using in application.yml, surrounded with @ --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">profiles</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">profile</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>dev<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">profiles.active</span>&gt;</span>dev<span class="hljs-tag">&lt;/<span class="hljs-name">profiles.active</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">nacos.namespace</span>&gt;</span>the_namspace_to_change<span class="hljs-tag">&lt;/<span class="hljs-name">nacos.namespace</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">file.extension</span>&gt;</span>yml<span class="hljs-tag">&lt;/<span class="hljs-name">file.extension</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">activation</span>&gt;</span><br>                <span class="hljs-comment">&lt;!-- if default environment --&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">activeByDefault</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">activeByDefault</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">activation</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">profile</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">profiles</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <h2 id="参考资料">参考资料</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/66097586">微服务架构之「
 配置中心 」</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/58113078">为什么需要分布式配置中心？</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/58113078">为什么需要分布式配置中心？</a></li>
 </ul>
 
       </div>

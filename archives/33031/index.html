@@ -170,7 +170,7 @@
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BD%92%E7%BA%A6%E8%AF%81%E6%98%8E"><span class="post-toc-number">1.</span> <span class="post-toc-text">密码学中的归约证明</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%AF%81%E6%98%8E%E8%BF%87%E7%A8%8B"><span class="post-toc-number">2.</span> <span class="post-toc-text">证明过程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B8%AD%E7%9A%84%E5%BD%92%E7%BA%A6%E8%AF%81%E6%98%8E"><span class="post-toc-number">1.</span> <span class="post-toc-text">密码学中的归约证明</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%AF%81%E6%98%8E%E8%BF%87%E7%A8%8B"><span class="post-toc-number">2.</span> <span class="post-toc-text">证明过程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%AF%81%E6%98%8E%E4%BE%8B%E5%AD%90"><span class="post-toc-number">3.</span> <span class="post-toc-text">证明例子</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#prg"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">PRG</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -187,28 +187,140 @@ B\)</span>。也就是说，归约可以将难以直接证明（或直接证明�
 <span id="more"></span>
 <h1 id="密码学中的归约证明">密码学中的归约证明</h1>
 <p>在现代密码学中要证明方案或协议的安全性，常常使用 game
-的形式来构造证明过程。归约证明（proof by
-reduction）就是其中的核心。它的理论依据是逻辑学中的肯定前件式（Modus
-Ponens）</p>
-<p><span class="math display">\[
-\begin{align}
-  &amp;p\rightarrow q \notag\\
-  &amp;p \notag\\
-  \hline\noexpand \\
-  &amp;q
-\end{align}
-\]</span></p>
-<h1 id="证明过程">证明过程</h1>
-<p>一般来说，一个密码学方案或协议 <span class="math inline">\(\Pi\)</span>
-是建立在已被证明安全的方案或协议，或者是某些困难问题之上（记为 <span class="math inline">\(X\)</span>）。困难问题就相当于地基，密码学方案或协议就相当于高楼。只要地基是稳固的，高楼一般就安全了。因此我们希望下面的命题是为真的：</p>
+的形式来构造证明过程。归约证明（proof by reduction）就是其中的核心。</p>
+<p>一般来说，一个密码学方案或协议 <span
+class="math inline">\(\Pi\)</span>
+是建立在已被证明安全的方案或协议，或者是某些困难问题之上（记为 <span
+class="math inline">\(X\)</span>）。困难问题就相当于地基，密码学方案或协议就相当于高楼。只要地基是稳固的，高楼一般就安全了。因此我们希望下面的命题是为真的：</p>
 <blockquote>
-<p>命题：如果 <span class="math inline">\(X\)</span> 是安全的，那么方案
-<span class="math inline">\(\Pi\)</span> 就是安全的。若 <span class="math inline">\(X\)</span> 被有效攻破，那么 方案 <span class="math inline">\(\Pi\)</span> 就不再安全。</p>
+<p>Prop.1（命题）：若 <span class="math inline">\(X\)</span>
+是安全的，那么方案 <span class="math inline">\(\Pi\)</span>
+就是安全的。若 <span class="math inline">\(X\)</span>
+被有效攻破，那么方案 <span class="math inline">\(\Pi\)</span>
+就不再安全。</p>
 </blockquote>
+<p>实际上，这就是离散数学中假言命题的逻辑等价式：</p>
+<p><span class="math display">\[
+p\rightarrow q \equiv \neg q\rightarrow\neg p
+\]</span></p>
+<p>同时这个等价式也是<strong>反证法</strong>的基础。因此，若要在归约证明中证明某一个新提出的方案
+X 的安全性：</p>
+<blockquote>
+<p>Thm.（定理）：Y 是安全的 <span
+class="math inline">\(\rightarrow\)</span> X 是安全的</p>
+</blockquote>
+<p>也就是要证明：</p>
+<blockquote>
+<p>Prop.2（命题）：X 不是安全的 <span
+class="math inline">\(\rightarrow\)</span> Y 不是安全的</p>
+</blockquote>
+<p>进一步说：<strong>如果存在一个 PPT 的 attacker A 可以攻破
+X，那么我们能构造一个 PPT 的 attacker B 来攻破 Y</strong>。其中，X
+是新提出的方案，Y 是某一个困难问题，PPT
+是多项式概率时间。“构造”一词可以理解为模拟。</p>
+<p>如果能使条件命题 2 成立，那么就完成了归约证明。</p>
+<h1 id="证明过程">证明过程</h1>
+<p>在密码协议的安全性证明中，一般使用 game
+的方式来定义<strong>什么是安全的/不安全的</strong>。一个 game 中有两个
+party，一个是 attacker，另一个是 challenger。attacker
+试图破坏协议的安全，challenger 则是帮助构造协议的安全。</p>
+<p>假设已知问题 <span class="math inline">\(X\)</span>
+难以解决，想要证明某构造方案 <span class="math inline">\(\Pi\)</span>
+安全，就要将成功攻破该方案 <span class="math inline">\(\Pi\)</span>
+的有效 attacker <span class="math inline">\(\mathcal{A}\)</span>
+转化为成功解决问题 <span class="math inline">\(X\)</span> 的有效
+attacker <span class="math inline">\(\mathcal{A}&#39;\)</span>，这与
+<span class="math inline">\(X\)</span> 困难的假设相矛盾，所以方案 <span
+class="math inline">\(\Pi\)</span> 无法被攻破，因此该方案是安全的。</p>
+<p>其中 <span class="math inline">\(X\)</span> 和 <span
+class="math inline">\(\Pi\)</span> 分别有两个 party，即 <span
+class="math inline">\(X\)</span> 的 challenger 和 attacker 与 <span
+class="math inline">\(\Pi\)</span> 的 challenger 和
+attacker。我们还需要分别以两个 game 来定义 <span
+class="math inline">\(X\)</span> 和 <span
+class="math inline">\(\Pi\)</span> 的安全性，且这两个 game
+是互相独立的。在归约证明中，我们让 <span
+class="math inline">\(X\)</span> 的 attacker 来模拟 <span
+class="math inline">\(\Pi\)</span> 的 challenger，且要求：</p>
+<ol type="1">
+<li><span class="math inline">\(X\)</span> 的 attacker 所模拟的 <span
+class="math inline">\(\Pi\)</span> 的 challenger 够“逼真”，使得 <span
+class="math inline">\(\Pi\)</span> 的 attacker 无法区分它的 challenger
+是真实的还是模拟的，除了 negligible 的概率；</li>
+<li>所模拟的 <span class="math inline">\(\Pi\)</span> 的 challenger 是
+PPT 的。</li>
+</ol>
+<img src="/archives/33031/reduction.png" class="" title="归约证明">
+<p>如上图所示，证明的过程如下：</p>
+<ol type="1">
+<li>指定 PPT attacker <span class="math inline">\(\mathcal{A}\)</span>
+攻击方案 <span class="math inline">\(\Pi\)</span>，且成功的概率为 <span
+class="math inline">\(\varepsilon(n)\)</span>；</li>
+<li>假设：问题 <span class="math inline">\(X\)</span> 难以解决，即无法在
+PPT 内以 not negligible 的概率解决；</li>
+<li>归约：构造 efficient attacker <span
+class="math inline">\(\mathcal{A}&#39;\)</span>，它将 <span
+class="math inline">\(\mathcal{A}\)</span> 当作 subroutine 运行，从问题
+<span class="math inline">\(X\)</span> 的实例 <span
+class="math inline">\(x\)</span> 模拟出一个 <span
+class="math inline">\(\Pi\)</span> 的实例，输入给 <span
+class="math inline">\(\mathcal{A}\)</span>。如果 <span
+class="math inline">\(\mathcal{A}\)</span> 被成功攻破，则 <span
+class="math inline">\(\mathcal{A}&#39;\)</span> 成功解决实例 <span
+class="math inline">\(x\)</span> 的概率至少为多项式的倒数 <span
+class="math inline">\(1/p(n)\)</span>；</li>
+<li>矛盾：那么 <span class="math inline">\(\mathcal{A}&#39;\)</span>
+解决问题 <span class="math inline">\(X\)</span> 的概率为 <span
+class="math inline">\(\varepsilon(n)/p(n)\)</span>。若 <span
+class="math inline">\(\varepsilon(n)\)</span> not negligible，则 <span
+class="math inline">\(\varepsilon(n)/p(n)\)</span> 也 not
+negligible，这与 <span class="math inline">\(X\)</span>
+困难的假设相矛盾。</li>
+<li>结论：attacker <span class="math inline">\(\mathcal{A}\)</span>
+无法以 not negligible 的概率攻破方案 ，也即 <span
+class="math inline">\(\Pi\)</span> 是 computationally secure 的。</li>
+</ol>
+<p>通俗的说，在 attacker <span
+class="math inline">\(\mathcal{A}&#39;\)</span> 接收到外部的 challenger
+的输入数据后，对其进行适当变换，然后模拟为
+challenger，将变换后的数据输入给 attacker <span
+class="math inline">\(\mathcal{A}\)</span>。然后 <span
+class="math inline">\(\mathcal{A}&#39;\)</span> 根据 <span
+class="math inline">\(\mathcal{A}\)</span>
+的输出，适当变换后输出给外部，完成这次的 challenge。可以看到，<span
+class="math inline">\(\mathcal{A}&#39;\)</span> 对 <span
+class="math inline">\(X\)</span> 的 game（<span
+class="math inline">\(X\)</span> 的安全性）转移到 <span
+class="math inline">\(\mathcal{A}\)</span> 对 <span
+class="math inline">\(\Pi\)</span> 的 game（<span
+class="math inline">\(\Pi\)</span>
+的安全性）上了。这样的转移即构成了命题中的 implies（<span
+class="math inline">\(\rightarrow\)</span>）。</p>
+<h1 id="证明例子">证明例子</h1>
+<h2 id="prg">PRG</h2>
+<p>伪随机数发生器（pseudorandom generator, PRG）输入长度为 <span
+class="math inline">\(n\)</span> 的种子 <span
+class="math inline">\(s\)</span> ，算法 <span
+class="math inline">\(G\)</span> 输出长度为 <span
+class="math inline">\(l(n)\)</span>
+的字符串。若无法区分它和均匀随机选择的字符串，则称其满足伪随机性。用数学语言描述就是，对于
+PPT 的 distinguisher <span class="math inline">\(\mathcal{D}\)</span>
+来说，存在 negligible 函数 <span class="math inline">\(negl(n)\)</span>
+满足：</p>
+<p><span class="math display">\[
+|\Pr[D(r)=1]-\Pr[D(G(s))=1]|\le negl(n)
+\]</span></p>
+<p>其中 <span class="math inline">\(r\)</span> 是从 <span
+class="math inline">\(\{0,1\}^{l(n)}\)</span> 中均与随机选择的，种子
+<span class="math inline">\(s\)</span> 是从 <span
+class="math inline">\(\{0,1\}^n\)</span> 中均匀随机选择的。</p>
+<img src="/archives/33031/prg.png" class="" title="prg 的归约证明">
 <h1 id="参考资料">参考资料</h1>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/49441102/answer/1737942968">能否通俗地解释下密码学中的归约证明？</a></li>
-<li><a target="_blank" rel="noopener" href="https://panqiincs.me/2022/11/22/crypto-proof-method/">密码学中的归约证明过程</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://www.zhihu.com/question/49441102/answer/1737942968">能否通俗地解释下密码学中的归约证明？</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://panqiincs.me/2022/11/22/crypto-proof-method/">密码学中的归约证明过程</a></li>
 </ul>
 
       </div>
@@ -302,7 +414,7 @@ Ponens）</p>
   </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\51297\" title="Fallacies" rel="bookmark">Fallacies</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\4445\" title="RSA" rel="bookmark">RSA</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\35487\" title="机器学习：线性回归" rel="bookmark">机器学习：线性回归</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\51297\" title="Fallacies" rel="bookmark">Fallacies</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\4445\" title="RSA" rel="bookmark">RSA</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\26715\" title="常微分方程" rel="bookmark">常微分方程</a></div></div></div>
     
   </div>
 </div>

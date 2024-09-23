@@ -183,10 +183,7 @@
 <p>为了建模这种非刚性物体的渲染，体渲染把气体等物质抽象成一团飘忽不定的粒子群。光线在穿过这类物体时，其实就是光子在跟粒子发生碰撞的过程。</p>
 <p>下图是体渲染建模的示意图。光沿直线方向穿过一堆粒子
 (粉色部分)，如果能计算出每根光线从最开始发射，到最终打到成像平面上的辐射强度，我们就可以渲染出投影图像。而体渲染要做的，就是对这个过程进行建模。为了简化计算，我们就假设光子只跟它附近的粒子发生作用，这个范围就是图中圆柱体大小的区间。</p>
-<figure>
-<img src="/archives/61387/differential_cylinders.png" alt="differential cylinders">
-<figcaption aria-hidden="true">differential cylinders</figcaption>
-</figure>
+<img src="/archives/61387/differential_cylinders.png" class="" title="differential cylinders">
 <p>体渲染把光子与粒子发生作用的过程，进一步细化为四种类型：</p>
 <ul>
 <li>吸收
@@ -200,10 +197,7 @@
 </ul>
 <p>下图是这四种情况的示意图，<span class="math inline">\(L_i\)</span>
 表示入射光，<span class="math inline">\(L_o\)</span> 表示出射光。</p>
-<figure>
-<img src="/archives/61387/four_situations.png" alt="four situations">
-<figcaption aria-hidden="true">four situations</figcaption>
-</figure>
+<img src="/archives/61387/four_situations.png" class="" title="four situations">
 <p>出射光与入射光之间的变化量，可以表示为这四个过程的叠加：</p>
 <p><span class="math display">\[
 dL(x,w)=\text{emission}+\text{inscattering}-\text{outscattering}-\text{absorption}
@@ -212,36 +206,39 @@ dL(x,w)=\text{emission}+\text{inscattering}-\text{outscattering}-\text{absorptio
 表示光线上某个位置点，<span class="math inline">\(w\)</span>
 表示光线发射方向。</p>
 <h2 id="吸收-absorbing">吸收 (absorbing)</h2>
-<figure>
-<img src="/archives/61387/absorption.png" alt="absorption">
-<figcaption aria-hidden="true">absorption</figcaption>
-</figure>
+<img src="/archives/61387/absorption.png" class="" title="absorption">
 <p>假设粒子都是半径为 <span class="math inline">\(r\)</span>
 的球体，那么每个粒子的投影面积是 <span class="math inline">\(A=\pi
 r^2\)</span> (也就是每个粒子对光线的遮挡面积)。假设圆柱体中粒子的密度是
-<span class="math inline">\(\rho\)</span>，圆柱体的底面积是 <span class="math inline">\(E\)</span>。</p>
+<span class="math inline">\(\rho\)</span>，圆柱体的底面积是 <span
+class="math inline">\(E\)</span>。</p>
 <p>当圆柱体足够薄 (薄到跟粒子一样厚)
 的时候，可以认为粒子之间不会互相重叠
 (也就是粒子都平铺在圆柱体一个横截面上)。</p>
 <p>假定这个厚度是 <span class="math inline">\(\Delta
-s\)</span>，那么在这个厚度内，圆柱体体积为 <span class="math inline">\(E\Delta s\)</span>，粒子总数为 <span class="math inline">\(\rho E\Delta s\)</span>。这些粒子遮挡的面积为
+s\)</span>，那么在这个厚度内，圆柱体体积为 <span
+class="math inline">\(E\Delta s\)</span>，粒子总数为 <span
+class="math inline">\(\rho E\Delta s\)</span>。这些粒子遮挡的面积为
 <span class="math inline">\(\rho E\Delta
 sA\)</span>，占整个底面积的比例为 <span class="math inline">\(\rho
 E\Delta sA/E=\rho A\Delta
-s\)</span>。也就是说，<strong>当一束光通过这个圆柱体的时候，有 <span class="math inline">\(\rho A\Delta s\)</span>
+s\)</span>。也就是说，<strong>当一束光通过这个圆柱体的时候，有 <span
+class="math inline">\(\rho A\Delta s\)</span>
 的概率会被遮挡。</strong></p>
 <p>换句话说，如果我们在圆柱体的一端发射无数光线
 (假设都朝相同的方向)，在另一端接收，会发现有些光线安然通过，有些则被粒子遮挡
 (吸收)。<strong>整体上，这些接受到的光线总强度，相比入射光线总强度而言，会有
 <span class="math inline">\(\rho A\Delta s\)</span>
-比例的衰减，即出射光的强度均值是入射光的 <span class="math inline">\(\rho A\Delta s\)</span> 倍。</strong></p>
+比例的衰减，即出射光的强度均值是入射光的 <span
+class="math inline">\(\rho A\Delta s\)</span> 倍。</strong></p>
 <p><span class="math display">\[
 \begin{align}
     I_o-I_i=\Delta I=-\rho(s)AI(s)\Delta s\notag \\
     \implies dI=-\rho(s)AI(s)ds
 \end{align}
 \]</span></p>
-<p>粒子密度 <span class="math inline">\(\rho\)</span> 是一个关于 <span class="math inline">\(s\)</span>
+<p>粒子密度 <span class="math inline">\(\rho\)</span> 是一个关于 <span
+class="math inline">\(s\)</span>
 的函数，因为每个区域的密度都是不同的。</p>
 <ol type="1">
 <li>式可以转换为常微分方程：</li>
@@ -257,15 +254,16 @@ s\)</span>。也就是说，<strong>当一束光通过这个圆柱体的时候�
     I(s)=I_0\exp(-\int_0^s\tau_a(t)dt)
 \end{equation}
 \]</span></p>
-<p>公式里面的 <span class="math inline">\(I_0\)</span> (注意区分 <span class="math inline">\(I_o\)</span>)
-是常微分方程中的常数项，物理意义上表示光线的起始点。而 <span class="math inline">\(I_o\)</span> 应为 <span class="math inline">\(I_o=I_i\exp(-\int_i^o\tau_a(t)dt)\)</span></p>
-<p>如果介质 (粒子群) 是均匀的，即 <span class="math inline">\(\tau_a(t)\)</span> 处处相等，那么入射光在经过介质
+<p>公式里面的 <span class="math inline">\(I_0\)</span> (注意区分 <span
+class="math inline">\(I_o\)</span>)
+是常微分方程中的常数项，物理意义上表示光线的起始点。而 <span
+class="math inline">\(I_o\)</span> 应为 <span
+class="math inline">\(I_o=I_i\exp(-\int_i^o\tau_a(t)dt)\)</span></p>
+<p>如果介质 (粒子群) 是均匀的，即 <span
+class="math inline">\(\tau_a(t)\)</span> 处处相等，那么入射光在经过介质
 (粒子群) 后，辐射强度会呈指数衰减。这被称为<strong>比尔-朗伯吸收定律
 (Beer-Lambert Law)</strong>：</p>
-<figure>
-<img src="/archives/61387/beer_lambert.png" alt="Beer-Lambert Law">
-<figcaption aria-hidden="true">Beer-Lambert Law</figcaption>
-</figure>
+<img src="/archives/61387/beer_lambert.png" class="" title="Beer-Lambert Law">
 <p>可以由此定义<strong>透射比 (transmittance)</strong>：</p>
 <p><span class="math display">\[
 \begin{equation}
@@ -274,28 +272,30 @@ s\)</span>。也就是说，<strong>当一束光通过这个圆柱体的时候�
 \]</span></p>
 <p>它表示粒子群某一点的透明度，数值越大，说明粒子群越透明，光线衰减的幅度就越小。</p>
 <p>而透明度本身是关于 <span class="math inline">\(\tau_a(t)\)</span>
-的方程，<span class="math inline">\(\tau_a(t)\)</span> 越大，<span class="math inline">\(T(s)\)</span> 就越小。由公式 (2) 可知，<span class="math inline">\(\tau_a(t)=\rho(t)A\)</span>，它是由粒子密度和投影面积决定的。这在直觉上也很好理解，如果粒子密度大，粒子本身也比较大，那么遮住光线的概率也会相应提升，自然透明度也就下降了。</p>
+的方程，<span class="math inline">\(\tau_a(t)\)</span> 越大，<span
+class="math inline">\(T(s)\)</span> 就越小。由公式 (2) 可知，<span
+class="math inline">\(\tau_a(t)=\rho(t)A\)</span>，它是由粒子密度和投影面积决定的。这在直觉上也很好理解，如果粒子密度大，粒子本身也比较大，那么遮住光线的概率也会相应提升，自然透明度也就下降了。</p>
 <p><span class="math inline">\(\tau_a(t)\)</span>
 也被称为<strong>光学厚度 (optical depth)</strong>。</p>
-<figure>
-<img src="/archives/61387/optical_depth.png" alt="不同光学厚度下，光线透射度对比">
-<figcaption aria-hidden="true">不同光学厚度下，光线透射度对比</figcaption>
-</figure>
+<img src="/archives/61387/optical_depth.png" class="" title="不同光学厚度下，光线透射度对比">
 <h2 id="放射-emission">放射 (emission)</h2>
 <p>除了吸收之外，粒子本身也可能发光。</p>
-<p>假设单个粒子发射一束光的辐射强度为 <span class="math inline">\(I_e\)</span>，那么按照前文的描述，在圆柱体足够薄的情况下，粒子总数是
+<p>假设单个粒子发射一束光的辐射强度为 <span
+class="math inline">\(I_e\)</span>，那么按照前文的描述，在圆柱体足够薄的情况下，粒子总数是
 <span class="math inline">\(\rho AE\Delta s\)</span>，则总的发光强度为
 <span class="math inline">\(I_e\rho AE\Delta s\)</span>。</p>
 <p>如果我们在圆柱体一端去接收粒子们放射的光线，会发现有时候能接收到，有时候刚好接收点所在的光路上没有粒子，就接收不到。能接收到光线的概率为
 <span class="math inline">\(\rho AE\Delta s/E=\rho A\Delta
-s\)</span>，那么接收到的光线的平均强度为 <span class="math inline">\(I_e\rho A\Delta s\)</span>。</p>
+s\)</span>，那么接收到的光线的平均强度为 <span
+class="math inline">\(I_e\rho A\Delta s\)</span>。</p>
 <p>同样地，可以得到放射光强的常微分方程：</p>
 <p><span class="math display">\[
 \begin{equation}
     \frac{dI}{ds}=I_e(s)\rho(s)A=I_e(s)\tau_a(s)
 \end{equation}
 \]</span></p>
-<p><span class="math inline">\(I_e\)</span> 是一个关于 <span class="math inline">\(s\)</span>
+<p><span class="math inline">\(I_e\)</span> 是一个关于 <span
+class="math inline">\(s\)</span>
 的函数，因为圆柱体不同位置的粒子，所放射的光强都是有差异的。这里我们也看到，类似吸收，粒子放射的光强同样和
 <span class="math inline">\(\tau_a(s)\)</span>
 有关，这在直觉上也是合理的，如果粒子能发光，那粒子密度和粒子颗粒越大，放射的辐射均值也就越大。</p>
@@ -303,7 +303,8 @@ s\)</span>，那么接收到的光线的平均强度为 <span class="math inline
 <p>粒子除了吸收光子，也可能会弹射光子，这个过程称为外散射，即光子被弹射出原本的光路，导致光线强度减弱。</p>
 <p>同吸收一样，外散射对光线的「削弱」程度，也跟光学厚度相关，不过过程相对吸收来说又复杂一些，因此我们用
 <span class="math inline">\(\tau_s\)</span>
-来表示外散射对光线的削弱比例，以区别于 <span class="math inline">\(\tau_a\)</span>。</p>
+来表示外散射对光线的削弱比例，以区别于 <span
+class="math inline">\(\tau_a\)</span>。</p>
 <p>同样地，这一过程可以表示为：</p>
 <p><span class="math display">\[
 \begin{equation}
@@ -313,7 +314,9 @@ s\)</span>，那么接收到的光线的平均强度为 <span class="math inline
 <h2 id="内散射-in-scattering">内散射 (in-scattering)</h2>
 <p>光子可以被弹射走，自然就有其他光路的光子被弹射到当前光路，这一过程就是内散射。</p>
 <p>内散射的过程比外散射又更加复杂，因为弹射到当前光路的光子可能来自多条不同的光路，因此需要综合考虑其他光路的辐射强度以及各种弹射角度。</p>
-<p>不过本文不打算深入探究这一点，我们就认为其他光路的辐射强度为 <span class="math inline">\(I_s\)</span>，而弹射到当前光路的能量损失比为 <span class="math inline">\(\tau_s\)</span>
+<p>不过本文不打算深入探究这一点，我们就认为其他光路的辐射强度为 <span
+class="math inline">\(I_s\)</span>，而弹射到当前光路的能量损失比为 <span
+class="math inline">\(\tau_s\)</span>
 (注意这里和外散射使用的是相同的系数，既然都是散射，那有些性质上自然是共通的)。</p>
 <p>内散射的过程可以表示为：</p>
 <p><span class="math display">\[
@@ -332,7 +335,8 @@ s\)</span>，那么接收到的光线的平均强度为 <span class="math inline
 (attenuation
 item)</strong>，而粒子<strong>发光</strong>和<strong>内散射</strong>都来自独立的光源，因此被称为<strong>源项
 (source item)</strong>。</p>
-<p>为了求解方便，定义 <span class="math inline">\(\tau_t=\tau_a+\tau_s\)</span>，公式 (8)
+<p>为了求解方便，定义 <span
+class="math inline">\(\tau_t=\tau_a+\tau_s\)</span>，公式 (8)
 就简化为：</p>
 <p><span class="math display">\[
 \begin{equation}
@@ -345,18 +349,31 @@ item)</strong>，而粒子<strong>发光</strong>和<strong>内散射</strong>�
     I(s)=\int_0^s\exp(-\int_0^t\tau_t(u)du)[\tau_a(s)I_e(s)+\tau_s(s)I_s(s)]dt+I_0\exp(-\int_0^s\tau_t(t)dt)
 \end{equation}
 \]</span></p>
-<p>公式 (10) 就是体渲染的渲染方程了，其中 <span class="math inline">\(I_0\)</span> 就是入射光最开始的强度，在 NeRF
+<p>公式 (10) 就是体渲染的渲染方程了，其中 <span
+class="math inline">\(I_0\)</span> 就是入射光最开始的强度，在 NeRF
 中把它当作是背景光。</p>
 <p>这个公式告诉我们，出射光的强度主要由入射光 (背景光) 和源项
 (粒子发光以及内散射) 等构成的，而这两者在传递过程中都伴随着相同的衰减
-(<span class="math inline">\(\tau_t\)</span>)。同时由于从 <span class="math inline">\(I_0\)</span> 到 <span class="math inline">\(I_s\)</span>
-的整个光路上，处处都可能存在粒子发光和内散射现象，因此源项是需要从 <span class="math inline">\(0\)</span> 开始相加一直到 <span class="math inline">\(s\)</span> 的，对应到公式中就是积分 <span class="math inline">\(\int_0^s\)</span>。</p>
+(<span class="math inline">\(\tau_t\)</span>)。同时由于从 <span
+class="math inline">\(I_0\)</span> 到 <span
+class="math inline">\(I_s\)</span>
+的整个光路上，处处都可能存在粒子发光和内散射现象，因此源项是需要从 <span
+class="math inline">\(0\)</span> 开始相加一直到 <span
+class="math inline">\(s\)</span> 的，对应到公式中就是积分 <span
+class="math inline">\(\int_0^s\)</span>。</p>
 <p>有了这个公式，我们就可以建模出每一条光线在传播介质中，辐射强度的变化，并最终渲染出图像
-(当然前提要知道介质中每一点的 <span class="math inline">\(\tau_t\)</span>、<span class="math inline">\(I_e\)</span> 等信息)。</p>
+(当然前提要知道介质中每一点的 <span
+class="math inline">\(\tau_t\)</span>、<span
+class="math inline">\(I_e\)</span> 等信息)。</p>
 <p><strong>注意，虽然我们在讨论这个模型的时候一直是用辐射强度这个概念，但直接把
 <span class="math inline">\(I(s)\)</span>
 替换成颜色也是可以的。</strong></p>
-<p><strong>现在，我们做一个大胆的假设，假设 <span class="math inline">\(\tau_t\)</span>、<span class="math inline">\(\tau_a\)</span>、<span class="math inline">\(\tau_s\)</span> 这些都相等，统一用 <span class="math inline">\(\sigma\)</span> 表示</strong>，同时令 <span class="math inline">\(C=I_e+I_s\)</span>，那么公式 (10)
+<p><strong>现在，我们做一个大胆的假设，假设 <span
+class="math inline">\(\tau_t\)</span>、<span
+class="math inline">\(\tau_a\)</span>、<span
+class="math inline">\(\tau_s\)</span> 这些都相等，统一用 <span
+class="math inline">\(\sigma\)</span> 表示</strong>，同时令 <span
+class="math inline">\(C=I_e+I_s\)</span>，那么公式 (10)
 可以进一步简化成：</p>
 <p><span class="math display">\[
 \begin{align}
@@ -365,14 +382,24 @@ item)</strong>，而粒子<strong>发光</strong>和<strong>内散射</strong>�
     &amp;=\int_0^sT(t)\sigma(t)C(t)dt+I_0T(s)
 \end{align}
 \]</span></p>
-<p>其中 <span class="math inline">\(T(t)=\exp(-\int_0^t\sigma(u)du)\)</span></p>
+<p>其中 <span
+class="math inline">\(T(t)=\exp(-\int_0^t\sigma(u)du)\)</span></p>
 <h1 id="计算机的体渲染">计算机的体渲染</h1>
 <p>公式 (11) 在计算机中是无法表达的，需要进一步离散化。</p>
 <p>我们将整个光路 <span class="math inline">\([0, s]\)</span> 划分为
-<span class="math inline">\(N\)</span> 个相等间距的区间：<span class="math inline">\([t_n,t_{n+1}]\)</span>。那么，只要能算出每个 <span class="math inline">\([t_n,t_{n+1}]\)</span> 区间内的辐射强度 <span class="math inline">\(I(t_n\rightarrow t_{n+1})\)</span>，最后把 <span class="math inline">\(N\)</span>
-个区间的辐射加起来，就可以得到最终的光线强度了。<span class="math inline">\(N\)</span> 越大，则越接近理论数值 (公式
+<span class="math inline">\(N\)</span> 个相等间距的区间：<span
+class="math inline">\([t_n,t_{n+1}]\)</span>。那么，只要能算出每个 <span
+class="math inline">\([t_n,t_{n+1}]\)</span> 区间内的辐射强度 <span
+class="math inline">\(I(t_n\rightarrow t_{n+1})\)</span>，最后把 <span
+class="math inline">\(N\)</span>
+个区间的辐射加起来，就可以得到最终的光线强度了。<span
+class="math inline">\(N\)</span> 越大，则越接近理论数值 (公式
 (11))。</p>
-<p>为了方便运算，我们假设在每个区间内，<span class="math inline">\(\sigma(t)\)</span> 处处等于 <span class="math inline">\(\sigma_n\)</span> ，<span class="math inline">\(C(t)\)</span> 处处等于 <span class="math inline">\(C_n\)</span>。那么可以得到：</p>
+<p>为了方便运算，我们假设在每个区间内，<span
+class="math inline">\(\sigma(t)\)</span> 处处等于 <span
+class="math inline">\(\sigma_n\)</span> ，<span
+class="math inline">\(C(t)\)</span> 处处等于 <span
+class="math inline">\(C_n\)</span>。那么可以得到：</p>
 <p><span class="math display">\[
 \begin{align}
     I(t_n\rightarrow t_{n+1})&amp;=\int_{t_n}^{t_{n+1}}T(t)\sigma_nC_ndt
@@ -380,7 +407,8 @@ item)</strong>，而粒子<strong>发光</strong>和<strong>内散射</strong>�
     &amp;=\sigma_nC_n\int_{t_n}^{t_{n+1}}T(t)dt
 \end{align}
 \]</span></p>
-<p>注意 <span class="math inline">\(T(t)=\exp(-\int_0^t\sigma(u)du)\)</span>，是需要从光线起点处开始积分的。不过，好在
+<p>注意 <span
+class="math inline">\(T(t)=\exp(-\int_0^t\sigma(u)du)\)</span>，是需要从光线起点处开始积分的。不过，好在
 <span class="math inline">\(T(t)\)</span> 可以拆分为两段的乘积：</p>
 <p><span class="math display">\[
 \begin{align}
@@ -423,7 +451,9 @@ t_n)(1-\exp(-\sigma_n(t_{n+1}-t_n)))+I_0T(s)
 \]</span></p>
 <p>假设 <span class="math inline">\(\delta_n=t_{n+1}-t_n\)</span>，那么
 <span class="math inline">\(\delta_n\)</span>
-表示的就是每个小区间的长度，我们令 <span class="math inline">\(T_n=T(0\rightarrow t_n)\)</span>，则 <span class="math inline">\(T_n\)</span> 也可以离散化为：</p>
+表示的就是每个小区间的长度，我们令 <span
+class="math inline">\(T_n=T(0\rightarrow t_n)\)</span>，则 <span
+class="math inline">\(T_n\)</span> 也可以离散化为：</p>
 <p><span class="math display">\[
 \begin{align}
     T_n&amp;=\exp(-\int_0^{t_n}\sigma(u)du) \notag\\
@@ -437,16 +467,14 @@ t_n)(1-\exp(-\sigma_n(t_{n+1}-t_n)))+I_0T(s)
 \end{equation}
 \]</span></p>
 <p>这个公式就是 NeRF 论文中公式 (3) 的出处，只不过加了背景光：</p>
-<figure>
-<img src="/archives/61387/nerf_equation.png" alt="NeRF 体渲染的数值计算公式，省略了背景光">
-<figcaption aria-hidden="true">NeRF
-体渲染的数值计算公式，省略了背景光</figcaption>
-</figure>
+<img src="/archives/61387/nerf_equation.png" class="" title="NeRF 体渲染的数值计算公式，省略了背景光">
 <h1 id="参考资料">参考资料</h1>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.scratchapixel.com/lessons/3d-basic-rendering/volume-rendering-for-developers/volume-rendering-summary-equations.html">Volume
+<li><a
+target="_blank" rel="noopener" href="https://www.scratchapixel.com/lessons/3d-basic-rendering/volume-rendering-for-developers/volume-rendering-summary-equations.html">Volume
 Rendering</a></li>
-<li><a target="_blank" rel="noopener" href="https://courses.cs.duke.edu/spring03/cps296.8/papers/max95opticalModelsForDirectVolumeRendering.pdf">Optical
+<li><a
+target="_blank" rel="noopener" href="https://courses.cs.duke.edu/spring03/cps296.8/papers/max95opticalModelsForDirectVolumeRendering.pdf">Optical
 Models for Direct Volume Rendering</a></li>
 <li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2209.02417">Volume Rendering Digest
 (for NeRF)</a></li>
@@ -543,7 +571,7 @@ Models for Direct Volume Rendering</a></li>
   </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\59645\" title="NeRF学习" rel="bookmark">NeRF学习</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\48868\" title="三维模型" rel="bookmark">三维模型</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\40010\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\59645\" title="NeRF学习" rel="bookmark">NeRF学习</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\48868\" title="三维模型" rel="bookmark">三维模型</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\55509\" title="CAP & BASE" rel="bookmark">CAP & BASE</a></div></div></div>
     
   </div>
 </div>

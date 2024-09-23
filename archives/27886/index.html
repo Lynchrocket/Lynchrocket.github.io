@@ -179,17 +179,11 @@
           </div>
         
         <h1 id="坐标系">坐标系</h1>
-<figure>
-<img src="/archives/27886/coordinate_system.png" alt="坐标系">
-<figcaption aria-hidden="true">坐标系</figcaption>
-</figure>
+<img src="/archives/27886/coordinate_system.png" class="" title="坐标系">
 <p>为了唯一地描述每一个空间点的坐标，以及相机的位置和朝向，我们需要先定义一个世界坐标系。一个坐标系其实就是由原点的位置与
 XYZ
 轴的方向决定。为了建立三维空间点到相机平面的映射关系以及多个相机之间的相对关系，也要对每一个相机定义一个局部的相机坐标系。下图为常见的坐标系定义习惯：</p>
-<figure>
-<img src="/archives/27886/camera_coordinate.png" alt="常见的相机坐标系定义习惯（右手坐标系）">
-<figcaption aria-hidden="true">常见的相机坐标系定义习惯（右手坐标系）</figcaption>
-</figure>
+<img src="/archives/27886/camera_coordinate.png" class="" title="常见的相机坐标系定义习惯（右手坐标系）">
 <blockquote>
 <p>在 OpenCV/COLMAP 的相机坐标系里相机朝向 +z 轴，在 LLFF/NeRF
 的相机坐标系中里相机朝向 -z 轴。有时我们会按坐标系的 xyz
@@ -207,36 +201,37 @@ matrix），变换矩阵左乘坐标向量实现坐标变换（这也是 OpenCV/
 </blockquote>
 <h2 id="相机外参">相机外参</h2>
 <p>相机外参是一个 <span class="math inline">\(4\times4\)</span> 的矩阵
-<span class="math inline">\(M\)</span>，其作用是将世界坐标系的点 <span class="math inline">\(P_{world}=[x,y,z,1]\)</span> 变换到相机坐标系
+<span class="math inline">\(M\)</span>，其作用是将世界坐标系的点 <span
+class="math inline">\(P_{world}=[x,y,z,1]\)</span> 变换到相机坐标系
 <span class="math inline">\(P_{camera}=MP_{world}\)</span>
 下。因此也把相机外参叫做 <strong>world-to-camera (w2c)
 矩阵</strong>。（注意用的是4维的齐次坐标）</p>
 <p>相机外参的逆矩阵被称为 <strong>camera-to-world (c2w)
 矩阵</strong>，其作用是把相机坐标系的点变换到世界坐标系。c2w 矩阵是一个
-<span class="math inline">\(4\times4\)</span> 的矩阵，左上角 <span class="math inline">\(3\times3\)</span> 是旋转矩阵 <span class="math inline">\(R\)</span>，右上角的 <span class="math inline">\(3\times1\)</span> 向量是平移向量 <span class="math inline">\(T\)</span>。有时写的时候可以忽略最后一行 <span class="math inline">\([0,0,0,1]\)</span>。</p>
-<figure>
-<img src="/archives/27886/c2w.png" alt="camera-to-world (c2w) 矩阵">
-<figcaption aria-hidden="true">camera-to-world (c2w) 矩阵</figcaption>
-</figure>
+<span class="math inline">\(4\times4\)</span> 的矩阵，左上角 <span
+class="math inline">\(3\times3\)</span> 是旋转矩阵 <span
+class="math inline">\(R\)</span>，右上角的 <span
+class="math inline">\(3\times1\)</span> 向量是平移向量 <span
+class="math inline">\(T\)</span>。有时写的时候可以忽略最后一行 <span
+class="math inline">\([0,0,0,1]\)</span>。</p>
+<img src="/archives/27886/c2w.png" class="" title="camera-to-world (c2w) 矩阵">
 <p>c2w
 矩阵的值直接描述了相机坐标系的朝向和原点：<strong>旋转矩阵的第一列到第三列分别表示了相机坐标系的
 X, Y, Z
 轴在世界坐标系下对应的方向；平移向量表示的是相机原点在世界坐标系的对应位置</strong>。</p>
-<figure>
-<img src="/archives/27886/c2w_description.png" alt="理解 camera-to-world (c2w) 矩阵">
-<figcaption aria-hidden="true">理解 camera-to-world (c2w)
-矩阵</figcaption>
-</figure>
-<p>如果将 c2w 作用到（即左乘）相机坐标系下的 X 轴 <span class="math inline">\([1,0,0,0]\)</span>，Y 轴 <span class="math inline">\([0,1,0,0]\)</span>, Z 轴 <span class="math inline">\([0,0,1,0]\)</span>，以及原点 <span class="math inline">\([0,0,0,1]\)</span>（注意方向向量的齐次坐标第四维等于
+<img src="/archives/27886/c2w_description.png" class="" title="理解 camera-to-world (c2w) 矩阵">
+<p>如果将 c2w 作用到（即左乘）相机坐标系下的 X 轴 <span
+class="math inline">\([1,0,0,0]\)</span>，Y 轴 <span
+class="math inline">\([0,1,0,0]\)</span>, Z 轴 <span
+class="math inline">\([0,0,1,0]\)</span>，以及原点 <span
+class="math inline">\([0,0,0,1]\)</span>（注意方向向量的齐次坐标第四维等于
 0，点坐标第四维等于 1），就能得到它们在世界坐标系的坐标表示：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">[R, T][<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]^T = [r11, r21, r31]^T <span class="hljs-comment"># X轴对应的是c2w矩阵的第一列</span><br>[R, T][<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]^T = [r12, r22, r32]^T <span class="hljs-comment"># Y轴对应的是c2w矩阵的第二列</span><br>[R, T][<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>]^T = [r13, r23, r33]^T <span class="hljs-comment"># Y轴对应的是c2w矩阵的第三列</span><br>[R, T][<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>]^T = [t1, t2, t3]^T    <span class="hljs-comment"># 原点对应的是c2w矩阵的第四列</span><br></code></pre></td></tr></table></figure>
 <h2 id="相机内参">相机内参</h2>
 <p>相机的内参矩阵将相机坐标系下的三维坐标映射到二维的图像平面。</p>
-<figure>
-<img src="/archives/27886/projection.png" alt="映射">
-<figcaption aria-hidden="true">映射</figcaption>
-</figure>
-<p>这里以针孔相机（Pinhole camera）为例介绍相机的内参矩阵 <span class="math inline">\(K\)</span>：</p>
+<img src="/archives/27886/projection.png" class="" title="映射">
+<p>这里以针孔相机（Pinhole camera）为例介绍相机的内参矩阵 <span
+class="math inline">\(K\)</span>：</p>
 <p><span class="math display">\[
 K=\left[\begin{array}{c c c}
     f_x &amp; 0 &amp; c_x \\
@@ -244,9 +239,18 @@ K=\left[\begin{array}{c c c}
     0 &amp; 0 &amp; 1
 \end{array}\right]
 \]</span></p>
-<p>内参矩阵 <span class="math inline">\(K\)</span> 包含 <span class="math inline">\(4\)</span> 个值，其中 <span class="math inline">\(f_x\)</span> 和 <span class="math inline">\(f_y\)</span> 是相机的水平和垂直<strong>焦距（focal
-length）</strong>（对于理想的针孔相机，<span class="math inline">\(f_x=f_y\)</span>）。焦距的物理含义是相机中心到成像平面的距离，长度以像素为单位。<span class="math inline">\(c_x\)</span> 和 <span class="math inline">\(c_y\)</span>
-是图像原点相对于相机光心的水平和垂直偏移量。<span class="math inline">\(c_x\)</span>，<span class="math inline">\(c_y\)</span> 有时候可以用图像宽和高的 <span class="math inline">\(1/2\)</span> 近似:</p>
+<p>内参矩阵 <span class="math inline">\(K\)</span> 包含 <span
+class="math inline">\(4\)</span> 个值，其中 <span
+class="math inline">\(f_x\)</span> 和 <span
+class="math inline">\(f_y\)</span> 是相机的水平和垂直<strong>焦距（focal
+length）</strong>（对于理想的针孔相机，<span
+class="math inline">\(f_x=f_y\)</span>）。焦距的物理含义是相机中心到成像平面的距离，长度以像素为单位。<span
+class="math inline">\(c_x\)</span> 和 <span
+class="math inline">\(c_y\)</span>
+是图像原点相对于相机光心的水平和垂直偏移量。<span
+class="math inline">\(c_x\)</span>，<span
+class="math inline">\(c_y\)</span> 有时候可以用图像宽和高的 <span
+class="math inline">\(1/2\)</span> 近似:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#  NeRF run_nerf.py有这么一段构造K的代码</span><br>    <span class="hljs-keyword">if</span> K <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>        K = np.array([<br>            [focal, <span class="hljs-number">0</span>, <span class="hljs-number">0.5</span>*W],<br>            [<span class="hljs-number">0</span>, focal, <span class="hljs-number">0.5</span>*H],<br>            [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>]<br>        ])<br></code></pre></td></tr></table></figure>
 <h1 id="如何获得相机参数">如何获得相机参数</h1>
 <p>NeRF
@@ -262,10 +266,7 @@ Mitsuba、OpenGL、PyTorch3D、Pyrender
 SFM）</strong>技术估计几个相机间的相对位姿。这个技术比较成熟了，现在学术界里用的比较多的开源软件包是
 <a target="_blank" rel="noopener" href="https://colmap.github.io/">COLMAP</a>。输入多张图像，COLMAP
 可以估计出相机的内参和外参（也就是 sparse model）。</p>
-<figure>
-<img src="/archives/27886/COLMAP.png" alt="COLMAP">
-<figcaption aria-hidden="true">COLMAP</figcaption>
-</figure>
+<img src="/archives/27886/COLMAP.png" class="" title="COLMAP">
 <p>下面是 COLMAP 官网教程给的三个命令行操作步骤，简单来说：</p>
 <ol type="1">
 <li>第一步是对所有的图像进行特征点检测与提取；</li>
@@ -285,10 +286,12 @@ MVS 进行 dense 重建。</p>
 可以读取的格式即可以用于模型训练了。那这里面需要做什么操作？</p>
 <h1 id="llff真实数据格式">LLFF真实数据格式</h1>
 <p>LLFF（Local Light Field Fusion），是 NeRF
-作者上一篇做新视角合成的工作 <a target="_blank" rel="noopener" href="https://github.com/fyusion/llff">Code release for Local Light
+作者上一篇做新视角合成的工作 <a
+target="_blank" rel="noopener" href="https://github.com/fyusion/llff">Code release for Local Light
 Field Fusion at SIGGRAPH 2019</a>。为了和 LLFF
 方法保持一致的数据格式，NeRF 使用 load_llff.py 读取 LLFF
-格式的真实数据，并建议大家使用 LLFF 提供的的 <a target="_blank" rel="noopener" href="https://github.com/Fyusion/LLFF/blob/master/imgs2poses.py">imgs2poses.py</a>
+格式的真实数据，并建议大家使用 LLFF 提供的的 <a
+target="_blank" rel="noopener" href="https://github.com/Fyusion/LLFF/blob/master/imgs2poses.py">imgs2poses.py</a>
 文件获取所需相机参数。</p>
 <h2 id="colmap到llff数据格式">COLMAP到LLFF数据格式</h2>
 <p>imgs2poses.py 这个文件其实很简单，就干了两件事。</p>
@@ -304,13 +307,15 @@ load_colmap_data() 函数的倒数第二行，有一个操作将 COLMAP 得到�
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># LLFF/llff/poses/pose_utils.py</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">load_colmap_data</span>(<span class="hljs-params">realdir</span>):<br>    ...   <br>    <span class="hljs-comment"># must switch to [-u, r, -t] from [r, -u, t], NOT [r, u, -t]</span><br>    poses = np.concatenate([poses[:, <span class="hljs-number">1</span>:<span class="hljs-number">2</span>, :], poses[:, <span class="hljs-number">0</span>:<span class="hljs-number">1</span>, :], -poses[:, <span class="hljs-number">2</span>:<span class="hljs-number">3</span>, :], poses[:, <span class="hljs-number">3</span>:<span class="hljs-number">4</span>, :], poses[:, <span class="hljs-number">4</span>:<span class="hljs-number">5</span>, :]], <span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> poses, pts3d, perm<br></code></pre></td></tr></table></figure>
 <p>上述操作实际上就是把相机坐标系轴的朝向进行了变换：X 和 Y 轴调换，Z
 轴取反，如下图所示：</p>
-<figure>
-<img src="/archives/27886/COLMAP_to_LLFF.png" alt="从Colmap的坐标系转到LLFF的坐标系">
-<figcaption aria-hidden="true">从Colmap的坐标系转到LLFF的坐标系</figcaption>
-</figure>
+<img src="/archives/27886/COLMAP_to_LLFF.png" class="" title="从Colmap的坐标系转到LLFF的坐标系">
 <h2 id="poses_bounds.npy里有什么">poses_bounds.npy里有什么</h2>
 <p>load_llff.py 会直接读取 poses_bounds.npy
-文件获得相机参数。poses_bounds.npy 是一个 <span class="math inline">\(N\times17\)</span> 的矩阵，其中 <span class="math inline">\(N\)</span> 是图像的数量，即每一张图像有 <span class="math inline">\(17\)</span> 个参数。其中前面 <span class="math inline">\(15\)</span> 个参数可以重排成 <span class="math inline">\(3\times5\)</span> 的矩阵形式：</p>
+文件获得相机参数。poses_bounds.npy 是一个 <span
+class="math inline">\(N\times17\)</span> 的矩阵，其中 <span
+class="math inline">\(N\)</span> 是图像的数量，即每一张图像有 <span
+class="math inline">\(17\)</span> 个参数。其中前面 <span
+class="math inline">\(15\)</span> 个参数可以重排成 <span
+class="math inline">\(3\times5\)</span> 的矩阵形式：</p>
 <p><span class="math display">\[
 \left[\begin{array}{c c c c c}
     r_{11} &amp; r_{12} &amp; r_{13} &amp; t_1 &amp; H \\
@@ -319,7 +324,10 @@ load_colmap_data() 函数的倒数第二行，有一个操作将 COLMAP 得到�
 \end{array}\right]
 \]</span></p>
 <p>左边 <span class="math inline">\(3\times3\)</span> 矩阵是 c2w
-的旋转矩阵，第四列是 c2w 的平移向量，第五列分别是图像的高 <span class="math inline">\(H\)</span>、宽 <span class="math inline">\(W\)</span> 和相机的焦距 <span class="math inline">\(f\)</span>。</p>
+的旋转矩阵，第四列是 c2w 的平移向量，第五列分别是图像的高 <span
+class="math inline">\(H\)</span>、宽 <span
+class="math inline">\(W\)</span> 和相机的焦距 <span
+class="math inline">\(f\)</span>。</p>
 <p>最后两个参数用于表示<strong>场景的范围 Bounds
 (bds)</strong>，是该相机视角下场景点离相机中心最近（near）和最远（far）的距离，所以
 near/far 肯定是大于 0 的。</p>
@@ -330,10 +338,7 @@ near/far 肯定是大于 0 的。</p>
 near 和 far 就是定义了采样区间的最近点和最远点。贴近场景边界的 near/far
 可以使采样点分布更加密集，从而有效地提升收敛速度和渲染质量。</li>
 </ul>
-<figure>
-<img src="/archives/27886/near_far.png" alt="poses_bounds.npy里最后两个参数（near/far）">
-<figcaption aria-hidden="true">poses_bounds.npy里最后两个参数（near/far）</figcaption>
-</figure>
+<img src="/archives/27886/near_far.png" class="" title="poses_bounds.npy里最后两个参数（near&#x2F;far）">
 <h1 id="load_llff.py代码解读">load_llff.py代码解读</h1>
 <p>接着，我们介绍 NeRF 代码里 load_llff.py
 代码里的一些细节。对三维视觉不熟悉的读者，早期读代码的时候可能会有不少困惑。</p>
@@ -343,21 +348,19 @@ near 和 far 就是定义了采样区间的最近点和最远点。贴近场景�
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># load_llff.py文件</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">load_llff_data</span>(<span class="hljs-params">basedir, factor=<span class="hljs-number">8</span>, recenter=<span class="hljs-literal">True</span>, bd_factor=<span class="hljs-number">.75</span>, spherify=<span class="hljs-literal">False</span>, path_zflat=<span class="hljs-literal">False</span></span>):<br>    <br>    poses, bds, imgs = _load_data(basedir, factor=factor) <span class="hljs-comment"># factor=8 downsamples original imgs by 8x</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Loaded&#x27;</span>, basedir, bds.<span class="hljs-built_in">min</span>(), bds.<span class="hljs-built_in">max</span>())<br>    <br>    <span class="hljs-comment"># Correct rotation matrix ordering and move variable dim to axis 0</span><br>    poses = np.concatenate([poses[:, <span class="hljs-number">1</span>:<span class="hljs-number">2</span>, :], -poses[:, <span class="hljs-number">0</span>:<span class="hljs-number">1</span>, :], poses[:, <span class="hljs-number">2</span>:, :]], <span class="hljs-number">1</span>)<br>    ...<br></code></pre></td></tr></table></figure>
 <p>上面的代码段的最后一行实际上是把旋转矩阵的第一列（X轴）和第二列（Y轴）互换，并且对第二列（Y轴）做了一个反向。这样做的目的是将
 LLFF 的相机坐标系变成 OpenGL/NeRF 的相机坐标系，如下图所示：</p>
-<figure>
-<img src="/archives/27886/DRB_to_RUB.png" alt="poses = np.concatenate([poses[:, 1:2, :], -poses[:, 0:1, :], poses[:, 2:, :]], 1)">
-<figcaption aria-hidden="true">poses = np.concatenate([poses[:, 1:2, :],
--poses[:, 0:1, :], poses[:, 2:, :]], 1)</figcaption>
-</figure>
-<h2 id="缩放图像需要修改什么相机参数">缩放图像需要修改什么相机参数？</h2>
+<img src="/archives/27886/DRB_to_RUB.png" class="" title="poses &#x3D; np.concatenate([poses[:, 1:2, :], -poses[:, 0:1, :], poses[:, 2:, :]], 1)">
+<h2
+id="缩放图像需要修改什么相机参数">缩放图像需要修改什么相机参数？</h2>
 <p>在 _load_data() 函数里，有一个用于图像缩放的 factor 比例参数，将
-<span class="math inline">\(H\times W\)</span> 的图像缩放成 <span class="math inline">\((H/factor)\times(W/factor)\)</span>。这里面有一个问题是如果缩放了图像尺寸，相机的参数需要相应的做什么变化？</p>
-<p><strong>外参（位置和朝向）不变，相机的焦距 <span class="math inline">\(f\)</span>，<span class="math inline">\(c_x\)</span>, 和 <span class="math inline">\(c_y\)</span>
+<span class="math inline">\(H\times W\)</span> 的图像缩放成 <span
+class="math inline">\((H/factor)\times(W/factor)\)</span>。这里面有一个问题是如果缩放了图像尺寸，相机的参数需要相应的做什么变化？</p>
+<p><strong>外参（位置和朝向）不变，相机的焦距 <span
+class="math inline">\(f\)</span>，<span
+class="math inline">\(c_x\)</span>, 和 <span
+class="math inline">\(c_y\)</span>
 等比例缩放</strong>。下图的示意图展示了当相机位置不变，相机视野（Field
 of view, FOV）不变的情况下，图像的高和焦距长短的关系。</p>
-<figure>
-<img src="/archives/27886/FOV.png" alt="图像平面1与图像平面2拍摄的图像内容是一样的，只是分辨率不同">
-<figcaption aria-hidden="true">图像平面1与图像平面2拍摄的图像内容是一样的，只是分辨率不同</figcaption>
-</figure>
+<img src="/archives/27886/FOV.png" class="" title="图像平面1与图像平面2拍摄的图像内容是一样的，只是分辨率不同">
 <h2 id="viewmatrix">viewmatrix()</h2>
 <p>view_matrix 是一个构造相机矩阵的的函数，输入是相机的 <strong>Z
 轴朝向、up 轴的朝向</strong>（即相机平面朝上的方向
@@ -365,10 +368,7 @@ Y）、以及相机中心。输出下图所示的camera-to-world（c2w）矩阵�
 轴朝向，Y 轴朝向，和相机中心都已经给定，所以只需求 X
 轴的方向即可。又由于 X 轴同时与 Z 轴和 Y 轴垂直，我们可以用 Y 轴与 Z
 轴的叉乘得到 X 轴方向。</p>
-<figure>
-<img src="/archives/27886/c2w_description.png" alt="camera-to-world matrix">
-<figcaption aria-hidden="true">camera-to-world matrix</figcaption>
-</figure>
+<img src="/archives/27886/c2w_description.png" class="" title="camera-to-world matrix">
 <p>下面是 load_llff.py 里关于 view_matrix()
 的定义，看起来复杂一些。其实就是比刚刚的描述比多了一步：在用 Y 轴与 Z
 轴叉乘得到 X 轴后，再次用 Z 轴与 X 轴叉乘得到新的 Y
@@ -388,17 +388,15 @@ Y）、以及相机中心。输出下图所示的camera-to-world（c2w）矩阵�
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">poses_avg</span>(<span class="hljs-params">poses</span>):<br><br>    hwf = poses[<span class="hljs-number">0</span>, :<span class="hljs-number">3</span>, -<span class="hljs-number">1</span>:]<br><br>    center = poses[:, :<span class="hljs-number">3</span>, <span class="hljs-number">3</span>].mean(<span class="hljs-number">0</span>)<br>    vec2 = normalize(poses[:, :<span class="hljs-number">3</span>, <span class="hljs-number">2</span>].<span class="hljs-built_in">sum</span>(<span class="hljs-number">0</span>))<br>    up = poses[:, :<span class="hljs-number">3</span>, <span class="hljs-number">1</span>].<span class="hljs-built_in">sum</span>(<span class="hljs-number">0</span>)<br>    c2w = np.concatenate([viewmatrix(vec2, up, center), hwf], <span class="hljs-number">1</span>)<br>    <br>    <span class="hljs-keyword">return</span> c2w<br></code></pre></td></tr></table></figure>
 <p>下图展示了一个 poses_avg()
 函数的例子。左边是多个输入相机的位姿，右边是返回的平均相机姿态。可以看出平均相机位姿的位置和朝向是之前所有相机的均值。</p>
-<figure>
-<img src="/archives/27886/poses_avg.png" alt="poses_avg()">
-<figcaption aria-hidden="true">poses_avg()</figcaption>
-</figure>
+<img src="/archives/27886/poses_avg.png" class="" title="poses_avg()">
 <blockquote>
 <p>中间大的坐标系是世界坐标系，每一个小的坐标系对应一个相机的局部坐标系。红绿蓝（RGB）轴分别代表
 XYZ 轴。</p>
 </blockquote>
 <h2 id="recenter_poses">recenter_poses()</h2>
 <p>recenter_poses()
-函数的名字听起来是中心化相机位姿（同样包括位置和朝向）的意思。输入 <span class="math inline">\(N\)</span> 个相机位姿，会返回N个相机位姿。</p>
+函数的名字听起来是中心化相机位姿（同样包括位置和朝向）的意思。输入 <span
+class="math inline">\(N\)</span> 个相机位姿，会返回N个相机位姿。</p>
 <p>具体的操作了解起来可能有点跳跃。第一步先用刚刚介绍的 poses_avg(poses)
 得到多个输入相机的平均位姿 c2w，接着用这个平均位姿 c2w
 的逆左乘到输入的相机位姿上就完成了归一化。</p>
@@ -409,10 +407,7 @@ c2w，返回的相机位姿中旋转矩阵为单位矩阵，平移量为零向�
 轴朝向和世界坐标系的向一致。</p>
 <p>下图我们用一个例子帮助理解。左边和右边分别是输入和输出的相机位姿示意图。我们可以看到变换后的多个相机的平均位姿处在世界坐标系的原点，并且相机坐标系的
 XYZ 轴与世界坐标系保持一致了。</p>
-<figure>
-<img src="/archives/27886/recenter_poses.png" alt="recenter_poses()">
-<figcaption aria-hidden="true">recenter_poses()</figcaption>
-</figure>
+<img src="/archives/27886/recenter_poses.png" class="" title="recenter_poses()">
 <blockquote>
 <p>中间大的坐标系是世界坐标系，每一个小的坐标系对应一个相机的局部坐标系。红绿蓝（RGB）轴分别代表
 XYZ 轴。</p>
@@ -429,10 +424,7 @@ up 轴保持不变。简单说一下上面的代码：</p>
 轴在世界坐标系的朝向。接着使用介绍的 viewmatrix(z, up, c)
 构造当前相机的矩阵。</p>
 <p>下面这个图可视化了 render_path_spiral() 生成的轨迹：</p>
-<figure>
-<img src="/archives/27886/render_path_spiral.png" alt="render_path_spiral()">
-<figcaption aria-hidden="true">render_path_spiral()</figcaption>
-</figure>
+<img src="/archives/27886/render_path_spiral.png" class="" title="render_path_spiral()">
 <blockquote>
 <p>中间大的坐标系是世界坐标系，每一个小的坐标系对应一个相机的局部坐标系。红绿蓝（RGB）轴分别代表
 XYZ 轴。</p>
@@ -462,10 +454,7 @@ spherify_poses()
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">rad = np.sqrt(np.mean(np.<span class="hljs-built_in">sum</span>(np.square(poses_reset[:,:<span class="hljs-number">3</span>,<span class="hljs-number">3</span>]), -<span class="hljs-number">1</span>)))<br>sc = <span class="hljs-number">1.</span>/rad<br>poses_reset[:,:<span class="hljs-number">3</span>,<span class="hljs-number">3</span>] *= sc<br></code></pre></td></tr></table></figure>
 <p>下面这个图可视化了 spherify_poses() 返回的结果：</p>
-<figure>
-<img src="/archives/27886/spherify_poses.png" alt="spherify_poses()">
-<figcaption aria-hidden="true">spherify_poses()</figcaption>
-</figure>
+<img src="/archives/27886/spherify_poses.png" class="" title="spherify_poses()">
 <blockquote>
 <p>中间大的坐标系是世界坐标系，每一个小的坐标系对应一个相机的局部坐标系。红绿蓝（RGB）轴分别代表
 XYZ 轴。</p>
@@ -479,35 +468,35 @@ XYZ 轴。</p>
 矩阵将射线变换到世界坐标系。</li>
 </ol>
 <p>通过上述的讨论，我们第一步是要先写出相机中心和像素点在相机坐标系的三维坐标。下面我们以
-OpenCV/Colmap 的相机坐标系为例介绍。相机中心的坐标很明显就是 <span class="math inline">\([0,0,0]\)</span>
+OpenCV/Colmap 的相机坐标系为例介绍。相机中心的坐标很明显就是 <span
+class="math inline">\([0,0,0]\)</span>
 了。像素点的坐标可能复杂一点：首先三维像素点的 x 和 y
 坐标是二维的图像坐标 <span class="math inline">\((i, j)\)</span>
 减去光心坐标 <span class="math inline">\((c_x,c_y)\)</span>，然后 z
 坐标其实就是焦距 <span class="math inline">\(f\)</span>
-(因为图像平面距离相机中心的距离就是焦距 <span class="math inline">\(f\)</span>)。</p>
-<p>所以我们就可以得到射线的方向向量是 <span class="math inline">\((i-c_x,j-c_y,f)-(0,0,0)=(i-c_x,j-c_y,f)\)</span>。因为是向量，我们可以把整个向量除以焦距
-<span class="math inline">\(f\)</span> 归一化 z 坐标，得到 <span class="math inline">\((\frac{i-c_x}{f},\frac{i-c_y}{f},1)\)</span>。</p>
+(因为图像平面距离相机中心的距离就是焦距 <span
+class="math inline">\(f\)</span>)。</p>
+<p>所以我们就可以得到射线的方向向量是 <span
+class="math inline">\((i-c_x,j-c_y,f)-(0,0,0)=(i-c_x,j-c_y,f)\)</span>。因为是向量，我们可以把整个向量除以焦距
+<span class="math inline">\(f\)</span> 归一化 z 坐标，得到 <span
+class="math inline">\((\frac{i-c_x}{f},\frac{i-c_y}{f},1)\)</span>。</p>
 <p>接着只需要用 c2w
 矩阵把相机坐标系下的相机中心和射线方向变换到世界坐标系就搞定了。</p>
-<figure>
-<img src="/archives/27886/OpenCV_or_Colmap_ray.png" alt="OpenCV/Colmap相机坐标系下射线的构造示意图">
-<figcaption aria-hidden="true">OpenCV/Colmap相机坐标系下射线的构造示意图</figcaption>
-</figure>
+<img src="/archives/27886/OpenCV_or_Colmap_ray.png" class="" title="OpenCV&#x2F;Colmap相机坐标系下射线的构造示意图">
 <p>下面是 NeRF
 的实现代码。但关于这里面有一个细节需要注意一下：为什么函数的第二行中
-dirs 的 y 和 z 的方向值需要乘以负号，和我们刚刚推导的的 <span class="math inline">\((\frac{i-c_x}{f},\frac{i-c_y}{f},1)\)</span>
+dirs 的 y 和 z 的方向值需要乘以负号，和我们刚刚推导的的 <span
+class="math inline">\((\frac{i-c_x}{f},\frac{i-c_y}{f},1)\)</span>
 不太一样呢？</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_rays_np</span>(<span class="hljs-params">H, W, K, c2w</span>):<br>    i, j = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32), indexing=<span class="hljs-string">&#x27;xy&#x27;</span>)<br>    dirs = np.stack([(i-K[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>])/K[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], -(j-K[<span class="hljs-number">1</span>][<span class="hljs-number">2</span>])/K[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>], -np.ones_like(i)], -<span class="hljs-number">1</span>)<br>    <span class="hljs-comment"># Rotate ray directions from camera frame to the world frame</span><br>    rays_d = np.<span class="hljs-built_in">sum</span>(dirs[..., np.newaxis, :] * c2w[:<span class="hljs-number">3</span>,:<span class="hljs-number">3</span>], -<span class="hljs-number">1</span>)  <span class="hljs-comment"># dot product, equals to: [c2w.dot(dir) for dir in dirs]</span><br>    <span class="hljs-comment"># Translate camera frame&#x27;s origin to the world frame. It is the origin of all rays.</span><br>    rays_o = np.broadcast_to(c2w[:<span class="hljs-number">3</span>,-<span class="hljs-number">1</span>], np.shape(rays_d))<br>    <span class="hljs-keyword">return</span> rays_o, rays_d<br></code></pre></td></tr></table></figure>
 <p>这是因为 OpenCV/Colmap 的相机坐标系里相机的 Up/Y 朝下, 相机光心朝向
 +Z 轴，而 NeRF/OpenGL 相机坐标系里相机的 Up/Y 朝上，相机光心朝向 -Z
 轴，所以这里代码在方向向量 dir 的第二和第三项乘了个负号。</p>
-<figure>
-<img src="/archives/27886/RDF_to_RUB.png" alt="RDF to RUB">
-<figcaption aria-hidden="true">RDF to RUB</figcaption>
-</figure>
+<img src="/archives/27886/RDF_to_RUB.png" class="" title="RDF to RUB">
 <h1 id="参考资料">参考资料</h1>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/593204605/">NeRF代码解读-相机参数与坐标系变换</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/593204605/">NeRF代码解读-相机参数与坐标系变换</a></li>
 <li><a target="_blank" rel="noopener" href="https://ksimek.github.io/2012/08/13/introduction/">The
 Perspective Camera - An Interactive Tour</a></li>
 </ul>
@@ -556,7 +545,19 @@ Perspective Camera - An Interactive Tour</a></li>
     
     <div class="post-nav">
   
-    <div class="post-nav-item-left"></div>
+    <a class="post-nav-item-left" href="/archives/49371/">
+      <div class="text-align">
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+        <span class="text-small">上一篇</span>
+      </div>
+      <div>NDC空间</div>
+    </a>
   
   <div class="vhr"></div>
   
@@ -589,7 +590,7 @@ Perspective Camera - An Interactive Tour</a></li>
   </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\2070\" title="图像评价指标" rel="bookmark">图像评价指标</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\40010\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\2070\" title="图像评价指标" rel="bookmark">图像评价指标</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\55509\" title="CAP & BASE" rel="bookmark">CAP & BASE</a></div></div></div>
     
   </div>
 </div>

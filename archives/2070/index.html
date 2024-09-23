@@ -189,7 +189,9 @@ dB，其值越大，图像失真越少。一般来说，PSNR 高于 40dB
 PSNR=10\cdot\log_{10}\frac{MAX_I^2}{MSE} \\
 MSE=\frac{1}{mn}\sum_{i=0}^{m-1}\sum_{j=0}^{n-1}[I(i,j)-K(i,j)]^2
 \]</span></p>
-<p>其中 - <span class="math inline">\(I\)</span> 为 <span class="math inline">\(m\times n\)</span> 的灰度图； - <span class="math inline">\(K\)</span> 为 <span class="math inline">\(m\times
+<p>其中 - <span class="math inline">\(I\)</span> 为 <span
+class="math inline">\(m\times n\)</span> 的灰度图； - <span
+class="math inline">\(K\)</span> 为 <span class="math inline">\(m\times
 n\)</span> 的噪声图； - <span class="math inline">\(MAX_I\)</span>
 为图片可能的最大像素值，即 <span class="math inline">\(n\)</span>-bit
 的图像的 <span class="math inline">\(MAX_I=2^n-1\)</span>。</p>
@@ -197,29 +199,36 @@ n\)</span> 的噪声图； - <span class="math inline">\(MAX_I\)</span>
 <p>structural similarity
 index，结构相似性，用于衡量两幅图像间的结构相似性。</p>
 <p>使用亮度、对比度以及结构量化图像的属性，用均值估计亮度，方差估计对比度，协方差估计结构相似度。SSIM
-值的范围为 <span class="math inline">\([0,1]\)</span>，越大代表图像越相似。如果两张图片完全一样时，SSIM
+值的范围为 <span
+class="math inline">\([0,1]\)</span>，越大代表图像越相似。如果两张图片完全一样时，SSIM
 值为 1。</p>
 <p><span class="math display">\[
 SSIM(x,y)=\frac{(2\mu_x\mu_y+c_1)(2\sigma_{xy}+c_2)}{(\mu_x^2+\mu_y^2+c_1)(\sigma_x^2+\sigma_y^2+c_2)}
 \]</span></p>
-<p>其中 - <span class="math inline">\(u\)</span> 为均值； - <span class="math inline">\(\sigma\)</span> 为方差/协方差； - <span class="math inline">\(c_i=(k_iL)^2\)</span>，<span class="math inline">\(L\)</span> 为像素范围，<span class="math inline">\(n\)</span>-bit 的图像的 <span class="math inline">\(L=2^n-1\)</span>，<span class="math inline">\(k_i\)</span> 为超参数。</p>
+<p>其中 - <span class="math inline">\(u\)</span> 为均值； - <span
+class="math inline">\(\sigma\)</span> 为方差/协方差； - <span
+class="math inline">\(c_i=(k_iL)^2\)</span>，<span
+class="math inline">\(L\)</span> 为像素范围，<span
+class="math inline">\(n\)</span>-bit 的图像的 <span
+class="math inline">\(L=2^n-1\)</span>，<span
+class="math inline">\(k_i\)</span> 为超参数。</p>
 <h1 id="lpips">LPIPS</h1>
 <p>Learned Perceptual Image Patch
 Similarity，学习感知图像块相似度，也称为感知损失（perceptual
 loss），用于度量两张图像之间的差别。</p>
 <p>给定两个输入，利用 <span class="math inline">\(\mathcal{F}\)</span>
-网络提取 <span class="math inline">\(L\)</span> 层的特征，然后利用 <span class="math inline">\(w_l\)</span> 点乘来放缩通道，最后计算 <span class="math inline">\(L_2\)</span> 损失</p>
-<figure>
-<img src="/archives/2070/LPIPS.png" alt="LPIPS">
-<figcaption aria-hidden="true">LPIPS</figcaption>
-</figure>
+网络提取 <span class="math inline">\(L\)</span> 层的特征，然后利用 <span
+class="math inline">\(w_l\)</span> 点乘来放缩通道，最后计算 <span
+class="math inline">\(L_2\)</span> 损失</p>
+<img src="/archives/2070/LPIPS.png" class="" title="LPIPS">
 <p><span class="math display">\[
 d(x,x_0)=\sum_l\frac{1}{H_lW_l}\sum_{h,w}||w_l\odot(\hat{y}_{hw}^l-\hat{y}_{0hw}^l)||_2^2
 \]</span></p>
 <p>其中 - <span class="math inline">\(x\)</span> 为 ground truth
 图像块； - <span class="math inline">\(x_0\)</span>
 为含噪声图像失真块。</p>
-<p>相关论文： - <a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/8578166">ZHANG R, ISOLA P,
+<p>相关论文： - <a
+target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/8578166">ZHANG R, ISOLA P,
 EFROS A A, et al. The Unreasonable Effectiveness of Deep Features as a
 Perceptual Metric [J]. IEEE, 2018.</a></p>
 <h1 id="lmd">LMD</h1>
@@ -232,8 +241,13 @@ Perceptual Metric [J]. IEEE, 2018.</a></p>
 <p><span class="math display">\[
 LMD=\frac{1}{N}\sum_{i=1}^N\sqrt{(x_{g_i}-x_{r_i})^2+(y_{g_i}-y_{r_i})^2}
 \]</span></p>
-<p>其中 - <span class="math inline">\(N\)</span> 为特征点数量； - <span class="math inline">\(x_{g_i}\)</span> 和 <span class="math inline">\(y_{g_i}\)</span>
-分别是<strong>生成图像</strong>上第 <span class="math inline">\(i\)</span> 个特征点的 x 和 y 坐标； - <span class="math inline">\(x_{r_i}\)</span> 和 <span class="math inline">\(y_{r_i}\)</span>
+<p>其中 - <span class="math inline">\(N\)</span> 为特征点数量； - <span
+class="math inline">\(x_{g_i}\)</span> 和 <span
+class="math inline">\(y_{g_i}\)</span>
+分别是<strong>生成图像</strong>上第 <span
+class="math inline">\(i\)</span> 个特征点的 x 和 y 坐标； - <span
+class="math inline">\(x_{r_i}\)</span> 和 <span
+class="math inline">\(y_{r_i}\)</span>
 分别是<strong>真实图像</strong>上第 i 个特征点的 x 和 y 坐标。</p>
 <h1 id="fid">FID</h1>
 <p>Fréchet Inception
@@ -247,11 +261,21 @@ FID(P,G)=||\mu_p-\mu_G||^2+Tr(\Sigma_P+\Sigma_G-2\sqrt{\Sigma_P\Sigma_G})
 <p>其中 - <span class="math inline">\(P\)</span>
 表示真实图像分布的特征向量集合，通常使用 Inception
 网络的中间层的输出来表示； - <span class="math inline">\(G\)</span>
-表示生成图像分布的特征向量集合，也使用相同的方式表示； - <span class="math inline">\(\mu_p\)</span> 和 <span class="math inline">\(\mu_G\)</span> 分别是 <span class="math inline">\(P\)</span> 和 <span class="math inline">\(G\)</span> 的特征向量集合的均值； - <span class="math inline">\(\Sigma_P\)</span> 和 <span class="math inline">\(\Sigma_G\)</span> 分别是 <span class="math inline">\(P\)</span> 和 <span class="math inline">\(G\)</span> 的特征向量集合的协方差矩阵； - <span class="math inline">\(Tr(\Sigma_P+\Sigma_G-2\sqrt{\Sigma_P\Sigma_G})\)</span>
+表示生成图像分布的特征向量集合，也使用相同的方式表示； - <span
+class="math inline">\(\mu_p\)</span> 和 <span
+class="math inline">\(\mu_G\)</span> 分别是 <span
+class="math inline">\(P\)</span> 和 <span
+class="math inline">\(G\)</span> 的特征向量集合的均值； - <span
+class="math inline">\(\Sigma_P\)</span> 和 <span
+class="math inline">\(\Sigma_G\)</span> 分别是 <span
+class="math inline">\(P\)</span> 和 <span
+class="math inline">\(G\)</span> 的特征向量集合的协方差矩阵； - <span
+class="math inline">\(Tr(\Sigma_P+\Sigma_G-2\sqrt{\Sigma_P\Sigma_G})\)</span>
 表示协方差矩阵的迹的平方根。</p>
 <h1 id="参考资料">参考资料</h1>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/658827245">【图像评价指标】PSNR LPIPS
+<li><a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/658827245">【图像评价指标】PSNR LPIPS
 LMD SSIM FID</a></li>
 </ul>
 
@@ -344,7 +368,7 @@ LMD SSIM FID</a></li>
   </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\27886\" title="相机参数与坐标系变换" rel="bookmark">相机参数与坐标系变换</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\40010\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\27886\" title="相机参数与坐标系变换" rel="bookmark">相机参数与坐标系变换</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\55509\" title="CAP & BASE" rel="bookmark">CAP & BASE</a></div></div></div>
     
   </div>
 </div>

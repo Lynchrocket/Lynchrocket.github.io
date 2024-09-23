@@ -201,10 +201,7 @@
 <p>Pipelining
 这个特性允许客户端在等待上一个报文回复的同时，发送下一个报文。这让客户端可以一次发送多个请求，服务器也可以一次接受多个请求，遵循先进先出的原则处理这些请求，再将响应发送给客户端。</p>
 <p>现在，浏览器默认不启用<code>Pipeline</code>的，但是一般的服务器都提供了对<code>Pipleline</code>的支持。</p>
-<figure>
-<img src="http请求走私/http_pipeline.png" alt="http pipeline">
-<figcaption aria-hidden="true">http pipeline</figcaption>
-</figure>
+<img src="/archives/63051/http_pipeline.png" class="" title="http pipeline">
 <p>以上的两种特性节约了网络资源，提高了这些资源的利用效率。但是，这也有新的问题，那就是服务器要如何区分不同的请求报文。</p>
 <p>关于如何界定数据包的边界，HTTP请求头中有两个文段，Content-Length 和
 Transfer-Encoding。</p>
@@ -242,10 +239,7 @@ chunked，即将消息正文使用分块编码。这时，报文中的实体需�
 <p>HTTP
 规范提供了两种不同的方式来指定请求结束的位置，当前/后端对于数据包边界的校验不一致时，会干扰正常的请求序列，
 使得攻击者绕过安全控制，未经授权访问敏感数据，并直接危害其他应用程序用户。</p>
-<figure>
-<img src="http请求走私/http.jpg" alt="从一道CTF题到HTTP请求走私攻击">
-<figcaption aria-hidden="true">从一道CTF题到HTTP请求走私攻击</figcaption>
-</figure>
+<img src="/archives/63051/http.jpg" class="" title="从一道CTF题到HTTP请求走私攻击">
 <p>同时使用两种不同的方法时，<code>Content-Length</code>无效。当使用多个服务器时，对客户端传入的数据理解不一致时，就会出现有些服务器认为<code>Content-Length</code>的长度有效，有些以<code>Transfer-Encoding</code>有效。而一般情况下，反向代理服务器与后端的源站服务器之间，会重用TCP链接。这样超出的长度就会拼接到下一次请求进行请求，从而导致HTTP请求走私漏洞
 。</p>
 <p><strong>RFC2616规范</strong></p>
@@ -482,7 +476,7 @@ HTTP/1.1......，然后会将其显示在正常的页面上，导致用户的Coo
   </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\40010\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\55509\" title="CAP & BASE" rel="bookmark">CAP & BASE</a></div></div></div>
     
   </div>
 </div>

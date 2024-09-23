@@ -211,29 +211,29 @@ Read），幻读（Phantom Read）。</p>
 </ol>
 <table>
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 50%" />
+<col style="width: 50%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>事务 A</th>
 <th>事务 B</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>UPDATE user SET age=21 WHERE id=1;</code></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td><code>UPDATE user SET age=20 WHERE id=1;</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>COMMIT;</code></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td><code>COMMIT;</code></td>
 </tr>
@@ -250,25 +250,25 @@ Read），幻读（Phantom Read）。</p>
 </ol>
 <table>
 <colgroup>
-<col style="width: 52%">
-<col style="width: 47%">
+<col style="width: 52%" />
+<col style="width: 47%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>事务 A</th>
 <th>事务 B</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>UPDATE user SET age=21 WHERE id=1;</code></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td><code>SELECT * FROM user WHERE id=1;</code></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>ROLLBACK;</code></td>
 <td></td>
 </tr>
@@ -285,25 +285,25 @@ Read），幻读（Phantom Read）。</p>
 </ol>
 <table>
 <colgroup>
-<col style="width: 52%">
-<col style="width: 47%">
+<col style="width: 52%" />
+<col style="width: 47%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>事务 A</th>
 <th>事务 B</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td></td>
 <td><code>SELECT * FROM user WHERE id=1;</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>UPDATE user SET age=21 WHERE id=1;</code></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td></td>
 <td><code>SELECT * FROM user WHERE id=1;</code></td>
 </tr>
@@ -319,25 +319,25 @@ Read），幻读（Phantom Read）。</p>
 </ol>
 <table>
 <colgroup>
-<col style="width: 57%">
-<col style="width: 42%">
+<col style="width: 57%" />
+<col style="width: 42%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>事务 A</th>
 <th>事务 B</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td></td>
 <td><code>SELECT count(*) FROM user;</code></td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>INSERT INTO user VALUES (1,2,3,4,5);</code></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td></td>
 <td><code>SELECT count(*) FROM user;</code></td>
 </tr>
@@ -371,7 +371,7 @@ Lock（Record Lock+Gap Lock）来保证不出现幻读。</p>
 </ul>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>隔离级别</th>
 <th>脏读</th>
 <th>不可重复读</th>
@@ -379,25 +379,25 @@ Lock（Record Lock+Gap Lock）来保证不出现幻读。</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>READ-UNCOMMITTED</td>
 <td>√</td>
 <td>√</td>
 <td>√</td>
 </tr>
-<tr class="even">
+<tr>
 <td>READ-COMMITTED</td>
 <td>×</td>
 <td>√</td>
 <td>√</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>REPEATABLE-READ</td>
 <td>×</td>
 <td>×</td>
 <td>√</td>
 </tr>
-<tr class="even">
+<tr>
 <td>SERIALIZABLE</td>
 <td>×</td>
 <td>×</td>
@@ -417,8 +417,10 @@ REPEATABLE-READ（可重复读）。可以通过
 <code>SELECT @@tx_isolation;</code> 命令来查看</p>
 <h1 id="参考资料">参考资料</h1>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://javaguide.cn/database/mysql/mysql-questions-01.html#mysql-%E4%BA%8B%E5%8A%A1">MySQL常见面试题总结</a></li>
-<li><a target="_blank" rel="noopener" href="https://cyc2018.xyz/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86.html#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86">数据库系统原理</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://javaguide.cn/database/mysql/mysql-questions-01.html#mysql-%E4%BA%8B%E5%8A%A1">MySQL常见面试题总结</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://cyc2018.xyz/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86.html#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86">数据库系统原理</a></li>
 </ul>
 
       </div>
@@ -510,7 +512,7 @@ REPEATABLE-READ（可重复读）。可以通过
   </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\1461\" title="MySQL锁" rel="bookmark">MySQL锁</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\40010\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\1461\" title="MySQL锁" rel="bookmark">MySQL锁</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\55509\" title="CAP & BASE" rel="bookmark">CAP & BASE</a></div></div></div>
     
   </div>
 </div>

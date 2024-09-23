@@ -193,10 +193,7 @@ Transport，消息队列遥测传输协议），是一种基于发布-订阅（<
 <p>发布-订阅模式定义了一种一对多的依赖关系，让多个订阅者对象同时监听某一个主题对象。这个主题对象在自身状态变化时，会通知所有订阅者对象，使它们能够自动更新自己的状态。</p>
 <p>该协议将消息的发布者（<code>publisher</code>）与订阅者（<code>subscriber</code>）进行分离，因此可以在不可靠的网络环境中，为远程连接的设备提供可靠的消息服务，使用方式与传统的
 MQ 有点类似。</p>
-<figure>
-<img src="/archives/33401/publish_subscribe.png" alt="publish-subscribe">
-<figcaption aria-hidden="true">publish-subscribe</figcaption>
-</figure>
+<img src="/archives/33401/publish_subscribe.png" class="" title="publish-subscribe">
 <p>发布-订阅模式最重要的方面是消息的发布者与订阅者的解耦。这种解耦有几个维度：</p>
 <ul>
 <li>空间解耦：发布者和订阅者不需要相互了解（例如，不交换 IP
@@ -261,28 +258,19 @@ MQTT Client。</p>
 协议位于传输层，<code>MQTT</code> 协议位于应用层，<code>MQTT</code> 协议构建于
 <code>TCP/IP</code> 协议上。客户端和代理都需要有一个 TCP/IP
 协议支持。</p>
-<figure>
-<img src="/archives/33401/MQTT_layer.png" alt="MQTT layer">
-<figcaption aria-hidden="true">MQTT layer</figcaption>
-</figure>
+<img src="/archives/33401/MQTT_layer.png" class="" title="MQTT layer">
 <p>MQTT
 连接始终位于一个客户端和代理之间。客户端从不直接相互连接。要发起连接，客户端向代理发送
 <code>CONNECT</code> 消息。代理使用 <code>CONNACK</code>
 消息和状态代码进行响应。建立连接后，代理将保持打开状态，直到客户端发送断开连接命令或连接中断。</p>
-<figure>
-<img src="/archives/33401/connection.png" alt="MQTT Connection">
-<figcaption aria-hidden="true">MQTT Connection</figcaption>
-</figure>
+<img src="/archives/33401/connection.png" class="" title="MQTT Connection">
 <h1 id="消息列表">消息列表</h1>
 <h2 id="connect">CONNECT</h2>
 <p>为了创建连接，客户端向代理发送此命令消息。如果此 CONNECT
 消息格式错误或打开网络套接字和发送连接消息之间的时间过长，代理将关闭连接。</p>
 <p>一个 MQTT 客户端发送一条 CONNECT 连接，这条 CONNECT
 连接可能会包含下面这些信息：</p>
-<figure>
-<img src="/archives/33401/CONNECT.png" alt="CONNECT">
-<figcaption aria-hidden="true">CONNECT</figcaption>
-</figure>
+<img src="/archives/33401/CONNECT.png" class="" title="CONNECT">
 <ul>
 <li><p><code>clientId</code>：</p>
 <p>ClientId 的长度可以是 1-23 个字符，在一个服务器上 ClientId
@@ -315,10 +303,7 @@ topic（订阅遗愿的 topic）的 client。</p></li>
 <h2 id="connack">CONNACK</h2>
 <p>当 broker 收到 CONNECT 消息时，它有义务回复 CONNACK
 消息进行响应。CONNACK 消息包括两部分内容：</p>
-<figure>
-<img src="/archives/33401/CONNACK.png" alt="CONNACK">
-<figcaption aria-hidden="true">CONNACK</figcaption>
-</figure>
+<img src="/archives/33401/CONNACK.png" class="" title="CONNACK">
 <ul>
 <li><p><code>sessionPresent</code>：</p>
 <p>会话当前标志，这个标志会告诉 client 当前 broker
@@ -333,16 +318,10 @@ SessionPresent 为 true；</li>
 <li>否则如果没有 ClientId 的任何会话信息，那么 SessionPresent 为
 false。</li>
 </ul>
-<figure>
-<img src="/archives/33401/sessionPresent.png" alt="sessionPresent">
-<figcaption aria-hidden="true">sessionPresent</figcaption>
-</figure></li>
+<p><img src="/archives/33401/sessionPresent.png" class="" title="sessionPresent"></p></li>
 <li><p><code>returnCode</code>：</p>
 <p>连接返回码，告诉客户端连接尝试是否成功。连接确认标志有下面这些选项：</p>
-<figure>
-<img src="/archives/33401/CONNACK_returnCode.png" alt="returnCode">
-<figcaption aria-hidden="true">returnCode</figcaption>
-</figure></li>
+<p><img src="/archives/33401/CONNACK_returnCode.png" class="" title="returnCode"></p></li>
 </ul>
 <h2 id="publish">PUBLISH</h2>
 <p>MQTT 客户端可以在连接到 broker 后立即发布消息。MQTT 使用的是基于
@@ -350,10 +329,7 @@ topic 主题的过滤。每条消息都必须包含一个主题，broker
 可以使用该主题将消息转发给感兴趣的客户端。通常，每条消息都有一个负载（Payload），其中包含要以字节格式传输的数据。MQTT
 是数据无关性的，也就是说数据是由发布者决定要发送的是 XML 、JSON
 还是二进制数据、文本数据。</p>
-<figure>
-<img src="/archives/33401/PUBLISH.png" alt="PUBLISH">
-<figcaption aria-hidden="true">PUBLISH</figcaption>
-</figure>
+<img src="/archives/33401/PUBLISH.png" class="" title="PUBLISH">
 <ul>
 <li><p><code>packetId</code>：</p>
 <p>这个 packetId 标识在 client 和 broker 之间唯一的消息标识。packetId
@@ -376,20 +352,14 @@ QoS 大于 0 的级别相关。</p></li>
 <p>当客户端向 MQTT broker 发送消息进行发布时，broker
 读取消息、确认消息（根据 QoS 级别）并处理消息。broker
 的处理包括确定哪些客户端订阅了主题并将消息发送给他们。</p>
-<figure>
-<img src="/archives/33401/PUBLISH_broker.png" alt="PUBLISH broker">
-<figcaption aria-hidden="true">PUBLISH broker</figcaption>
-</figure>
+<img src="/archives/33401/PUBLISH_broker.png" class="" title="PUBLISH broker">
 <p>最初发布消息的客户端只关心将 PUBLISH 消息传递给 broker。一旦 broker
 收到 PUBLISH 消息，broker
 就有责任将消息传递给所有订阅者。发布客户端不会得到关于是否有人对发布的消息感兴趣或有多少客户端从
 broker 收到消息的任何反馈。</p>
 <h2 id="subscribe">SUBSCRIBE</h2>
 <p>client 会向 broker 发送 SUBSCRIBE 消息来接收有关感兴趣的 topic。</p>
-<figure>
-<img src="/archives/33401/SUBSCRIBE.png" alt="SUBSCRIBE">
-<figcaption aria-hidden="true">SUBSCRIBE</figcaption>
-</figure>
+<img src="/archives/33401/SUBSCRIBE.png" class="" title="SUBSCRIBE">
 <ul>
 <li><p><code>packetId</code>：</p>
 <p>消息的唯一标识符。与 PUBLISH 消息的 packetId 一样。</p></li>
@@ -401,10 +371,7 @@ QoS 级别的消息。</p></li>
 </ul>
 <h2 id="suback">SUBACK</h2>
 <p>为了确认每个订阅，broker 向客户端发送一个 SUBACK 确认消息。</p>
-<figure>
-<img src="/archives/33401/SUBACK.png" alt="SUBACK">
-<figcaption aria-hidden="true">SUBACK</figcaption>
-</figure>
+<img src="/archives/33401/SUBACK.png" class="" title="SUBACK">
 <ul>
 <li><p><code>packetId</code>：</p>
 <p>消息的唯一标识符。与 SUBSCRIBE 消息的一样。</p></li>
@@ -414,24 +381,15 @@ QoS 级别的消息。</p></li>
 消息包含五个返回码。返回码确认每个主题并显示 broker 授予的 QoS
 级别。如果 broker 拒绝订阅，则 SUBACK
 消息包含该特定主题的失败返回代码。例如，如果客户端没有足够的权限订阅主题或主题格式错误。</p>
-<figure>
-<img src="/archives/33401/SUBACK_returnCode.png" alt="SUBACK returnCode">
-<figcaption aria-hidden="true">SUBACK returnCode</figcaption>
-</figure></li>
+<p><img src="/archives/33401/SUBACK_returnCode.png" class="" title="SUBACK returnCode"></p></li>
 </ul>
 <p>客户端成功发送 SUBSCRIBE 消息并收到 SUBACK 消息后，它会获取与
 SUBSCRIBE 消息包含的订阅中的主题匹配的每条已发布消息。</p>
-<figure>
-<img src="/archives/33401/SUBSCRIBE_SUBACK.png" alt="SUBSCRIBE SUBACK">
-<figcaption aria-hidden="true">SUBSCRIBE SUBACK</figcaption>
-</figure>
+<img src="/archives/33401/SUBSCRIBE_SUBACK.png" class="" title="SUBSCRIBE SUBACK">
 <h2 id="unsubscribe">UNSUBSCRIBE</h2>
 <p>SUBSCRIBE 消息的对应是 UNSUBSCRIBE 消息。此消息删除 broker
 上客户端的现有订阅。</p>
-<figure>
-<img src="/archives/33401/UNSUBSCRIBE.png" alt="UNSUBSCRIBE">
-<figcaption aria-hidden="true">UNSUBSCRIBE</figcaption>
-</figure>
+<img src="/archives/33401/UNSUBSCRIBE.png" class="" title="UNSUBSCRIBE">
 <ul>
 <li><p><code>packetId</code>：</p>
 <p>消息的唯一标识符。与 PUBLISH 消息的 packetId 一样。</p></li>
@@ -440,27 +398,18 @@ SUBSCRIBE 消息包含的订阅中的主题匹配的每条已发布消息。</p>
 </ul>
 <h2 id="unsuback">UNSUBACK</h2>
 <p>为了确认取消订阅，broker 向客户端发送一个 UNSUBACK 确认消息。</p>
-<figure>
-<img src="/archives/33401/UNSUBACK.png" alt="UNSUBACK">
-<figcaption aria-hidden="true">UNSUBACK</figcaption>
-</figure>
+<img src="/archives/33401/UNSUBACK.png" class="" title="UNSUBACK">
 <ul>
 <li><p><code>packetId</code>：</p>
 <p>消息的唯一标识符。与 UNSUBSCRIBE 消息的 packetId 一样。</p></li>
 </ul>
 <p>客户端收到来自 broker 的 UNSUBACK 后，可以认为 UNSUBSCRIBE
 消息中的订阅被删除了。</p>
-<figure>
-<img src="/archives/33401/UNSUBSCRIBE_UNSUBACK.png" alt="UNSUBSCRIBE UNSUBACK">
-<figcaption aria-hidden="true">UNSUBSCRIBE UNSUBACK</figcaption>
-</figure>
+<img src="/archives/33401/UNSUBSCRIBE_UNSUBACK.png" class="" title="UNSUBSCRIBE UNSUBACK">
 <h1 id="主题topic">主题（Topic）</h1>
 <p>在 MQTT 中，主题指的是 broker 用于为每个连接的客户端过滤消息的 UTF-8
 字符串。主题由一个或多个主题级别组成。每个主题级别由正斜杠（主题级别分隔符）分隔。</p>
-<figure>
-<img src="/archives/33401/topic.png" alt="topic">
-<figcaption aria-hidden="true">topic</figcaption>
-</figure>
+<img src="/archives/33401/topic.png" class="" title="topic">
 <p>与消息队列相比，MQTT
 主题非常轻量级。客户端在发布或订阅它之前不需要创建所需的主题。broker
 接受每个有效主题而无需任何事先初始化。</p>
@@ -469,31 +418,20 @@ SUBSCRIBE 消息包含的订阅中的主题匹配的每条已发布消息。</p>
 <ul>
 <li><p>单级：+</p>
 <p>单级通配符只替换一个主题级别。</p>
-<figure>
-<img src="/archives/33401/single_wildcard.png" alt="single wildcard">
-<figcaption aria-hidden="true">single wildcard</figcaption>
-</figure>
+<p><img src="/archives/33401/single_wildcard.png" class="" title="single wildcard"></p>
 <p>上述的主题匹配可以产生以下结果</p>
-<figure>
-<img src="/archives/33401/single_wildcard_result.png" alt="single wildcard result">
-<figcaption aria-hidden="true">single wildcard result</figcaption>
-</figure></li>
+<p><img src="/archives/33401/single_wildcard_result.png" class="" title="single wildcard result"></p></li>
 <li><p>多级：#</p>
 <p>多级通配符涵盖多个主题级别。多级通配符必须作为主题中的最后一个字符放置，并以正斜杠开头。</p>
-<figure>
-<img src="/archives/33401/multi_wildcard_result.png" alt="multi wildcard">
-<figcaption aria-hidden="true">multi wildcard</figcaption>
-</figure>
+<p><img src="/archives/33401/multi_wildcard_result.png" class="" title="multi wildcard"></p>
 <p>上述的主题匹配可以产生以下结果</p>
-<figure>
-<img src="/archives/33401/multi_wildcard_result.png" alt="multi wildcard result">
-<figcaption aria-hidden="true">multi wildcard result</figcaption>
-</figure></li>
+<p><img src="/archives/33401/multi_wildcard_result.png" class="" title="multi wildcard result"></p></li>
 </ul>
 <h2 id="以-开头的主题">以 $ 开头的主题</h2>
 <p>$ 主题保留用于 MQTT
 代理的内部统计信息。客户端无法向这些主题发布消息。目前，此类主题尚无官方标准化，代理实现各不相同，但通常用
-<code>$SYS/</code> 来表示这类信息。<a target="_blank" rel="noopener" href="https://github.com/mqtt/mqtt.org/wiki/SYS-Topics">MQTT GitHub
+<code>$SYS/</code> 来表示这类信息。<a
+target="_blank" rel="noopener" href="https://github.com/mqtt/mqtt.org/wiki/SYS-Topics">MQTT GitHub
 wiki</a> 中提供了对 <code>$SYS-topics</code> 的一项建议。</p>
 <blockquote>
 <p>$SYS/broker/clients/connected</p>
@@ -504,7 +442,8 @@ wiki</a> 中提供了对 <code>$SYS-topics</code> 的一项建议。</p>
 </blockquote>
 <h1 id="参考资料">参考资料</h1>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/riemann_/article/details/118686072">一文读懂物联网
+<li><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/riemann_/article/details/118686072">一文读懂物联网
 MQTT 协议之基础特性篇</a></li>
 </ul>
 
@@ -597,7 +536,7 @@ MQTT 协议之基础特性篇</a></li>
   </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\38008\" title="Maven" rel="bookmark">Maven</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\27652\" title="RBAC权限管理" rel="bookmark">RBAC权限管理</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\36029\" title="URL去重策略（布隆过滤器）" rel="bookmark">URL去重策略（布隆过滤器）</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\40010\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\38008\" title="Maven" rel="bookmark">Maven</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\27652\" title="RBAC权限管理" rel="bookmark">RBAC权限管理</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\36029\" title="URL去重策略（布隆过滤器）" rel="bookmark">URL去重策略（布隆过滤器）</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\55509\" title="CAP & BASE" rel="bookmark">CAP & BASE</a></div></div></div>
     
   </div>
 </div>

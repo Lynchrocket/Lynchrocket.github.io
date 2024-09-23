@@ -179,33 +179,22 @@
           </div>
         
         <p>Redis 官方不支持 Windows，只支持 Linux。但是微软开发了 Windows
-版本的，可见于<a target="_blank" rel="noopener" href="https://github.com/MicrosoftArchive/redis/releases">Releases ·
+版本的，可见于<a
+target="_blank" rel="noopener" href="https://github.com/MicrosoftArchive/redis/releases">Releases ·
 microsoftarchive/redis (github.com)</a></p>
 <p>下载需要的版本到合适的位置并解压，然后进入相应的目录，打开命令行并输入命令
 <code>redis-server.exe redis.windows.conf</code> 即可启动 Redis
 服务器。</p>
-<figure>
-<img src="/archives/63125/Redis.png" alt="Redis">
-<figcaption aria-hidden="true">Redis</figcaption>
-</figure>
-<figure>
-<img src="/archives/63125/start.png" alt="start">
-<figcaption aria-hidden="true">start</figcaption>
-</figure>
+<img src="/archives/63125/Redis.png" class="" title="Redis">
+<img src="/archives/63125/start.png" class="" title="start">
 <h1 id="常见问题">常见问题</h1>
 <blockquote>
 <p>Creating Server TCP listening socket *:6379: bind: Unknown error</p>
 </blockquote>
-<figure>
-<img src="/archives/63125/error.png" alt="error">
-<figcaption aria-hidden="true">error</figcaption>
-</figure>
+<img src="/archives/63125/error.png" class="" title="error">
 <p>同样的目录下，输入如下命令，就可以正常使用了。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">redis-cli.exe                         <span class="hljs-comment"># 进入命令行</span><br>shutdown                              <span class="hljs-comment"># 关闭 redis</span><br><span class="hljs-built_in">exit</span>                                  <span class="hljs-comment"># 推出命令行</span><br>redis-server.exe redis.windows.conf   <span class="hljs-comment"># 再次启动 redis</span><br></code></pre></td></tr></table></figure>
-<figure>
-<img src="/archives/63125/reboot.png" alt="reboot">
-<figcaption aria-hidden="true">reboot</figcaption>
-</figure>
+<img src="/archives/63125/reboot.png" class="" title="reboot">
 
       </div>
     </div>

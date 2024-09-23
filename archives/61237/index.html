@@ -186,15 +186,15 @@
 <h1 id="十大经典排序算法">十大经典排序算法</h1>
 <table>
 <colgroup>
-<col style="width: 12%">
-<col style="width: 21%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 16%">
-<col style="width: 9%">
+<col style="width: 12%" />
+<col style="width: 21%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 16%" />
+<col style="width: 9%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>排序算法</th>
 <th>平均时间复杂度</th>
 <th>最好情况</th>
@@ -204,7 +204,7 @@
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>冒泡</td>
 <td><span class="math inline">\(O(n^2)\)</span></td>
 <td><span class="math inline">\(O(n)\)</span></td>
@@ -212,7 +212,7 @@
 <td><span class="math inline">\(O(1)\)</span></td>
 <td>稳定</td>
 </tr>
-<tr class="even">
+<tr>
 <td>选择</td>
 <td><span class="math inline">\(O(n^2)\)</span></td>
 <td><span class="math inline">\(O(n)\)</span></td>
@@ -220,7 +220,7 @@
 <td><span class="math inline">\(O(1)\)</span></td>
 <td>不稳定</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>插入</td>
 <td><span class="math inline">\(O(n^2)\)</span></td>
 <td><span class="math inline">\(O(n)\)</span></td>
@@ -228,7 +228,7 @@
 <td><span class="math inline">\(O(1)\)</span></td>
 <td>稳定</td>
 </tr>
-<tr class="even">
+<tr>
 <td>希尔</td>
 <td><span class="math inline">\(O(n\log n)\)</span></td>
 <td><span class="math inline">\(O(n\log^2n)\)</span></td>
@@ -236,7 +236,7 @@
 <td><span class="math inline">\(O(1)\)</span></td>
 <td>不稳定</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>归并</td>
 <td><span class="math inline">\(O(n\log n)\)</span></td>
 <td><span class="math inline">\(O(n\log n)\)</span></td>
@@ -244,7 +244,7 @@
 <td><span class="math inline">\(O(n)\)</span></td>
 <td>稳定</td>
 </tr>
-<tr class="even">
+<tr>
 <td>快速</td>
 <td><span class="math inline">\(O(n\log n)\)</span></td>
 <td><span class="math inline">\(O(n\log n)\)</span></td>
@@ -252,7 +252,7 @@
 <td><span class="math inline">\(O(\log n)\)</span></td>
 <td>不稳定</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>堆</td>
 <td><span class="math inline">\(O(n\log n)\)</span></td>
 <td><span class="math inline">\(O(n\log n)\)</span></td>
@@ -260,7 +260,7 @@
 <td><span class="math inline">\(O(1)\)</span></td>
 <td>不稳定</td>
 </tr>
-<tr class="even">
+<tr>
 <td>计数</td>
 <td><span class="math inline">\(O(n+k)\)</span></td>
 <td><span class="math inline">\(O(n+k)\)</span></td>
@@ -268,7 +268,7 @@
 <td><span class="math inline">\(O(k)\)</span></td>
 <td>稳定</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>桶</td>
 <td><span class="math inline">\(O(n+k)\)</span></td>
 <td><span class="math inline">\(O(n+k)\)</span></td>
@@ -276,7 +276,7 @@
 <td><span class="math inline">\(O(n+k)\)</span></td>
 <td>稳定</td>
 </tr>
-<tr class="even">
+<tr>
 <td>基数</td>
 <td><span class="math inline">\(O(nk)\)</span></td>
 <td><span class="math inline">\(O(nk)\)</span></td>
@@ -296,7 +296,8 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">bubbleSort</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">flag</span> <span class="hljs-operator">=</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; n; i++) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; n - i; j++) &#123;<br>            <span class="hljs-keyword">if</span> (nums[j] &gt; nums[j + <span class="hljs-number">1</span>]) &#123;<br>                swap(nums, j, j + <span class="hljs-number">1</span>);<br>                flag = <span class="hljs-literal">true</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (!flag) <br>            <span class="hljs-keyword">break</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h1 id="参考资料">参考资料</h1>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/40695917">常用的排序算法总结</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/40695917">常用的排序算法总结</a></li>
 </ul>
 
       </div>
@@ -388,7 +389,7 @@
   </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\42877\" title="二分查找" rel="bookmark">二分查找</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\47690\" title="缓存算法" rel="bookmark">缓存算法</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\40010\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\42877\" title="二分查找" rel="bookmark">二分查找</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\47690\" title="缓存算法" rel="bookmark">缓存算法</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\55509\" title="CAP & BASE" rel="bookmark">CAP & BASE</a></div></div></div>
     
   </div>
 </div>

@@ -189,18 +189,12 @@ collector）是一种动态存储分配器，它自动释放程序不再需要�
 <p>但是这个算法有明显的缺陷，对于循环引用的情况下，循环引用的对象就不会被回收。例如下图：对象
 A与 B 循环引用，即便没有其他的对象引用 A 和 B，A 和 B
 也都不会被回收。</p>
-<figure>
-<img src="/archives/64652/ref_count.png" alt="ref_count">
-<figcaption aria-hidden="true">ref_count</figcaption>
-</figure>
+<img src="/archives/64652/ref_count.png" class="" title="ref_count">
 <h2 id="可达性分析">可达性分析</h2>
 <p>通过一系列称之为 <code>GC Roots</code>
 的对象作为起点，从此起点向下搜索，所走过的路径称之为引用链。当一个对象到
 GC Roots 没有任何引用链相连接，代表此对象不可达。</p>
-<figure>
-<img src="/archives/64652/achievable.png" alt="achievable">
-<figcaption aria-hidden="true">achievable</figcaption>
-</figure>
+<img src="/archives/64652/achievable.png" class="" title="achievable">
 <p>在 Java 可以作为 GC Roots 的对象包括：</p>
 <ol type="1">
 <li>虚拟机栈（帧栈中的局部变量表）中的引用对象；</li>
@@ -215,24 +209,15 @@ GC Roots 没有任何引用链相连接，代表此对象不可达。</p>
 <li>标记阶段：标记出所有需要回收的对象；</li>
 <li>清除阶段：回收被标记的对象所占用的空间。</li>
 </ul>
-<figure>
-<img src="/archives/64652/mark_sweep.png" alt="mark_sweep">
-<figcaption aria-hidden="true">mark_sweep</figcaption>
-</figure>
+<img src="/archives/64652/mark_sweep.png" class="" title="mark_sweep">
 <p>优点：实现简单</p>
 <p>缺点：效率较低，并且会产生大量不连续的内存空间碎片，后续可能发生大对象不能找到可利用空间的问题</p>
 <h2 id="标记-整理算法mark-compact">标记-整理算法（Mark-Compact）</h2>
 <p>标记后不是清理对象，而是将存活对象移向内存的一端。然后清除端边界外的对象。</p>
-<figure>
-<img src="/archives/64652/mark_compact.png" alt="mark_compact">
-<figcaption aria-hidden="true">mark_compact</figcaption>
-</figure>
+<img src="/archives/64652/mark_compact.png" class="" title="mark_compact">
 <h2 id="复制算法copying">复制算法（Copying）</h2>
 <p>按内存容量将内存划分为等大小的两块。每次只使用其中一块，当这一块内存满后将尚存活的对象复制到另一块上去，把已使用的内存清掉。</p>
-<figure>
-<img src="/archives/64652/copying.png" alt="copying">
-<figcaption aria-hidden="true">copying</figcaption>
-</figure>
+<img src="/archives/64652/copying.png" class="" title="copying">
 <p>优点：实现简单，运行高效，不易产生碎片</p>
 <p>缺点：可用内存缩小为了原来的一半，浪费空间。若存活对象增多的话，该算法的效率会大大降低</p>
 <h2 id="分代收集算法generational-collection">分代收集算法（Generational
@@ -242,10 +227,7 @@ Generation）和老生代（Tenured/Old
 Generation）。新生代和老年代的默认比例为 1 : 2；新生代又分为 Eden 区，
 from Survivor 区（简称 S0 ），to Survivor 区（简称 S1 ），三者的比例为
 8: 1 : 1。</p>
-<figure>
-<img src="/archives/64652/generational_collection.png" alt="generational_collection">
-<figcaption aria-hidden="true">generational_collection</figcaption>
-</figure>
+<img src="/archives/64652/generational_collection.png" class="" title="generational_collection">
 <p>我们把新生代发生的 GC 称为 Young GC（也叫 Minor GC ）,老年代发生的 GC
 称为 Old GC（也称为 Full GC
 ）。新老生代会使用不同的垃圾回收算法，一般情况下</p>
@@ -254,10 +236,7 @@ from Survivor 区（简称 S0 ），to Survivor 区（简称 S1 ），三者的�
 <li>老年代使用标记清除算法或者标记整理算法</li>
 </ul>
 <p>在新生代中，每次垃圾收集时都有大批对象死去，只有少量存活，使用复制算法比较合适，只需要付出少量存活对象的复制成本就可以完成收集。老年代对象存活率高，适合使用标记-清理或者标记-整理算法进行垃圾回收。</p>
-<figure>
-<img src="/archives/64652/new_generation.png" alt="new_generation">
-<figcaption aria-hidden="true">new_generation</figcaption>
-</figure>
+<img src="/archives/64652/new_generation.png" class="" title="new_generation">
 <p>对象的内存分配主要在新生代的 <code>Eden Space</code> 和 Survivor 区的
 <code>From Space</code>（Survivor
 目前存放对象的那一块），少数情况会直接分配到老生代。当新生代的 Eden
@@ -269,8 +248,10 @@ Eden Space 和 To Space 了，如此反复循环。当对象在 Survivor 区躲�
 后，其年龄就会+1。默认情况下年龄到达 15 的对象会被移到老生代中。</p>
 <h1 id="参考资料">参考资料</h1>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_36246371/article/details/52998505">垃圾回收算法之分代回收算法</a></li>
-<li><a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1674235021824640450&amp;wfr=spider&amp;for=pc">垃圾回收策略和算法，看这篇就够了</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_36246371/article/details/52998505">垃圾回收算法之分代回收算法</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1674235021824640450&amp;wfr=spider&amp;for=pc">垃圾回收策略和算法，看这篇就够了</a></li>
 </ul>
 
       </div>
@@ -362,7 +343,7 @@ Eden Space 和 To Space 了，如此反复循环。当对象在 Survivor 区躲�
   </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\40010\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\55509\" title="CAP & BASE" rel="bookmark">CAP & BASE</a></div></div></div>
     
   </div>
 </div>

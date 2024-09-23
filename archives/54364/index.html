@@ -188,13 +188,19 @@ automatically through experience.</p>
 </blockquote>
 <span id="more"></span>
 <h1 id="学习learning">学习（Learning）</h1>
-<p>对于某类任务 <span class="math inline">\(T\)</span> 和性能度量 <span class="math inline">\(P\)</span>，一个计算机程序被认为可以从经验 <span class="math inline">\(E\)</span> 中学习是指：通过经验 <span class="math inline">\(E\)</span> 改进后，它在任务 <span class="math inline">\(T\)</span> 上由性能度量 <span class="math inline">\(P\)</span> 衡量的性能有所提升。</p>
+<p>对于某类任务 <span class="math inline">\(T\)</span> 和性能度量 <span
+class="math inline">\(P\)</span>，一个计算机程序被认为可以从经验 <span
+class="math inline">\(E\)</span> 中学习是指：通过经验 <span
+class="math inline">\(E\)</span> 改进后，它在任务 <span
+class="math inline">\(T\)</span> 上由性能度量 <span
+class="math inline">\(P\)</span> 衡量的性能有所提升。</p>
 <h2 id="任务-t">任务 <span class="math inline">\(T\)</span></h2>
 <p>即机器学习系统应该如何处理<strong>样本</strong></p>
 <blockquote>
 <p>样本（example）：从某些希望机器学习系统处理的对象或事件中收集到的已经量化的<strong>特征（feature）</strong>的集合</p>
 <ul>
-<li>通常样本会被表示成一个向量 <span class="math inline">\(\mathbb{x}\in\mathbb{R}^n\)</span>，其中每一个元素
+<li>通常样本会被表示成一个向量 <span
+class="math inline">\(\mathbb{x}\in\mathbb{R}^n\)</span>，其中每一个元素
 <span class="math inline">\(x_i\)</span> 是一个特征
 <ul>
 <li>例如：一张图片的特征通常指这张图片的像素值</li>
@@ -204,14 +210,14 @@ automatically through experience.</p>
 <h3 id="任务类型">任务类型</h3>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>任务类型</th>
 <th>描述</th>
 <th>应用</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td></td>
 <td></td>
 <td></td>
@@ -223,17 +229,17 @@ automatically through experience.</p>
 是特定于系统执行的任务 <span class="math inline">\(T\)</span> 而言的</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>性能度量</th>
 <th>任务类型</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>准确率（accuracy）、错误率（error rate）</td>
 <td>分类、缺失输入分类、转录</td>
 </tr>
-<tr class="even">
+<tr>
 <td>模型在样本上概率对数的平均值</td>
 <td>密度估计、回归</td>
 </tr>
@@ -245,19 +251,20 @@ automatically through experience.</p>
 </blockquote>
 <table>
 <colgroup>
-<col style="width: 32%">
-<col style="width: 67%">
+<col style="width: 32%" />
+<col style="width: 67%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>常见指标</th>
 <th>公式</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>均方误差（Mean Squared Error）</td>
-<td><span class="math inline">\(MSE_{test}=\frac{1}{m}\sum_i(\hat{y}^{(test)}-y^{(test)})^2_i\)</span></td>
+<td><span
+class="math inline">\(MSE_{test}=\frac{1}{m}\sum_i(\hat{y}^{(test)}-y^{(test)})^2_i\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -272,12 +279,17 @@ automatically through experience.</p>
 <h2 id="学习类型">学习类型</h2>
 <h3 id="监督supervised">监督（Supervised）</h3>
 <p>使用标记数据集来训练算法，即数据集中的每一个样本都有一个<strong>标签（label）</strong>或<strong>目标（target）</strong>。也即观察随机向量
-<span class="math inline">\(x\)</span> 及其相关联的值或向量 <span class="math inline">\(y\)</span>，然后从 <span class="math inline">\(x\)</span> 预测 <span class="math inline">\(y\)</span>，通常是估计 <span class="math inline">\(p(y|x)\)</span></p>
+<span class="math inline">\(x\)</span> 及其相关联的值或向量 <span
+class="math inline">\(y\)</span>，然后从 <span
+class="math inline">\(x\)</span> 预测 <span
+class="math inline">\(y\)</span>，通常是估计 <span
+class="math inline">\(p(y|x)\)</span></p>
 <h3 id="无监督unsupervised">无监督（Unsupervised）</h3>
 <p>缺乏足够的先验知识，数据集种的样本没有标签。使用这样的数据集训练，然后学习出这个数据集上有用的结构性质。</p>
 <p>无监督学习可以用于密度估计、合成、去噪、聚类等</p>
 <p>观察随机向量 <span class="math inline">\(x\)</span>
-的好几个样本，试图显式或者隐式地学习出概率分布 <span class="math inline">\(p(x)\)</span>，或者该分布的一些有意思的性质</p>
+的好几个样本，试图显式或者隐式地学习出概率分布 <span
+class="math inline">\(p(x)\)</span>，或者该分布的一些有意思的性质</p>
 <h3 id="半监督semi-supervised">半监督（Semi-supervised）</h3>
 <p>一些样本有监督目标，一些没有</p>
 <h3 id="强化学习reinforcement-learning">强化学习（Reinforcement
@@ -311,7 +323,8 @@ process）</h1>
 generating process）。</p>
 <p>通常，它们是满足独立同分布假设的，即每个数据集中的样本都是<strong>相互独立的（independent）</strong>，并且训练集和测试集是<strong>同分布的（identically
 distributed）</strong>。训练集和测试集的样本共享这个潜在的分布——<strong>数据生成分布（data
-generating distribution）</strong>，记为 <span class="math inline">\(p_{data}\)</span></p>
+generating distribution）</strong>，记为 <span
+class="math inline">\(p_{data}\)</span></p>
 <p>训练误差和测试误差之间的直接联系：<strong>随机模型训练误差的期望和该模型测试误差的期望是一样的</strong></p>
 <h1 id="容量">容量</h1>
 <h1 id="参考资料">参考资料</h1>
@@ -364,7 +377,7 @@ Tom Mitchell, McGraw Hill, 1997.s</a></li>
     
     <div class="post-nav">
   
-    <a class="post-nav-item-left" href="/archives/47690/">
+    <a class="post-nav-item-left" href="/archives/61043/">
       <div class="text-align">
         <svg t="1670570876164"
              class="icon"
@@ -375,7 +388,7 @@ Tom Mitchell, McGraw Hill, 1997.s</a></li>
         </svg>
         <span class="text-small">上一篇</span>
       </div>
-      <div>缓存算法</div>
+      <div>矩阵计算</div>
     </a>
   
   <div class="vhr"></div>

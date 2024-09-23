@@ -186,31 +186,31 @@
 <h1 id="有问题的去重策略">有问题的去重策略</h1>
 <table>
 <colgroup>
-<col style="width: 29%">
-<col style="width: 70%">
+<col style="width: 29%" />
+<col style="width: 70%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>策略</th>
 <th>问题</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>在数据库中创建字段的 UNIQUE 属性</td>
 <td>在多次数据库的 UNIQUE 报错之后，程序可能会直接崩溃</td>
 </tr>
-<tr class="even">
+<tr>
 <td>在数据库中创建一个唯一的索引，在插入数据之前检查待插入的数据是否存在</td>
 <td>如果在每一次插入数据之前都去检查待插入的数据是否存在，需要频繁地对数据库进行
 exists
 查询，当系统并发量很高时，数据库是很难扛住压力的，而且也势必会影响程序的效率</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>使用 Redis 缓存</td>
 <td>将海量的历史记录全部缓存起来，对存储空间的负担非常大</td>
 </tr>
-<tr class="even">
+<tr>
 <td>使用 Set 或 Map 保存数据，确保唯一</td>
 <td>容易
 OOM，从待访问队列中解析出来的URL要远比它本身要多得多，程序占用的内存太大了</td>
@@ -237,18 +237,20 @@ OOM，从待访问队列中解析出来的URL要远比它本身要多得多，�
 <p>布隆过滤器实际就是一系列的 Hash 函数 + BitSet 实现的。</p>
 <h3 id="初始化">初始化</h3>
 <p>创建一个 m 位的 BitSet，先将所有位都初始化为 0，然后选择 k
-个不同的哈希函数。第 i 个哈希函数作用于字符串 str 的结果记为 <span class="math inline">\(H_i(str)\)</span>，且 <span class="math inline">\(H_i(str)\)</span> 的范围是 <span class="math inline">\([0, m-1]\)</span>。</p>
+个不同的哈希函数。第 i 个哈希函数作用于字符串 str 的结果记为 <span
+class="math inline">\(H_i(str)\)</span>，且 <span
+class="math inline">\(H_i(str)\)</span> 的范围是 <span
+class="math inline">\([0, m-1]\)</span>。</p>
 <h3 id="加入字符串">加入字符串</h3>
 <p>对于字符串 str，分别计算 <span class="math inline">\(H_1(str),
-H_2(str), ..., H_k(str)\)</span>，然后将 BitSet 的第 <span class="math inline">\(H_1(str), H_2(str), ..., H_k(str)\)</span> 位设为
+H_2(str), ..., H_k(str)\)</span>，然后将 BitSet 的第 <span
+class="math inline">\(H_1(str), H_2(str), ..., H_k(str)\)</span> 位设为
 1。</p>
-<figure>
-<img src="/archives/36029/add_string.png" alt="add string">
-<figcaption aria-hidden="true">add string</figcaption>
-</figure>
+<img src="/archives/36029/add_string.png" class="" title="add string">
 <h3 id="检查字符串">检查字符串</h3>
 <p>对于字符串 str，分别计算 <span class="math inline">\(H_1(str),
-H_2(str), ..., H_k(str)\)</span>，然后检查 BitSet 的第 <span class="math inline">\(H_1(str), H_2(str), ..., H_k(str)\)</span>
+H_2(str), ..., H_k(str)\)</span>，然后检查 BitSet 的第 <span
+class="math inline">\(H_1(str), H_2(str), ..., H_k(str)\)</span>
 位是否为 1：</p>
 <ul>
 <li>若存在其中任何一位不为 1，则可以判定 str 一定没有被记录过；</li>
@@ -263,7 +265,10 @@ Counting bloomfilter(CBF)，这是一种基本 Bloom Filter 的变体，CBF 将�
 Bloom Filter 每一个 Bit
 改为一个计数器，这样就可以实现删除字符串的功能了。</p>
 <h2 id="哈希碰撞问题">哈希碰撞问题</h2>
-<p>布隆过滤器误判的原因是出现了哈希碰撞，但实际上该概率非常小。假设上述使用的哈希函数中，<span class="math inline">\(H_i\)</span> 的碰撞概率为 <span class="math inline">\(p_i\)</span>，则误判概率为 <span class="math inline">\(\prod_{i=1}^kp_i\)</span>。</p>
+<p>布隆过滤器误判的原因是出现了哈希碰撞，但实际上该概率非常小。假设上述使用的哈希函数中，<span
+class="math inline">\(H_i\)</span> 的碰撞概率为 <span
+class="math inline">\(p_i\)</span>，则误判概率为 <span
+class="math inline">\(\prod_{i=1}^kp_i\)</span>。</p>
 <h2 id="参数选择">参数选择</h2>
 <ul>
 <li><p>Hash 函数</p>
@@ -271,8 +276,10 @@ Bloom Filter 每一个 Bit
 个不同的哈希函数比较麻烦，一种简单的方法是选择一个哈希函数，然后送入 k
 个不同的参数。</p></li>
 <li><p>BitSet 大小</p>
-<p>哈希函数个数 k、位数组大小 m、加入的字符串数量 n 的关系可以参考 <a target="_blank" rel="noopener" href="http://pages.cs.wisc.edu/~cao/papers/summary-cache/node8.html">Bloom
-Filters - the math</a>。该文献证明了对于给定的m、n，当 <span class="math inline">\(k = ln(2) \cdot m/n\)</span>
+<p>哈希函数个数 k、位数组大小 m、加入的字符串数量 n 的关系可以参考 <a
+target="_blank" rel="noopener" href="http://pages.cs.wisc.edu/~cao/papers/summary-cache/node8.html">Bloom
+Filters - the math</a>。该文献证明了对于给定的m、n，当 <span
+class="math inline">\(k = ln(2) \cdot m/n\)</span>
 时出错的概率是最小的。同时该文献还给出了特定的 k，m，n
 的出错概率。例如：取 k=10，设 m = 20n 时，false positive 发生的概率是
 0.0000889 ，这个概率基本能满足网络爬虫的需求了。</p></li>
@@ -295,9 +302,12 @@ Filters - the math</a>。该文献证明了对于给定的m、n，当 <span clas
 <ul>
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bloom_filter">Bloom
 filter</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/lemon_tree12138/article/details/47973715">网络爬虫：URL去重策略之布隆过滤器(BloomFilter)的使用</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/heaad/archive/2011/01/02/1924195.html">BloomFilter——大规模数据处理利器</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/711MELnmRwWKSd3NopjF-Q">亿级数据过滤，优选布隆过滤器</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/lemon_tree12138/article/details/47973715">网络爬虫：URL去重策略之布隆过滤器(BloomFilter)的使用</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/heaad/archive/2011/01/02/1924195.html">BloomFilter——大规模数据处理利器</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/711MELnmRwWKSd3NopjF-Q">亿级数据过滤，优选布隆过滤器</a></li>
 </ul>
 
       </div>
@@ -391,7 +401,7 @@ filter</a></li>
   </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\33401\" title="MQTT" rel="bookmark">MQTT</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\38008\" title="Maven" rel="bookmark">Maven</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\27652\" title="RBAC权限管理" rel="bookmark">RBAC权限管理</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\40010\" title="ClimateNeRF环境配置" rel="bookmark">ClimateNeRF环境配置</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\33401\" title="MQTT" rel="bookmark">MQTT</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\38008\" title="Maven" rel="bookmark">Maven</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\27652\" title="RBAC权限管理" rel="bookmark">RBAC权限管理</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\55509\" title="CAP & BASE" rel="bookmark">CAP & BASE</a></div></div></div>
     
   </div>
 </div>

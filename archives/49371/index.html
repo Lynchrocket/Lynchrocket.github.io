@@ -6,7 +6,7 @@
     <title>
       
       
-        常微分方程 | C'est la vie
+        NDC空间 | C'est la vie
       
     </title>
     <meta name="description" content=""/>
@@ -154,21 +154,21 @@
   <article class="post-content">
     <div class="post-inner--toc">
       <div class="post-content__head">
-        <div class="post-title">常微分方程</div>
+        <div class="post-title">NDC空间</div>
         <div class="post-info">
           
   
-    <a href="/tags/%E9%AB%98%E6%95%B0/" class="post-tag">#高数</a>
+    <a href="/tags/CV-CG/" class="post-tag">#CV&CG</a>
   
 
 
-          <span class="post-date">2024-03-15</span>
+          <span class="post-date">2024-04-15</span>
         </div>
       </div>
       
         <aside class="toc-outer">
           <div class="toc-title">目录</div>
-          <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BA%BF%E6%80%A7%E9%BD%90%E6%AC%A1%E7%B3%BB%E6%95%B0%E4%B8%BA%E5%B8%B8%E6%95%B0"><span class="post-toc-number">1.</span> <span class="post-toc-text">线性、齐次、系数为常数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BA%BF%E6%80%A7%E9%BD%90%E6%AC%A1"><span class="post-toc-number">2.</span> <span class="post-toc-text">线性、齐次</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%BA%BF%E6%80%A7"><span class="post-toc-number">3.</span> <span class="post-toc-text">线性</span></a></li></ol>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%9B%B8%E6%9C%BA%E6%A8%A1%E5%9E%8B"><span class="post-toc-number">1.</span> <span class="post-toc-text">相机模型</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="post-toc-number">2.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -178,71 +178,26 @@
             
           </div>
         
-        <p>所谓常微分方程，指的是方程中包括函数 <span
-class="math inline">\(y(x)\)</span> 以及导数 <span
-class="math inline">\(y&#39;(x)\)</span>，并且只包含一个变量 <span
-class="math inline">\(x\)</span>。如果只包含一阶导，则称为一阶常微分方程。</p>
-<h2 id="线性齐次系数为常数">线性、齐次、系数为常数</h2>
-<p>这是最简单的一类常微分方程：<span
-class="math inline">\(y&#39;(x)+\alpha y(x)=0\)</span></p>
-<p>求解过程如下：</p>
-<p><span class="math display">\[
-\begin{align*}
-    &amp;\frac{y&#39;}{y}=-\alpha \\
-    &amp;\int\frac{y&#39;}{y}dx=-\int\alpha dx \\
-    &amp;\ln y+C=-\alpha x \\
-    &amp;y(x)=Ce^{-\alpha x}
-\end{align*}
-\]</span></p>
-<h2 id="线性齐次">线性、齐次</h2>
-<p>接下来升级一下，把常数替换为函数：<span
-class="math inline">\(y&#39;(x)+p(x)y(x)=0\)</span></p>
-<p>求解过程：</p>
-<p><span class="math display">\[
-\begin{align*}
-    &amp;\frac{y&#39;}{y}=-p \\
-    &amp;\int\frac{y&#39;}{y}dx=-\int p dx \\
-    &amp;\ln y=-\int p dx +C \\
-    &amp;y(x)=Ce^{\int p(x)dx}
-\end{align*}
-\]</span></p>
-<h2 id="线性">线性</h2>
-<p>接下来再进一步泛化：<span
-class="math inline">\(y&#39;(x)+p(x)y(x)=q(x)\)</span></p>
-<p>这个方程的求解会复杂一些，需要用一些 trick。</p>
-<p>先假设 <span class="math inline">\((\mu
-y)&#39;=g\)</span>，那么可以求解出 <span
-class="math inline">\(y\)</span>：</p>
-<p><span class="math display">\[
-\begin{align}
-    \int(\mu y)&#39;dx &amp;= \int gdx \notag\\
-    \mu y &amp;= \int gdx+C \notag\\
-    y(x) &amp;= \frac{\int g(x)dx+C}{\mu(x)}
-\end{align}
-\]</span></p>
-<p>把 <span class="math inline">\((\mu y)&#39;\)</span> 展开：</p>
-<p><span class="math display">\[
-\mu&#39; y+\mu y&#39;=g \\
-y&#39;+\frac{\mu&#39;}{\mu}y=\frac{g}{\mu}
-\]</span></p>
-<p>令 <span
-class="math inline">\(p=\frac{\mu&#39;}{\mu}\)</span>，解得：<span
-class="math inline">\(\mu=e^{\int p}\)</span>；令 <span
-class="math inline">\(q=\frac{g}{\mu}\)</span>，解得：<span
-class="math inline">\(g=qe^{\int p}\)</span>.</p>
-<p>把 <span class="math inline">\(\mu\)</span> 和 <span
-class="math inline">\(g\)</span> 代入公式 (1)，得到：</p>
-<p><span class="math display">\[
-\begin{align}
-    y(x)&amp;=\frac{\int^tq(t)e^{\int^xp(u)du}dt+C}{e^{\int^xp(u)du}}
-\notag\\
-    &amp;=\int^xq(t)e^{\int^tp(u)du}dt\cdot
-e^{-\int^xp(u)du}+Ce^{-\int^xp(u)du} \notag\\
-    &amp;=\int^xq(t)e^{-[\int^tp(u)du-\int^xp(u)du]}dt+Ce^{-\int^xp(u)du}
-\notag\\
-    &amp;=\int^xq(t)e^{-\int_t^xp(u)du}dt+Ce^{-\int^xp(u)du}
-\end{align}
-\]</span></p>
+        <h1 id="相机模型">相机模型</h1>
+<h1 id="参考资料">参考资料</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/628675070">详解NeRF中的NDC ray
+space</a></li>
+<li><a
+target="_blank" rel="noopener" href="http://www.songho.ca/opengl/gl_projectionmatrix.html">OpenGL
+Projection Matrix</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://sighingnow.github.io/graphics/projection_and_camera.html">投影与相机空间</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/356771429">如何从NDC坐标转换为摄像机空间坐标</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40514113/article/details/131746384">NeRF神经辐射场中关于光线从世界坐标系转换为NDC坐标系</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-generating-camera-rays/standard-coordinate-systems.html">Generating
+Camera Rays with Ray-Tracing</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/651524053">nerf
+视图与坐标系</a></li>
+</ul>
 
       </div>
     </div>
@@ -288,23 +243,11 @@ e^{-\int^xp(u)du}+Ce^{-\int^xp(u)du} \notag\\
     
     <div class="post-nav">
   
-    <a class="post-nav-item-left" href="/archives/27886/">
-      <div class="text-align">
-        <svg t="1670570876164"
-             class="icon"
-             viewBox="0 0 1024 1024"
-             width="16"
-             height="16">
-          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
-        </svg>
-        <span class="text-small">上一篇</span>
-      </div>
-      <div>相机参数与坐标系变换</div>
-    </a>
+    <div class="post-nav-item-left"></div>
   
   <div class="vhr"></div>
   
-    <a class="post-nav-item-right" href="/archives/61387/">
+    <a class="post-nav-item-right" href="/archives/27886/">
       <div class="text-align">
         <span class="text-small">下一篇</span>
         <svg t="1670570876164"
@@ -316,7 +259,7 @@ e^{-\int^xp(u)du}+Ce^{-\int^xp(u)du} \notag\\
           <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
         </svg>
       </div>
-      体渲染
+      相机参数与坐标系变换
     </a>
   
 </div>
@@ -326,14 +269,14 @@ e^{-\int^xp(u)du}+Ce^{-\int^xp(u)du} \notag\\
   <div class="related__head">
     
   
-    <a href="/tags/%E9%AB%98%E6%95%B0/" class="post-tag">#高数</a>
+    <a href="/tags/CV-CG/" class="post-tag">#CV&CG</a>
   
 
 
   </div>
   <div class="realated__body">
     
-      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\48914\" title="高等数学：泰勒公式" rel="bookmark">高等数学：泰勒公式</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\51297\" title="Fallacies" rel="bookmark">Fallacies</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\4445\" title="RSA" rel="bookmark">RSA</a></div></div></div>
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\55509\" title="CAP & BASE" rel="bookmark">CAP & BASE</a></div></div></div>
     
   </div>
 </div>
