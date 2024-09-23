@@ -172,7 +172,7 @@
 space</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#qubits"><span class="post-toc-number">3.</span> <span class="post-toc-text">Qubits</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#superposition-of-states"><span class="post-toc-number">4.</span> <span class="post-toc-text">Superposition of states</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#tensor-product"><span class="post-toc-number">5.</span> <span class="post-toc-text">Tensor product</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#inner-product-on-the-tensor-products"><span class="post-toc-number">6.</span> <span class="post-toc-text">Inner product on the
 tensor products</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#outer-product"><span class="post-toc-number">7.</span> <span class="post-toc-text">Outer product</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#eigenvalues-and-eigenvectors"><span class="post-toc-number">8.</span> <span class="post-toc-text">Eigenvalues and Eigenvectors</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#spectral-theorem"><span class="post-toc-number">9.</span> <span class="post-toc-text">Spectral theorem</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#completeness-relation"><span class="post-toc-number">10.</span> <span class="post-toc-text">Completeness relation</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#bloch-sphere"><span class="post-toc-number">11.</span> <span class="post-toc-text">Bloch Sphere</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#global-and-relative-phase"><span class="post-toc-number">12.</span> <span class="post-toc-text">Global and relative phase</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#unitary-operators"><span class="post-toc-number">13.</span> <span class="post-toc-text">Unitary operators</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#rotation-about-arbitrary-axis"><span class="post-toc-number">14.</span> <span class="post-toc-text">Rotation about arbitrary
 axis</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#pure-state-and-mixed-state"><span class="post-toc-number">15.</span> <span class="post-toc-text">Pure state and mixed state</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#density-matrix-and-bloch-vector"><span class="post-toc-number">16.</span> <span class="post-toc-text">Density matrix and Bloch
-vector</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#purity"><span class="post-toc-number">17.</span> <span class="post-toc-text">Purity</span></a></li></ol>
+vector</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#purity"><span class="post-toc-number">17.</span> <span class="post-toc-text">Purity</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#reference"><span class="post-toc-number">18.</span> <span class="post-toc-text">Reference</span></a></li></ol>
           <a href="#" class="toc-top">回到顶部</a>
         </aside>
       
@@ -203,7 +203,7 @@ class="math inline">\(\ket{\psi}\)</span> 是函数：</li>
 class="math inline">\(\ket{\psi}\)</span> 是列向量：</li>
 </ul>
 <p><span class="math display">\[
-\braket{\phi|\psi}=\phi^\dag\psi=\bar{\phi}^T\psi
+\braket{\phi|\psi}=\phi^\dagger\psi=\bar{\phi}^T\psi
 \]</span></p>
 <p>内积的物理解释：如果粒子的初始态为 <span
 class="math inline">\(\ket{\phi}\)</span>，那么在 <span
@@ -413,10 +413,11 @@ relative phase.</p>
 <img src="/archives/17052/global_phase.png" class="" title="uneffective global phase">
 <h2 id="unitary-operators">Unitary operators</h2>
 <p>An operator <span class="math inline">\(U\)</span> is unitary if and
-only if <span class="math inline">\(U^\dag U=UU^\dag=I\)</span>.</p>
+only if <span class="math inline">\(U^\dagger
+U=UU^\dagger=I\)</span>.</p>
 <p>Unitary operator PRESERVES the norm:</p>
 <p><span class="math display">\[
-||U\ket{\psi}||^2=\bra{\psi}U^\dag
+||U\ket{\psi}||^2=\bra{\psi}U^\dagger
 U\ket{\psi}=\bra{\psi}\ket{\psi}=||\ket{\psi}||^2
 \]</span></p>
 <p>In other words, unitary operators keep quantum states on the Bloch
@@ -571,6 +572,11 @@ Tr(\rho_{\psi}^2)=1
 <p>This is obvious, since <span
 class="math inline">\(\ket{\psi}\)</span> can be drawn on Bloch sphere,
 so it is a pure state.</p>
+<h2 id="reference">Reference</h2>
+<p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1oq4y1j7iZ/?spm_id_from=333.337.search-card.all.click&amp;vd_source=201635f84ae101b427649f98a07303b1">大一新生也能懂的量子计算</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cs.sfu.ca/~meamy/Teaching/f22/cmpt981/">CMPT
+409/981: Quantum Circuits and Compilation</a></p>
 
       </div>
     </div>
