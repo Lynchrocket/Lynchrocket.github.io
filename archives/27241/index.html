@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+    <title>
+      
+      
+        量子计算：量子电路 | C'est la vie
+      
+    </title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    
+      <link rel="apple-touch-icon"
+            sizes="180x180"
+            href="/assets/favicon/favicon-apple-touch.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/assets/favicon/favicon-32x32.png"/>
+    
+    
+      <link rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/assets/favicon/favicon-16x16.png"/>
+    
+    
+      <link rel="mask-icon"
+            href="/assets/favicon/favicon-logo.svg"
+            color=""/>
+    
+    
+    
+      
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/normal.ttf);
+        font-weight: normal;
+    }
+  </style>
+
+  <style>
+    @font-face {
+        font-family:sourceHanSerif;
+        src: url(/font/bold.ttf);
+        font-weight: bold;
+    }
+  </style>
+
+
+    
+    <link rel="stylesheet"
+          type="text/css"
+          href='/css/layout.css'/>
+    
+    <script src="https://kit.fontawesome.com/c4ba0a82e6.js" crossorigin="anonymous"></script>
+    
+  <link rel="stylesheet" type="text/css" href="/css/post.css"/>
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"/>
+  
+
+  <meta name="generator" content="Hexo 7.0.0"></head>
+
+  <body>
+    
+      <div id="search-mask" style="display:none">
+  <div class="search-main" id="search-main">
+    <div class="search__head">
+      <div class="search-form">
+        <svg t="1706347533072"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             version="1.1"
+             xmlns="http://www.w3.org/2000/svg"
+             p-id="7828"
+             width="20"
+             height="20">
+          <path d="M685.6 660.336l155.152 155.168a16 16 0 0 1 0 22.624l-11.312 11.328a16 16 0 0 1-22.624 0l-158.528-158.544a289.792 289.792 0 0 1-165.152 51.36C322.336 742.256 192 611.904 192 451.12 192 290.336 322.336 160 483.136 160c160.784 0 291.12 130.336 291.12 291.136 0 82.112-33.984 156.272-88.672 209.2z m-202.464 33.92c134.272 0 243.12-108.848 243.12-243.12C726.256 316.848 617.408 208 483.136 208 348.848 208 240 316.848 240 451.136c0 134.272 108.848 243.12 243.136 243.12z" fill="#000000" p-id="7829">
+          </path>
+        </svg>
+        <input id="search-input" placeholder="搜索文章">
+        <svg t="1706361500528"
+             id="search-clear"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             version="1.1"
+             xmlns="http://www.w3.org/2000/svg"
+             p-id="4351"
+             width="20"
+             height="20">
+          <path d="M512 562.688l-264.2944 264.2944-50.688-50.688L461.312 512 197.0176 247.7056l50.688-50.688L512 461.312l264.2944-264.2944 50.688 50.688L562.688 512l264.2944 264.2944-50.688 50.688L512 562.688z" fill="#00" p-id="4352">
+          </path>
+        </svg>
+      </div>
+    </div>
+    <div class="search__body" id="search-result"></div>
+    <div class="search__foot"></div>
+  </div>
+</div>
+
+    
+    <div class="head">
+      <div class="nav">
+        <a href='/' class="nav-logo">
+          <img alt="logo" height="60px" width="60px" src="/assets/favicon/favicon-logo.svg"/>
+        </a>
+        <input id="navBtn" type="checkbox"/>
+        <div class="nav-right">
+          
+            <div class="search-outer">
+  <div class="search" id="search-btn">
+    <svg t="1706347533072"
+         class="icon"
+         viewBox="0 0 1024 1024"
+         version="1.1"
+         xmlns="http://www.w3.org/2000/svg"
+         p-id="7828"
+         width="20"
+         height="20">
+      <path d="M685.6 660.336l155.152 155.168a16 16 0 0 1 0 22.624l-11.312 11.328a16 16 0 0 1-22.624 0l-158.528-158.544a289.792 289.792 0 0 1-165.152 51.36C322.336 742.256 192 611.904 192 451.12 192 290.336 322.336 160 483.136 160c160.784 0 291.12 130.336 291.12 291.136 0 82.112-33.984 156.272-88.672 209.2z m-202.464 33.92c134.272 0 243.12-108.848 243.12-243.12C726.256 316.848 617.408 208 483.136 208 348.848 208 240 316.848 240 451.136c0 134.272 108.848 243.12 243.136 243.12z" fill="#000000" p-id="7829">
+      </path>
+    </svg>
+    <span>搜索</span>
+    <span class="search-shortcut-key">Ctrl K</span>
+  </div>
+</div>
+
+          
+          <div class="nav-menu">
+            
+              
+                <a class="nav-menu-item" href="/computer">计算机</a>
+              
+                <a class="nav-menu-item" href="/math">数学</a>
+              
+                <a class="nav-menu-item" href="/physic">物理</a>
+              
+                <a class="nav-menu-item" href="/life">生活随笔</a>
+              
+            
+          </div>
+        </div>
+        <label class="nav-btn" for="navBtn"></label>
+      </div>
+    </div>
+    <div class="body">
+      
+  <article class="post-content">
+    <div class="post-inner--toc">
+      <div class="post-content__head">
+        <div class="post-title">量子计算：量子电路</div>
+        <div class="post-info">
+          
+  
+    <a href="/tags/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97/" class="post-tag">#量子计算</a>
+  
+
+
+          <span class="post-date">2024-10-05</span>
+        </div>
+      </div>
+      
+        <aside class="toc-outer">
+          <div class="toc-title">目录</div>
+          <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#quantum-circuits"><span class="post-toc-number">1.</span> <span class="post-toc-text">Quantum Circuits</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#quantum-logic-gates"><span class="post-toc-number">2.</span> <span class="post-toc-text">Quantum Logic Gates</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#no-cloning-theorem"><span class="post-toc-number">3.</span> <span class="post-toc-text">No-cloning Theorem</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#measurement"><span class="post-toc-number">4.</span> <span class="post-toc-text">Measurement</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#reversibility-in-quantum-computing"><span class="post-toc-number">5.</span> <span class="post-toc-text">Reversibility in Quantum
+Computing</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#universal-gate-sets"><span class="post-toc-number">6.</span> <span class="post-toc-text">Universal Gate Sets</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#decomposition-of-unitary-matrix"><span class="post-toc-number">7.</span> <span class="post-toc-text">Decomposition of Unitary
+Matrix</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#reference"><span class="post-toc-number">8.</span> <span class="post-toc-text">Reference</span></a></li></ol>
+          <a href="#" class="toc-top">回到顶部</a>
+        </aside>
+      
+      <div class="post-content__body">
+        
+          <div class="post-gallery">
+            
+          </div>
+        
+        <h2 id="quantum-circuits">Quantum Circuits</h2>
+<p>量子电路即对 qubit 操作的图形表示，时间顺序为从左至右。有两种 qubit
+操作：量子逻辑门（quantum logic gate）、测量（measurement）。</p>
+<img src="/archives/27241/quantum_circuit.png" class="" title="Quantum Circuits">
+<h2 id="quantum-logic-gates">Quantum Logic Gates</h2>
+<p>所有的量子逻辑门都是酉算子（unitary operator）</p>
+<img src="/archives/27241/quantum_logic_gates_1.png" class="" title="Quantum Logic Gates">
+<img src="/archives/27241/quantum_logic_gates_2.png" class="" title="Quantum Logic Gates">
+<p>Example：</p>
+<p>将 Pauli X matrix 作用于基底，可以得到相反的基底，所以 Pauli X matrix
+也被称作 NOT 门</p>
+<p>$$ <span class="math display">\[\begin{align*}
+X\ket{0}=\left[\begin{matrix}
+    0 &amp; 1 \\
+    1 &amp; 0
+\end{matrix}\right]\left[\begin{matrix}
+    1 \\
+    0
+\end{matrix}\right]=\left[\begin{matrix}
+    0 \\
+    1
+\end{matrix}\right]=\ket{1} \\
+    
+X\ket{1}=\left[\begin{matrix}
+    0 &amp; 1 \\
+    1 &amp; 0
+\end{matrix}\right]\left[\begin{matrix}
+    0 \\
+    1
+\end{matrix}\right]=\left[\begin{matrix}
+    1 \\
+    0
+\end{matrix}\right]=\ket{0}
+\end{align*}\]</span> $$</p>
+<p>将 Hadamard gate 作用于基底，可以获得基底的叠加态</p>
+<p><span class="math display">\[
+\begin{align*}
+H\ket{0}=\frac{1}{\sqrt{2}}\left[\begin{matrix}
+    1 &amp; 1 \\
+    1 &amp; -1
+\end{matrix}\right]\left[\begin{matrix}
+    1 \\
+    0
+\end{matrix}\right]=\frac{1}{\sqrt{2}}\left[\begin{matrix}
+    1 \\
+    1
+\end{matrix}\right]=\frac{\ket{0}+\ket{1}}{\sqrt{2}} \\
+H\ket{1}=\frac{1}{\sqrt{2}}\left[\begin{matrix}
+    1 &amp; 1 \\
+    1 &amp; -1
+\end{matrix}\right]\left[\begin{matrix}
+    0 \\
+    1
+\end{matrix}\right]=\frac{1}{\sqrt{2}}\left[\begin{matrix}
+    1 \\
+    -1
+\end{matrix}\right]=\frac{\ket{0}-\ket{1}}{\sqrt{2}}
+\end{align*}
+\]</span></p>
+<p>另外还有常用的 Controlled NOT gate（CNOT），这个门会根据第一个 qubit
+的取值而决定是否往第二个 qubit 上作用 NOT 门，即第一个 qubit 为 0
+时不作用，为 1 时作用。</p>
+<p><span class="math display">\[
+\begin{align*}
+&amp;CX\ket{00}=\left[\begin{matrix}
+    1 &amp; 0 &amp; 0 &amp; 0 \\
+    0 &amp; 1 &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; 0 &amp; 1 \\
+    0 &amp; 0 &amp; 1 &amp; 0 \\
+\end{matrix}\right]\left[\begin{matrix}
+    1 \\
+    0 \\
+    0 \\
+    0
+\end{matrix}\right]=\left[\begin{matrix}
+    1 \\
+    0 \\
+    0 \\
+    0
+\end{matrix}\right]=\ket{00} \\
+&amp;CX\ket{01}=\ket{01} \quad CX\ket{10}=\ket{11} \quad
+CX\ket{11}=\ket{10} \quad
+\end{align*}
+\]</span></p>
+<img src="/archives/27241/CNOT.png" class="" title="CNOT">
+<h2 id="no-cloning-theorem">No-cloning Theorem</h2>
+<p>没有在 <span class="math inline">\(H\otimes H\)</span> 上的酉算子
+<span class="math inline">\(U\)</span>，能对 <span
+class="math inline">\(H\)</span> 中的归一化状态 <span
+class="math inline">\(\ket{\psi}_A\)</span> 和状态 <span
+class="math inline">\(\ket{e}_B\)</span> 有如下的操作</p>
+<p><span class="math display">\[
+U(\ket{\psi}_A\ket{e}_B)=e^{i\alpha(\psi,e)}\ket{\psi}_A\ket{\psi}_B
+\]</span></p>
+<p>Proof：</p>
+<p>假设存在这样的 <span class="math inline">\(U\)</span>，那么有</p>
+<p><span class="math display">\[
+\begin{align*}
+U\ket{\psi}_A\ket{e}_B=\ket{\psi}_A\ket{\psi}_B \\
+U\ket{\phi}_A\ket{e}_B=\ket{\phi}_A\ket{\phi}_B
+\end{align*}
+\]</span></p>
+<p>将两式相点乘，可以得到</p>
+<p><span class="math display">\[
+\begin{align*}
+\text{left}=\bra{e}_B\bra{\psi}_AU^{\dagger}
+U\ket{\psi}_A\ket{e}_B=(\braket{\psi|\psi})_A(\braket{e|e})_B=\braket{\psi|\psi}
+\\
+\text{right}=\bra{\psi}_B\bra{\psi}_A\ket{\phi}_A\ket{\phi}_B=(\braket{\psi|\phi})_A(\braket{\psi|\phi})_B=|\braket{\psi|\phi}|^2
+\end{align*}
+\]</span></p>
+<p>因此有</p>
+<p><span class="math display">\[
+\braket{\psi|\psi}=|\braket{\psi|\phi}|^2 \implies
+\braket{\psi|\psi}=0\text{ or }1
+\]</span></p>
+<p>所以除了互相正交的基底，我们不可能仅通过当前的状态情况复制该状态。</p>
+<p>注意：这不意味着我们不可以复制量子状态，而是说不可能有人能窃听到量子通信中的信息。</p>
+<h2 id="measurement">Measurement</h2>
+<p>薛定谔的猫（Schrödinger's
+cat），只有当测量的时候才能知道真实的情况。</p>
+<p>对 qubit 的测量会导致其以一定概率坍缩到确定的状态（<span
+class="math inline">\(\ket{0}\)</span> 或 <span
+class="math inline">\(\ket{1}\)</span>），但要获得最终结果，必须要测量
+qubit</p>
+
+<p>Example：</p>
+<p>测量如下的 qubit，将会得到什么预期结果呢？</p>
+<p><span class="math display">\[
+H\ket{1}=\frac{\ket{0}-\ket{1}}{\sqrt{2}}
+\]</span></p>
+<p>预期情况下，会有 50% 的概率测量得到 <span
+class="math inline">\(\ket{0}\)</span>，会有 50% 的概率测量得到 <span
+class="math inline">\(\ket{1}\)</span></p>
+<p>一般来说，对 qubit <span
+class="math inline">\(\ket{\psi}=\alpha\ket{0}+\beta\ket{1}\)</span>，会有
+<span class="math inline">\(|\alpha|^2\)</span> 的概率测量得到 <span
+class="math inline">\(\ket{0}\)</span>，会有 <span
+class="math inline">\(|\beta|^2\)</span> 的概率测量得到 <span
+class="math inline">\(\ket{1}\)</span>。而对归一化的 qubit 来说，<span
+class="math inline">\(|\alpha|^2+|\beta|^2=1\)</span></p>
+<h2 id="reversibility-in-quantum-computing">Reversibility in Quantum
+Computing</h2>
+<p>函数是可逆的（reversible）当且仅当它是双射的（bijective）。</p>
+<img src="/archives/27241/bijective.png" class="" title="Bijective">
+<p>经典计算机中的逻辑门不一定是可逆的，如 NOT 门、AND 门，将它们作用于
+bit 之后，会丢失一些信息。</p>
+<img src="/archives/27241/NOT_AND.png" class="" title="NOT gate and AND gate">
+<p>但我们可以通过添加一些辅助 bit 将逻辑门转化成可逆的。</p>
+<p>假设 <span class="math inline">\(f:i\to f(i)\)</span> 有 <span
+class="math inline">\(n\)</span> 个 输入和 <span
+class="math inline">\(m\)</span> 个输出，我们需要增加额外 <span
+class="math inline">\(n\)</span> 个 输出和 <span
+class="math inline">\(m\)</span> 个输入，并将函数改为 <span
+class="math inline">\(f_{rev}:i,j\to i,f(i)\oplus j\)</span>，其中 <span
+class="math inline">\(\oplus\)</span> 为 XOR</p>
+<img src="/archives/27241/rev_AND.png" class="" title="Reversible AND">
+<p>量子电路中的逻辑门必须是酉的（unitary），而逻辑门 <span
+class="math inline">\(U\)</span> 的逆是唯一的，即 <span
+class="math inline">\(U^{\dagger}\)</span></p>
+<p>Example：</p>
+<p>Hadamard 门的逆</p>
+<p><span class="math display">\[
+\begin{align*}
+H\ket{0}=\frac{1}{\sqrt{2}}\left[\begin{matrix}
+    1 &amp; 1 \\
+    1 &amp; -1
+\end{matrix}\right]\left[\begin{matrix}
+    1 \\
+    0
+\end{matrix}\right]=\frac{1}{\sqrt{2}}\left[\begin{matrix}
+    1 \\
+    1
+\end{matrix}\right]=\frac{\ket{0}+\ket{1}}{\sqrt{2}} \\
+H^{\dagger}\frac{\ket{0}+\ket{1}}{\sqrt{2}}=\frac{1}{\sqrt{2}}\left[\begin{matrix}
+    1 &amp; 1 \\
+    1 &amp; -1
+\end{matrix}\right]\frac{1}{\sqrt{2}}\left[\begin{matrix}
+    1 \\
+    1
+\end{matrix}\right]=\left[\begin{matrix}
+    1 \\
+    0
+\end{matrix}\right]=\ket{0}
+\end{align*}
+\]</span></p>
+<p>要将经典电路中的逻辑门改成量子电路中的逻辑门，可根据先前所说的增加一些辅助
+qubit 即可。</p>
+<p>量子 AND 门、量子 NAND 门</p>
+<img src="/archives/27241/quantum_AND.png" class="" title="Quantum AND">
+<p>量子 OR 门、量子 NOR 门</p>
+<img src="/archives/27241/quantum_OR.png" class="" title="Quantum OR">
+<h2 id="universal-gate-sets">Universal Gate Sets</h2>
+<p>我们可以通过有限的门数，将任意酉算子近似到任意给定的精度（类似于泰勒展开式）。</p>
+<p>完成这项工作的门的集合被称为通用门集合（universal gate set），如</p>
+<ul>
+<li>{Hadamard,Phase,<span
+class="math inline">\(\pi/8\)</span>,CNOT}</li>
+<li>{Hadamard,Phase,Toffoli,CNOT}</li>
+</ul>
+<h2 id="decomposition-of-unitary-matrix">Decomposition of Unitary
+Matrix</h2>
+<p>一个 <span class="math inline">\(d\)</span> 维的酉矩阵 <span
+class="math inline">\(U\)</span> 可被分解为二级酉矩阵的乘积</p>
+<p><span class="math display">\[
+U=V_1V_2...V_k
+\]</span></p>
+<p>其中 <span
+class="math inline">\(k\le(d-1)+(d-2)+...+1=d(d-1)/2\)</span></p>
+<p>这意味着我们可以用二级酉矩阵来表示任意酉矩阵。</p>
+<p>具体推导可以参考文章 <a
+target="_blank" rel="noopener" href="https://arxiv.org/abs/1210.7366">Decomposition of unitary matrices
+and quantum gates</a></p>
+<h2 id="reference">Reference</h2>
+<p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1oq4y1j7iZ/?spm_id_from=333.337.search-card.all.click&amp;vd_source=201635f84ae101b427649f98a07303b1">大一新生也能懂的量子计算</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/158725989">Quantum
+Computing阅读笔记：第四章</a></p>
+
+      </div>
+    </div>
+    
+      <script src='https://unpkg.com/mermaid@latest/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize([object Object]);
+        }
+      </script>
+    
+  </article>
+  <div class="post__foot">
+    
+      <div class="like-author">
+  <input type="checkbox" id="likeCode" />
+  <div class="author-face">
+    <img height="100px"
+         width="100px"
+         id="front-face"
+         alt="author face"
+         src="/assets/reward/avatar.png" />
+    <img height="100px"
+         width="100px"
+         id="back-face"
+         alt="like code"
+         src="/assets/reward/sponsor.png" />
+  </div>
+  <div class="like-text">
+    给作者倒杯卡布奇诺
+  </div>
+  <label for="likeCode" class="like-btn">
+    <svg viewBox="0 0 1024 1024"
+         width="20px"
+         style="margin-right: 10px"
+         height="20px">
+      <path d="M466.88 908.96L113.824 563.296a270.08 270.08 0 0 1 0-387.392c108.8-106.56 284.896-106.56 393.696 0 1.504 1.472 2.976 2.944 4.448 4.48 1.472-1.536 2.944-3.008 4.448-4.48 108.8-106.56 284.896-106.56 393.696 0a269.952 269.952 0 0 1 34.016 347.072l-387.392 385.6a64 64 0 0 1-89.92 0.384z" p-id="13650" fill="#ee4242" />
+    </svg>
+    喜欢作者
+  </label>
+</div>
+
+    
+    <div class="post-nav">
+  
+    <div class="post-nav-item-left"></div>
+  
+  <div class="vhr"></div>
+  
+    <a class="post-nav-item-right" href="/archives/17052/">
+      <div class="text-align">
+        <span class="text-small">下一篇</span>
+        <svg t="1670570876164"
+             class="icon"
+             viewBox="0 0 1024 1024"
+             transform="scale(-1,-1)"
+             width="16"
+             height="16">
+          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
+        </svg>
+      </div>
+      量子计算：数学基础
+    </a>
+  
+</div>
+
+    
+      <div class="related-post">
+  <div class="related__head">
+    
+  
+    <a href="/tags/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97/" class="post-tag">#量子计算</a>
+  
+
+
+  </div>
+  <div class="realated__body">
+    
+      <div class="null"><div class="null-item"><div class="null-title"><a href="\archives\17052\" title="量子计算：数学基础" rel="bookmark">量子计算：数学基础</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\24050\" title="Base64编码" rel="bookmark">Base64编码</a></div></div><div class="null-item"><div class="null-title"><a href="\archives\55509\" title="CAP & BASE" rel="bookmark">CAP & BASE</a></div></div></div>
+    
+  </div>
+</div>
+
+    
+    
+      <div id="gitalk-container"></div>
+    
+  </div>
+
+    </div>
+    <div class="foot">
+      <div class="foot-inner">
+        <div class="foot__head">
+          
+            <div class="foot-line">
+              
+                <div class="matts">海</div>
+              
+                <div class="matts">内</div>
+              
+                <div class="matts">存</div>
+              
+                <div class="matts">知</div>
+              
+                <div class="matts">己</div>
+              
+            </div>
+          
+            <div class="foot-line">
+              
+                <div class="matts">天</div>
+              
+                <div class="matts">涯</div>
+              
+                <div class="matts">若</div>
+              
+                <div class="matts">比</div>
+              
+                <div class="matts">邻</div>
+              
+            </div>
+          
+        </div>
+        <div class="foot__body">
+          
+            <div class="foot-item">
+              <div class="foot-item__head">友链</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/icon/icon-link.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://shennoter.top/">Shennoter</a>
+                  </div>
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/icon/icon-link.svg"/>
+                    <a class="foot-link" href="">Jobove</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          
+            <div class="foot-item">
+              <div class="foot-item__head">账号</div>
+              <div class="foot-item__body">
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/logo/logo-github.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/Lynchrocket">Lynchrocket</a>
+                  </div>
+                
+                  <div class="text">
+                    <img alt="link" height="20px" width="20px" src="/assets/logo/logo-zh.svg"/>
+                    <a class="foot-link" target="_blank" rel="noopener" href="https://www.zhihu.com/people/lynchrocket">Lynchrocket</a>
+                  </div>
+                
+              </div>
+            </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">联系</div>
+            <div class="foot-item__body">
+              <div class="text">
+                <img alt="link" height="20px" width="20px" src="/assets/icon/icon-email.svg"/>
+                <a class="foot-link" href="mailto:lynchrocket@gmail.com">lynchrocket@gmail.com</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="foot-item">
+            <div class="foot-item__head">访客</div>
+            <div class="foot-item__body">
+              <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+              <span id="busuanzi_container_site_uv">本站总访问量：<span id="busuanzi_value_site_uv"></span>次</span>
+            </div>
+          </div>
+          
+        </div>
+        <div class="copyright">
+          <a href="https://lynchrocket.github.io">C'est la vie</a> &nbsp;|
+          &nbsp;Powered by &nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp; &
+          &nbsp;<a target="_blank" rel="noopener" href="https://github.com/Lynchrocket/hexo-theme-senerity">Senerity</a>&nbsp;
+        </div>
+      </div>
+    </div>
+    
+      <script src="https://unpkg.com/js-polyfills@0.1.43/es6.js"></script>
+      <script id="MathJax-script"
+              async
+              src="https://www.unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+    
+    
+      <script src="/js/search.js"></script>
+      <script>searchInitialize("/search.json")</script>
+    
+    
+      <script src="/js/copy-code.js"></script>
+    
+    
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const param = JSON.parse('{"enable":true,"owner":"Lynchrocket","admin":"Lynchrocket","repo":"Lynchrocket.github.io","clientID":"45d8817d291626df7894","clientSecret":"2761427f37f733d92cc64be2e2a3826cc8454cf3","distractionFreeMode":false,"proxy":"https://worker-lingering-hat-47a4.lynchrocket.workers.dev/?https://github.com/login/oauth/access_token","language":"zh-CN","per_page":20}')
+  param.id = location.pathname
+  const gitalk = new Gitalk(param)
+  gitalk.render('gitalk-container')
+</script>
+
+  
+
+  </body>
+</html>
