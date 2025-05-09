@@ -1,8 +1,8 @@
+https://lynchrocket.github.io/archives/17052/
 https://lynchrocket.github.io/archives/26715/
 https://lynchrocket.github.io/archives/4099/
 https://lynchrocket.github.io/archives/1880/
 https://lynchrocket.github.io/archives/27241/
-https://lynchrocket.github.io/archives/17052/
 https://lynchrocket.github.io/archives/49371/
 https://lynchrocket.github.io/archives/48914/
 https://lynchrocket.github.io/archives/6253/
@@ -88,3 +88,4 @@ https://lynchrocket.github.io/categories/computer/
 https://lynchrocket.github.io/categories/math/
 https://lynchrocket.github.io/categories/life/
 https://lynchrocket.github.io/categories/physic/
+https://lynchrocket.github.io/categories/physics/
